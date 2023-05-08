@@ -1,0 +1,212 @@
+[
+    {
+        "fieldId": "909372847774760998",
+        "fieldOptionInfo": [
+            {
+                "fieldOptionId": "909388309657026600",
+                "color": "gray",
+                "value": "🌚 NOT STARTED"
+            },
+            {
+                "fieldOptionId": "909397621011906600",
+                "color": "yellow",
+                "value": "🌒 ON GOING"
+            },
+            {
+                "fieldOptionId": "922805762927886376",
+                "color": "orange",
+                "value": "🌓 ON DEV"
+            },
+            {
+                "fieldOptionId": "911594890981277736",
+                "color": "blue",
+                "value": "🌔 ON TEST"
+            },
+            {
+                "fieldOptionId": "1035714013238919208",
+                "color": "red",
+                "value": "💫 REOPEN"
+            },
+            {
+                "fieldOptionId": "909398205127458856",
+                "color": "green",
+                "value": "🌝 COMPLETED"
+            },
+            {
+                "fieldOptionId": "929463034043170856",
+                "color": "purple",
+                "value": "🪐 PENDING"
+            },
+            {
+                "fieldOptionId": "1032964748972392488",
+                "color": "pink",
+                "value": "❌UNREPRODUCIBLE"
+            }
+        ]
+    },
+    {
+        "fieldId": "909372985079496742",
+        "fieldOptionInfo": [
+            {
+                "fieldOptionId": "909473109357101096",
+                "color": "pink",
+                "value": "UI/UX"
+            },
+            {
+                "fieldOptionId": "910737407337300008",
+                "color": "blue",
+                "value": "Editor"
+            },
+            {
+                "fieldOptionId": "911268762034896936",
+                "color": "yellow",
+                "value": "Threads"
+            },
+            {
+                "fieldOptionId": "911302787436904488",
+                "color": "blue",
+                "value": "My Page"
+            },
+            {
+                "fieldOptionId": "911307451100299304",
+                "color": "green",
+                "value": "API"
+            },
+            {
+                "fieldOptionId": "920499391125520424",
+                "color": "red",
+                "value": "BUG"
+            },
+            {
+                "fieldOptionId": "920499769082642472",
+                "color": "purple",
+                "value": "Feature"
+            },
+            {
+                "fieldOptionId": "920519629011419176",
+                "color": "yellow",
+                "value": "OPT"
+            },
+            {
+                "fieldOptionId": "932528205233913896",
+                "color": "green",
+                "value": "UE"
+            },
+            {
+                "fieldOptionId": "982645929502834728",
+                "color": "orange",
+                "value": "DOC"
+            },
+            {
+                "fieldOptionId": "985305751612293160",
+                "color": "purple",
+                "value": "Test"
+            }
+        ]
+    },
+    {
+        "fieldId": "909418443013357606",
+        "fieldOptionInfo": [
+            {
+                "fieldOptionId": "943443745431355432",
+                "color": "red",
+                "value": "🔥 🔥 🔥 FixHot"
+            },
+            {
+                "fieldOptionId": "909426448832397352",
+                "color": "red",
+                "value": "🔥 Urgent"
+            },
+            {
+                "fieldOptionId": "909426998722428968",
+                "color": "yellow",
+                "value": "🪵 Normal"
+            },
+            {
+                "fieldOptionId": "909426139728969768",
+                "color": "blue",
+                "value": "🧊 Low"
+            },
+            {
+                "fieldOptionId": "922453772775456808",
+                "color": "gray",
+                "value": "⏱️ Pending"
+            }
+        ]
+    },
+    {
+        "fieldId": "920484822596452390",
+        "fieldOptionInfo": [
+            {
+                "fieldOptionId": "1080264291258466344",
+                "color": "purple",
+                "value": "2023W14"
+            },
+            {
+                "fieldOptionId": "1053656682841767976",
+                "color": "green",
+                "value": "2023W13"
+            },
+            {
+                "fieldOptionId": "1032360774430883880",
+                "color": "yellow",
+                "value": "2023W12"
+            },
+            {
+                "fieldOptionId": "1011987735977656360",
+                "color": "gray",
+                "value": "2023W11"
+            },
+            {
+                "fieldOptionId": "988433571880370216",
+                "color": "gray",
+                "value": "2023W10"
+            },
+            {
+                "fieldOptionId": "943750174704926760",
+                "color": "gray",
+                "value": "2023W09"
+            },
+            {
+                "fieldOptionId": "941655122272845864",
+                "color": "gray",
+                "value": "2023W08"
+            },
+            {
+                "fieldOptionId": "920487846253428776",
+                "color": "gray",
+                "value": "2023W07"
+            },
+            {
+                "fieldOptionId": "920485887748341800",
+                "color": "gray",
+                "value": "2023W06"
+            },
+            {
+                "fieldOptionId": "920489770398777384",
+                "color": "gray",
+                "value": "2023W05"
+            },
+            {
+                "fieldOptionId": "931765226573922344",
+                "color": "gray",
+                "value": "Experimental"
+            }
+        ]
+    },
+    {
+        "fieldId": "1008664517246189606",
+        "fieldOptionInfo": [
+            {
+                "fieldOptionId": "1008667541574254632",
+                "color": "green",
+                "value": "YES"
+            },
+            {
+                "fieldOptionId": "1008667747598467112",
+                "color": "yellow",
+                "value": "NO"
+            }
+        ]
+    }
+]

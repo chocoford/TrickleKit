@@ -1,0 +1,11 @@
+[
+    {
+        "workspaceInvitationId": "79572461674299396",
+        "role": "Poster",
+        "expireAt": 1651292980,
+        "allowedEmailDomains": [],
+        "needConfirm": false,
+        "allowedEmails": [],
+        "enable": true
+    }
+]

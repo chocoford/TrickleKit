@@ -1,0 +1,2078 @@
+{
+    "items": [
+        {
+            "trickleId": "929274079104466952",
+            "groupInfo": {
+                "groupId": "909371267092578310",
+                "ranks": ""
+            },
+            "authorMemberInfo": {
+                "memberId": "31662342005587973",
+                "name": "Bob Chen",
+                "avatarUrl": "https://resource.trickle.so/upload/users/31661242493960193/1667805071903_notion-avatar-1661744170077.png",
+                "role": "Poster",
+                "status": "Normal"
+            },
+            "authorAppMemberInfo": null,
+            "createAt": 1675936152,
+            "updateAt": 1675960321,
+            "editAt": 1675936221,
+            "title": "在第一条trickle没有创建成功前，再创建一条trickle，会报错",
+            "blocks": [
+                {
+                    "id": "3435f819-9186-45a6-8f1f-9280593e25f0",
+                    "type": "rich_texts",
+                    "isFirst": false,
+                    "indent": 0,
+                    "blocks": [],
+                    "display": "block",
+                    "elements": [
+                        {
+                            "id": "17e3b150-85c8-41e5-afc5-e678ab50229f",
+                            "type": "text",
+                            "text": "在第一条trickle没有创建成功前，再创建一条trickle，会报错",
+                            "elements": [],
+                            "isCurrent": true
+                        }
+                    ],
+                    "isCurrent": true,
+                    "constraint": "free"
+                }
+            ],
+            "mentionedMemberInfo": [],
+            "isPublic": false,
+            "allowGuestMemberComment": true,
+            "allowGuestMemberReact": true,
+            "allowWorkspaceMemberComment": true,
+            "allowWorkspaceMemberReact": true,
+            "commentCounts": 1,
+            "hasStarred": false,
+            "isPinned": false,
+            "permission": {
+                "allowStar": true,
+                "allowPin": true,
+                "allowDelete": false,
+                "allowUpdate": false,
+                "allowComment": true,
+                "allowReact": true
+            },
+            "referInfo": null,
+            "reactionInfo": [],
+            "lastViewInfo": {
+                "unreadCount": 0,
+                "lastViewedAt": 0
+            },
+            "viewedMemberInfo": {
+                "members": [
+                    {
+                        "memberId": "422649524830339077",
+                        "name": "Rich",
+                        "email": "samdychen2013@outlook.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/409785620769013761/1666008496422_wf.jpeg",
+                        "role": "Poster",
+                        "status": "Normal"
+                    }
+                ],
+                "counts": 1
+            },
+            "editingMemberInfo": [],
+            "userDefinedTitle": "连续创建2条trickle报错",
+            "threadId": null,
+            "fieldData": {
+                "909372847774760998": "909388309657026600",
+                "909372985079496742": [
+                    "920499391125520424"
+                ],
+                "909418443013357606": "909426998722428968"
+            }
+        },
+        {
+            "trickleId": "925620954405535752",
+            "groupInfo": {
+                "groupId": "909371267092578310",
+                "ranks": ""
+            },
+            "authorMemberInfo": {
+                "memberId": "30906771358875653",
+                "name": "Jarod Xu",
+                "avatarUrl": "https://resource.trickle.so/upload/users/30906221603061761/1667805291882_1660555973887.jpg",
+                "role": "Admin",
+                "status": "Normal"
+            },
+            "authorAppMemberInfo": null,
+            "createAt": 1675829832,
+            "updateAt": 1675950885,
+            "editAt": 1675829937,
+            "title": "连续点击checkbox时，一定概率会发生点击无响应。 Chocoford  ",
+            "blocks": [
+                {
+                    "id": "06d57939-af92-483c-a45a-7937973a89e9",
+                    "type": "rich_texts",
+                    "isFirst": false,
+                    "indent": 0,
+                    "blocks": [],
+                    "display": "block",
+                    "elements": [
+                        {
+                            "id": "2e9acfa5-20ad-4703-b660-360cc46faa24",
+                            "type": "text",
+                            "text": "连续点击checkbox时，一定概率会发生点击无响应。",
+                            "elements": [],
+                            "isCurrent": false
+                        },
+                        {
+                            "id": "22284964-5120-48dc-b6d2-c0d069256b4f",
+                            "type": "user",
+                            "text": "Chocoford",
+                            "value": "30799568975167493",
+                            "elements": [],
+                            "isCurrent": false
+                        },
+                        {
+                            "id": "df4721ab-0139-47e2-9819-ffc1cf42fde1",
+                            "type": "text",
+                            "text": " ",
+                            "elements": [],
+                            "isCurrent": true
+                        }
+                    ],
+                    "isCurrent": true,
+                    "constraint": "free"
+                },
+                {
+                    "id": "6cc66570-d68f-413e-8dd4-0b92fde3684f",
+                    "type": "rich_texts",
+                    "isFirst": false,
+                    "indent": 0,
+                    "blocks": [],
+                    "display": "block",
+                    "elements": [
+                        {
+                            "id": "ac22f759-d1cc-490a-bad1-422df09789ca",
+                            "type": "text",
+                            "text": "刷新后，实际点击时成功的。接口无明显报错",
+                            "elements": [],
+                            "isCurrent": false
+                        }
+                    ],
+                    "isCurrent": false,
+                    "constraint": "free"
+                },
+                {
+                    "id": "a4d78668-d9b1-4a1b-9839-d9e41edad19f",
+                    "type": "rich_texts",
+                    "isFirst": false,
+                    "indent": 0,
+                    "blocks": [],
+                    "display": "block",
+                    "elements": [
+                        {
+                            "id": "cadbee70-ce95-40de-90a0-75897515f5a2",
+                            "type": "text",
+                            "text": "",
+                            "elements": [],
+                            "isCurrent": false
+                        }
+                    ],
+                    "isCurrent": false,
+                    "constraint": "free"
+                },
+                {
+                    "id": "3d79911a-e905-40ea-afdf-11fb4320c051",
+                    "type": "gallery",
+                    "isFirst": false,
+                    "indent": 0,
+                    "blocks": [],
+                    "display": "block",
+                    "elements": [
+                        {
+                            "id": "507c8a52-cfcc-4858-b00c-4b5e50d5b9b9",
+                            "type": "image",
+                            "text": "",
+                            "value": {
+                                "id": "85a98c35-9653-4bbe-b552-237b311e9af2",
+                                "name": "image.png",
+                                "url": "https://resource.trickle.so/upload/users/30906221603061761/workspaces/30788161542029315/1675829933301/image.png",
+                                "uploaded": true,
+                                "uploadFailed": false
+                            },
+                            "elements": [],
+                            "isCurrent": false
+                        }
+                    ],
+                    "isCurrent": false,
+                    "constraint": "free"
+                }
+            ],
+            "mentionedMemberInfo": [
+                {
+                    "memberId": "30799568975167493",
+                    "name": "Chocoford",
+                    "avatarUrl": "https://testres.trickle.so/upload/users/29967960227446785/1666774231375_006mowZngy1fz3u72cx1lj307e06tq2y.jpg",
+                    "role": "Poster",
+                    "status": "Normal"
+                }
+            ],
+            "isPublic": false,
+            "allowGuestMemberComment": true,
+            "allowGuestMemberReact": true,
+            "allowWorkspaceMemberComment": true,
+            "allowWorkspaceMemberReact": true,
+            "commentCounts": 5,
+            "hasStarred": false,
+            "isPinned": false,
+            "permission": {
+                "allowStar": true,
+                "allowPin": true,
+                "allowDelete": false,
+                "allowUpdate": false,
+                "allowComment": true,
+                "allowReact": true
+            },
+            "referInfo": null,
+            "reactionInfo": [],
+            "lastViewInfo": {
+                "unreadCount": 0,
+                "lastViewedAt": 1675951022,
+                "lastAckMessageId": "1",
+                "lastAckMessageCreateAt": 1675951009
+            },
+            "viewedMemberInfo": {
+                "members": [
+                    {
+                        "memberId": "30788161542045701",
+                        "name": "SamdyChen",
+                        "email": "samdy.chen@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/30766068230258689/1663855165283_avatar02.png",
+                        "role": "Admin",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "30799568975167493",
+                        "name": "Chocoford",
+                        "email": "chocoford.zhang@visionwx.com",
+                        "avatarUrl": "https://testres.trickle.so/upload/users/29967960227446785/1666774231375_006mowZngy1fz3u72cx1lj307e06tq2y.jpg",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "30906771358875653",
+                        "name": "Jarod Xu",
+                        "email": "jarod.xu@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/30906221603061761/1667805291882_1660555973887.jpg",
+                        "role": "Admin",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "31662342005587973",
+                        "name": "Bob Chen",
+                        "email": "bob.chen@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/31661242493960193/1667805071903_notion-avatar-1661744170077.png",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "31728518861684741",
+                        "name": "Warren",
+                        "email": "warren.wu@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/31725701363138561/avatar.png?version=1649912900256",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "31834999690887173",
+                        "name": "Jeffrey zha_",
+                        "email": "jeffrey.zhan@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/31833968898736129/avatar.png?version=1651145792240",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "31911037791895557",
+                        "name": "Lawrence",
+                        "email": "lawrence.deng@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/31910178798436353/1661768102505_emily-liang-qL8wOevvBwk-unsplash.jpg",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "32316276546207749",
+                        "name": "Sydara Lee",
+                        "email": "syd.li@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/32314214961905665/avatar.gif?version=1654074863450",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "32523328329613317",
+                        "name": "Nina",
+                        "email": "nina.dou@visionwx.com",
+                        "avatarUrl": "https://testres.trickle.so/upload/users/32522297537462273/1667376717774_WX20220921-181525@2x.png",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "409672882575114245",
+                        "name": "Github App",
+                        "email": "lawrence.cheng.deng@gmail.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/409667900010397697/1670484223858_下载.jpeg",
+                        "role": "Poster",
+                        "status": "Normal"
+                    }
+                ],
+                "counts": 10
+            },
+            "editingMemberInfo": [],
+            "userDefinedTitle": "Checkbox 点击无响应",
+            "threadId": null,
+            "fieldData": {
+                "909372847774760998": "909388309657026600",
+                "909372985079496742": [
+                    "920499391125520424"
+                ],
+                "909388103498596390": 0,
+                "909388378242285606": [
+                    "30799568975167493"
+                ],
+                "909418443013357606": "909426448832397352",
+                "920484822596452390": "920487846253428776"
+            }
+        },
+        {
+            "trickleId": "928744752973611016",
+            "groupInfo": {
+                "groupId": "909371267092578310",
+                "ranks": ""
+            },
+            "authorMemberInfo": {
+                "memberId": "30788161542045701",
+                "name": "SamdyChen",
+                "avatarUrl": "https://resource.trickle.so/upload/users/30766068230258689/1663855165283_avatar02.png",
+                "role": "Admin",
+                "status": "Normal"
+            },
+            "authorAppMemberInfo": null,
+            "createAt": 1675920746,
+            "updateAt": 1675950581,
+            "editAt": 1675920921,
+            "title": "初步怀疑是 LeaveRoom之后，销毁对应 Trickle Room的 RoomStatus Interval没有取消成功，或者由于某些原因 之前某个trickle的 RoomStatus interval 自动恢复",
+            "blocks": [
+                {
+                    "id": "6fdf9823-6c94-4aa5-82ce-9a412bc0c505",
+                    "type": "rich_texts",
+                    "isFirst": false,
+                    "indent": 0,
+                    "blocks": [],
+                    "display": "block",
+                    "elements": [
+                        {
+                            "id": "95ee1a6f-93aa-45df-84b8-e933ca1faa43",
+                            "type": "text",
+                            "text": "初步怀疑是 LeaveRoom之后，销毁对应 Trickle Room的 RoomStatus Interval没有取消成功，或者由于某些原因 之前某个trickle的 RoomStatus interval 自动恢复",
+                            "elements": [],
+                            "isCurrent": true
+                        }
+                    ],
+                    "isCurrent": true,
+                    "constraint": "free"
+                }
+            ],
+            "mentionedMemberInfo": [],
+            "isPublic": false,
+            "allowGuestMemberComment": true,
+            "allowGuestMemberReact": true,
+            "allowWorkspaceMemberComment": true,
+            "allowWorkspaceMemberReact": true,
+            "commentCounts": 1,
+            "hasStarred": false,
+            "isPinned": false,
+            "permission": {
+                "allowStar": true,
+                "allowPin": true,
+                "allowDelete": false,
+                "allowUpdate": false,
+                "allowComment": true,
+                "allowReact": true
+            },
+            "referInfo": null,
+            "reactionInfo": [],
+            "lastViewInfo": {
+                "unreadCount": 0,
+                "lastViewedAt": 0
+            },
+            "viewedMemberInfo": {
+                "members": [
+                    {
+                        "memberId": "30788161542045701",
+                        "name": "SamdyChen",
+                        "email": "samdy.chen@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/30766068230258689/1663855165283_avatar02.png",
+                        "role": "Admin",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "30906771358875653",
+                        "name": "Jarod Xu",
+                        "email": "jarod.xu@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/30906221603061761/1667805291882_1660555973887.jpg",
+                        "role": "Admin",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "31662342005587973",
+                        "name": "Bob Chen",
+                        "email": "bob.chen@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/31661242493960193/1667805071903_notion-avatar-1661744170077.png",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "32216805103632389",
+                        "name": "Min",
+                        "email": "min.zhou@visionwx.com",
+                        "avatarUrl": "https://testres.trickle.so/upload/users/32215465073836033/1669970453208_Frame 47596.png",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "32316276546207749",
+                        "name": "Sydara Lee",
+                        "email": "syd.li@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/32314214961905665/avatar.gif?version=1654074863450",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "32547242707517445",
+                        "name": "Victoria",
+                        "email": "victoria.wu@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload//users/32545559080337409/avatar.gif/1657795736807_among-us-icegif-51.gif",
+                        "role": "Admin",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "919687716394762245",
+                        "name": "ruby",
+                        "email": "820081787@qq.com",
+                        "avatarUrl": "",
+                        "role": "Poster",
+                        "status": "Normal"
+                    }
+                ],
+                "counts": 7
+            },
+            "editingMemberInfo": [],
+            "userDefinedTitle": "已经没在Trickle Room，但是头像还是一直高亮显示在这个Trickle（不能稳定触发）",
+            "threadId": null,
+            "fieldData": {
+                "909372847774760998": "909397621011906600",
+                "909372985079496742": [
+                    "920499391125520424"
+                ],
+                "909388378242285606": [
+                    "31834999690887173",
+                    "30799568975167493"
+                ],
+                "909418443013357606": "909426998722428968",
+                "920484822596452390": "920485887748341800"
+            }
+        },
+        {
+            "trickleId": "929659587718545416",
+            "groupInfo": {
+                "groupId": "264823540841447430",
+                "ranks": ""
+            },
+            "authorMemberInfo": {
+                "memberId": "422649524830339077",
+                "name": "Rich",
+                "avatarUrl": "https://resource.trickle.so/upload/users/409785620769013761/1666008496422_wf.jpeg",
+                "role": "Poster",
+                "status": "Normal"
+            },
+            "authorAppMemberInfo": null,
+            "createAt": 1675947372,
+            "updateAt": 1675949728,
+            "editAt": 0,
+            "title": "Test Env Upgrade",
+            "blocks": [
+                {
+                    "id": "21611d68-a879-11ed-85df-0242ac110002",
+                    "type": "h2",
+                    "isFirst": false,
+                    "indent": 0,
+                    "blocks": [],
+                    "display": "block",
+                    "elements": [
+                        {
+                            "id": "21611ec6-a879-11ed-85df-0242ac110002",
+                            "type": "text",
+                            "text": "Test Env Upgrade",
+                            "elements": [],
+                            "isCurrent": false
+                        }
+                    ],
+                    "isCurrent": false,
+                    "constraint": "free"
+                },
+                {
+                    "id": "21611fc0-a879-11ed-85df-0242ac110002",
+                    "type": "list",
+                    "isFirst": false,
+                    "indent": 0,
+                    "blocks": [],
+                    "display": "block",
+                    "elements": [
+                        {
+                            "id": "2161204c-a879-11ed-85df-0242ac110002",
+                            "type": "text",
+                            "text": "",
+                            "elements": [],
+                            "isCurrent": false
+                        }
+                    ],
+                    "isCurrent": false,
+                    "constraint": "free"
+                }
+            ],
+            "mentionedMemberInfo": [],
+            "isPublic": false,
+            "allowGuestMemberComment": true,
+            "allowGuestMemberReact": true,
+            "allowWorkspaceMemberComment": true,
+            "allowWorkspaceMemberReact": true,
+            "commentCounts": 5,
+            "hasStarred": false,
+            "isPinned": false,
+            "permission": {
+                "allowStar": true,
+                "allowPin": true,
+                "allowDelete": false,
+                "allowUpdate": false,
+                "allowComment": true,
+                "allowReact": true
+            },
+            "referInfo": null,
+            "reactionInfo": [
+                {
+                    "code": "👍",
+                    "createAt": 1675947434,
+                    "updateAt": 1675947434,
+                    "reactionId": "929661717619671055",
+                    "reactionAuthor": {
+                        "name": "Bob Chen",
+                        "role": "Poster",
+                        "email": "bob.chen@visionwx.com",
+                        "status": "Normal",
+                        "createAt": 1649812212,
+                        "memberId": "31662342005587973",
+                        "updateAt": 1675753015,
+                        "avatarUrl": "https://resource.trickle.so/upload/users/31661242493960193/1667805071903_notion-avatar-1661744170077.png",
+                        "lastNtfReadAt": 1675753014
+                    }
+                },
+                {
+                    "code": "✅",
+                    "createAt": 1675947473,
+                    "updateAt": 1675947473,
+                    "reactionId": "929663058588991503",
+                    "reactionAuthor": {
+                        "name": "Bob Chen",
+                        "role": "Poster",
+                        "email": "bob.chen@visionwx.com",
+                        "status": "Normal",
+                        "createAt": 1649812212,
+                        "memberId": "31662342005587973",
+                        "updateAt": 1675753015,
+                        "avatarUrl": "https://resource.trickle.so/upload/users/31661242493960193/1667805071903_notion-avatar-1661744170077.png",
+                        "lastNtfReadAt": 1675753014
+                    }
+                },
+                {
+                    "code": "👀",
+                    "createAt": 1675947474,
+                    "updateAt": 1675947474,
+                    "reactionId": "929663092948729871",
+                    "reactionAuthor": {
+                        "name": "Bob Chen",
+                        "role": "Poster",
+                        "email": "bob.chen@visionwx.com",
+                        "status": "Normal",
+                        "createAt": 1649812212,
+                        "memberId": "31662342005587973",
+                        "updateAt": 1675753015,
+                        "avatarUrl": "https://resource.trickle.so/upload/users/31661242493960193/1667805071903_notion-avatar-1661744170077.png",
+                        "lastNtfReadAt": 1675753014
+                    }
+                },
+                {
+                    "code": "👀",
+                    "createAt": 1675947695,
+                    "updateAt": 1675947695,
+                    "reactionId": "929670688866828303",
+                    "reactionAuthor": {
+                        "name": "yanwei1126",
+                        "role": "Poster",
+                        "email": "wei.yan@visionwx.com",
+                        "status": "Normal",
+                        "createAt": 1649815900,
+                        "memberId": "31789060720689157",
+                        "updateAt": 1675946577,
+                        "avatarUrl": "https://resource.trickle.so/31784319076794369/avatar.gif?version=1649901781952",
+                        "lastNtfReadAt": 1675946576
+                    }
+                },
+                {
+                    "code": "✅",
+                    "createAt": 1675947696,
+                    "updateAt": 1675947696,
+                    "reactionId": "929670723226566671",
+                    "reactionAuthor": {
+                        "name": "yanwei1126",
+                        "role": "Poster",
+                        "email": "wei.yan@visionwx.com",
+                        "status": "Normal",
+                        "createAt": 1649815900,
+                        "memberId": "31789060720689157",
+                        "updateAt": 1675946577,
+                        "avatarUrl": "https://resource.trickle.so/31784319076794369/avatar.gif?version=1649901781952",
+                        "lastNtfReadAt": 1675946576
+                    }
+                },
+                {
+                    "code": "👍",
+                    "createAt": 1675947697,
+                    "updateAt": 1675947697,
+                    "reactionId": "929670758257393679",
+                    "reactionAuthor": {
+                        "name": "yanwei1126",
+                        "role": "Poster",
+                        "email": "wei.yan@visionwx.com",
+                        "status": "Normal",
+                        "createAt": 1649815900,
+                        "memberId": "31789060720689157",
+                        "updateAt": 1675946577,
+                        "avatarUrl": "https://resource.trickle.so/31784319076794369/avatar.gif?version=1649901781952",
+                        "lastNtfReadAt": 1675946576
+                    }
+                },
+                {
+                    "code": "👍",
+                    "createAt": 1675947897,
+                    "updateAt": 1675947897,
+                    "reactionId": "929677630339285007",
+                    "reactionAuthor": {
+                        "name": "Nina",
+                        "role": "Poster",
+                        "email": "nina.dou@visionwx.com",
+                        "status": "Normal",
+                        "createAt": 1649837270,
+                        "memberId": "32523328329613317",
+                        "updateAt": 1675755230,
+                        "avatarUrl": "https://testres.trickle.so/upload/users/32522297537462273/1667376717774_WX20220921-181525@2x.png",
+                        "lastNtfReadAt": 1675755229
+                    }
+                },
+                {
+                    "code": "👍",
+                    "createAt": 1675951970,
+                    "updateAt": 1675951970,
+                    "reactionId": "929817587619987471",
+                    "reactionAuthor": {
+                        "name": "Sydara Lee",
+                        "role": "Poster",
+                        "email": "syd.li@visionwx.com",
+                        "status": "Normal",
+                        "createAt": 1649831244,
+                        "memberId": "32316276546207749",
+                        "updateAt": 1675951899,
+                        "avatarUrl": "https://resource.trickle.so/32314214961905665/avatar.gif?version=1654074863450",
+                        "lastNtfReadAt": 1675951898
+                    }
+                }
+            ],
+            "lastViewInfo": {
+                "unreadCount": 0,
+                "lastViewedAt": 0
+            },
+            "viewedMemberInfo": {
+                "members": [
+                    {
+                        "memberId": "30788161542045701",
+                        "name": "SamdyChen",
+                        "email": "samdy.chen@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/30766068230258689/1663855165283_avatar02.png",
+                        "role": "Admin",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "30906771358875653",
+                        "name": "Jarod Xu",
+                        "email": "jarod.xu@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/30906221603061761/1667805291882_1660555973887.jpg",
+                        "role": "Admin",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "31662342005587973",
+                        "name": "Bob Chen",
+                        "email": "bob.chen@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/31661242493960193/1667805071903_notion-avatar-1661744170077.png",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "31789060720689157",
+                        "name": "yanwei1126",
+                        "email": "wei.yan@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/31784319076794369/avatar.gif?version=1649901781952",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "32316276546207749",
+                        "name": "Sydara Lee",
+                        "email": "syd.li@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/32314214961905665/avatar.gif?version=1654074863450",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "32523328329613317",
+                        "name": "Nina",
+                        "email": "nina.dou@visionwx.com",
+                        "avatarUrl": "https://testres.trickle.so/upload/users/32522297537462273/1667376717774_WX20220921-181525@2x.png",
+                        "role": "Poster",
+                        "status": "Normal"
+                    }
+                ],
+                "counts": 6
+            },
+            "editingMemberInfo": [],
+            "userDefinedTitle": null,
+            "threadId": null,
+            "fieldData": null
+        },
+        {
+            "trickleId": "919646821192564744",
+            "groupInfo": {
+                "groupId": "909371267092578310",
+                "ranks": ""
+            },
+            "authorMemberInfo": {
+                "memberId": "32316276546207749",
+                "name": "Sydara Lee",
+                "avatarUrl": "https://resource.trickle.so/32314214961905665/avatar.gif?version=1654074863450",
+                "role": "Poster",
+                "status": "Normal"
+            },
+            "authorAppMemberInfo": null,
+            "createAt": 1675655962,
+            "updateAt": 1675948765,
+            "editAt": 1675656065,
+            "title": "group by选项选择multi-select，计数不正确",
+            "blocks": [
+                {
+                    "id": "8c0b6ab3-ea09-49fa-8262-de100ff42b38",
+                    "type": "rich_texts",
+                    "isFirst": false,
+                    "indent": 0,
+                    "blocks": [],
+                    "display": "block",
+                    "elements": [
+                        {
+                            "id": "a1cd1b6b-c186-4d77-8d1c-364d4f423f6b",
+                            "type": "text",
+                            "text": "group by选项选择multi-select，计数不正确",
+                            "elements": [],
+                            "isCurrent": true
+                        }
+                    ],
+                    "isCurrent": true,
+                    "constraint": "free"
+                },
+                {
+                    "id": "b963dbdb-8180-4158-b92b-7fe1b4e7f314",
+                    "type": "gallery",
+                    "isFirst": false,
+                    "indent": 0,
+                    "blocks": [],
+                    "display": "block",
+                    "elements": [
+                        {
+                            "id": "f9d7ed35-ad38-412d-8dd6-617eab82d891",
+                            "type": "image",
+                            "text": "",
+                            "value": {
+                                "id": "0852c2a9-50b2-4afd-9b90-2b37b26a6f46",
+                                "name": "image.png",
+                                "url": "https://resource.trickle.so/upload/users/32314214961905665/workspaces/30788161542029315/1675656062256/image.png",
+                                "uploaded": true,
+                                "uploadFailed": false
+                            },
+                            "elements": [],
+                            "isCurrent": false
+                        }
+                    ],
+                    "isCurrent": false,
+                    "constraint": "free"
+                }
+            ],
+            "mentionedMemberInfo": [],
+            "isPublic": false,
+            "allowGuestMemberComment": true,
+            "allowGuestMemberReact": true,
+            "allowWorkspaceMemberComment": true,
+            "allowWorkspaceMemberReact": true,
+            "commentCounts": 5,
+            "hasStarred": false,
+            "isPinned": false,
+            "permission": {
+                "allowStar": true,
+                "allowPin": true,
+                "allowDelete": false,
+                "allowUpdate": false,
+                "allowComment": true,
+                "allowReact": true
+            },
+            "referInfo": null,
+            "reactionInfo": [],
+            "lastViewInfo": {
+                "unreadCount": 0,
+                "lastViewedAt": 1675942755,
+                "lastAckMessageId": "0",
+                "lastAckMessageCreateAt": 1675942736
+            },
+            "viewedMemberInfo": {
+                "members": [
+                    {
+                        "memberId": "30788161542045701",
+                        "name": "SamdyChen",
+                        "email": "samdy.chen@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/30766068230258689/1663855165283_avatar02.png",
+                        "role": "Admin",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "30799568975167493",
+                        "name": "Chocoford",
+                        "email": "chocoford.zhang@visionwx.com",
+                        "avatarUrl": "https://testres.trickle.so/upload/users/29967960227446785/1666774231375_006mowZngy1fz3u72cx1lj307e06tq2y.jpg",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "31662342005587973",
+                        "name": "Bob Chen",
+                        "email": "bob.chen@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/31661242493960193/1667805071903_notion-avatar-1661744170077.png",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "31728518861684741",
+                        "name": "Warren",
+                        "email": "warren.wu@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/31725701363138561/avatar.png?version=1649912900256",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "31834999690887173",
+                        "name": "Jeffrey zha_",
+                        "email": "jeffrey.zhan@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/31833968898736129/avatar.png?version=1651145792240",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "31911037791895557",
+                        "name": "Lawrence",
+                        "email": "lawrence.deng@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/31910178798436353/1661768102505_emily-liang-qL8wOevvBwk-unsplash.jpg",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "32316276546207749",
+                        "name": "Sydara Lee",
+                        "email": "syd.li@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/32314214961905665/avatar.gif?version=1654074863450",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "32547242707517445",
+                        "name": "Victoria",
+                        "email": "victoria.wu@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload//users/32545559080337409/avatar.gif/1657795736807_among-us-icegif-51.gif",
+                        "role": "Admin",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "409672882575114245",
+                        "name": "Github App",
+                        "email": "lawrence.cheng.deng@gmail.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/409667900010397697/1670484223858_下载.jpeg",
+                        "role": "Poster",
+                        "status": "Normal"
+                    }
+                ],
+                "counts": 9
+            },
+            "editingMemberInfo": [],
+            "userDefinedTitle": "Group by Multi-select 计数不正确",
+            "threadId": null,
+            "fieldData": {
+                "909372847774760998": "911594890981277736",
+                "909372985079496742": [
+                    "920499391125520424"
+                ],
+                "909388378242285606": [
+                    "31911037791895557",
+                    "31834999690887173"
+                ],
+                "909418443013357606": "909426998722428968",
+                "920484822596452390": "920485887748341800"
+            }
+        },
+        {
+            "trickleId": "911079914067722248",
+            "groupInfo": {
+                "groupId": "909371267092578310",
+                "ranks": ""
+            },
+            "authorMemberInfo": {
+                "memberId": "32316276546207749",
+                "name": "Sydara Lee",
+                "avatarUrl": "https://resource.trickle.so/32314214961905665/avatar.gif?version=1654074863450",
+                "role": "Poster",
+                "status": "Normal"
+            },
+            "authorAppMemberInfo": null,
+            "createAt": 1675406632,
+            "updateAt": 1675948754,
+            "editAt": 1675406827,
+            "title": "NTFs页面样式异常",
+            "blocks": [
+                {
+                    "id": "645b9f2a-5a77-4049-b3a2-6297fbf1bc8e",
+                    "type": "todos",
+                    "isFirst": false,
+                    "indent": 0,
+                    "blocks": [
+                        {
+                            "id": "6c7dd8d8-9519-45ad-b8bc-13b137397a14",
+                            "type": "h2",
+                            "isFirst": false,
+                            "indent": 0,
+                            "blocks": [],
+                            "display": "block",
+                            "elements": [
+                                {
+                                    "id": "92c3b96b-039e-41c5-a186-7b5618379139",
+                                    "type": "text",
+                                    "text": "NTFs页面样式异常",
+                                    "elements": [],
+                                    "isCurrent": false
+                                }
+                            ],
+                            "isCurrent": false,
+                            "constraint": "locked"
+                        },
+                        {
+                            "id": "eee6daec-4c13-4c89-9bf9-4cbac00b0711",
+                            "type": "rich_texts",
+                            "isFirst": false,
+                            "indent": 0,
+                            "blocks": [],
+                            "display": "block",
+                            "elements": [
+                                {
+                                    "id": "4fcb645b-229a-414e-a64f-6dce8d25bf95",
+                                    "type": "text",
+                                    "text": "",
+                                    "elements": [],
+                                    "isCurrent": false
+                                }
+                            ],
+                            "isCurrent": false,
+                            "constraint": "locked"
+                        },
+                        {
+                            "id": "df5c9928-0122-42a1-bf71-5a7457aa9770",
+                            "type": "nest",
+                            "isFirst": false,
+                            "indent": 0,
+                            "blocks": [
+                                {
+                                    "id": "4c94ff8c-296c-41dd-9757-740f859e4ecd",
+                                    "type": "checkbox",
+                                    "isFirst": false,
+                                    "userDefinedValue": {
+                                        "status": "checked",
+                                        "operatorId": "30799568975167493"
+                                    },
+                                    "indent": 0,
+                                    "blocks": [],
+                                    "display": "block",
+                                    "elements": [
+                                        {
+                                            "id": "538cf892-b973-4add-83e4-e30695db65e3",
+                                            "type": "text",
+                                            "text": "\"mentioned me\" tab内线框",
+                                            "elements": [],
+                                            "isCurrent": false
+                                        }
+                                    ],
+                                    "isCurrent": false,
+                                    "constraint": "persistent"
+                                },
+                                {
+                                    "id": "849b4c3e-9249-40b2-a43d-a3f45435f0f6",
+                                    "type": "checkbox",
+                                    "isFirst": false,
+                                    "userDefinedValue": {
+                                        "status": "checked",
+                                        "operatorId": "30799568975167493"
+                                    },
+                                    "indent": 0,
+                                    "blocks": [],
+                                    "display": "block",
+                                    "elements": [
+                                        {
+                                            "id": "39fade58-e15d-40f0-9693-c229014d2a12",
+                                            "type": "text",
+                                            "text": "Edit按钮",
+                                            "elements": [],
+                                            "isCurrent": false
+                                        }
+                                    ],
+                                    "isCurrent": false,
+                                    "constraint": "persistent"
+                                },
+                                {
+                                    "id": "7b439730-6750-434c-aac2-6ab0129ab590",
+                                    "type": "checkbox",
+                                    "isFirst": false,
+                                    "userDefinedValue": {
+                                        "status": "checked",
+                                        "operatorId": "30799568975167493"
+                                    },
+                                    "indent": 0,
+                                    "blocks": [],
+                                    "display": "block",
+                                    "elements": [
+                                        {
+                                            "id": "c5096df0-1669-4e9f-a07a-aff5a9488a0c",
+                                            "type": "text",
+                                            "text": "顶部tab选中的紫色线条背景透明",
+                                            "elements": [],
+                                            "isCurrent": false
+                                        }
+                                    ],
+                                    "isCurrent": false,
+                                    "constraint": "persistent"
+                                }
+                            ],
+                            "display": "block",
+                            "elements": [],
+                            "isCurrent": false,
+                            "constraint": "locked"
+                        }
+                    ],
+                    "display": "block",
+                    "elements": [],
+                    "isCurrent": false,
+                    "constraint": "free"
+                },
+                {
+                    "id": "6b4f5fbc-ff11-4818-897d-492068b63935",
+                    "type": "gallery",
+                    "isFirst": false,
+                    "indent": 0,
+                    "blocks": [],
+                    "display": "block",
+                    "elements": [
+                        {
+                            "id": "fec044b0-b570-4093-953e-fbed5eceff4e",
+                            "type": "image",
+                            "text": "",
+                            "value": {
+                                "id": "d0857b79-8df6-4b00-87de-77791d549462",
+                                "name": "image.png",
+                                "url": "https://resource.trickle.so/upload/users/32314214961905665/workspaces/30788161542029315/1675406822766/image.png",
+                                "uploaded": true,
+                                "uploadFailed": false
+                            },
+                            "elements": [],
+                            "isCurrent": false
+                        }
+                    ],
+                    "isCurrent": true,
+                    "constraint": "free"
+                }
+            ],
+            "mentionedMemberInfo": [],
+            "isPublic": false,
+            "allowGuestMemberComment": true,
+            "allowGuestMemberReact": true,
+            "allowWorkspaceMemberComment": true,
+            "allowWorkspaceMemberReact": true,
+            "commentCounts": 1,
+            "hasStarred": false,
+            "isPinned": false,
+            "permission": {
+                "allowStar": true,
+                "allowPin": true,
+                "allowDelete": false,
+                "allowUpdate": false,
+                "allowComment": true,
+                "allowReact": true
+            },
+            "referInfo": null,
+            "reactionInfo": [],
+            "lastViewInfo": {
+                "unreadCount": 0,
+                "lastViewedAt": 1675840037,
+                "lastAckMessageId": "0",
+                "lastAckMessageCreateAt": 1675840037
+            },
+            "viewedMemberInfo": {
+                "members": [
+                    {
+                        "memberId": "30788161542045701",
+                        "name": "SamdyChen",
+                        "email": "samdy.chen@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/30766068230258689/1663855165283_avatar02.png",
+                        "role": "Admin",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "30799568975167493",
+                        "name": "Chocoford",
+                        "email": "chocoford.zhang@visionwx.com",
+                        "avatarUrl": "https://testres.trickle.so/upload/users/29967960227446785/1666774231375_006mowZngy1fz3u72cx1lj307e06tq2y.jpg",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "30906771358875653",
+                        "name": "Jarod Xu",
+                        "email": "jarod.xu@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/30906221603061761/1667805291882_1660555973887.jpg",
+                        "role": "Admin",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "31662342005587973",
+                        "name": "Bob Chen",
+                        "email": "bob.chen@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/31661242493960193/1667805071903_notion-avatar-1661744170077.png",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "31728518861684741",
+                        "name": "Warren",
+                        "email": "warren.wu@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/31725701363138561/avatar.png?version=1649912900256",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "31789060720689157",
+                        "name": "yanwei1126",
+                        "email": "wei.yan@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/31784319076794369/avatar.gif?version=1649901781952",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "31834999690887173",
+                        "name": "Jeffrey zha_",
+                        "email": "jeffrey.zhan@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/31833968898736129/avatar.png?version=1651145792240",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "32316276546207749",
+                        "name": "Sydara Lee",
+                        "email": "syd.li@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/32314214961905665/avatar.gif?version=1654074863450",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "32523328329613317",
+                        "name": "Nina",
+                        "email": "nina.dou@visionwx.com",
+                        "avatarUrl": "https://testres.trickle.so/upload/users/32522297537462273/1667376717774_WX20220921-181525@2x.png",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "422649524830339077",
+                        "name": "Rich",
+                        "email": "samdychen2013@outlook.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/409785620769013761/1666008496422_wf.jpeg",
+                        "role": "Poster",
+                        "status": "Normal"
+                    }
+                ],
+                "counts": 10
+            },
+            "editingMemberInfo": [],
+            "userDefinedTitle": "NTFs页面样式异常",
+            "threadId": null,
+            "fieldData": {
+                "909372847774760998": "911594890981277736",
+                "909372985079496742": [
+                    "920499391125520424"
+                ],
+                "909388378242285606": [
+                    "30799568975167493"
+                ],
+                "909418443013357606": "909426139728969768",
+                "920484822596452390": "920485887748341800"
+            }
+        },
+        {
+            "trickleId": "909653232232431624",
+            "groupInfo": {
+                "groupId": "909371267092578310",
+                "ranks": ""
+            },
+            "authorMemberInfo": {
+                "memberId": "30788161542045701",
+                "name": "SamdyChen",
+                "avatarUrl": "https://resource.trickle.so/upload/users/30766068230258689/1663855165283_avatar02.png",
+                "role": "Admin",
+                "status": "Normal"
+            },
+            "authorAppMemberInfo": null,
+            "createAt": 1675365110,
+            "updateAt": 1675948746,
+            "editAt": 1675365397,
+            "title": "这几个member一直在viewing这条trickle",
+            "blocks": [
+                {
+                    "id": "156e98a7-402a-4da2-b197-e128565a09d2",
+                    "type": "rich_texts",
+                    "isFirst": false,
+                    "indent": 0,
+                    "blocks": [],
+                    "display": "block",
+                    "elements": [
+                        {
+                            "id": "92738e91-5228-43e7-abdc-e579178bc7a0",
+                            "type": "text",
+                            "text": "这几个member一直在viewing这条trickle",
+                            "elements": [],
+                            "isCurrent": false
+                        }
+                    ],
+                    "isCurrent": false,
+                    "constraint": "free"
+                },
+                {
+                    "id": "b185c067-42d2-4519-999f-ee7ea37d8c6a",
+                    "type": "gallery",
+                    "isFirst": false,
+                    "indent": 0,
+                    "blocks": [],
+                    "display": "block",
+                    "elements": [
+                        {
+                            "id": "11a6feda-d8fb-413b-966e-1e8efb11de46",
+                            "type": "image",
+                            "text": "",
+                            "value": {
+                                "id": "b2b0b470-0362-4a10-aad9-32f0702d40d9",
+                                "name": "image.png",
+                                "url": "https://resource.trickle.so/upload/users/30766068230258689/workspaces/30788161542029315/1675365392911/image.png",
+                                "uploaded": true,
+                                "uploadFailed": false
+                            },
+                            "elements": [],
+                            "isCurrent": false
+                        }
+                    ],
+                    "isCurrent": false,
+                    "constraint": "free"
+                },
+                {
+                    "id": "274a1f43-540f-43bc-b1ca-7cea53ee3966",
+                    "type": "rich_texts",
+                    "isFirst": false,
+                    "indent": 0,
+                    "blocks": [],
+                    "display": "block",
+                    "elements": [
+                        {
+                            "id": "13904fe6-d525-4d02-94df-dbd36254034c",
+                            "type": "text",
+                            "text": "触发了leave_room，后端下发的room_member 仍然显示还在这个trickle room",
+                            "elements": [],
+                            "isCurrent": false
+                        }
+                    ],
+                    "isCurrent": false,
+                    "constraint": "free"
+                },
+                {
+                    "id": "062aa931-ecc8-485c-af87-f6e9716c9a70",
+                    "type": "gallery",
+                    "isFirst": false,
+                    "indent": 0,
+                    "blocks": [],
+                    "display": "block",
+                    "elements": [
+                        {
+                            "id": "333db972-7774-402c-a4c8-4410a790808d",
+                            "type": "image",
+                            "text": "",
+                            "value": {
+                                "id": "6ae865b5-16ee-4656-b405-0eafe658b72c",
+                                "name": "image.png",
+                                "url": "https://resource.trickle.so/upload/users/30766068230258689/workspaces/30788161542029315/1675365392928/image.png",
+                                "uploaded": true,
+                                "uploadFailed": false
+                            },
+                            "elements": [],
+                            "isCurrent": false
+                        }
+                    ],
+                    "isCurrent": true,
+                    "constraint": "free"
+                }
+            ],
+            "mentionedMemberInfo": [],
+            "isPublic": false,
+            "allowGuestMemberComment": true,
+            "allowGuestMemberReact": true,
+            "allowWorkspaceMemberComment": true,
+            "allowWorkspaceMemberReact": true,
+            "commentCounts": 6,
+            "hasStarred": false,
+            "isPinned": false,
+            "permission": {
+                "allowStar": true,
+                "allowPin": true,
+                "allowDelete": false,
+                "allowUpdate": false,
+                "allowComment": true,
+                "allowReact": true
+            },
+            "referInfo": null,
+            "reactionInfo": [],
+            "lastViewInfo": {
+                "unreadCount": 0,
+                "lastViewedAt": 0
+            },
+            "viewedMemberInfo": {
+                "members": [
+                    {
+                        "memberId": "30788161542045701",
+                        "name": "SamdyChen",
+                        "email": "samdy.chen@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/30766068230258689/1663855165283_avatar02.png",
+                        "role": "Admin",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "30906771358875653",
+                        "name": "Jarod Xu",
+                        "email": "jarod.xu@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/30906221603061761/1667805291882_1660555973887.jpg",
+                        "role": "Admin",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "31662342005587973",
+                        "name": "Bob Chen",
+                        "email": "bob.chen@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/31661242493960193/1667805071903_notion-avatar-1661744170077.png",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "31728518861684741",
+                        "name": "Warren",
+                        "email": "warren.wu@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/31725701363138561/avatar.png?version=1649912900256",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "31834999690887173",
+                        "name": "Jeffrey zha_",
+                        "email": "jeffrey.zhan@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/31833968898736129/avatar.png?version=1651145792240",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "32181586371805189",
+                        "name": "Lania",
+                        "email": "lania.dang@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/32178253477183489/avatar.jpg?version=1649906090811",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "32316276546207749",
+                        "name": "Sydara Lee",
+                        "email": "syd.li@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/32314214961905665/avatar.gif?version=1654074863450",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "32523328329613317",
+                        "name": "Nina",
+                        "email": "nina.dou@visionwx.com",
+                        "avatarUrl": "https://testres.trickle.so/upload/users/32522297537462273/1667376717774_WX20220921-181525@2x.png",
+                        "role": "Poster",
+                        "status": "Normal"
+                    }
+                ],
+                "counts": 8
+            },
+            "editingMemberInfo": [],
+            "userDefinedTitle": "Trickle Leave Room 之后，后端socket service 下发的room_members消息仍然显示还在trickle room当中",
+            "threadId": null,
+            "fieldData": {
+                "909372847774760998": "911594890981277736",
+                "909372985079496742": [
+                    "920499391125520424"
+                ],
+                "909388378242285606": [
+                    "32181586371805189",
+                    "31834999690887173"
+                ],
+                "909418443013357606": "909426998722428968",
+                "920484822596452390": "920485887748341800"
+            }
+        },
+        {
+            "trickleId": "911618736639705096",
+            "groupInfo": {
+                "groupId": "909371267092578310",
+                "ranks": ""
+            },
+            "authorMemberInfo": {
+                "memberId": "32547242707517445",
+                "name": "Victoria",
+                "avatarUrl": "https://resource.trickle.so/upload//users/32545559080337409/avatar.gif/1657795736807_among-us-icegif-51.gif",
+                "role": "Admin",
+                "status": "Normal"
+            },
+            "authorAppMemberInfo": null,
+            "createAt": 1675422314,
+            "updateAt": 1675948741,
+            "editAt": 1675918346,
+            "title": "复现路径应该是：",
+            "blocks": [
+                {
+                    "id": "ff4793c9-cd48-4d8c-ba36-6d8fbf29d011",
+                    "type": "rich_texts",
+                    "isFirst": false,
+                    "indent": 0,
+                    "blocks": [],
+                    "display": "block",
+                    "elements": [
+                        {
+                            "id": "cfdd3fed-96e6-4603-91eb-9ce7696aeaf0",
+                            "type": "text",
+                            "text": "复现路径应该是：",
+                            "elements": [],
+                            "isCurrent": false
+                        }
+                    ],
+                    "isCurrent": false,
+                    "constraint": "free"
+                },
+                {
+                    "id": "b2cc4534-0dc8-443c-bf46-89ddea2f717e",
+                    "type": "number_list",
+                    "isFirst": false,
+                    "userDefinedValue": "1.",
+                    "indent": 0,
+                    "blocks": [],
+                    "display": "block",
+                    "elements": [
+                        {
+                            "id": "100f718e-7d58-4dc5-9f8c-43e7d4200668",
+                            "type": "text",
+                            "text": "用户A，打开 抽屉或者full page",
+                            "elements": [],
+                            "isCurrent": false
+                        }
+                    ],
+                    "isCurrent": false,
+                    "constraint": "free"
+                },
+                {
+                    "id": "4e955a38-bc35-4d5d-918b-494fc482856d",
+                    "type": "number_list",
+                    "isFirst": false,
+                    "computedValue": "2.",
+                    "indent": 0,
+                    "blocks": [],
+                    "display": "block",
+                    "elements": [
+                        {
+                            "id": "774e9d88-423c-4f25-a164-6ec2f02cee09",
+                            "type": "text",
+                            "text": "切开浏览器，15分钟之后，socket链接断开。",
+                            "elements": [],
+                            "isCurrent": false
+                        }
+                    ],
+                    "isCurrent": false,
+                    "constraint": "free"
+                },
+                {
+                    "id": "e37e7d7e-40cf-4d26-b636-00884137ad2a",
+                    "type": "number_list",
+                    "isFirst": false,
+                    "computedValue": "3.",
+                    "indent": 0,
+                    "blocks": [],
+                    "display": "block",
+                    "elements": [
+                        {
+                            "id": "659ab907-7c94-4c98-aaeb-c0a5ab7a078e",
+                            "type": "text",
+                            "text": "另一个用户B，编辑这条trickle，并保存",
+                            "elements": [],
+                            "isCurrent": false
+                        }
+                    ],
+                    "isCurrent": false,
+                    "constraint": "free"
+                },
+                {
+                    "id": "ec55868a-51c8-4665-9bec-4f3e52d14ff0",
+                    "type": "number_list",
+                    "isFirst": false,
+                    "computedValue": "4.",
+                    "indent": 0,
+                    "blocks": [],
+                    "display": "block",
+                    "elements": [
+                        {
+                            "id": "e7736a99-b504-4393-9e07-63697ad69dcf",
+                            "type": "text",
+                            "text": "用户A，切回浏览器，这个时候，显示的trickle内容还是旧的（不是用户B更新之后的内容）",
+                            "elements": [],
+                            "isCurrent": false
+                        }
+                    ],
+                    "isCurrent": false,
+                    "constraint": "free"
+                },
+                {
+                    "id": "7b380990-a5cb-49f4-8b9e-9763feaa3aa0",
+                    "type": "number_list",
+                    "isFirst": false,
+                    "computedValue": "5.",
+                    "indent": 0,
+                    "blocks": [],
+                    "display": "block",
+                    "elements": [
+                        {
+                            "id": "713e497b-8711-4230-a57b-f79c78a61df3",
+                            "type": "text",
+                            "text": "用户A，进行内容编辑，并保存，这个时候就覆盖掉了用户B的修改内容",
+                            "elements": [],
+                            "isCurrent": false
+                        }
+                    ],
+                    "isCurrent": false,
+                    "constraint": "free"
+                },
+                {
+                    "id": "ba30805b-b579-41d5-82f7-843748180115",
+                    "type": "number_list",
+                    "isFirst": false,
+                    "computedValue": "6.",
+                    "indent": 0,
+                    "blocks": [],
+                    "display": "block",
+                    "elements": [
+                        {
+                            "id": "14d1818e-5824-4ee0-83d9-3d3f1de67d11",
+                            "type": "text",
+                            "text": "用户B 会发现自己添加的内容没有了",
+                            "elements": [],
+                            "isCurrent": false
+                        }
+                    ],
+                    "isCurrent": false,
+                    "constraint": "free"
+                },
+                {
+                    "id": "3f8fc5ea-44a9-436b-9533-4f21d231982e",
+                    "type": "rich_texts",
+                    "isFirst": false,
+                    "indent": 0,
+                    "blocks": [],
+                    "display": "block",
+                    "elements": [
+                        {
+                            "id": "bf585cf3-be77-45aa-9ea3-d9dd79c16afb",
+                            "type": "text",
+                            "text": "",
+                            "elements": [],
+                            "isCurrent": false
+                        }
+                    ],
+                    "isCurrent": false,
+                    "constraint": "free"
+                },
+                {
+                    "id": "6df50e3a-5027-4da9-8443-dd553fe5eada",
+                    "type": "rich_texts",
+                    "isFirst": false,
+                    "indent": 0,
+                    "blocks": [],
+                    "display": "block",
+                    "elements": [
+                        {
+                            "id": "bdc3b69d-eaa9-44dc-8d2d-a4536ba2590b",
+                            "type": "text",
+                            "text": "两个优化：",
+                            "elements": [],
+                            "isCurrent": true
+                        }
+                    ],
+                    "isCurrent": true,
+                    "constraint": "free"
+                },
+                {
+                    "id": "e7336118-ec7d-48b0-b05c-a601ea9ea79b",
+                    "type": "list",
+                    "isFirst": false,
+                    "indent": 0,
+                    "blocks": [],
+                    "display": "block",
+                    "elements": [
+                        {
+                            "id": "ebca6b7c-7de7-45f2-9ecb-177bd64c0548",
+                            "type": "text",
+                            "text": "app从background回到foreground，如果socket已经断开并且当前在详情页，则重新初始化详情页",
+                            "elements": [],
+                            "isCurrent": false
+                        }
+                    ],
+                    "isCurrent": false,
+                    "constraint": "free"
+                }
+            ],
+            "mentionedMemberInfo": [],
+            "isPublic": false,
+            "allowGuestMemberComment": true,
+            "allowGuestMemberReact": true,
+            "allowWorkspaceMemberComment": true,
+            "allowWorkspaceMemberReact": true,
+            "commentCounts": 2,
+            "hasStarred": false,
+            "isPinned": false,
+            "permission": {
+                "allowStar": true,
+                "allowPin": true,
+                "allowDelete": false,
+                "allowUpdate": false,
+                "allowComment": true,
+                "allowReact": true
+            },
+            "referInfo": null,
+            "reactionInfo": [],
+            "lastViewInfo": {
+                "unreadCount": 0,
+                "lastViewedAt": 1675918754,
+                "lastAckMessageId": "1",
+                "lastAckMessageCreateAt": 1675622061
+            },
+            "viewedMemberInfo": {
+                "members": [
+                    {
+                        "memberId": "30788161542045701",
+                        "name": "SamdyChen",
+                        "email": "samdy.chen@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/30766068230258689/1663855165283_avatar02.png",
+                        "role": "Admin",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "30799568975167493",
+                        "name": "Chocoford",
+                        "email": "chocoford.zhang@visionwx.com",
+                        "avatarUrl": "https://testres.trickle.so/upload/users/29967960227446785/1666774231375_006mowZngy1fz3u72cx1lj307e06tq2y.jpg",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "30906771358875653",
+                        "name": "Jarod Xu",
+                        "email": "jarod.xu@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/30906221603061761/1667805291882_1660555973887.jpg",
+                        "role": "Admin",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "31662342005587973",
+                        "name": "Bob Chen",
+                        "email": "bob.chen@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/31661242493960193/1667805071903_notion-avatar-1661744170077.png",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "31728518861684741",
+                        "name": "Warren",
+                        "email": "warren.wu@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/31725701363138561/avatar.png?version=1649912900256",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "31789060720689157",
+                        "name": "yanwei1126",
+                        "email": "wei.yan@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/31784319076794369/avatar.gif?version=1649901781952",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "31911037791895557",
+                        "name": "Lawrence",
+                        "email": "lawrence.deng@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/31910178798436353/1661768102505_emily-liang-qL8wOevvBwk-unsplash.jpg",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "32316276546207749",
+                        "name": "Sydara Lee",
+                        "email": "syd.li@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/32314214961905665/avatar.gif?version=1654074863450",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "32523328329613317",
+                        "name": "Nina",
+                        "email": "nina.dou@visionwx.com",
+                        "avatarUrl": "https://testres.trickle.so/upload/users/32522297537462273/1667376717774_WX20220921-181525@2x.png",
+                        "role": "Poster",
+                        "status": "Normal"
+                    }
+                ],
+                "counts": 9
+            },
+            "editingMemberInfo": [],
+            "userDefinedTitle": "❗️正文内容多人编辑后，回退到编辑好几次前的版本，无法找回内容。暂时无法复现",
+            "threadId": null,
+            "fieldData": {
+                "909372847774760998": "911594890981277736",
+                "909372985079496742": [
+                    "920499391125520424",
+                    "910737407337300008"
+                ],
+                "909388378242285606": [
+                    "30799568975167493"
+                ],
+                "909418443013357606": "909426448832397352",
+                "920484822596452390": "920485887748341800"
+            }
+        },
+        {
+            "trickleId": "920783931366703112",
+            "groupInfo": {
+                "groupId": "909371267092578310",
+                "ranks": ""
+            },
+            "authorMemberInfo": {
+                "memberId": "30788161542045701",
+                "name": "SamdyChen",
+                "avatarUrl": "https://resource.trickle.so/upload/users/30766068230258689/1663855165283_avatar02.png",
+                "role": "Admin",
+                "status": "Normal"
+            },
+            "authorAppMemberInfo": null,
+            "createAt": 1675689056,
+            "updateAt": 1675948375,
+            "editAt": 1675689094,
+            "title": "",
+            "blocks": [
+                {
+                    "id": "d881a4d0-d3e3-4465-8897-2b0eb4c0b69f",
+                    "type": "rich_texts",
+                    "isFirst": false,
+                    "indent": 0,
+                    "blocks": [],
+                    "display": "block",
+                    "elements": [
+                        {
+                            "id": "c20ca961-996b-43d5-95de-cd54b6a52faf",
+                            "type": "text",
+                            "text": "",
+                            "elements": [],
+                            "isCurrent": false
+                        }
+                    ],
+                    "isCurrent": false,
+                    "constraint": "free"
+                }
+            ],
+            "mentionedMemberInfo": [],
+            "isPublic": false,
+            "allowGuestMemberComment": true,
+            "allowGuestMemberReact": true,
+            "allowWorkspaceMemberComment": true,
+            "allowWorkspaceMemberReact": true,
+            "commentCounts": 1,
+            "hasStarred": false,
+            "isPinned": false,
+            "permission": {
+                "allowStar": true,
+                "allowPin": true,
+                "allowDelete": false,
+                "allowUpdate": false,
+                "allowComment": true,
+                "allowReact": true
+            },
+            "referInfo": null,
+            "reactionInfo": [],
+            "lastViewInfo": {
+                "unreadCount": 0,
+                "lastViewedAt": 1675753491,
+                "lastAckMessageId": "0",
+                "lastAckMessageCreateAt": 1675753491
+            },
+            "viewedMemberInfo": {
+                "members": [
+                    {
+                        "memberId": "30788161542045701",
+                        "name": "SamdyChen",
+                        "email": "samdy.chen@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/30766068230258689/1663855165283_avatar02.png",
+                        "role": "Admin",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "30799568975167493",
+                        "name": "Chocoford",
+                        "email": "chocoford.zhang@visionwx.com",
+                        "avatarUrl": "https://testres.trickle.so/upload/users/29967960227446785/1666774231375_006mowZngy1fz3u72cx1lj307e06tq2y.jpg",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "31662342005587973",
+                        "name": "Bob Chen",
+                        "email": "bob.chen@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/31661242493960193/1667805071903_notion-avatar-1661744170077.png",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "31834999690887173",
+                        "name": "Jeffrey zha_",
+                        "email": "jeffrey.zhan@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/31833968898736129/avatar.png?version=1651145792240",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "422649524830339077",
+                        "name": "Rich",
+                        "email": "samdychen2013@outlook.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/409785620769013761/1666008496422_wf.jpeg",
+                        "role": "Poster",
+                        "status": "Normal"
+                    }
+                ],
+                "counts": 5
+            },
+            "editingMemberInfo": [],
+            "userDefinedTitle": "Channel Setting 针对 My channel的channel，member 列表一直显示的是owner",
+            "threadId": null,
+            "fieldData": {
+                "909372847774760998": "911594890981277736",
+                "909372985079496742": [
+                    "920499391125520424"
+                ],
+                "909388103498596390": 1,
+                "909388378242285606": [
+                    "31834999690887173"
+                ],
+                "909418443013357606": "909426998722428968",
+                "920484822596452390": "920485887748341800"
+            }
+        },
+        {
+            "trickleId": "920520869585879048",
+            "groupInfo": {
+                "groupId": "909371267092578310",
+                "ranks": ""
+            },
+            "authorMemberInfo": {
+                "memberId": "30788161542045701",
+                "name": "SamdyChen",
+                "avatarUrl": "https://resource.trickle.so/upload/users/30766068230258689/1663855165283_avatar02.png",
+                "role": "Admin",
+                "status": "Normal"
+            },
+            "authorAppMemberInfo": null,
+            "createAt": 1675681400,
+            "updateAt": 1675948346,
+            "editAt": 1675861262,
+            "title": "确认下 updateCustomField 会不会更新 trickle的updateAt",
+            "blocks": [
+                {
+                    "id": "80ab6e1a-072f-47ae-9705-cd23aa7b4115",
+                    "type": "checkbox",
+                    "isFirst": false,
+                    "userDefinedValue": {
+                        "status": "checked",
+                        "operatorId": "31789060720689157"
+                    },
+                    "indent": 0,
+                    "blocks": [],
+                    "display": "block",
+                    "elements": [
+                        {
+                            "id": "548e0242-68cb-482d-984a-e599982741de",
+                            "type": "text",
+                            "text": "确认下 updateCustomField 会不会更新 trickle的updateAt",
+                            "elements": [],
+                            "isCurrent": false
+                        }
+                    ],
+                    "isCurrent": false,
+                    "constraint": "free"
+                },
+                {
+                    "id": "0a0586fe-fe0d-4252-a624-945bba57bc46",
+                    "type": "checkbox",
+                    "isFirst": false,
+                    "userDefinedValue": {
+                        "status": "checked",
+                        "operatorId": "31789060720689157"
+                    },
+                    "indent": 0,
+                    "blocks": [],
+                    "display": "block",
+                    "elements": [
+                        {
+                            "id": "4f29d91f-df31-478b-999e-5f61dffd64de",
+                            "type": "text",
+                            "text": "Trickle --> Member, LastViewMember，如果已经有这条边，就不用做什么，如果没有，则创建。",
+                            "elements": [],
+                            "isCurrent": true
+                        }
+                    ],
+                    "isCurrent": true,
+                    "constraint": "free"
+                }
+            ],
+            "mentionedMemberInfo": [],
+            "isPublic": false,
+            "allowGuestMemberComment": true,
+            "allowGuestMemberReact": true,
+            "allowWorkspaceMemberComment": true,
+            "allowWorkspaceMemberReact": true,
+            "commentCounts": 2,
+            "hasStarred": false,
+            "isPinned": false,
+            "permission": {
+                "allowStar": true,
+                "allowPin": true,
+                "allowDelete": false,
+                "allowUpdate": false,
+                "allowComment": true,
+                "allowReact": true
+            },
+            "referInfo": null,
+            "reactionInfo": [],
+            "lastViewInfo": {
+                "unreadCount": 0,
+                "lastViewedAt": 0
+            },
+            "viewedMemberInfo": {
+                "members": [
+                    {
+                        "memberId": "30788161542045701",
+                        "name": "SamdyChen",
+                        "email": "samdy.chen@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/30766068230258689/1663855165283_avatar02.png",
+                        "role": "Admin",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "31662342005587973",
+                        "name": "Bob Chen",
+                        "email": "bob.chen@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/31661242493960193/1667805071903_notion-avatar-1661744170077.png",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "31789060720689157",
+                        "name": "yanwei1126",
+                        "email": "wei.yan@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/31784319076794369/avatar.gif?version=1649901781952",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "31834999690887173",
+                        "name": "Jeffrey zha_",
+                        "email": "jeffrey.zhan@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/31833968898736129/avatar.png?version=1651145792240",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "31911037791895557",
+                        "name": "Lawrence",
+                        "email": "lawrence.deng@visionwx.com",
+                        "avatarUrl": "https://resource.trickle.so/upload/users/31910178798436353/1661768102505_emily-liang-qL8wOevvBwk-unsplash.jpg",
+                        "role": "Poster",
+                        "status": "Normal"
+                    },
+                    {
+                        "memberId": "32523328329613317",
+                        "name": "Nina",
+                        "email": "nina.dou@visionwx.com",
+                        "avatarUrl": "https://testres.trickle.so/upload/users/32522297537462273/1667376717774_WX20220921-181525@2x.png",
+                        "role": "Poster",
+                        "status": "Normal"
+                    }
+                ],
+                "counts": 6
+            },
+            "editingMemberInfo": [],
+            "userDefinedTitle": "UpdateCustomField 需要更新Status Message，以及LastViewMember",
+            "threadId": null,
+            "fieldData": {
+                "909372847774760998": "911594890981277736",
+                "909372985079496742": [
+                    "920499769082642472"
+                ],
+                "909388103498596390": 1,
+                "909388378242285606": [
+                    "410180264510095365"
+                ],
+                "909418443013357606": "909426998722428968",
+                "920484822596452390": "920485887748341800"
+            }
+        }
+    ],
+    "nextTs": 1675948346
+}

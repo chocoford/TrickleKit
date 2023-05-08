@@ -1,0 +1,691 @@
+{
+    "items": [
+        {
+            "typ": "normal",
+            "text": {},
+            "blocks": [
+                {
+                    "id": "e0856df0-bcb6-4ae8-bc20-3a68f50f1c4f",
+                    "type": "rich_texts",
+                    "blocks": [],
+                    "indent": 0,
+                    "display": "block",
+                    "isFirst": false,
+                    "elements": [
+                        {
+                            "id": "0df90c0f-f8da-4803-a580-3f227854a698",
+                            "text": "quote",
+                            "type": "text",
+                            "elements": [],
+                            "isCurrent": true
+                        }
+                    ],
+                    "isCurrent": true,
+                    "constraint": "free"
+                },
+                {
+                    "id": "1095c5b0-8b26-43da-bba6-63eaa1b76cc8",
+                    "type": "webBookmark",
+                    "blocks": [],
+                    "indent": 0,
+                    "display": "block",
+                    "isFirst": false,
+                    "elements": [],
+                    "isCurrent": true,
+                    "constraint": "free",
+                    "userDefinedValue": {
+                        "url": "https://www.google.com"
+                    }
+                },
+                {
+                    "id": "53eb95f0-bebd-4f08-b7c2-d0483e03008f",
+                    "type": "embed",
+                    "blocks": [],
+                    "indent": 0,
+                    "display": "block",
+                    "isFirst": false,
+                    "elements": [],
+                    "isCurrent": false,
+                    "constraint": "free",
+                    "userDefinedValue": {
+                        "src": "<iframe class=\"w-full\"  src=\"https://www.youtube.com/embed/n_uFzLPYDd8\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>",
+                        "height": "315"
+                    }
+                }
+            ],
+            "commentId": "912022571610800137",
+            "hasQuoted": true,
+            "commentAuthor": {
+                "name": "Chocoford",
+                "role": "Poster",
+                "email": "chocoford.zhang@visionwx.com",
+                "status": "Normal",
+                "createAt": 1649787102,
+                "memberId": "30799568975167493",
+                "updateAt": 1671106044,
+                "avatarUrl": "https://testres.trickle.so/upload/users/29967960227446785/1666774231375_006mowZngy1fz3u72cx1lj307e06tq2y.jpg",
+                "lastNtfReadAt": 1671106037
+            },
+            "mentionedMemberInfo": [],
+            "quoteCommentInfo": {
+                "typ": "normal",
+                "text": {},
+                "blocks": [
+                    {
+                        "id": "600ec756-9a91-4285-96f2-18a94a9e557e",
+                        "type": "rich_texts",
+                        "blocks": [],
+                        "indent": 0,
+                        "display": "block",
+                        "isFirst": false,
+                        "elements": [
+                            {
+                                "id": "ba7ab4b6-a4a2-4c49-8a0e-e0fe3cbdf54a",
+                                "text": "Great!",
+                                "type": "text",
+                                "elements": [],
+                                "isCurrent": true
+                            }
+                        ],
+                        "isCurrent": true,
+                        "constraint": "free"
+                    }
+                ],
+                "createAt": 1675421917,
+                "updateAt": 1675421917,
+                "commentId": "911605096092008457",
+                "hasQuoted": false,
+                "commentAuthor": {
+                    "name": "Jarod Xu",
+                    "role": "Admin",
+                    "email": "jarod.xu@visionwx.com",
+                    "status": "Normal",
+                    "createAt": 1649790222,
+                    "memberId": "30906771358875653",
+                    "updateAt": 1675421901,
+                    "avatarUrl": "https://resource.trickle.so/upload/users/30906221603061761/1667805291882_1660555973887.jpg",
+                    "lastNtfReadAt": 1675421901
+                }
+            },
+            "reactionInfo": [
+                {
+                    "code": "😈",
+                    "createAt": 1675434102,
+                    "updateAt": 1675434102,
+                    "reactionId": "912023774201643023",
+                    "reactionAuthor": {
+                        "name": "Chocoford",
+                        "role": "Poster",
+                        "email": "chocoford.zhang@visionwx.com",
+                        "status": "Normal",
+                        "createAt": 1649787102,
+                        "memberId": "30799568975167493",
+                        "updateAt": 1671106044,
+                        "avatarUrl": "https://testres.trickle.so/upload/users/29967960227446785/1666774231375_006mowZngy1fz3u72cx1lj307e06tq2y.jpg",
+                        "lastNtfReadAt": 1671106037
+                    }
+                }
+            ],
+            "createAt": 1675434067,
+            "updateAt": 1675434067
+        },
+        {
+            "typ": "normal",
+            "text": {},
+            "blocks": [
+                {
+                    "id": "462a3cec-0ff9-43ca-bac3-295b8eae56dd",
+                    "type": "rich_texts",
+                    "blocks": [],
+                    "indent": 0,
+                    "display": "block",
+                    "isFirst": false,
+                    "elements": [
+                        {
+                            "id": "d095ded0-cb39-41b5-bfff-0557f32c4b79",
+                            "text": "",
+                            "type": "text",
+                            "elements": [],
+                            "isCurrent": false
+                        },
+                        {
+                            "id": "1e8c3767-aa5c-49d1-85dc-77c5ff673fd3",
+                            "text": "Jarod Xu",
+                            "type": "user",
+                            "value": "30906771358875653",
+                            "elements": [],
+                            "isCurrent": false
+                        },
+                        {
+                            "id": "273bd6f4-90a7-4070-98a5-35ab5f9db481",
+                            "text": " ",
+                            "type": "text",
+                            "elements": [],
+                            "isCurrent": false
+                        },
+                        {
+                            "id": "a98289a3-9a41-4888-9ba8-e84d9c9c73bb",
+                            "text": "Jeffrey zha_",
+                            "type": "user",
+                            "value": "31834999690887173",
+                            "elements": [],
+                            "isCurrent": false
+                        },
+                        {
+                            "id": "c4ed2c97-a889-43d1-8e32-32aa81cef3c1",
+                            "text": " 已经加入UI优化那个表，同事figma有留言",
+                            "type": "text",
+                            "elements": [],
+                            "isCurrent": true
+                        }
+                    ],
+                    "isCurrent": true,
+                    "constraint": "free"
+                }
+            ],
+            "commentId": "911483866613547017",
+            "hasQuoted": false,
+            "commentAuthor": {
+                "name": "Victoria",
+                "role": "Admin",
+                "email": "victoria.wu@visionwx.com",
+                "status": "Normal",
+                "createAt": 1649837966,
+                "memberId": "32547242707517445",
+                "updateAt": 1675413182,
+                "avatarUrl": "https://resource.trickle.so/upload//users/32545559080337409/avatar.gif/1657795736807_among-us-icegif-51.gif",
+                "lastNtfReadAt": 1675413180
+            },
+            "mentionedMemberInfo": [],
+            "quoteCommentInfo": null,
+            "reactionInfo": [],
+            "createAt": 1675418388,
+            "updateAt": 1675418388
+        },
+        {
+            "typ": "normal",
+            "text": {},
+            "blocks": [
+                {
+                    "id": "752a42c0-1b23-41cd-93fc-9e009c9ac1b3",
+                    "type": "rich_texts",
+                    "blocks": [],
+                    "indent": 0,
+                    "display": "block",
+                    "isFirst": false,
+                    "elements": [
+                        {
+                            "id": "2ac5a1be-fa03-4bf8-997b-21cc324e5d35",
+                            "text": "👌",
+                            "type": "text",
+                            "elements": [],
+                            "isCurrent": true
+                        }
+                    ],
+                    "isCurrent": true,
+                    "constraint": "free"
+                }
+            ],
+            "commentId": "911470876350742537",
+            "hasQuoted": false,
+            "commentAuthor": {
+                "name": "Victoria",
+                "role": "Admin",
+                "email": "victoria.wu@visionwx.com",
+                "status": "Normal",
+                "createAt": 1649837966,
+                "memberId": "32547242707517445",
+                "updateAt": 1675413182,
+                "avatarUrl": "https://resource.trickle.so/upload//users/32545559080337409/avatar.gif/1657795736807_among-us-icegif-51.gif",
+                "lastNtfReadAt": 1675413180
+            },
+            "mentionedMemberInfo": [],
+            "quoteCommentInfo": null,
+            "reactionInfo": [],
+            "createAt": 1675418010,
+            "updateAt": 1675418010
+        },
+        {
+            "typ": "normal",
+            "text": {},
+            "blocks": [
+                {
+                    "id": "3bba7c1c-8923-475c-b5a1-6fb253325e03",
+                    "type": "rich_texts",
+                    "blocks": [],
+                    "indent": 0,
+                    "display": "block",
+                    "isFirst": false,
+                    "elements": [
+                        {
+                            "id": "afe37f57-58d8-44bc-a70f-52f88486d100",
+                            "text": "可以在下周的迭代试一下效果",
+                            "type": "text",
+                            "elements": [],
+                            "isCurrent": true
+                        }
+                    ],
+                    "isCurrent": true,
+                    "constraint": "free"
+                }
+            ],
+            "commentId": "911448852429537289",
+            "hasQuoted": false,
+            "commentAuthor": {
+                "name": "Jarod Xu",
+                "role": "Admin",
+                "email": "jarod.xu@visionwx.com",
+                "status": "Normal",
+                "createAt": 1649790222,
+                "memberId": "30906771358875653",
+                "updateAt": 1675421901,
+                "avatarUrl": "https://resource.trickle.so/upload/users/30906221603061761/1667805291882_1660555973887.jpg",
+                "lastNtfReadAt": 1675421901
+            },
+            "mentionedMemberInfo": [],
+            "quoteCommentInfo": null,
+            "reactionInfo": [],
+            "createAt": 1675417369,
+            "updateAt": 1675417369
+        },
+        {
+            "typ": "normal",
+            "text": {},
+            "blocks": [
+                {
+                    "id": "b6a9ea99-bf4f-40f3-87ce-a6a4543b659d",
+                    "type": "rich_texts",
+                    "blocks": [],
+                    "indent": 0,
+                    "display": "block",
+                    "isFirst": false,
+                    "elements": [
+                        {
+                            "id": "7d5d5543-dab5-437a-b915-073995c95970",
+                            "text": "列到UI细节那个任务吧",
+                            "type": "text",
+                            "elements": [],
+                            "isCurrent": true
+                        }
+                    ],
+                    "isCurrent": true,
+                    "constraint": "free"
+                }
+            ],
+            "commentId": "911448611911368713",
+            "hasQuoted": false,
+            "commentAuthor": {
+                "name": "Jarod Xu",
+                "role": "Admin",
+                "email": "jarod.xu@visionwx.com",
+                "status": "Normal",
+                "createAt": 1649790222,
+                "memberId": "30906771358875653",
+                "updateAt": 1675421901,
+                "avatarUrl": "https://resource.trickle.so/upload/users/30906221603061761/1667805291882_1660555973887.jpg",
+                "lastNtfReadAt": 1675421901
+            },
+            "mentionedMemberInfo": [],
+            "quoteCommentInfo": null,
+            "reactionInfo": [
+                {
+                    "code": "👌",
+                    "createAt": 1675419423,
+                    "updateAt": 1675419423,
+                    "reactionId": "911519428942757903",
+                    "reactionAuthor": {
+                        "name": "Sydaaaaa",
+                        "role": "Poster",
+                        "email": "syd.li@visionwx.com",
+                        "status": "Normal",
+                        "createAt": 1649831244,
+                        "memberId": "32316276546207749",
+                        "updateAt": 1675414121,
+                        "avatarUrl": "https://resource.trickle.so/32314214961905665/avatar.gif?version=1654074863450",
+                        "lastNtfReadAt": 1675414120
+                    }
+                }
+            ],
+            "createAt": 1675417362,
+            "updateAt": 1675417362
+        },
+        {
+            "typ": "normal",
+            "text": {},
+            "blocks": [
+                {
+                    "id": "4f8ecff2-2aae-4404-b2e7-0761ec2daebf",
+                    "type": "rich_texts",
+                    "blocks": [],
+                    "indent": 0,
+                    "display": "block",
+                    "isFirst": false,
+                    "elements": [
+                        {
+                            "id": "2e8f2aaf-68e9-4c74-8b47-ba06ce53aa21",
+                            "text": "",
+                            "type": "text",
+                            "elements": [],
+                            "isCurrent": false
+                        },
+                        {
+                            "id": "875908c1-b61c-4545-b071-e97d85e4f8bd",
+                            "text": "Jarod Xu",
+                            "type": "user",
+                            "value": "30906771358875653",
+                            "elements": [],
+                            "isCurrent": false
+                        },
+                        {
+                            "id": "094d44c3-103a-4459-8222-91e1cfcd581f",
+                            "text": " ",
+                            "type": "text",
+                            "elements": [],
+                            "isCurrent": false
+                        },
+                        {
+                            "id": "57960829-f887-4109-83bf-6b6bda96aaf2",
+                            "text": "Jeffrey zha_",
+                            "type": "user",
+                            "value": "31834999690887173",
+                            "elements": [],
+                            "isCurrent": false
+                        },
+                        {
+                            "id": "5f04e9d8-486e-4fdf-91d2-0e5be7362985",
+                            "text": " ",
+                            "type": "text",
+                            "elements": [],
+                            "isCurrent": true
+                        }
+                    ],
+                    "isCurrent": true,
+                    "constraint": "free"
+                }
+            ],
+            "commentId": "911438475788550153",
+            "hasQuoted": false,
+            "commentAuthor": {
+                "name": "Victoria",
+                "role": "Admin",
+                "email": "victoria.wu@visionwx.com",
+                "status": "Normal",
+                "createAt": 1649837966,
+                "memberId": "32547242707517445",
+                "updateAt": 1675413182,
+                "avatarUrl": "https://resource.trickle.so/upload//users/32545559080337409/avatar.gif/1657795736807_among-us-icegif-51.gif",
+                "lastNtfReadAt": 1675413180
+            },
+            "mentionedMemberInfo": [],
+            "quoteCommentInfo": null,
+            "reactionInfo": [],
+            "createAt": 1675417067,
+            "updateAt": 1675417067
+        },
+        {
+            "typ": "normal",
+            "text": {},
+            "blocks": [
+                {
+                    "id": "ce39e906-52a9-4b40-a7b5-de8e60b6094d",
+                    "type": "gallery",
+                    "blocks": [],
+                    "indent": 0,
+                    "display": "block",
+                    "isFirst": false,
+                    "elements": [
+                        {
+                            "id": "f15e15a2-c659-4f90-b182-4dcbf761aec0",
+                            "text": "",
+                            "type": "image",
+                            "value": {
+                                "id": "31562017-b748-4006-b044-05cd4aa38e39",
+                                "url": "https://resource.trickle.so/upload/users/32545559080337409/workspaces/30788161542029315/1675416596533/image.png",
+                                "name": "image.png",
+                                "uploaded": true,
+                                "uploadFailed": false
+                            },
+                            "elements": [],
+                            "isCurrent": false
+                        }
+                    ],
+                    "isCurrent": true,
+                    "constraint": "free"
+                }
+            ],
+            "commentId": "911422431401345033",
+            "hasQuoted": false,
+            "commentAuthor": {
+                "name": "Victoria",
+                "role": "Admin",
+                "email": "victoria.wu@visionwx.com",
+                "status": "Normal",
+                "createAt": 1649837966,
+                "memberId": "32547242707517445",
+                "updateAt": 1675413182,
+                "avatarUrl": "https://resource.trickle.so/upload//users/32545559080337409/avatar.gif/1657795736807_among-us-icegif-51.gif",
+                "lastNtfReadAt": 1675413180
+            },
+            "mentionedMemberInfo": [],
+            "quoteCommentInfo": null,
+            "reactionInfo": [
+                {
+                    "code": "👀",
+                    "createAt": 1675416804,
+                    "updateAt": 1675416804,
+                    "reactionId": "911429439177359375",
+                    "reactionAuthor": {
+                        "name": "Jarod Xu",
+                        "role": "Admin",
+                        "email": "jarod.xu@visionwx.com",
+                        "status": "Normal",
+                        "createAt": 1649790222,
+                        "memberId": "30906771358875653",
+                        "updateAt": 1675421901,
+                        "avatarUrl": "https://resource.trickle.so/upload/users/30906221603061761/1667805291882_1660555973887.jpg",
+                        "lastNtfReadAt": 1675421901
+                    }
+                }
+            ],
+            "createAt": 1675416600,
+            "updateAt": 1675416600
+        },
+        {
+            "typ": "normal",
+            "text": {},
+            "blocks": [
+                {
+                    "id": "8e23a4c1-2b1d-4b1b-937d-59786e020975",
+                    "type": "rich_texts",
+                    "blocks": [],
+                    "indent": 0,
+                    "display": "block",
+                    "isFirst": false,
+                    "elements": [
+                        {
+                            "id": "3ca5a02c-1fc9-4fb8-a4ca-d8181cd5e4b7",
+                            "text": "Thread抽屉宽度建议：最小W=480px；最大W=窗口宽度-300px（效果就是抽屉的左边拉到和菜单栏右边平齐）",
+                            "type": "text",
+                            "elements": [],
+                            "isCurrent": true
+                        }
+                    ],
+                    "isCurrent": true,
+                    "constraint": "free"
+                }
+            ],
+            "commentId": "911421503688409097",
+            "hasQuoted": false,
+            "commentAuthor": {
+                "name": "Victoria",
+                "role": "Admin",
+                "email": "victoria.wu@visionwx.com",
+                "status": "Normal",
+                "createAt": 1649837966,
+                "memberId": "32547242707517445",
+                "updateAt": 1675413182,
+                "avatarUrl": "https://resource.trickle.so/upload//users/32545559080337409/avatar.gif/1657795736807_among-us-icegif-51.gif",
+                "lastNtfReadAt": 1675413180
+            },
+            "mentionedMemberInfo": [],
+            "quoteCommentInfo": null,
+            "reactionInfo": [],
+            "createAt": 1675416573,
+            "updateAt": 1675416573
+        },
+        {
+            "typ": "normal",
+            "text": {},
+            "blocks": [
+                {
+                    "id": "e2e4602d-46b5-48b9-b0e2-0f305bb4aa89",
+                    "type": "rich_texts",
+                    "blocks": [],
+                    "indent": 0,
+                    "display": "block",
+                    "isFirst": false,
+                    "elements": [
+                        {
+                            "id": "c0bc1e76-72f6-4d99-847f-89167206c976",
+                            "text": "",
+                            "type": "text",
+                            "elements": [],
+                            "isCurrent": false
+                        },
+                        {
+                            "id": "46ba91ad-b0ee-4c11-b374-7070d55990a2",
+                            "text": "Victoria",
+                            "type": "user",
+                            "value": "32547242707517445",
+                            "elements": [],
+                            "isCurrent": false
+                        },
+                        {
+                            "id": "d01fd00a-5949-4630-9a23-5151c40dba75",
+                            "text": " ",
+                            "type": "text",
+                            "elements": [],
+                            "isCurrent": true
+                        }
+                    ],
+                    "isCurrent": true,
+                    "constraint": "free"
+                }
+            ],
+            "commentId": "911304083845939209",
+            "hasQuoted": false,
+            "commentAuthor": {
+                "name": "Jarod Xu",
+                "role": "Admin",
+                "email": "jarod.xu@visionwx.com",
+                "status": "Normal",
+                "createAt": 1649790222,
+                "memberId": "30906771358875653",
+                "updateAt": 1675421901,
+                "avatarUrl": "https://resource.trickle.so/upload/users/30906221603061761/1667805291882_1660555973887.jpg",
+                "lastNtfReadAt": 1675421901
+            },
+            "mentionedMemberInfo": [],
+            "quoteCommentInfo": null,
+            "reactionInfo": [],
+            "createAt": 1675413156,
+            "updateAt": 1675413156
+        },
+        {
+            "typ": "normal",
+            "text": {},
+            "blocks": [
+                {
+                    "id": "27edb9d0-fa64-4b2a-b066-d44417c8c9c0",
+                    "type": "rich_texts",
+                    "blocks": [],
+                    "indent": 0,
+                    "display": "block",
+                    "isFirst": false,
+                    "elements": [
+                        {
+                            "id": "c1dd107d-da74-4a54-b1f7-01790e3ba429",
+                            "text": "需要，我们可以先做一个简单的：给抽屉一个最大宽度和一个最小宽度",
+                            "type": "text",
+                            "elements": [],
+                            "isCurrent": true
+                        }
+                    ],
+                    "isCurrent": true,
+                    "constraint": "free"
+                }
+            ],
+            "commentId": "911303946406985737",
+            "hasQuoted": false,
+            "commentAuthor": {
+                "name": "Jarod Xu",
+                "role": "Admin",
+                "email": "jarod.xu@visionwx.com",
+                "status": "Normal",
+                "createAt": 1649790222,
+                "memberId": "30906771358875653",
+                "updateAt": 1675421901,
+                "avatarUrl": "https://resource.trickle.so/upload/users/30906221603061761/1667805291882_1660555973887.jpg",
+                "lastNtfReadAt": 1675421901
+            },
+            "mentionedMemberInfo": [],
+            "quoteCommentInfo": null,
+            "reactionInfo": [],
+            "createAt": 1675413152,
+            "updateAt": 1675413152
+        },
+        {
+            "typ": "system",
+            "text": {
+                "en": "updated this post.",
+                "zh": ""
+            },
+            "blocks": null,
+            "commentId": "911013016462475273",
+            "hasQuoted": false,
+            "commentAuthor": {
+                "name": "Sydaaaaa",
+                "role": "Poster",
+                "email": "syd.li@visionwx.com",
+                "status": "Normal",
+                "createAt": 1649831244,
+                "memberId": "32316276546207749",
+                "updateAt": 1675414121,
+                "avatarUrl": "https://resource.trickle.so/32314214961905665/avatar.gif?version=1654074863450",
+                "lastNtfReadAt": 1675414120
+            },
+            "mentionedMemberInfo": [],
+            "quoteCommentInfo": null,
+            "reactionInfo": [],
+            "createAt": 1675404685,
+            "updateAt": 1675404685
+        },
+        {
+            "typ": "system",
+            "text": {
+                "en": "updated this post.",
+                "zh": ""
+            },
+            "blocks": null,
+            "commentId": "911010267683356681",
+            "hasQuoted": false,
+            "commentAuthor": {
+                "name": "Sydaaaaa",
+                "role": "Poster",
+                "email": "syd.li@visionwx.com",
+                "status": "Normal",
+                "createAt": 1649831244,
+                "memberId": "32316276546207749",
+                "updateAt": 1675414121,
+                "avatarUrl": "https://resource.trickle.so/32314214961905665/avatar.gif?version=1654074863450",
+                "lastNtfReadAt": 1675414120
+            },
+            "mentionedMemberInfo": [],
+            "quoteCommentInfo": null,
+            "reactionInfo": [],
+            "createAt": 1675404605,
+            "updateAt": 1675404605
+        }
+    ],
+    "nextTs": null
+}
