@@ -474,14 +474,14 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent {
 // MARK: - Workspace Change Events
 public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.WorkspaceChangeEvent {
     struct WorkspaceUpdatedEvent: ChangeEvent {
-        var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.WorkspaceEventType
-        var eventData: EventData
+        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.WorkspaceEventType
+        public var eventData: EventData
         
-        struct EventData: Codable {
-            var workspaceID: WorkspaceData.ID
-            var memberID: MemberData.ID
-            var broadcastToRoom: Bool
-            var workspaceInfo: [String : AnyDictionaryValue]
+        public struct EventData: Codable {
+            public var workspaceID: WorkspaceData.ID
+            public var memberID: MemberData.ID
+            public var broadcastToRoom: Bool
+            public var workspaceInfo: [String : AnyDictionaryValue]
             
             enum CodingKeys: String, CodingKey {
                 case workspaceID = "workspaceId"
@@ -500,13 +500,13 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.BoardChange
 // MARK: - Trickles Change Events
 public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleChangeEvent {
     struct TrickleCreatedEvent: ChangeEvent {
-        var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleEventType
-        var eventData: EventData
+        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleEventType
+        public var eventData: EventData
         
-        struct EventData: Codable {
-            let workspaceID, channelID, trickleID: String
-            let afterTrickleID: String?
-            let trickleInfo: TrickleData
+        public struct EventData: Codable {
+            public let workspaceID, channelID, trickleID: String
+            public let afterTrickleID: String?
+            public let trickleInfo: TrickleData
             
             enum CodingKeys: String, CodingKey {
                 case workspaceID = "workspaceId"
@@ -519,13 +519,13 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleChan
     }
     
     struct TrickleUpdatedEvent: ChangeEvent {
-        var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleEventType
-        var eventData: EventData
+        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleEventType
+        public var eventData: EventData
         
-        struct EventData: Codable {
-            let workspaceID, channelID, trickleID: String
-            let afterTrickleID: String?
-            let trickleInfo: TrickleData
+        public struct EventData: Codable {
+            public let workspaceID, channelID, trickleID: String
+            public let afterTrickleID: String?
+            public let trickleInfo: TrickleData
             
             enum CodingKeys: String, CodingKey {
                 case workspaceID = "workspaceId"
@@ -538,13 +538,13 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleChan
     }
     
     struct TrickleDeletedEvent: ChangeEvent {
-        var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleEventType
-        var eventData: EventData
+        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleEventType
+        public var eventData: EventData
         
-        struct EventData: Codable {
-            let trickleID, workspaceID, receiverID, authorMemberID: String
-            let createAt: Date
-            let threadID: String?
+        public struct EventData: Codable {
+            public let trickleID, workspaceID, receiverID, authorMemberID: String
+            public let createAt: Date
+            public let threadID: String?
             
             enum CodingKeys: String, CodingKey {
                 case trickleID = "trickleId"
@@ -558,16 +558,16 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleChan
     }
     
     struct TrickleMovedEvent: ChangeEvent {
-        var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleEventType
-        var eventData: EventData
+        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleEventType
+        public var eventData: EventData
         
-        struct EventData: Codable {
-            let workspaceID: WorkspaceData.ID
-            let channelID, fromChannelID: GroupData.ID
-            let trickleID: TrickleData.ID
-            let afterTrickleID: TrickleData.ID?
-            let trickleInfo: TrickleData
-            let triggerMemberID: MemberData.ID
+        public struct EventData: Codable {
+            public let workspaceID: WorkspaceData.ID
+            public let channelID, fromChannelID: GroupData.ID
+            public let trickleID: TrickleData.ID
+            public let afterTrickleID: TrickleData.ID?
+            public let trickleInfo: TrickleData
+            public let triggerMemberID: MemberData.ID
             
             enum CodingKeys: String, CodingKey {
                 case workspaceID = "workspaceId"
@@ -582,14 +582,14 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleChan
     }
     
     struct TrickleViewdEvent: ChangeEvent {
-        var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleEventType
-        var eventData: EventData
+        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleEventType
+        public var eventData: EventData
         
-        struct EventData: Codable {
-            let workspaceID: WorkspaceData.ID
-            let memberID: MemberData.ID
-            let trickleID: TrickleData.ID
-            let trickleInfo: TrickleInfo
+        public struct EventData: Codable {
+            public let workspaceID: WorkspaceData.ID
+            public let memberID: MemberData.ID
+            public let trickleID: TrickleData.ID
+            public let trickleInfo: TrickleInfo
             
             enum CodingKeys: String, CodingKey {
                 case workspaceID = "workspaceId"
@@ -598,28 +598,28 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleChan
                 case trickleInfo
             }
             
-            struct TrickleInfo: Codable {
-                let trickleID: TrickleData.ID
-                let viewedMemberInfo: ViewedMemberInfo
+            public struct TrickleInfo: Codable {
+                public let trickleID: TrickleData.ID
+                public let viewedMemberInfo: ViewedMemberInfo
 
                 enum CodingKeys: String, CodingKey {
                     case trickleID = "trickleId"
                     case viewedMemberInfo
                 }
                 
-                struct ViewedMemberInfo: Codable {
-                    let members: [MemberData]
-                    let counts: Int
+                public struct ViewedMemberInfo: Codable {
+                    public let members: [MemberData]
+                    public let counts: Int
                 }
             }
         }
     }
     
 //    struct TricklePinnedEvent: ChangeEvent {
-//        var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleEventType
-//        var eventData: EventData
+//        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleEventType
+//        public var eventData: EventData
 //
-//        struct EventData: Codable {
+//        public struct EventData: Codable {
 //            let workspaceID: WorkspaceData.ID
 //            let memberID: MemberData.ID
 //            let trickleID: TrickleData.ID
@@ -635,14 +635,14 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleChan
 //    }
     
     struct TricklePinRankChangedEvent: ChangeEvent {
-        var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleEventType
-        var eventData: EventData
+        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleEventType
+        public var eventData: EventData
         
-        struct EventData: Codable {
-            let workspaceID: WorkspaceData.ID
-            let channelID: GroupData.ID
-            let trickleID: TrickleData.ID
-            let afterTrickleID: TrickleData.ID
+        public struct EventData: Codable {
+            public let workspaceID: WorkspaceData.ID
+            public let channelID: GroupData.ID
+            public let trickleID: TrickleData.ID
+            public let afterTrickleID: TrickleData.ID
             
             enum CodingKeys: String, CodingKey {
                 case workspaceID = "workspaceId"
@@ -654,10 +654,10 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleChan
     }
     
     struct TrickleStarredEvent: ChangeEvent {
-        var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleEventType
-        var eventData: EventData
+        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleEventType
+        public var eventData: EventData
         
-        struct EventData: Codable {
+        public struct EventData: Codable {
             let workspaceID: WorkspaceData.ID
             let trickleID: TrickleData.ID
             let memberID: MemberData.ID
@@ -671,13 +671,13 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleChan
     }
     
     struct TrickleUnstarredEvent: ChangeEvent {
-        var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleEventType
-        var eventData: EventData
+        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleEventType
+        public var eventData: EventData
         
-        struct EventData: Codable {
-            let workspaceID: WorkspaceData.ID
-            let trickleID: TrickleData.ID
-            let memberID: MemberData.ID
+        public struct EventData: Codable {
+            public let workspaceID: WorkspaceData.ID
+            public let trickleID: TrickleData.ID
+            public let memberID: MemberData.ID
             
             enum CodingKeys: String, CodingKey {
                 case workspaceID = "workspaceId"
@@ -692,13 +692,13 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleChan
 // MARK: - Comments Change Events
 public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.CommentChangeEvent {
     struct CommentCreatedEvent: ChangeEvent {
-        var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.CommentEventType
-        var eventData: EventData
+        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.CommentEventType
+        public var eventData: EventData
         
-        struct EventData: Codable {
-            let workspaceID, trickleID, title: String
-            let commentInfo: CommentData
-            let files, medias: [String]
+        public struct EventData: Codable {
+            public let workspaceID, trickleID, title: String
+            public let commentInfo: CommentData
+            public let files, medias: [String]
 
             enum CodingKeys: String, CodingKey {
                 case workspaceID = "workspaceId"
@@ -708,13 +708,13 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.CommentChan
         }
     }
     struct CommentDeletedEvent: ChangeEvent {
-        var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.CommentEventType
-        var eventData: EventData
+        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.CommentEventType
+        public var eventData: EventData
         
-        struct EventData: Codable {
-            let workspaceID: WorkspaceData.ID
-            let trickleID: TrickleData.ID
-            let commentID: CommentData.ID
+        public struct EventData: Codable {
+            public let workspaceID: WorkspaceData.ID
+            public let trickleID: TrickleData.ID
+            public let commentID: CommentData.ID
 
             enum CodingKeys: String, CodingKey {
                 case workspaceID = "workspaceId"
@@ -724,12 +724,12 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.CommentChan
         }
     }
     struct StatusCommentCreatedEvent: ChangeEvent {
-        var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.CommentEventType
-        var eventData: EventData
+        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.CommentEventType
+        public var eventData: EventData
         
-        struct EventData: Codable {
-            let workspaceID, trickleID, title: String
-            let commentInfo: CommentData
+        public struct EventData: Codable {
+            public let workspaceID, trickleID, title: String
+            public let commentInfo: CommentData
             
             enum CodingKeys: String, CodingKey {
                 case workspaceID = "workspaceId"
@@ -739,14 +739,14 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.CommentChan
         }
     }
     struct ThreadsUnreadCountUpdatedEvent: Codable, ChangeEvent {
-        var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.CommentEventType
-        var eventData: EventData
+        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.CommentEventType
+        public var eventData: EventData
         
-        struct EventData: Codable {
-            var workspaceID: WorkspaceData.ID
-            var memberID: MemberData.ID
-            var broadcastToMember: Bool
-            var threadsUnreadCount: Int
+        public struct EventData: Codable {
+            public var workspaceID: WorkspaceData.ID
+            public var memberID: MemberData.ID
+            public var broadcastToMember: Bool
+            public var threadsUnreadCount: Int
             
             enum CodingKeys: String, CodingKey {
                 case workspaceID = "workspaceId"
@@ -758,10 +758,10 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.CommentChan
     }
     
     struct DMUnreadCountUpdatedEvent: ChangeEvent {
-        var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.CommentEventType
-        var eventData: EventData
+        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.CommentEventType
+        public var eventData: EventData
         
-        struct EventData: Codable {
+        public struct EventData: Codable {
            
         }
     }
@@ -770,15 +770,15 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.CommentChan
 // MARK: - Reactions Change Events
 public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.ReactionChangeEvent {
     struct ReactionCreatedEvent: ChangeEvent {
-        var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.ReactionEventType
-        var eventData: EventData
+        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.ReactionEventType
+        public var eventData: EventData
         
-        struct EventData: Codable {
-            var reactionInfo: ReactionData
-            var title: String
-            var trickleID: TrickleData.ID
-            var triggerMemberID: MemberData.ID
-            var workspaceID: WorkspaceData.ID
+        public struct EventData: Codable {
+            public var reactionInfo: ReactionData
+            public var title: String
+            public var trickleID: TrickleData.ID
+            public var triggerMemberID: MemberData.ID
+            public var workspaceID: WorkspaceData.ID
             
             enum CodingKeys: String, CodingKey {
                 case reactionInfo
@@ -791,13 +791,13 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.ReactionCha
     }
     
     struct ReactionDeletedEvent: ChangeEvent {
-        var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.ReactionEventType
-        var eventData: EventData
+        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.ReactionEventType
+        public var eventData: EventData
         
-        struct EventData: Codable {
-            var workspaceID: WorkspaceData.ID
-            var trickleID: TrickleData.ID
-            var reactionID: ReactionData.ID
+        public struct EventData: Codable {
+            public var workspaceID: WorkspaceData.ID
+            public var trickleID: TrickleData.ID
+            public var reactionID: ReactionData.ID
             
             enum CodingKeys: String, CodingKey {
                 case workspaceID = "workspaceId"
@@ -808,15 +808,15 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.ReactionCha
     }
     
     struct CommentReactionCreatedEvent: ChangeEvent {
-        var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.ReactionEventType
-        var eventData: EventData
+        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.ReactionEventType
+        public var eventData: EventData
         
-        struct EventData: Codable {
-            var reactionInfo: ReactionData
-            var title: String
-            var trickleID: TrickleData.ID
-            var commentID: CommentData.ID
-            var workspaceID: WorkspaceData.ID
+        public struct EventData: Codable {
+            public var reactionInfo: ReactionData
+            public var title: String
+            public var trickleID: TrickleData.ID
+            public var commentID: CommentData.ID
+            public var workspaceID: WorkspaceData.ID
             
             enum CodingKeys: String, CodingKey {
                 case workspaceID = "workspaceId"
@@ -828,14 +828,14 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.ReactionCha
     }
     
     struct CommentReactionDeletedEvent: ChangeEvent {
-        var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.ReactionEventType
-        var eventData: EventData
+        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.ReactionEventType
+        public var eventData: EventData
         
-        struct EventData: Codable {
-            var workspaceID: WorkspaceData.ID
-            var trickleID: TrickleData.ID
-            var commentID: CommentData.ID
-            var reactionID: ReactionData.ID
+        public struct EventData: Codable {
+            public var workspaceID: WorkspaceData.ID
+            public var trickleID: TrickleData.ID
+            public var commentID: CommentData.ID
+            public var reactionID: ReactionData.ID
             
             enum CodingKeys: String, CodingKey {
                 case workspaceID = "workspaceId"
@@ -850,10 +850,10 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.ReactionCha
 // MARK: - View Change Events
 public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.ViewChangeEvent {
     struct GroupFieldUpdatedEvent: ChangeEvent {
-        var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.ViewEventType
-        var eventData: EventData
+        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.ViewEventType
+        public var eventData: EventData
         
-        struct EventData: Codable {
+        public struct EventData: Codable {
             
         }
     }
