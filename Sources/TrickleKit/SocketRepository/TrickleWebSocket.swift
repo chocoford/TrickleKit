@@ -155,12 +155,12 @@ public extension TrickleWebSocket {
     }
     
     struct Message<T: Codable, P: Codable>: Codable {
-        let id: String
-        let authorization: String?
-        let action: MessageAction
-        let path: P
-        let data: T?
-        let meta: MessageMeta?
+        public let id: String
+        public let authorization: String?
+        public let action: MessageAction
+        public let path: P
+        public let data: T?
+        public let meta: MessageMeta?
 
         init(id: String? = nil, authorization: String? = nil, action: MessageAction, path: P, data: T? = nil, meta: MessageMeta? = nil) {
             self.id = id ?? UUID().uuidString

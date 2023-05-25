@@ -9,8 +9,6 @@ import Foundation
 import ChocofordUI
 
 
-
-
 extension TrickleWebSocket {
     @MainActor
     func handleChangeNotify(_ data: [TrickleWebSocket.ChangeNotifyData]) {
