@@ -28,7 +28,7 @@ public class TrickleSocketMessageHandler {
     
     public static var shared: TrickleSocketMessageHandler = .init()
     
-    let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "TrickleSocketMessageHandler")
+    let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "TrickleKit", category: "TrickleSocketMessageHandler")
     
     private init() {}
     
