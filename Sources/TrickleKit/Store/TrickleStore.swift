@@ -16,9 +16,9 @@ public enum TrickleStoreError: LocalizedError {
     case unauthorized
     case invalidWorkspaceID(_ workspaceID: WorkspaceData.ID?)
     case invalidGroupID(_ groupID: GroupData.ID?)
-    case workspaceNotFound(_ workspaceID: WorkspaceData.ID)
-    case groupNotFound(_ groupID: GroupData.ID)
-    case trickleNotFound(_ trickleID: TrickleData.ID)
+    case invalidViewID(_ viewID: GroupData.ViewInfo.ID?)
+    case invalidTrickleID(_ trickleID: TrickleData.ID?)
+    case invalidReactionID(_ reactionID: ReactionData.ID?)
     case pinError(_ error: PinError)
     case starError(_ error: StarError)
     
@@ -37,14 +37,13 @@ public enum TrickleStoreError: LocalizedError {
             case .invalidWorkspaceID(let workspaceID):
                 return "Invalid workspace ID(\(workspaceID ?? "nil"))."
             case .invalidGroupID(let groupID):
-                return "Invalid GroupID(\(groupID ?? "nil"))"
-            case .workspaceNotFound(let workspaceID):
-                return "Workspace(\(workspaceID)) not found."
-            case .groupNotFound(let groupID):
-                return "Group(\(groupID)) not found."
-            case .trickleNotFound(let trickleID):
-                return "Trickle(\(trickleID)) not found."
-                
+                return "Invalid groupID(\(groupID ?? "nil"))"
+            case .invalidViewID(let viewID):
+                return "Invalid viewID(\(viewID ?? "nil"))"
+            case .invalidTrickleID(let trickleID):
+                return "Invalid trickleID(\(trickleID ?? "nil"))"
+            case .invalidReactionID(let reactionID):
+                return "Invalid reactionID(\(reactionID ?? "nil"))"
             case .pinError(let error):
                 return error.errorDescription
                 
@@ -89,24 +88,8 @@ public class TrickleStore: ObservableObject {
         }
     }
     
-    @Published public var allWorkspaces: Loadable<AnyStreamable<WorkspaceData>> = .notRequested {
-        didSet {
-            if case .loaded(let data) = allWorkspaces {
-                data.items.forEach({ workspaceData in
-                    workspaceThreadIDs[workspaceData.workspaceID] = .loaded(data: .init(items: [], nextTs: Int(Date.now.timeIntervalSince1970)))
-                    Task {
-                        await self.socket.joinRoom(workspaceID: workspaceData.workspaceID, memberID: workspaceData.userMemberInfo.memberID)
-                    }
-                })
-                
-                if case .loaded(let value) = userInfo, let userID = value?.user.id {
-                    Task {
-                        await self.socket.subscribeWorksaces(data.items.map{$0.workspaceID}, userID: userID)
-                    }
-                }
-            }
-        }
-    }
+    @Published public var allWorkspaces: Loadable<AnyStreamable<WorkspaceData>> = .notRequested
+    // TODO: Be the source of truth
     public var workspaces: [String : WorkspaceData] {
         formDic(payload: allWorkspaces.value?.items ?? [], id: \.workspaceID)
     }
@@ -131,7 +114,7 @@ public class TrickleStore: ObservableObject {
         return workspacesMembers[currentWorkspaceID] ?? .notRequested
     }
     /// A dictionary describes all members.
-    public var members: [String : MemberData] {
+    public var members: [MemberData.ID : MemberData] {
         workspacesMembers.values.map {
             $0.map { formDic(payload: $0.items, id: \.memberID) }.value ?? [:]
         }
@@ -235,28 +218,10 @@ public class TrickleStore: ObservableObject {
     /// A dictionary that stores all groups' trickles.
     @Published public var trickles: [String : TrickleData] = [:]
     @available(*, deprecated)
-    @Published internal var groupsTrickleIDs: [String : Loadable<AnyQueryStreamable<TrickleData.ID>>] = [:] {
-        didSet {
-            groupsTrickleIDs.forEach { groupID, trickleIDs in
-                trickleIDs.value?.items.forEach { trickleID in
-                    if tricklesComments[trickleID] == nil {
-                        tricklesComments[trickleID] = .loaded(data: .init(items: [], nextTs: Int(Date.now.timeIntervalSince1970)))
-                    }
-                }
-            }
-        }
-    }
-    @Published internal var workspaceThreadIDs: [String : Loadable<AnyStreamable<TrickleData.ID>>] = [:] {
-        didSet {
-            workspaceThreadIDs.forEach { groupID, trickleIDs in
-                trickleIDs.value?.items.forEach { trickleID in
-                    if tricklesComments[trickleID] == nil {
-                        tricklesComments[trickleID] = .loaded(data: .init(items: [], nextTs: Int(Date.now.timeIntervalSince1970)))
-                    }
-                }
-            }
-        }
-    }
+    @Published internal var groupsTrickleIDs: [String : Loadable<AnyQueryStreamable<TrickleData.ID>>] = [:]
+    @Published internal var workspaceThreadIDs: [WorkspaceData.ID : Loadable<AnyStreamable<TrickleData.ID>>] = [:]
+    
+    @Published public var workspacesThreadsUnreadCount: [WorkspaceData.ID : Int] = [:]
     
     public var groupsTrickles: [GroupData.ID : [TrickleData]] {
         var result: [GroupData.ID : [TrickleData]] = [:]
@@ -273,8 +238,8 @@ public class TrickleStore: ObservableObject {
         return result
     }
     
-    public var workspaceThreads: [String : Loadable<AnyStreamable<TrickleData>>] {
-        var result: [String : Loadable<AnyStreamable<TrickleData>>] = [:]
+    public var workspaceThreads: [WorkspaceData.ID : Loadable<AnyStreamable<TrickleData>>] {
+        var result: [WorkspaceData.ID : Loadable<AnyStreamable<TrickleData>>] = [:]
         workspaceThreadIDs.forEach { key, loadable in
             result[key] = loadable.map {
                 .init(items: $0.items.compactMap { trickles[$0] },
@@ -306,10 +271,16 @@ public class TrickleStore: ObservableObject {
     
     
     // MARK: - Trickles Comments
-    @Published public var tricklesComments: [String : Loadable<AnyStreamable<CommentData>>] = [:]
+    @Published public var tricklesCommentIDs: [TrickleData.ID : Loadable<AnyStreamable<CommentData.ID>>] = [:]
+    public var tricklesComments: [TrickleData.ID : Loadable<AnyStreamable<CommentData>>] {
+        tricklesCommentIDs.map { (key, value) in
+            [key: value.map{ $0.compactMap{ comments[$0] } }]
+        }.merged()
+    }
+    @Published public var comments: [CommentData.ID : CommentData] = [:]
     public var currentTrickleComments: Loadable<AnyStreamable<CommentData>> {
         guard let currentTrickleID = currentTrickleID else { return .notRequested }
-        return tricklesComments[currentTrickleID] ?? .notRequested
+        return tricklesCommentIDs[currentTrickleID]?.map{ .init(items: $0.items.compactMap{comments[$0]}, nextTs: $0.nextTs) } ?? .notRequested
     }
     
     
@@ -320,6 +291,7 @@ public class TrickleStore: ObservableObject {
             [$0.key : $0.value.compactMap{trickles[$0]}]
         }.merged()
     }
+    @available(*, deprecated)
     public var currentGroupPinTrickles: [TrickleData] {
         guard let currentGroupID = currentGroupID else { return [] }
         return groupsPinTrickles[currentGroupID] ?? []
@@ -356,16 +328,19 @@ public class TrickleStore: ObservableObject {
         viewsTricklesStat.removeAll()
         groupsFieldsOptions.removeAll()
         trickles.removeAll()
-        groupsTrickleIDs.removeAll()
+//        groupsTrickleIDs.removeAll()
         workspaceThreadIDs.removeAll()
         currentTrickleID = nil
-        tricklesComments.removeAll()
+        tricklesCommentIDs.removeAll()
+        comments.removeAll()
         error = nil
         historyErrors.removeAll()
+        
+        socket.reinitSocket()
     }
     
     public enum LoadMoreOption {
-        case older
-        case newer
+        case older(_ since: Date? = nil)
+        case newer(_ since: Date? = nil)
     }
 }

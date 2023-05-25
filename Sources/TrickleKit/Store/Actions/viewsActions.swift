@@ -10,9 +10,7 @@ import Foundation
 extension TrickleStore {
     public func listGroupViewTricklesStat(_ viewID: GroupData.ViewInfo.ID?) async {
         guard let viewID = viewID ?? currentGroupViewID,
-              let view = views[viewID],
-              let group = findViewGroup(viewID),
-              let workspace = findGroupWorkspace(group.groupID)
+              let view = views[viewID]
         else { return }
         
         viewsTricklesStat[viewID] = .isLoading(last: viewsTricklesStat[viewID]?.value)
@@ -23,6 +21,8 @@ extension TrickleStore {
         }
         
         do {
+            let group = try findViewGroup(viewID)
+            let workspace = try findGroupWorkspace(group.groupID)
             let stat = try await webRepositoryClient.listGroupViewTricklesStat(workspaceID: workspace.workspaceID,
                                                                                groupID: group.groupID,
                                                                                query: .init(groupBy: .init(fieldId: groupBy.fieldID,
@@ -33,12 +33,9 @@ extension TrickleStore {
             
             viewsTricklesStat[viewID] = .loaded(data: stat)
             resetViewTrickles(viewID)
-        } catch let error as LoadableError {
-            self.error = .lodableError(error)
-            viewsTricklesStat[viewID] = .failed(error)
         } catch {
-            self.error = .unexpected(error)
-            viewsTricklesStat[viewID] = .failed(.unexpected(error: error))
+            self.error = .init(error)
+            viewsTricklesStat[viewID]?.setAsFailed(error)
         }
     }
 }

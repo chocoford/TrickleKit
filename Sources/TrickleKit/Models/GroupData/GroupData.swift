@@ -58,8 +58,8 @@ extension GroupData {
     
     public struct LastViewInfo: Codable, Hashable {
         public var unreadCount: Int
-        public var lastACKTrickleID: Double?
-        public var lastACKTrickleCreateAt: Int
+        public var lastACKTrickleID: Double? // bug in backend
+        public var lastACKTrickleCreateAt: Date
         public var createAt, updateAt: Date?
         
         enum CodingKeys: String, CodingKey {

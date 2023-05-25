@@ -20,8 +20,6 @@ public struct Config {
     public static let webSocketDomain = "wsapi.trickle.so"
     public static let ossBucket = "trickle-resource-live"
     public static let ossAssetsDomain = "resource.trickle.so"
-
-
 #endif
 
 }

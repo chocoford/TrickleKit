@@ -9,7 +9,7 @@ import SwiftUI
 import ChocofordUI
 
 public class TrickleEditorConfig: ObservableObject {
-    static var `default` = TrickleEditorConfig(version: .v1,
+    static var `default` = TrickleEditorConfig(version: .v0,
                                                selectable: true,
                                                editable: true,
                                                scrollable: true,
@@ -21,12 +21,12 @@ public class TrickleEditorConfig: ObservableObject {
                                                baseFontSize: 16)
     
     public enum Version {
+        case v0
         case v1
         case v2
     }
     
-//    @Published
-    var version: Version = .v1
+    var version: Version = .v0
     
     var editable: Bool = true
     var selectable: Bool = true
@@ -84,6 +84,9 @@ public struct TrickleEditorView: View {
     
     public var body: some View {
         switch config.version {
+            case .v0:
+                v0Editor
+                
             case .v1:
                 v1Editor
                 
@@ -154,6 +157,42 @@ public struct TrickleEditorView: View {
     }
 }
 
+// MARK: - V0: plain text editor only
+extension TrickleEditorView {
+    @ViewBuilder
+    private var v0Editor: some View {
+//        let _ = print("render v0Editor. editable: \(config.editable)")
+        if config.editable {
+            HStack {
+                TextEditor(text: $inputText)
+                    .padding(4)
+                    .onChange(of: inputText) { newValue in
+                        blocks = TrickleEditorParser.formBlock(string: newValue)
+                    }
+#if os(macOS)
+                VStack {
+                    Spacer(minLength: 0)
+                    Button {
+                        if let onSend = config.onSend {
+                            onSend(blocks)
+                        }
+                    } label: {
+                        Image(systemName: "paperplane")
+                            .padding(4)
+                    }
+                    .buttonStyle(.borderless)
+                }
+#endif
+            }
+            .background(Color.textBackgroundColor)
+            .frame(height: 40)
+        } else {
+            TrickleEditorParser.parse(blocks, baseFontSize: config.baseFontSize)
+        }
+    }
+}
+
+
 // MARK: - V1: plain text editor with previews
 extension TrickleEditorView {
 //    var blocksText: Binding<String> {
@@ -220,9 +259,9 @@ extension TrickleEditorView {
     @ViewBuilder private var toolbar: some View {
         HStack {
             Button {
-                #if os(macOS)
+#if os(macOS)
                 importImage()
-                #endif
+#endif
             } label: {
                 Image(systemName: "photo")
             }
@@ -293,7 +332,7 @@ extension TrickleEditorView {
         }
     }
     
-    #if os(macOS)
+#if os(macOS)
     func importImage() {
         let panel = NSOpenPanel()
         panel.allowsMultipleSelection = false
@@ -328,7 +367,7 @@ extension TrickleEditorView {
             }
         }
     }
-    #endif
+#endif
 }
 
 
@@ -337,7 +376,7 @@ extension TrickleEditorView {
         self.config.selectable = flag
         return self
     }
-
+    
     public func editable(_ flag: Bool = true) -> TrickleEditorView {
         self.config.editable = flag
         return self

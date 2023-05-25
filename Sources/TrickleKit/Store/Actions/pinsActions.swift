@@ -26,7 +26,7 @@ public extension TrickleStoreError {
 extension TrickleStore {
     internal func _lsitPinTrickles(workspaceID: WorkspaceData.ID, groupID: GroupData.ID) async {
         do {
-            guard let workspace = findGroupWorkspace(groupID) else { throw TrickleStoreError.workspaceNotFound(workspaceID) }
+            let workspace = try findGroupWorkspace(groupID)
             let data: AnyStreamable<TrickleData> = try await webRepositoryClient.listPinTrickles(workspaceID: workspaceID, groupID: groupID, query: .init(memberID: workspace.userMemberInfo.memberID))
             trickles.merge(data.items.formDic(\.trickleID)) { (_, new) in
                 new
@@ -37,9 +37,20 @@ extension TrickleStore {
             groupsPinTrickleIDs[groupID]?.removeAll()
         }
     }
-    public func listPinTrickles(workspaceID: WorkspaceData.ID, groupID: GroupData.ID) async {
-        await _lsitPinTrickles(workspaceID: workspaceID, groupID: groupID)
+    public func listPinTrickles(workspaceID: WorkspaceData.ID? = nil, groupID: GroupData.ID) async {
+        do {
+            if let workspaceID = workspaceID {
+                await _lsitPinTrickles(workspaceID: workspaceID, groupID: groupID)
+            } else {
+                let workspaceID = try findGroupWorkspace(groupID).workspaceID
+                await _lsitPinTrickles(workspaceID: workspaceID, groupID: groupID)
+            }
+        } catch {
+            self.error = .init(error)
+        }
     }
+    
+    @available(*, deprecated)
     public func listPinTrickles() async {
         guard let workspaceID = currentWorkspaceID,
               let groupID = currentGroupID else { return }
@@ -47,9 +58,8 @@ extension TrickleStore {
     }
     
     public func tryPinTrickle(trickleID: TrickleData.ID) async throws -> String {
-        guard let group = findTrickleGroup(trickleID),
-              let workspace = findGroupWorkspace(group.groupID)
-        else { throw TrickleStoreError.trickleNotFound(trickleID) }
+        let group = try findTrickleGroup(trickleID)
+        let workspace = try findGroupWorkspace(group.groupID)
         do {
             trickles[trickleID]?.isPinned = true
             groupsPinTrickleIDs[group.groupID]?.insert(trickleID, at: 0)
@@ -72,9 +82,8 @@ extension TrickleStore {
     }
     
     public func tryUnpinTrickle(trickleID: TrickleData.ID) async throws -> String {
-        guard let group = findTrickleGroup(trickleID),
-              let workspace = findGroupWorkspace(group.groupID)
-        else { throw TrickleStoreError.trickleNotFound(trickleID) }
+        let group = try findTrickleGroup(trickleID)
+        let workspace = try findGroupWorkspace(group.groupID)
         guard let index = groupsPinTrickleIDs[group.groupID]?.firstIndex(of: trickleID) else { throw TrickleStoreError.pinError(.alreadyUnpinned) }
         do {
             trickles[trickleID]?.isPinned = false
@@ -93,6 +102,25 @@ extension TrickleStore {
             _ = try await tryUnpinTrickle(trickleID: trickleID)
         } catch {
             self.error = .init(error)
+        }
+    }
+}
+
+
+extension TrickleStore {
+    func addPinTrickle(_ pin: TrickleData, to groupID: GroupData.ID, afterID: TrickleData.ID? = nil) {
+        if groupsPinTrickleIDs[groupID] == nil {
+            groupsPinTrickleIDs[groupID] = []
+        }
+        groupsPinTrickleIDs[groupID]?.removeAll(where: {$0 == pin.trickleID})
+        
+        trickles[pin.trickleID] = pin
+        
+        if let afterID = afterID,
+           let index = groupsPinTrickleIDs[groupID]?.firstIndex(of: afterID) {
+            groupsPinTrickleIDs[groupID]?.insert(pin.trickleID, at: index)
+        } else {
+            groupsPinTrickleIDs[groupID]?.append(pin.trickleID)
         }
     }
 }

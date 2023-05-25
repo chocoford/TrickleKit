@@ -42,4 +42,8 @@ extension TrickleWebRepository {
     func copyTrickle(workspaceID: WorkspaceData.ID, trickleID: TrickleData.ID, payload: API.CopyTricklePayload) async throws -> API.CopyTrickleResponse {
         try await call(endpoint: API.copyTrickle(workspaceID: workspaceID, trickleID: trickleID, payload: payload))
     }
+    
+    func addTrickleLastView(workspaceID: WorkspaceData.ID, trickleID: TrickleData.ID, payload: API.AddTrickleLastViewPayload) async throws -> String {
+        try await call(endpoint: API.addTrickleLastView(workspaceID: workspaceID, trickleID: trickleID, payload: payload))
+    }
 }

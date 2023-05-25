@@ -17,7 +17,7 @@ public struct WorkspaceData: Codable, Hashable {
     public var userID: String
     public var createAt, updateAt: Date
     public var userMemberInfo: MemberData
-    public var hasUnread: Bool
+    public var hasUnread: Bool?
     
     enum CodingKeys: String, CodingKey, CaseIterable {
         case workspaceID = "workspaceId"
@@ -96,49 +96,6 @@ public extension WorkspaceData {
             }
         }
     }
-
-//    mutating func update(by dict: [String : AnyDictionaryValue]) {
-//        dict.forEach { (key, val) in
-//            if case .string(let workspaceID) = dict[key] {
-//                self.workspaceID = workspaceID
-//            }
-//            if case .string(let ownerID) = dict[key] {
-//                self.ownerID = ownerID
-//            }
-//            if case .string(let name) = dict[key] {
-//                self.name = name
-//            }
-//            if case .int(let memberNum) = dict[key] {
-//                self.memberNum = memberNum
-//            }
-//            if case .int(let removedMemberNum) = dict[key] {
-//                self.removedMemberNum = removedMemberNum
-//            }
-//            if case .string(let logo) = dict[key] {
-//                self.logo = logo
-//            }
-//            if case .string(let domain) = dict[key] {
-//                self.domain = domain
-//            }
-//            if case .string(let userID) = dict[key] {
-//                self.userID = userID
-//            }
-//            if case .double(let createAt) = dict[key] {
-//                self.createAt = Date(timeIntervalSince1970: createAt)
-//            }
-//            if case .double(let updateAt) = dict[key] {
-//                self.updateAt = Date(timeIntervalSince1970: updateAt)
-//            }
-//            if case .dictinoary(let userMemberInfo) = dict[key],
-//               let userMemberInfo = try? userMemberInfo.decode(to: MemberData.self) {
-//                self.userMemberInfo = userMemberInfo
-//            }
-//            if case .bool(let hasUnread) = dict[key] {
-//                self.hasUnread = hasUnread
-//            }
-//        }
-//    }
-
 }
 
 

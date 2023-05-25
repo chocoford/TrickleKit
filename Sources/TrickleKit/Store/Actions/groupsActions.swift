@@ -9,38 +9,30 @@ import Foundation
 
 // Web
 public extension TrickleStore {
-    func loadWorkspaceGroups(_ workspaceID: String?) async {
-        guard let workspaceID = workspaceID ?? currentWorkspaceID,
-              let memberID = workspaces[workspaceID]?.userMemberInfo.memberID else { return }
-
-        workspacesGroups[workspaceID]?.setIsLoading()
+    func loadWorkspaceGroups(_ workspaceID: WorkspaceData.ID, silent: Bool = false) async {
+        if !silent {
+            workspacesGroups[workspaceID]?.setIsLoading()
+        }
         do {
+            guard let memberID = workspaces[workspaceID]?.userMemberInfo.memberID else { throw TrickleStoreError.invalidWorkspaceID(workspaceID) }
+
             let data = try await webRepositoryClient.listWorkspaceGroups(workspaceID: workspaceID, memberID: memberID)
             workspacesGroups[workspaceID] = .loaded(data: data)
-        } catch let error as LoadableError {
-            self.error = .lodableError(error)
-            workspacesGroups[workspaceID] = .failed(error)
         } catch {
-            self.error = .unexpected(error)
-            workspacesGroups[workspaceID] = .failed(.unexpected(error: error))
+            self.error = .init(error)
+            workspacesGroups[workspaceID]?.setAsFailed(error)
         }
     }
 
-     func loadGroupFieldsOptions(_ groupID: String?) async {
-        guard let groupID = groupID ?? currentGroupID,
-              let workspace = findGroupWorkspace(groupID) else { return }
-        
-        groupsFieldsOptions[groupID]?.setIsLoading()
-        
+    func loadGroupFieldsOptions(_ groupID: GroupData.ID) async {
         do {
+            let workspace = try findGroupWorkspace(groupID)
+            groupsFieldsOptions[groupID]?.setIsLoading()
             let data = try await webRepositoryClient.listFieldOptions(workspaceID: workspace.workspaceID, groupID: groupID)
             groupsFieldsOptions[groupID] = .loaded(data: data)
-        } catch let error as LoadableError {
-            self.error = .lodableError(error)
-            groupsFieldsOptions[groupID] = .failed(error)
         } catch {
-            self.error = .unexpected(error)
-            groupsFieldsOptions[groupID] = .failed(.unexpected(error: error))
+            self.error = .init(error)
+            groupsFieldsOptions[groupID]?.setAsFailed(error)
         }
     }
     
@@ -104,8 +96,8 @@ public extension TrickleStore {
     func updateGroupInfo(groupID: String?, name: String?, icon: String?, isPublic: Bool?) async {
         do {
             guard let groupID = groupID ?? currentGroupID,
-                  let workspace = findGroupWorkspace(groupID),
                   var group = groups[groupID] else { throw TrickleStoreError.invalidGroupID(groupID) }
+            let workspace = try findGroupWorkspace(groupID)
             let backupGroup = group
             if let name = name {
                 group.name = name
@@ -143,9 +135,8 @@ public extension TrickleStore {
     func deleteGroup(groupID: String?) async {
         do {
             guard let groupID = groupID ?? currentGroupID,
-                  let group = groups[groupID],
-                  let workspace = findGroupWorkspace(groupID) else { throw TrickleStoreError.invalidGroupID(groupID) }
-            
+                  let group = groups[groupID] else { throw TrickleStoreError.invalidGroupID(groupID) }
+            let workspace = try findGroupWorkspace(groupID)
             _ = try await webRepositoryClient.deleteGroup(workspaceID: workspace.workspaceID, groupID: groupID)
             
             workspacesGroups[workspace.workspaceID] = workspacesGroups[workspace.workspaceID]?.map { .init(team: $0.team.removingItem(group),
@@ -158,18 +149,21 @@ public extension TrickleStore {
 
     func tryAckGroup(groupID: GroupData.ID?) async throws {
         guard let groupID = groupID ?? currentGroupID,
-              var group = groups[groupID],
-              let workspace = findGroupWorkspace(groupID) else { throw TrickleStoreError.invalidGroupID(groupID) }
-        let oriCount = group.lastViewInfo.unreadCount
+              var group = groups[groupID] else { throw TrickleStoreError.invalidGroupID(groupID) }
+        let workspace = try findGroupWorkspace(groupID)
 
+        let oldLastViewInfo = group.lastViewInfo
         do {
             group.lastViewInfo.unreadCount = 0
+            group.lastViewInfo.lastACKTrickleCreateAt = groupsTrickles[groupID]?.max(by: {$0.createAt > $1.createAt})?.createAt ?? .now
             workspacesGroups[workspace.workspaceID] = workspacesGroups[workspace.workspaceID]?.map { .init(team: $0.team.updatingItem(group),
                                                                                                            personal: $0.personal.updatingItem(group)) }
             
             _ = try await webRepositoryClient.ackGroup(workspaceID: workspace.workspaceID, groupID: groupID, payload: .init(memberID: workspace.userMemberInfo.memberID))
         } catch {
-            group.lastViewInfo.unreadCount = oriCount
+            group.lastViewInfo.unreadCount = oldLastViewInfo.unreadCount
+            group.lastViewInfo.lastACKTrickleCreateAt = oldLastViewInfo.lastACKTrickleCreateAt
+
             workspacesGroups[workspace.workspaceID] = workspacesGroups[workspace.workspaceID]?.map { .init(team: $0.team.updatingItem(group),
                                                                                                            personal: $0.personal.updatingItem(group)) }
             throw error

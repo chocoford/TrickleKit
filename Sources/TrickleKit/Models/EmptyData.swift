@@ -7,4 +7,4 @@
 
 import Foundation
 
-struct EmptyData: Codable {}
+public struct EmptyData: Codable {}

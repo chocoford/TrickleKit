@@ -143,7 +143,7 @@ public struct GroupViewTricklesStat: Codable, Hashable {
     public let stats: [StatValue]
     
     public struct StatValue: Codable, Hashable {
-        public let groupID: GroupData.FieldInfo.ID
+        public let groupID: FieldOptions.FieldOptionInfo.ID
         public let counts: Int
 
         enum CodingKeys: String, CodingKey {

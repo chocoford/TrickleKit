@@ -34,7 +34,7 @@ public extension TrickleStore {
             self.starredTrickleIDs[workspaceID] = .loaded(data: data.map{$0.trickleID})
         } catch {
             self.error = .init(error)
-            self.starredTrickleIDs[workspaceID] = .failed(.init(error))
+            self.starredTrickleIDs[workspaceID]?.setAsFailed(error)
         }
     }
     
@@ -43,7 +43,8 @@ public extension TrickleStore {
         let workspace = try findTrickleWorkspace(trickleID)
         do {
             trickles[trickleID]?.hasStarred = true
-            _ = try await webRepositoryClient.starTrickle(workspaceID: workspace.workspaceID, trickleID: trickleID,
+            _ = try await webRepositoryClient.starTrickle(workspaceID: workspace.workspaceID,
+                                                          trickleID: trickleID,
                                                           payload: .init(memberID: workspace.userMemberInfo.memberID))
         } catch {
             trickles[trickleID]?.hasStarred = false
@@ -79,3 +80,12 @@ public extension TrickleStore {
         }
     }
 }
+
+//extension TrickleStore {
+//    func setTrickleAsStarred(_ trickleID: TrickleData.ID) {
+//        trickles[trickleID]?.hasStarred = true
+//    }
+//    func setTrickleAsStarred(_ trickleID: TrickleData.ID) {
+//        trickles[trickleID]?.hasStarred = true
+//    }
+//}

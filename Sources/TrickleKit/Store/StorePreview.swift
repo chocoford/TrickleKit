@@ -34,7 +34,7 @@ extension TrickleStore {
         
         store.currentTrickleID = store.trickles.values.first?.trickleID
         
-        store.tricklesComments = [store.currentTrickleID! : .loaded(data: load("comments.json"))]
+        store.tricklesCommentIDs = [store.currentTrickleID! : .loaded(data: (load("comments.json") as AnyStreamable<CommentData>).map{$0.commentID})]
         
         store.workspacesMembers = [store.currentWorkspaceID! : .loaded(data: load("members.json"))]
         

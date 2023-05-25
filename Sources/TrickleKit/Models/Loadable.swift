@@ -40,18 +40,19 @@ public enum Loadable<T> {
     case notRequested
     case isLoading(last: T?) //, cancelBag: CancelBag
     case loaded(data: T)
-    case failed(LoadableError)
+    case failed(data: T?, error: LoadableError)
 
     public var value: T? {
         switch self {
-        case let .loaded(value): return value
-        case let .isLoading(last): return last
+            case let .loaded(value): return value
+            case let .isLoading(last): return last
+            case .failed(let last, _): return last
         default: return nil
         }
     }
     public var error: LoadableError? {
         switch self {
-        case let .failed(error): return error
+        case let .failed(_, error): return error
             default: return nil
         }
     }
@@ -82,6 +83,14 @@ extension Loadable {
         self = .isLoading(last: value) //, cancelBag: cancelBag
     }
     
+    mutating func setAsFailed(_ error: Error) {
+        self = .failed(data: value, error: .init(error))
+    }
+    
+    mutating func setAsLoaded(_ data: T) {
+        self = .loaded(data: data)
+    }
+    
     mutating func transform(_ transform: (T) throws -> T) {
         let transformed = self.map(transform)
         self = transformed
@@ -98,7 +107,7 @@ extension Loadable {
                         domain: NSCocoaErrorDomain, code: NSUserCancelledError,
                         userInfo: [NSLocalizedDescriptionKey: NSLocalizedString("Canceled by user",
                                                                                 comment: "")])
-                    self = .failed(.unexpected(error: error))
+                    self = .failed(data: nil, error: .unexpected(error: error))
                 }
             default: break
         }
@@ -108,14 +117,14 @@ extension Loadable {
         do {
             switch self {
                 case .notRequested: return .notRequested
-                case let .failed(error): return .failed(error)
+                case let .failed(data, error): return .failed(data: data != nil ? try transform(data!) : nil, error: error)
                 case let .isLoading(value):
                     return .isLoading(last: try value.map { try transform($0) })
                 case let .loaded(value):
                     return .loaded(data: try transform(value))
             }
         } catch {
-            return .failed(.unexpected(error: error))
+            return .failed(data: nil, error: .unexpected(error: error))
         }
     }
 }
@@ -148,12 +157,12 @@ extension Loadable {
 extension Loadable: Equatable where T: Equatable {
     public static func == (lhs: Loadable<T>, rhs: Loadable<T>) -> Bool {
         switch (lhs, rhs) {
-        case (.notRequested, .notRequested): return true
-        case let (.isLoading(lhsV), .isLoading(rhsV)): return lhsV == rhsV
-        case let (.loaded(lhsV), .loaded(rhsV)): return lhsV == rhsV
-        case let (.failed(lhsE), .failed(rhsE)):
-            return lhsE.localizedDescription == rhsE.localizedDescription
-        default: return false
+            case (.notRequested, .notRequested): return true
+            case let (.isLoading(lhsV), .isLoading(rhsV)): return lhsV == rhsV
+            case let (.loaded(lhsV), .loaded(rhsV)): return lhsV == rhsV
+            case let (.failed(lhsData, lhsE), .failed(rhsData, rhsE)):
+                return lhsData == rhsData && lhsE.localizedDescription == rhsE.localizedDescription
+            default: return false
         }
     }
 }

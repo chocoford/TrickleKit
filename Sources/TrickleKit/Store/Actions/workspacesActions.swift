@@ -8,19 +8,33 @@
 import Foundation
 
 public extension TrickleStore {
-    /// Load all user's workspaces.
-    func loadAllWorkspaces() async {
-        guard let userID = userInfo.value??.user.id else { return }
-        allWorkspaces.setIsLoading()
+    func tryLoadAllWorkspaces(silent: Bool = false) async throws {
+        guard let userID = userInfo.value??.user.id else { throw TrickleStoreError.unauthorized }
+        if !silent {
+            allWorkspaces.setIsLoading()
+        }
         do {
             let data = try await webRepositoryClient.listUserWorkspaces(userID: userID)
-            allWorkspaces = .loaded(data: data)
-        } catch let error as LoadableError {
-            self.error = .lodableError(error)
-            allWorkspaces = .failed(error)
+            allWorkspaces.setAsLoaded(data)
+            data.items.forEach { workspaceData in
+                if workspacesGroups[workspaceData.workspaceID] == nil {
+                    workspacesGroups[workspaceData.workspaceID] = .notRequested
+                }
+                if workspaceThreads[workspaceData.workspaceID] == nil {
+                    workspaceThreadIDs[workspaceData.workspaceID] = .loaded(data: .init())
+                }
+            }
         } catch {
-            self.error = .unexpected(error)
-            allWorkspaces = .failed(.unexpected(error: error))
+            allWorkspaces.setAsFailed(error)
+            throw error
+        }
+    }
+    /// Load all user's workspaces.
+    func loadAllWorkspaces(silent: Bool = false) async {
+        do {
+            try await tryLoadAllWorkspaces(silent: silent)
+        } catch {
+            self.error = .init(error)
         }
     }
     
@@ -42,15 +56,16 @@ public extension TrickleStore {
         return invitations
     }
     
-    func createWorkspace(name: String, userID: String, userName: String, logo: String) async throws {
+    func tryCreateWorkspace(name: String, userID: String, userName: String, logo: String) async throws -> WorkspaceData {
         let workspaceData = try await webRepositoryClient.createWorkspace(payload: .init(name: name,
                                                                                           userID: userID,
                                                                                           userName: userName,
                                                                                           workspaceType: .team,
                                                                                           logo: logo))
         
-        allWorkspaces = .loaded(data: .init(items: ((allWorkspaces.value?.items ?? []) + [workspaceData.workspace]), nextTs: nil))
+        appendWorkspace(workspaceData.workspace)
         currentWorkspaceID = workspaceData.workspace.workspaceID
+        return workspaceData.workspace
     }
     
     func updateWorkspaceInfo(workspaceID: String? = nil, name: String?, logo: String?) async {
@@ -102,5 +117,13 @@ public extension TrickleStore {
         } catch {
             self.error = .init(error)
         }
+    }
+}
+
+
+extension TrickleStore {
+    func appendWorkspace(_ workspaceData: WorkspaceData) {
+        allWorkspaces = .loaded(data: .init(items: ((allWorkspaces.value?.items ?? []) + [workspaceData]), nextTs: allWorkspaces.value?.nextTs))
+        workspacesGroups[workspaceData.workspaceID] = .notRequested
     }
 }

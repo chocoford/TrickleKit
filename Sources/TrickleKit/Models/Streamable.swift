@@ -11,19 +11,30 @@ public struct AnyStreamable<T: Codable>: Codable {
     public var items: [T]
     public let nextTs: Int?
     
+    public init() {
+        self.items = []
+        self.nextTs = Int(Date.now.timeIntervalSince1970)
+    }
+    
     public init(items: [T], nextTs: Int?) {
         self.items = items
         self.nextTs = nextTs
     }
     
-    public func appending(_ contentsOf: Self) -> Self {
+    public func appending(_ contentsOf: Self) -> Self where T: Hashable {
         let items = self.items + contentsOf.items
-        let nextTs = contentsOf.nextTs
-        return .init(items: items, nextTs: nextTs)
+        return .init(items: items.removingDuplicate(), nextTs: contentsOf.nextTs)
+    }
+    public func prepending(_ contentsOf: Self) -> Self where T: Hashable {
+        let items = contentsOf.items + self.items
+        return .init(items: items.removingDuplicate(), nextTs: self.nextTs)
     }
     
     public func map<V>(_ transform: (T) -> V) -> AnyStreamable<V> {
         .init(items: items.map{ transform($0) }, nextTs: nextTs)
+    }
+    public func compactMap<V>(_ transform: (T) -> V?) -> AnyStreamable<V> {
+        .init(items: items.compactMap{ transform($0) }, nextTs: nextTs)
     }
     
     public mutating func updateItem(_ item: T) where T: Identifiable {
@@ -35,6 +46,12 @@ public struct AnyStreamable<T: Codable>: Codable {
     
     public func updatingItem(_ item: T) -> Self where T: Identifiable {
         return .init(items: items.updatingItem(item), nextTs: self.nextTs)
+    }
+    public func updatingItem(from item: T, to newItem: T) -> Self where T: Hashable {
+        return .init(items: items.updatingItem(from: item, to: newItem), nextTs: self.nextTs)
+    }
+    public func removingItem(_ item: T) -> Self where T: Hashable {
+        return .init(items: items.removingItem(of: item), nextTs: self.nextTs)
     }
 }
 
@@ -51,6 +68,11 @@ public struct AnyQueryStreamable<T: Codable>: Codable {
         let items = self.items + contentsOf.items
         let nextQuery = contentsOf.nextQuery
         return .init(items: items, nextQuery: nextQuery)
+    }
+    
+    public func prepending(_ contentsOf: Self) -> Self {
+        let items = contentsOf.items + self.items
+        return .init(items: items, nextQuery: self.nextQuery)
     }
     
     public func map<V>(_ transform: (T) -> V) -> AnyQueryStreamable<V> {
@@ -70,6 +92,31 @@ public struct NextQuery: Codable {
         case memberID = "memberId"
         case limit, sorts, groupByFilters
         case filters, filterLogicalOperator
+    }
+
+    static func mock(workspace: WorkspaceData, view: GroupData.ViewInfo,
+                     groupByID: FieldOptions.FieldOptionInfo.ID? = nil,
+                     limit: Int) -> NextQuery {
+        if let groupBy = view.groupBy {
+            let groupByID = groupByID ?? "NULL"
+            return .init(memberID: workspace.userMemberInfo.memberID,
+                         limit: limit,
+                         filters: view.filters,
+                         sorts: view.sorts ?? [],
+                         groupByFilters: .init(fieldID: groupBy.fieldID,
+                                               type: groupBy.type,
+                                               value: groupByID == "NULL" ? .null : (groupBy.type.isMulti ? .strings([groupByID]) : .string(groupByID)),
+                                               operatorID: nil,
+                                               filterOperator: groupBy.type.isMulti ? .contains : .eq),
+                         filterLogicalOperator: .and)
+        } else {
+            return .init(memberID: workspace.userMemberInfo.memberID,
+                         limit: limit,
+                         filters: view.filters,
+                         sorts: view.sorts ?? [],
+                         groupByFilters: nil,
+                         filterLogicalOperator: .and)
+        }
     }
 }
 extension NextQuery {

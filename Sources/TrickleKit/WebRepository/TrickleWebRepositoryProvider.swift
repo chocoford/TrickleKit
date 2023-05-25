@@ -33,6 +33,7 @@ protocol TrickleWebRepositoryProvider: WebRepositoryProvider {
     func updateWorkspace(workspaceID: WorkspaceData.ID, payload: TrickleWebRepository.API.UpdateWorkspacePayload) async throws -> TrickleWebRepository.API.UpdateWorkspaceResponseData
     func leaveWorkspace(workspaceID: WorkspaceData.ID, payload: TrickleWebRepository.API.MemberOnlyPayload) async throws -> String
     func sendWorkspaceInvitations(workspaceID: String, invitationID: String, payload: TrickleWebRepository.API.SendEmailPayload) async throws -> String
+    
     // MARK: - Members
     func listWorkspaceMembers(workspaceID: String, limit: Int) ->  AnyPublisher<AnyStreamable<MemberData>, Error>
     func listGroupMembers(workspaceID: String, groupID: String) ->  AnyPublisher<AnyStreamable<MemberData>, Error>
@@ -63,14 +64,16 @@ protocol TrickleWebRepositoryProvider: WebRepositoryProvider {
     func listFieldOptions(workspaceID: String, groupID: String) -> AnyPublisher<FieldsOptions, Error>
     
     func copyTrickle(workspaceID: WorkspaceData.ID, trickleID: TrickleData.ID, payload: TrickleWebRepository.API.CopyTricklePayload) async throws -> TrickleWebRepository.API.CopyTrickleResponse
-    
+    func addTrickleLastView(workspaceID: WorkspaceData.ID, trickleID: TrickleData.ID, payload: TrickleWebRepository.API.AddTrickleLastViewPayload) async throws -> String
     
     // MARK: - Comments
-    func createTrickleComments(workspaceID: String, trickleID: String, payload: TrickleWebRepository.API.CreateCommentPayload) -> AnyPublisher<TrickleWebRepository.API.CreateCommentResponseData, Error>
-    
+    func createTrickleComments(workspaceID: String, trickleID: String, payload: TrickleWebRepository.API.CreateCommentPayload) async throws -> TrickleWebRepository.API.CreateCommentResponseData
     func listTrickleComments(workspaceID: String, trickleID: String, query: TrickleWebRepository.API.ListQuery) async throws -> AnyStreamable<CommentData>
+    func ackTrickleComments(workspaceID: WorkspaceData.ID, trickleID: TrickleData.ID, payload: TrickleWebRepository.API.ACKTrickleCommentsPayload) async throws -> String
     
+    // MARK: - Threads
     func listWorkspaceThreads(workspaceID: String, memberID: String, query: TrickleWebRepository.API.ListQuery) -> AnyPublisher<AnyStreamable<TrickleData>, Error>
+    func getWorkspaceThreadsUnreadCount(workspaceID: String, memberID: String) async throws -> TrickleWebRepository.API.ThreadsUnreadCountResponse
     
     // MARK: - Reactions
     func createTrickleReaction(workspaceID: String, trickleID: String, payload: TrickleWebRepository.API.CreateReactionPayload) async throws -> ReactionData

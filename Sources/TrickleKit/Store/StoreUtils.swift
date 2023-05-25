@@ -24,39 +24,54 @@ public extension TrickleStoreError {
 }
 
 public extension TrickleStore {
-    func findTrickleGroup(_ trickleID: TrickleData.ID) -> GroupData? {
-        if trickleID == currentTrickleID { return currentGroup }
-        guard let theGroupTrickles = groupsTrickles.first(where: { key, value in
-            value.contains(where: { trickle in
-                trickle.trickleID == trickleID
-            }) == true
-        }) else { return nil }
-        return groups[theGroupTrickles.key]
+    func findTrickleGroup(_ trickleID: TrickleData.ID) throws -> GroupData {
+        if trickleID == currentTrickleID, let group = currentGroup { return group }
+        guard let trickleData = trickles[trickleID] else { throw TrickleStoreError.invalidTrickleID(trickleID) }
+        guard let groupData = groups[trickleData.groupInfo.groupID] else { throw TrickleStoreError.invalidGroupID(trickleData.groupInfo.groupID) }
+        return groupData
     }
+
+//    func findTrickleGroup(_ trickleID: TrickleData.ID) -> GroupData? {
+//        if trickleID == currentTrickleID { return currentGroup }
+//        guard let theGroupTrickles = groupsTrickles.first(where: { key, value in
+//            value.contains(where: { trickle in
+//                trickle.trickleID == trickleID
+//            }) == true
+//        }) else { return nil }
+//        return groups[theGroupTrickles.key]
+//    }
     
-    func findViewGroup(_ viewID: GroupData.ViewInfo.ID) -> GroupData? {
-        if viewID == currentGroupViewID {
-            return currentGroup
+    func findViewGroup(_ viewID: GroupData.ViewInfo.ID) throws -> GroupData {
+        if viewID == currentGroupViewID, let group = currentGroup {
+            return group
+        }
+        if let group = groups.values.first(where: { group in
+            group.viewInfo.contains { $0.viewID == viewID }
+        }) {
+            return group
+        } else {
+            throw TrickleStoreError.invalidViewID(viewID)
         }
         
-        return groups.values.first(where: { group in
-            group.viewInfo.contains { $0.viewID == viewID }
-        })
     }
     
-    func findGroupWorkspace(_ groupID: GroupData.ID) -> WorkspaceData? {
-        if groupID == currentGroupID {
-            return currentWorkspace
+    func findGroupWorkspace(_ groupID: GroupData.ID) throws -> WorkspaceData {
+        if groupID == currentGroupID, let workspace = currentWorkspace {
+            return workspace
         }
         guard let theWorkspaceGroups = workspacesGroups.first(where: { key, value in
             value.value?.team.contains(where: { $0.groupID == groupID }) == true || value.value?.personal.contains(where: { $0.groupID == groupID }) == true
-        }) else { return nil }
-        return workspaces[theWorkspaceGroups.key]
+        }) else { throw TrickleStoreError.invalidGroupID(groupID) }
+        if let workspace = workspaces[theWorkspaceGroups.key] {
+            return workspace
+        } else {
+            throw TrickleStoreError.invalidWorkspaceID(theWorkspaceGroups.key)
+        }
     }
     
     func findTrickleWorkspace(_ trickleID: TrickleData.ID) throws -> WorkspaceData {
-        guard let group = findTrickleGroup(trickleID) else { throw TrickleStoreError.FindingError.trickleGroupNotFound(trickleID) }
-        guard let workspace = findGroupWorkspace(group.groupID) else { throw TrickleStoreError.FindingError.groupWorkspaceNotFound(group.groupID) }
+        let group = try findTrickleGroup(trickleID) 
+        let workspace = try findGroupWorkspace(group.groupID)
         return workspace
     }
 }

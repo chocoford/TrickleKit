@@ -21,4 +21,11 @@ extension TrickleWebRepository.API {
             case afterTrickleID = "afterTrickleId"
         }
     }
+    
+    struct AddTrickleLastViewPayload: Codable {
+        let memberID: MemberData.ID
+        enum CodingKeys: String, CodingKey {
+            case memberID = "memberId"
+        }
+    }
 }

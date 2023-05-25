@@ -10,7 +10,8 @@ import Foundation
 // MARK: - TrickleData
 public struct TrickleData: Codable, Hashable {
     public var trickleID: String
-    public var allowGuestMemberComment, allowGuestMemberReact, allowWorkspaceMemberComment, allowWorkspaceMemberReact: Bool
+    public var allowGuestMemberComment, allowGuestMemberReact: Bool
+    public var allowWorkspaceMemberComment, allowWorkspaceMemberReact: Bool
     public var authorMemberInfo: MemberData
     public var authorAppMemberInfo: MemberData?
     public var blocks: [Block]
@@ -63,14 +64,14 @@ extension TrickleData {
 extension TrickleData {
     public struct ReferData: Codable, Hashable {}
     public struct ViewedMemberData: Codable, Hashable {
-        public let counts: Int
-        public let members: [MemberData]
+        public var counts: Int
+        public var members: [MemberData]
     }
     public struct LastViewData: Codable, Hashable {
-        public let unreadCount: Int?
-        public let lastViewedAt: Int?
-        public let lastACKMessageID: String?
-        public let lastACKMessageCreateAt: Int?
+        public var unreadCount: Int?
+        public var lastViewedAt: Date?
+        public var lastACKMessageID: CommentData.ID?
+        public var lastACKMessageCreateAt: Date?
 
         enum CodingKeys: String, CodingKey {
             case unreadCount, lastViewedAt
@@ -310,7 +311,7 @@ extension TrickleData.Element {
         case text
         case inlineCode = "inline_code"
         case user
-        case bold, italic, url, image, embed, escape, math, linkToPost, link, highlight, `subscript`, superscript
+        case bold, italic, url, image, embed, escape, math, linkToPost, link, highlight, `subscript`, superscript, colored, backgroundColored
         case lineThrough = "line_through"
         case smartText = "smart_text"
     }
@@ -550,16 +551,20 @@ public enum AnyDictionaryValue: Codable, Hashable {
     }
 }
 
-public struct ReactionData: Codable, Hashable {
+public struct ReactionData: Codable, Hashable, Identifiable {
+    public let reactionID: String
     public let code: String
     public let createAt, updateAt: Date?
-    public let reactionID: String
     public let reactionAuthor: MemberData
     
     enum CodingKeys: String, CodingKey {
         case code, createAt, updateAt
         case reactionID = "reactionId"
         case reactionAuthor
+    }
+    
+    public var id: String {
+        self.reactionID
     }
 }
 

@@ -16,12 +16,9 @@ extension TrickleStore {
         do {
             let data = try await webRepositoryClient.listWorkspaceMembers(workspaceID: workspaceID)
             workspacesMembers[workspaceID] = .loaded(data: data)
-        } catch let error as LoadableError {
-            self.error = .lodableError(error)
-            workspacesMembers[workspaceID] = .failed(error)
         } catch {
-            self.error = .unexpected(error)
-            workspacesMembers[workspaceID] = .failed(.unexpected(error: error))
+            self.error = .init(error)
+            workspacesMembers[workspaceID]?.setAsFailed(error)
         }
     }
 }

@@ -8,8 +8,6 @@
 import Foundation
 
 public extension TrickleStore {
-
-    
     func logout() {
         TrickleAuthMiddleware.shared.removeToken()
         reinit()
@@ -26,7 +24,7 @@ public extension TrickleStore {
             self.userInfo = .loaded(data: UserInfo(user: userInfo.user, token: token))
             TrickleAuthMiddleware.shared.saveTokenToKeychain(userInfo: self.userInfo.value!!)
         } catch {
-            self.userInfo = .failed(.unexpected(error: error))
+            self.userInfo.setAsFailed(error)
             throw error
         }
     }
@@ -49,10 +47,10 @@ public extension TrickleStore {
     
     func tryLoginViaPassword(email: String, password: String) async throws {
         do {
-            let data = try await webRepositoryClient.loginViaPassword(payload: .init(email: email, password: password))
+            let data = try await webRepositoryClient.loginViaPassword(payload: .init(email: email.lowercased(), password: password))
             TrickleAuthMiddleware.shared.token = data.accessToken
         } catch {
-            self.userInfo = .failed(.unexpected(error: error))
+            self.userInfo.setAsFailed(error)
             self.error = .init(error)
             throw error
         }
@@ -60,11 +58,11 @@ public extension TrickleStore {
     
     func loginViaPassword(email: String, password: String) async -> Bool {
         do {
-            let data = try await webRepositoryClient.loginViaPassword(payload: .init(email: email, password: password))
+            let data = try await webRepositoryClient.loginViaPassword(payload: .init(email: email.lowercased(), password: password))
             TrickleAuthMiddleware.shared.token = data.accessToken
             return true
         } catch {
-            self.userInfo = .failed(.unexpected(error: error))
+            self.userInfo.setAsFailed(error)
             self.error = .init(error)
             return false
         }
@@ -72,7 +70,7 @@ public extension TrickleStore {
     
     func trySendSignupCode(email: String) async throws {
         do {
-            _ = try await webRepositoryClient.sendCode(payload: .init(email: email, type: .signUp))
+            _ = try await webRepositoryClient.sendCode(payload: .init(email: email.lowercased(), type: .signUp))
         } catch {
             self.error = .init(error)
             throw error
@@ -81,18 +79,18 @@ public extension TrickleStore {
     
     func sendSignupCode(email: String) async {
         do {
-            _ = try await trySendSignupCode(email: email)
+            _ = try await trySendSignupCode(email: email.lowercased())
         } catch {
             self.error = .init(error)
         }
     }
     
     func tryValidateSignup(email: String, code: String) async throws {
-        _ = try await webRepositoryClient.signup(payload: .validate(.init(email: email, code: code)))
+        _ = try await webRepositoryClient.signup(payload: .validate(.init(email: email.lowercased(), code: code)))
     }
     
     func trySignup(email: String, code: String, name: String, avatarURL: String, password: String) async throws {
-        _ = try await webRepositoryClient.signup(payload: .actualSignup(.init(email: email, code: code, name: name, avatarURL: avatarURL, password: password)))
+        _ = try await webRepositoryClient.signup(payload: .actualSignup(.init(email: email.lowercased(), code: code, name: name, avatarURL: avatarURL, password: password)))
     }
     
     func tryUpdateUserAvatar(userID: UserInfo.UserData.ID, avatarURL: String) async throws -> String {

@@ -39,6 +39,7 @@ public struct MemberData: Codable, Hashable {
     }
     public enum Status: String, Codable {
         case normal = "Normal"
+        case removed = "Removed"
     }
     
     public struct MemberSpace: Codable, Hashable {

@@ -9,7 +9,7 @@ import Foundation
 import OSLog
 import Combine
 
-class TrickleWebSocket {
+public class TrickleWebSocket {
     let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "TrickleWebSocket")
     
     var store: TrickleStore?
@@ -72,7 +72,7 @@ class TrickleWebSocket {
         }
     }
     
-    private func reinitSocket() {
+    func reinitSocket() {
         guard let token = self.token,
               let userID = self.userID else { return }
         self.initSocket(token: token, userID: userID)
@@ -130,7 +130,7 @@ extension TrickleWebSocket {
 }
 
 // MARK: - Message Payload
-extension TrickleWebSocket {
+public extension TrickleWebSocket {
     enum MessageType {
         case connect
 
@@ -211,44 +211,23 @@ extension TrickleWebSocket {
     }
     private func handleMessage(_ message: String) {
         DispatchQueue.main.async {
-            let msgDic = message.toJSON() ?? [:]
-            guard let rawPath = msgDic["path"] as? String else {
-                self.logger.error("invalid path. Message: \(msgDic)")
-                return
-            }
-            switch IncomingMessagePath(rawValue: rawPath) {
-                case .connectSuccess:
-                    guard let messageData = message.decode(IncomingMessage<[ConnectData]>.self) else { fallthrough }
-                    self.logger.info("on connect: \(messageData.description)")
-                    self.onConnect(messageData)
-                    
-                case .helloAck:
-                    guard let messageData = message.decode(IncomingMessage<HelloAckData>.self) else { fallthrough }
-                    self.logger.info("on hello ack: \(messageData.description)")
-                    self.onHelloAck(messageData)
-                case .joinRoomAck:
-                    guard let messageData = message.decode(IncomingEmptyMessage.self) else { fallthrough }
-                    self.logger.info("on join room ack: \(messageData.description)")
-                    self.onJoinRoomAck(messageData)
-                    
-                case .roomMembers:
-                    guard let messageData = message.decode(IncomingMessage<[RoomMembers]>.self) else { fallthrough }
-                    self.logger.info("on room members: \(messageData.description)")
-                    
-                case .sync:
-                    guard let _ = message.decode(IncomingMessage<[RoomMembers]>.self) else { fallthrough }
-                    
-                case .changeNotify:
-                    guard let messageData = message.decode(IncomingMessage<[ChangeNotifyData]>.self, onFailed: { error in
-                        dump(error)
-                    }) else { fallthrough }
-                    self.logger.info("on change notify: \(messageData.description)")
-                    self.handleChangeNotify(messageData.data ?? [])
-                case .none:
-                    self.logger.error("Unhandled message: \(msgDic)")
+            TrickleSocketMessageHandler.shared.handleMessage(message) { event in
+                switch event {
+                    case .connectSuccess(let messageData):
+                        self.onConnect(messageData)
+                    case .helloAck(let messageData):
+                        self.onHelloAck(messageData)
+                    case .joinRoomAck(let messageData):
+                        self.onJoinRoomAck(messageData)
+                    case .roomMembers:
+                        break
+                    case .sync:
+                        break
+                    case .changeNotify(let messageData):
+                        self.handleChangeNotify(messageData.data ?? [])
+                }
             }
         }
-
     }
     
     private func onConnect(_ data: IncomingMessage<[ConnectData]>) {
@@ -323,7 +302,7 @@ private extension TrickleWebSocket {
     typealias Configs = ConnectData
 }
 
-extension TrickleWebSocket.MessageType {
+public extension TrickleWebSocket.MessageType {
     struct HelloData: Codable {
         let userID: String
         enum CodingKeys: String, CodingKey {
@@ -353,7 +332,7 @@ extension TrickleWebSocket.MessageType {
 }
 
 // MARK: - Incoming Socket Data
-extension TrickleWebSocket {
+public extension TrickleWebSocket {
     struct ConnectData: Codable {
         var connectionID: String
         let helloInterval, deadInterval, maxRetryConnection, retryConnectionInterval: Int

@@ -46,15 +46,17 @@ extension TrickleWebRepository {
         // fileds
         case listFieldOptions(workspaceID: String, groupID: String)
         
-        // posts
+        // trickles
         case createPost(workspaceID: String, channelID: String, payload: CreatePostPayload)
         case listTrickles(workspaceID: String, query: ListTricklesQuery)
         case listGroupTrickles(workspaceID: String, groupID: String, payload: NextQuery)
         case copyTrickle(workspaceID: WorkspaceData.ID, trickleID: TrickleData.ID, payload: CopyTricklePayload)
+        case addTrickleLastView(workspaceID: WorkspaceData.ID, trickleID: TrickleData.ID, payload: AddTrickleLastViewPayload)
 
         // comments
         case createTrickleComment(workspaceID: String, trickleID: String, payload: CreateCommentPayload)
         case listTrickleComments(workspaceID: String, trickleID: String, query: ListQuery)
+        case ackTrickleComments(workspaceID: String, trickleID: String, payload: ACKTrickleCommentsPayload)
         
         // reactions
         case createTrickleReaction(workspaceID: String, trickleID: String, payload: CreateReactionPayload)
@@ -71,6 +73,7 @@ extension TrickleWebRepository {
         
         // threads
         case listWorkspaceThreads(workspaceID: String, memberID: String, query: ListQuery)
+        case getWorkspaceThreadsUnreadCount(workspaceID: String, memberID: String)
     }
 }
 
@@ -151,11 +154,16 @@ extension TrickleWebRepository.API: APICall {
             case .copyTrickle(let workspaceID, let trickleID, _):
                 return "/f2b/v1/workspaces/\(workspaceID)/trickles/\(trickleID):copy"
                 
+            case .addTrickleLastView(let workspaceID, let trickleID, _):
+                return "/f2b/v1/workspaces/\(workspaceID)/trickles/\(trickleID)/lastViewedMembers"
+                
             // Comments
             case .createTrickleComment(let workspaceID, let trickleID, _):
                 return "/f2b/v1/workspaces/\(workspaceID)/trickles/\(trickleID)/comments"
             case .listTrickleComments(let workspaceID, let trickleID, _):
                 return "/f2b/v1/workspaces/\(workspaceID)/trickles/\(trickleID)/messages"
+            case .ackTrickleComments(let workspaceID, let trickleID, _):
+                return "/f2b/v1/workspaces/\(workspaceID)/trickles/\(trickleID)/comments:ack"
                 
             // Reactions
             case .createTrickleReaction(let workspaceID, let trickleID, _):
@@ -180,7 +188,8 @@ extension TrickleWebRepository.API: APICall {
             // Threads
             case .listWorkspaceThreads(let workspaceID, let memberID, _):
                 return "/f2b/v1/workspaces/\(workspaceID)/members/\(memberID)/workspaceThreads"
-                
+            case .getWorkspaceThreadsUnreadCount(let workspaceID, let memberID):
+                return "/f2b/v1/workspaces/\(workspaceID)/members/\(memberID)/threadsUnreadCount"
         }
     }
     
@@ -243,7 +252,9 @@ extension TrickleWebRepository.API: APICall {
                     .createGroup,
                     .ackGroup,
                     .createPost,
+                    .addTrickleLastView,
                     .createTrickleComment,
+                    .ackTrickleComments,
                     .createTrickleReaction,
                     .pinTrickle,
                     .starTrickle,
@@ -333,7 +344,11 @@ extension TrickleWebRepository.API: APICall {
                 return try makeBody(payload: payload)
             case .createPost(_, _, let payload):
                 return try makeBody(payload: payload)
+            case .addTrickleLastView(_, _, let payload):
+                return try makeBody(payload: payload)
             case .createTrickleComment(_, _, let payload):
+                return try makeBody(payload: payload)
+            case .ackTrickleComments(_, _, let payload):
                 return try makeBody(payload: payload)
             case .createTrickleReaction(_, _, let payload):
                 return try makeBody(payload: payload)
