@@ -26,7 +26,7 @@ public class TrickleSocketMessageHandler {
     typealias IncomingMessage = TrickleWebSocket.IncomingMessage
     typealias IncomingEmptyMessage = TrickleWebSocket.IncomingEmptyMessage
     
-    static var shared: TrickleSocketMessageHandler = .init()
+    public static var shared: TrickleSocketMessageHandler = .init()
     
     let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "TrickleSocketMessageHandler")
     
