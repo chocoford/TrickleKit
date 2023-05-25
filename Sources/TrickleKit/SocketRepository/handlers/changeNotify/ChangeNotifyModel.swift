@@ -17,16 +17,16 @@ protocol ChangeEvent: Codable {
 
 public extension TrickleWebSocket {
     struct ChangeNotifyData: Codable {
-        let codes: [String : CodeData]
+        public let codes: [String : CodeData]
 
-        struct CodeData: Codable {
-            let version: Int
-            let latestChangeEvent: LatestChangeEvent
-            let trigger: Trigger
+        public struct CodeData: Codable {
+            public let version: Int
+            public let latestChangeEvent: LatestChangeEvent
+            public let trigger: Trigger
         }
 
 
-        struct Trigger: Codable {
+        public struct Trigger: Codable {
             let trickleTraceID: TrickleData.ID?
 
             enum CodingKeys: String, CodingKey {
