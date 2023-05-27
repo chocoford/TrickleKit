@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TrickleKit
 
 extension TrickleData.Block {
 

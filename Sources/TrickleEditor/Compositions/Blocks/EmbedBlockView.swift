@@ -7,13 +7,8 @@
 
 import SwiftUI
 import WebKit
+import TrickleKit
 
-extension TrickleData.Block {
-    public struct EmbedBlockValue: Codable, Hashable {
-        let src: String
-        let height: String?
-    }
-}
 
 public struct EmbedBlockView: View {
     var block: TrickleData.Block

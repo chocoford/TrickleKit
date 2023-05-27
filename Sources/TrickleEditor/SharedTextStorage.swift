@@ -9,6 +9,7 @@ import AppKit
 #elseif os(iOS)
 import UIKit
 #endif
+import TrickleKit
 
 final class SharedTextStorage: NSTextStorage, ObservableObject {
     private let backingStorage = NSMutableAttributedString()

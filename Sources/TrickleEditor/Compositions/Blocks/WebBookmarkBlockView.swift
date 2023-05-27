@@ -7,12 +7,9 @@
 
 import SwiftUI
 import Shimmer
+import TrickleKit
+import ChocofordTools
 
-extension TrickleData.Block {
-    public struct WebBookmarkBlockValue: Codable, Hashable {
-        var url: URL
-    }
-}
 
 public struct WebBookmarkBlockView: View {
     @Environment(\.openURL) var openURL

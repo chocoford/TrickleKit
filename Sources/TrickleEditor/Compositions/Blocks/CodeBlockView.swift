@@ -7,12 +7,7 @@
 
 import SwiftUI
 import Highlightr
-
-extension TrickleData.Block {
-    public struct CodeBlockValue: Codable, Hashable {
-        var language: String
-    }
-}
+import TrickleKit
 
 public struct CodeBlockView: View {
     var block: TrickleData.Block

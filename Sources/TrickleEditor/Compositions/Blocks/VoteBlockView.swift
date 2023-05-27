@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TrickleKit
 
 struct VoteBlockView: View {
     var block: TrickleData.Block

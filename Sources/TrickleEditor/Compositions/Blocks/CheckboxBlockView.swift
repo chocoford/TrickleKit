@@ -6,22 +6,7 @@
 //
 
 import SwiftUI
-
-extension TrickleData.Block {
-    public struct CheckboxBlockValue: Codable, Hashable {
-        let status: CheckboxStatus
-        let operatorID: String?
-        
-        enum CodingKeys: String, CodingKey {
-            case status
-            case operatorID = "operatorId"
-        }
-        
-        enum CheckboxStatus: String, Codable {
-            case unchecked, indeterminate, checked
-        }
-    }
-}
+import TrickleKit
 
 public struct CheckboxBlockView: View {
     @EnvironmentObject var config: TrickleEditorConfig

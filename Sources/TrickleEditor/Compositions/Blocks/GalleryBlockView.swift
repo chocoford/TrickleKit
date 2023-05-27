@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ChocofordUI
+import TrickleKit
 
 struct GalleryBlockView: View {
     var block: TrickleData.Block

@@ -39,9 +39,8 @@ public extension TrickleStore {
         }
     }
 
-    func tryGetThreadsUnreadCount(_ workspaceID: WorkspaceData.ID?) async throws -> Int {
-        guard let workspaceID = workspaceID ?? currentWorkspaceID,
-              let theWorkspace = workspaces[workspaceID] else { throw TrickleStoreError.invalidWorkspaceID(workspaceID) }
+    func tryGetThreadsUnreadCount(_ workspaceID: WorkspaceData.ID) async throws -> Int {
+        guard let theWorkspace = workspaces[workspaceID] else { throw TrickleStoreError.invalidWorkspaceID(workspaceID) }
         
         do {
             let data = try await webRepositoryClient.getWorkspaceThreadsUnreadCount(workspaceID: workspaceID, memberID: theWorkspace.userMemberInfo.memberID)

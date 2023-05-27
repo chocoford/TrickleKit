@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import ChocofordUI
 
 
 extension TrickleWebSocket {

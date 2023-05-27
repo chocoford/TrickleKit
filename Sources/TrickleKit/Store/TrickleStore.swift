@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import ChocofordUI
 import CFWebRepositoryProvider
 
 public enum TrickleStoreError: LocalizedError {
@@ -21,7 +20,7 @@ public enum TrickleStoreError: LocalizedError {
     case invalidReactionID(_ reactionID: ReactionData.ID?)
     case pinError(_ error: PinError)
     case starError(_ error: StarError)
-    
+    case apnsError(_ error: APNsError)
     
     public var errorDescription: String? {
         switch self {
@@ -46,8 +45,9 @@ public enum TrickleStoreError: LocalizedError {
                 return "Invalid reactionID(\(reactionID ?? "nil"))"
             case .pinError(let error):
                 return error.errorDescription
-                
             case .starError(let error):
+                return error.errorDescription
+            case .apnsError(let error):
                 return error.errorDescription
         }
     }
@@ -69,14 +69,17 @@ public enum TrickleStoreError: LocalizedError {
 public class TrickleStore: ObservableObject {
     internal var webRepositoryClient: TrickleWebRepository
     internal var socket: TrickleWebSocket
+    internal var apnsHelper: TrickleAPNsHelper
 
     public init(storeHTTPClient: TrickleWebRepository = .init(session: .shared,
                                                               logLevel: [.error])) {
         self.webRepositoryClient = storeHTTPClient
+        self.apnsHelper = .init(storeHTTPClient.logLevel)
         self.socket = .init()
         self.socket.store = self
-        UserNotificationCenter.shared.requestPermission()
     }
+    
+    @Published public var deviceToken: String? = nil
     
     @Published public var userInfo: Loadable<UserInfo?> = .notRequested {
         didSet {

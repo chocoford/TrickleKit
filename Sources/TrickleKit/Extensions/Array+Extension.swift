@@ -15,8 +15,4 @@ extension Array {
         }
         return dic
     }
-    
-    func merged<T>() -> [String : T] where Element == [String : T]  {
-        reduce(into: [String : T]()) { $0.merge($1) { $1 } }
-    }
 }

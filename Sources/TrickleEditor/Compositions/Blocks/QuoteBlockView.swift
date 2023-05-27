@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TrickleKit
 
 struct QuoteBlockView: View {
     var block: TrickleData.Block

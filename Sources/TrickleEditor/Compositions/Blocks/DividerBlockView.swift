@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import TrickleKit
 
 struct DividerBlockView: View {
     var block: TrickleData.Block

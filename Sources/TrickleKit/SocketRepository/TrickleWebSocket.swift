@@ -122,9 +122,12 @@ extension TrickleWebSocket {
     }
     
     public func leaveRoom(workspaceID: WorkspaceData.ID, memberID: MemberData.ID) async {
+        guard let connectionID = self.configs?.connectionID else { return }
         let workspaceID = "workspace:" + workspaceID
         self.workspaceID = nil
         self.memberID = nil
+        self.timers[connectionID]?.roomHello?.invalidate()
+        self.timers[connectionID]?.roomHello = nil
         await send(.leaveRoom(data: .init(roomID: workspaceID, memberID: memberID, status: .offline)))
     }
 }

@@ -6,14 +6,7 @@
 //
 
 import SwiftUI
-
-extension TrickleData.Block {
-    public struct FileBlockValue: Codable, Hashable {
-        var url: URL
-        var name: String
-        var size: String
-    }
-}
+import TrickleKit
 
 public struct FileBlockView: View {
     var block: TrickleData.Block

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import ChocofordUI
+import TrickleKit
 
 public class TrickleEditorConfig: ObservableObject {
     static var `default` = TrickleEditorConfig(version: .v0,

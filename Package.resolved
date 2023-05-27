@@ -37,12 +37,12 @@
       }
     },
     {
-      "identity" : "chocofordui",
+      "identity" : "chocofordkit",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/chocoford/ChocofordUI.git",
+      "location" : "https://github.com/chocoford/ChocofordKit.git",
       "state" : {
         "branch" : "main",
-        "revision" : "5f5d947238df0c52d47926f4139c105701ceffea"
+        "revision" : "b71ccbbfb2f2a8fdb30ece82bd846029c16cbdce"
       }
     },
     {
