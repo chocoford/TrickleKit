@@ -6,6 +6,7 @@
 //
 
 import Foundation
+//import ChocofordUI
 
 extension TrickleWebSocket {
     @MainActor
@@ -15,9 +16,9 @@ extension TrickleWebSocket {
                 let workspaceName: String = store?.workspaces[event.eventData.workspaceID]?.name ?? "unknown"
                 let groupName: String = store?.groups[event.eventData.channelID]?.name ?? "unknown"
                 let trickleData: TrickleData = event.eventData.trickleInfo
-                UserNotificationCenter.shared.pushNormalNotification(title: workspaceName,
-                                                                     subtitle: groupName,
-                                                                     body: "\(trickleData.authorMemberInfo.name): \(TrickleEditorParser.getContentDescription(trickleData.blocks))")
+//                UserNotificationCenter.shared.pushNormalNotification(title: workspaceName,
+//                                                                     subtitle: groupName,
+//                                                                     body: "\(trickleData.authorMemberInfo.name): \(TrickleEditorParser.getContentDescription(trickleData.blocks))")
                 
             case .moved(let event):
                 store?.moveTrickle(event.eventData.trickleID, to: event.eventData.channelID)

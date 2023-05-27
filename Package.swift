@@ -10,12 +10,9 @@ let package = Package(
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
-        .library(
-            name: "TrickleKit",
-            targets: ["TrickleKit"]),
-        .library(
-            name: "TrickleEditor",
-            targets: ["TrickleEditor"]),
+        .library(name: "TrickleKit", targets: ["TrickleCore", "TrickleAuth", "TrickleSocket"]),
+        .library(name: "TrickleEditor", targets: ["TrickleEditor"]),
+        .library(name: "TrickleSocket", targets: ["TrickleSocket"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -32,7 +29,7 @@ let package = Package(
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
-            name: "TrickleKit",
+            name: "TrickleCore",
             dependencies: [
                 .product(name: "ChocofordTools", package: "ChocofordKit"),
                 "CFWebRepositoryProvider",
@@ -41,7 +38,7 @@ let package = Package(
                 .product(name: "SotoS3", package: "soto"),
                 .product(name: "SotoCognitoIdentity", package: "soto"),
             ],
-            path: "Sources/TrickleKit",
+            path: "Sources/TrickleCore",
             resources: [
                 .process("Resources")
             ]
@@ -57,10 +54,8 @@ let package = Package(
             ],
             path: "Sources/TrickleEditor"
         ),
-        .testTarget(
-            name: "TrickleKitTests",
-            dependencies: [
-                "TrickleKit"
-            ]),
+        .target(name: "TrickleSocket", dependencies: ["TrickleCore"], path: "Sources/SocketRepository"),
+        .target(name: "TrickleAuth", path: "Sources/TrickleAuth"),
+        .testTarget(name: "TrickleKitTests", dependencies: ["TrickleCore"]),
     ]
 )
