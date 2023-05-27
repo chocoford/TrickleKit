@@ -12,7 +12,10 @@ let package = Package(
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "TrickleKit",
-            targets: ["TrickleKit", "TrickleEditor"]),
+            targets: ["TrickleKit"]),
+        .library(
+            name: "TrickleEditor",
+            targets: ["TrickleEditor"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
