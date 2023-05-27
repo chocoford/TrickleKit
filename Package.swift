@@ -34,9 +34,10 @@ let package = Package(
         .target(
             name: "TrickleKit",
             dependencies: [
-                "ChocofordTools", 
+                .product(name: "ChocofordTools", package: "ChocofordKit"),
                 "CFWebRepositoryProvider",
                 .product(name: "JWTDecode", package: "JWTDecode.swift"),
+                .product(name: "Markdown", package: "swift-markdown"),
                 .product(name: "SotoS3", package: "soto"),
                 .product(name: "SotoCognitoIdentity", package: "soto"),
             ],
@@ -48,7 +49,7 @@ let package = Package(
         .target(
             name: "TrickleEditor",
             dependencies: [
-                "ChocofordUI",
+                .product(name: "ChocofordUI", package: "ChocofordKit"),
                 "Highlightr",
                 .product(name: "Markdown", package: "swift-markdown"),
                 .product(name: "SotoS3", package: "soto"),

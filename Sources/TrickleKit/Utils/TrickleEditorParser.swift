@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import ChocofordUI
 import WebKit
 import Markdown
 import TrickleKit
