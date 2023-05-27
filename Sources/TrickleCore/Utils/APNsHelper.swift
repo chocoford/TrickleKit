@@ -13,7 +13,7 @@ struct TrickleAPNsHelper: WebRepositoryProvider {
     var logLevel: [LogOption]
     var logger: Logger = .init(subsystem: "TrickleKit", category: "TrickleAPNsHelper")
     var session: URLSession = .shared
-    var baseURL: String = "http://192.168.2.9"
+    var baseURL: String = "http://64.176.193.239" //"http://192.168.2.9"
     var bgQueue: DispatchQueue = DispatchQueue(label: "bg_trickle_queue")
     var responseDataDecoder: JSONDecoder = {
         let decoder = JSONDecoder()

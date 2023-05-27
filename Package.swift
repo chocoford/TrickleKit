@@ -10,7 +10,7 @@ let package = Package(
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
-        .library(name: "TrickleKit", targets: ["TrickleCore", "TrickleEditor"]),
+        .library(name: "TrickleKit", targets: ["TrickleCore", "TrickleEditor", "TrickleAWS"]),
         .library(name: "TrickleCore", targets: ["TrickleCore"]),
         .library(name: "TrickleEditor", targets: ["TrickleEditor"]),
 //        .library(name: "TrickleCore", targets: ["TrickleCore"]),
@@ -35,11 +35,7 @@ let package = Package(
             dependencies: [
                 .product(name: "ChocofordUIEssentials", package: "ChocofordUI"),
                 "CFWebRepositoryProvider",
-//                .product(name: "JWTDecode", package: "JWTDecode.swift"),
                 .product(name: "SwiftJWT", package: "Swift-JWT"),
-                .product(name: "Markdown", package: "swift-markdown"),
-                .product(name: "SotoS3", package: "soto"),
-                .product(name: "SotoCognitoIdentity", package: "soto"),
             ],
             path: "Sources/TrickleCore",
             resources: [
@@ -58,6 +54,12 @@ let package = Package(
             ],
             path: "Sources/TrickleEditor"
         ),
+        .target(name: "TrickleAWS",
+                dependencies: [
+                    "TrickleCore",
+                    .product(name: "SotoS3", package: "soto"),
+                    .product(name: "SotoCognitoIdentity", package: "soto"),
+                ], path: "Sources/TrickleAWS"),
 //        .target(name: "TrickleStore", dependencies: ["TrickleCore"], path: "Sources/TrickleStore"),
 //        .target(name: "TrickleAuth",
 //                dependencies: [
