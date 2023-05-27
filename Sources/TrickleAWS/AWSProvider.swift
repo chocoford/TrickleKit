@@ -8,6 +8,7 @@
 import SotoS3 //ensure this module is specified as a dependency in your package.swift
 import SotoCognitoIdentity
 import Foundation
+import TrickleCore
 //
 
 //import AWSCognitoIdentity
