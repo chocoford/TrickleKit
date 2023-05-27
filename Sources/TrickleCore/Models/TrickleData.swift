@@ -56,7 +56,22 @@ extension TrickleData {
         } else if self.title.replacingOccurrences(of: " ", with: "").count > 0 {
             return title
         } else {
-            return TrickleEditorParser.getContentDescription(blocks, maxLength: 20)
+            return String(blocks.map { block in
+                switch block.type {
+                    case .code:
+                        return "[Code Block]"
+                    case .gallery:
+                        return "[Gallery]"
+                    case .reference:
+                        return "[Reference]"
+                    case .embed:
+                        return "[Embed Block]"
+                    default:
+                        return (block.elements ?? []).map { element in
+                            element.text
+                        }.joined()
+                }
+            }.joined(separator: "\n").prefix(20))
         }
     }
 }

@@ -7,8 +7,8 @@
 
 import SwiftUI
 import Shimmer
-import TrickleKit
-import ChocofordTools
+import TrickleCore
+import ChocofordUIEssentials
 
 
 public struct WebBookmarkBlockView: View {

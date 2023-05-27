@@ -7,7 +7,7 @@
 
 import SwiftUI
 import WebKit
-import TrickleKit
+import TrickleCore
 
 
 public struct EmbedBlockView: View {

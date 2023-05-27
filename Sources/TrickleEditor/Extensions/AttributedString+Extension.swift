@@ -6,7 +6,15 @@
 //
 
 import SwiftUI
-
+import TrickleCore
+import ChocofordUIEssentials
+#if os(macOS)
+extension NSAttributedString {
+    func toBlocks() -> [TrickleData.Block] {
+        AttributedString(self).toBlocks()
+    }
+}
+#endif
 extension AttributedString {
     func toBlocks(_ config: TrickleEditorConfig = .default) -> [TrickleData.Block] {
         return self.split("\n").map { line in

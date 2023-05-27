@@ -6,11 +6,8 @@
 //
 
 import SwiftUI
-import TrickleKit
-
-extension TrickleData.Block {
-
-}
+import TrickleCore
+import ChocofordUIEssentials
 
 struct ListBlockView: View {
     @EnvironmentObject var config: TrickleEditorConfig

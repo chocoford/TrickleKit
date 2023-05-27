@@ -10,16 +10,21 @@ import Foundation
 // MARK: - Checkbox Block
 extension TrickleData.Block {
     public struct CheckboxBlockValue: Codable, Hashable {
-        let status: CheckboxStatus
-        let operatorID: String?
+        public let status: CheckboxStatus
+        public let operatorID: String?
         
         enum CodingKeys: String, CodingKey {
             case status
             case operatorID = "operatorId"
         }
         
-        enum CheckboxStatus: String, Codable {
+        public enum CheckboxStatus: String, Codable {
             case unchecked, indeterminate, checked
+        }
+        
+        public init(status: CheckboxStatus, operatorID: String? = nil) {
+            self.status = status
+            self.operatorID = operatorID
         }
     }
 }
@@ -27,7 +32,11 @@ extension TrickleData.Block {
 //MARK: - Code Block
 extension TrickleData.Block {
     public struct CodeBlockValue: Codable, Hashable {
-        var language: String
+        public var language: String
+        
+        public init(language: String) {
+            self.language = language
+        }
     }
 }
 
@@ -35,17 +44,28 @@ extension TrickleData.Block {
 //MARK: - File Block
 extension TrickleData.Block {
     public struct FileBlockValue: Codable, Hashable {
-        var url: URL
-        var name: String
-        var size: String
+        public var url: URL
+        public var name: String
+        public var size: String
+        
+        public init(url: URL, name: String, size: String) {
+            self.url = url
+            self.name = name
+            self.size = size
+        }
     }
 }
 
 //MARK: - Embed Block
 extension TrickleData.Block {
     public struct EmbedBlockValue: Codable, Hashable {
-        let src: String
-        let height: String?
+        public let src: String
+        public let height: String?
+        
+        public init(src: String, height: String? = nil) {
+            self.src = src
+            self.height = height
+        }
     }
 }
 
@@ -53,7 +73,11 @@ extension TrickleData.Block {
 //MARK: - Web Bookmark
 extension TrickleData.Block {
     public struct WebBookmarkBlockValue: Codable, Hashable {
-        var url: URL
+        public var url: URL
+        
+        public init(url: URL) {
+            self.url = url
+        }
     }
 }
 

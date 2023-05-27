@@ -6,7 +6,7 @@
 //
 
 import Foundation
-//import ChocofordUI
+//import ChocofordUIEssentials
 
 extension TrickleWebSocket {
     @MainActor

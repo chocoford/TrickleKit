@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import ChocofordTools
+import ChocofordUIEssentials
 
 // Web
 public extension TrickleStore {

@@ -8,7 +8,7 @@
 import SwiftUI
 import WebKit
 import Markdown
-import TrickleKit
+import TrickleCore
 
 struct BlocksRenderer: View {
     var blocks: [TrickleData.Block]
@@ -87,7 +87,6 @@ public struct TrickleEditorParser {
                         element.text
                     }.joined()
             }
-            
         }.joined(separator: "\n")
         if let maxLength = maxLength,
            text.count > maxLength {

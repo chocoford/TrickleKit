@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import TrickleCore
 #if os(macOS)
 import AppKit
 #elseif os(iOS)

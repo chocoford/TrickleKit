@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import TrickleKit
+import TrickleCore
 
 struct TodosBlockView: View {
     var block: TrickleData.Block

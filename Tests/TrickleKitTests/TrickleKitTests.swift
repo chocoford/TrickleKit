@@ -1,5 +1,6 @@
 import XCTest
-@testable import TrickleKit
+@testable import TrickleCore
+@testable import TrickleEditor
 
 final class TrickleKitTests: XCTestCase {
     func testExample() throws {
@@ -29,15 +30,15 @@ return """
         let blocks = TrickleEditorParser.formBlock(string: testString)
 
         XCTAssertEqual(blocks.count, 7)
-        XCTAssertEqual(blocks[0].type, .h1)
+        XCTAssertEqual(blocks[0].type, TrickleData.Block.BlockType.h1)
         XCTAssertEqual(blocks[0].elements?.count, 1)
         XCTAssertEqual(blocks[0].blocks, nil)
-        XCTAssertEqual(blocks[1].type, .h2)
-        XCTAssertEqual(blocks[2].type, .h3)
-        XCTAssertEqual(blocks[3].type, .richText)
-        XCTAssertEqual(blocks[4].type, .h4)
-        XCTAssertEqual(blocks[5].type, .h5)
-        XCTAssertEqual(blocks[6].type, .h6)
+        XCTAssertEqual(blocks[1].type, TrickleData.Block.BlockType.h2)
+        XCTAssertEqual(blocks[2].type, TrickleData.Block.BlockType.h3)
+        XCTAssertEqual(blocks[3].type, TrickleData.Block.BlockType.richText)
+        XCTAssertEqual(blocks[4].type, TrickleData.Block.BlockType.h4)
+        XCTAssertEqual(blocks[5].type, TrickleData.Block.BlockType.h5)
+        XCTAssertEqual(blocks[6].type, TrickleData.Block.BlockType.h6)
     }
     
     func testMarkdownToListBlocks() throws {
@@ -60,12 +61,12 @@ Not a List
         let blocks = TrickleEditorParser.formBlock(string: testString)
 
         XCTAssertEqual(blocks.count, 6)
-        XCTAssertEqual(blocks[0].type, .list)
-        XCTAssertEqual(blocks[1].type, .list)
-        XCTAssertEqual(blocks[2].type, .list)
-        XCTAssertEqual(blocks[3].type, .list)
-        XCTAssertEqual(blocks[4].type, .list)
-        XCTAssertEqual(blocks[5].type, .richText)
+        XCTAssertEqual(blocks[0].type, TrickleData.Block.BlockType.list)
+        XCTAssertEqual(blocks[1].type, TrickleData.Block.BlockType.list)
+        XCTAssertEqual(blocks[2].type, TrickleData.Block.BlockType.list)
+        XCTAssertEqual(blocks[3].type, TrickleData.Block.BlockType.list)
+        XCTAssertEqual(blocks[4].type, TrickleData.Block.BlockType.list)
+        XCTAssertEqual(blocks[5].type, TrickleData.Block.BlockType.richText)
     }
     
     func testMarkdownToCodeBlock() throws {
@@ -88,8 +89,8 @@ final class TrickleKitTests: XCTestCase {
         dump(blocks)
 
         XCTAssertEqual(blocks.count, 1)
-        XCTAssertEqual(blocks[0].type, .code)
-        XCTAssertEqual(blocks[0].userDefinedValue, .code(.init(language: "swift")))
+        XCTAssertEqual(blocks[0].type, TrickleData.Block.BlockType.code)
+        XCTAssertEqual(blocks[0].userDefinedValue, TrickleData.Block.UserDefinedValue.code(.init(language: "swift")))
         
     }
     
@@ -109,7 +110,7 @@ abc
         dump(blocks)
 
         XCTAssertEqual(blocks.count, 4)
-        XCTAssertEqual(blocks[0].type, .numberedList)
+        XCTAssertEqual(blocks[0].type, TrickleData.Block.BlockType.numberedList)
         
         
     }

@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import TrickleKit
+import TrickleCore
 
 public struct FileBlockView: View {
     var block: TrickleData.Block

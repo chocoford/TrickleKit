@@ -9,7 +9,7 @@ import AppKit
 #elseif os(iOS)
 import UIKit
 #endif
-import TrickleKit
+import TrickleCore
 
 final class SharedTextStorage: NSTextStorage, ObservableObject {
     private let backingStorage = NSMutableAttributedString()
@@ -156,7 +156,8 @@ extension SharedTextContentStorage: NSTextContentStorageDelegate {
             }
             
             
-            originalText.enumerateAttribute(.elementType, in: .init(location: 0, length: originalText.length)) { val, range, _ in
+            originalText.enumerateAttribute(.elementType,
+                                            in: .init(location: 0, length: originalText.length)) { val, range, _ in
 //                print(originalText, range, originalText.length)
                 let attrString = originalText.attributedSubstring(from: range)
                 var elementAttrString = NSMutableAttributedString(attributedString: attrString)

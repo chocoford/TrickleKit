@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import TrickleKit
+import TrickleCore
 
 #if os(macOS)
 struct BlockView: NSViewRepresentable {

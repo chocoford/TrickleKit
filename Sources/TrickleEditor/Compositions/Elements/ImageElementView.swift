@@ -6,9 +6,9 @@
 //
 
 import SwiftUI
-import ChocofordUI
+import ChocofordUIComponents
 import SDWebImageSwiftUI
-import TrickleKit
+import TrickleCore
 
 
 struct ImageElementView: View {

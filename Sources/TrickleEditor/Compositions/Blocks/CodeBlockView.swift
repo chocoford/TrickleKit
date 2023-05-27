@@ -7,7 +7,7 @@
 
 import SwiftUI
 import Highlightr
-import TrickleKit
+import TrickleCore
 
 public struct CodeBlockView: View {
     var block: TrickleData.Block

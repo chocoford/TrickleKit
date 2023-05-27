@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import TrickleKit
+import TrickleCore
 
 public struct CheckboxBlockView: View {
     @EnvironmentObject var config: TrickleEditorConfig

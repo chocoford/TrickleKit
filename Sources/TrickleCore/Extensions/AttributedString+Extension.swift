@@ -9,11 +9,7 @@ import Foundation
 import SwiftUI
 
 #if os(macOS)
-extension NSAttributedString {
-    func toBlocks() -> [TrickleData.Block] {
-        AttributedString(self).toBlocks()
-    }
-    
+public extension NSAttributedString {
     var range: NSRange {
         .init(location: 0, length: self.length)
     }
@@ -21,7 +17,7 @@ extension NSAttributedString {
 
 #endif
 
-extension AttributedString {
+public extension AttributedString {
     func split(_ seperator: Character) -> [AttributedString] {
         var components: [AttributedString] = []
         

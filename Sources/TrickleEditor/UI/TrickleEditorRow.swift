@@ -7,8 +7,9 @@
 
 import SwiftUI
 import Shimmer
-import ChocofordUI
-import TrickleKit
+import ChocofordUIComponents
+import ChocofordUIEssentials
+import TrickleCore
 
 struct TrickleEditorRow: View {
     @EnvironmentObject var config: TrickleEditorConfig

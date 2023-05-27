@@ -14,13 +14,13 @@ extension TrickleData.Element {
         case air(ImageData)
         
         public struct ImageData: Codable, Hashable {
-            let id: String
-            var url: String
-            var name: String
-            var uploaded: Bool?
-            var uploadFailed: Bool?
-            var naturalWidth: CGFloat?
-            var naturalHeight: CGFloat?
+            public let id: String
+            public var url: String
+            public var name: String
+            public var uploaded: Bool?
+            public var uploadFailed: Bool?
+            public var naturalWidth: CGFloat?
+            public var naturalHeight: CGFloat?
             
             public init(id: String = UUID().uuidString, url: String, name: String, uploaded: Bool = false, uploadFailed: Bool = false) {
                 self.id = id
@@ -36,6 +36,13 @@ extension TrickleData.Element {
             public var localSrc: Data
             public var naturalWidth: CGFloat
             public var naturalHeight: CGFloat
+            
+            public init(filename: String, localSrc: Data, naturalWidth: CGFloat, naturalHeight: CGFloat) {
+                self.filename = filename
+                self.localSrc = localSrc
+                self.naturalWidth = naturalWidth
+                self.naturalHeight = naturalHeight
+            }
         }
         
         public init(from decoder: Decoder) throws {

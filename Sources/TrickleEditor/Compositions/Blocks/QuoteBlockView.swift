@@ -6,7 +6,8 @@
 //
 
 import SwiftUI
-import TrickleKit
+import TrickleCore
+import ChocofordUIEssentials
 
 struct QuoteBlockView: View {
     var block: TrickleData.Block

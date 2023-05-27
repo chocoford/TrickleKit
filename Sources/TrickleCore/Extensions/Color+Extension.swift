@@ -5,7 +5,8 @@
 //  Created by Dove Zachary on 2023/5/27.
 //
 
-import Foundation
+import SwiftUI
+import ChocofordUIEssentials
 
 extension Color {
     public init(_ selectOptionColor: FieldOptions.FieldOptionInfo.FieldOptionColor, scheme: ColorScheme = .light) {

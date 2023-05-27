@@ -8,7 +8,8 @@
 import Foundation
 import AuthenticationServices
 import Combine
-import JWTDecode
+//import JWTDecode
+import SwiftJWT
 
 enum SignInError: Error {
     case invalidURL
@@ -104,16 +105,19 @@ public class TrickleAuthHelper: NSObject, ObservableObject, ASWebAuthenticationP
 
 
 func decodeToken(token: String) -> TokenInfo? {
+    struct Payload: Claims {
+        let sub, scope: String
+        let iat, exp: Int
+    }
+    
     do {
-        let jwt = try decode(jwt: token)
-        guard let sub = jwt["sub"].string,
-              let iat = jwt["iat"].integer,
-              let exp = jwt["exp"].integer,
-              let scope = jwt["scope"].string else {
-            return nil
-        }
-//        print(TokenInfo(sub: sub, iat: iat, exp: exp, scope: scope, token: token))
-        return TokenInfo(sub: sub, iat: iat, exp: exp, scope: scope, token: token)
+        let jwtDeocder = JWTDecoder(jwtVerifier: .none)
+        let jwt = try jwtDeocder.decode(JWT<Payload>.self, fromString: token)
+        return TokenInfo(sub: jwt.claims.sub,
+                         iat: jwt.claims.iat,
+                         exp: jwt.claims.exp,
+                         scope: jwt.claims.scope,
+                         token: token)
     } catch {
         return nil
     }
