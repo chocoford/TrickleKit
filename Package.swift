@@ -10,7 +10,8 @@ let package = Package(
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
-        .library(name: "TrickleKit", targets: ["TrickleCore"]),
+        .library(name: "TrickleKit", targets: ["TrickleCore", "TrickleEditor"]),
+        .library(name: "TrickleCore", targets: ["TrickleCore"]),
         .library(name: "TrickleEditor", targets: ["TrickleEditor"]),
 //        .library(name: "TrickleCore", targets: ["TrickleCore"]),
     ],
