@@ -52,7 +52,7 @@ extension GroupData.FieldInfo {
         case multiSelect = "multi_select"
         case people, url, checkbox, relation, placeholder
         
-        var isMulti: Bool {
+        public var isMulti: Bool {
             switch self {
                 case .people, .multiSelect:
                     return true

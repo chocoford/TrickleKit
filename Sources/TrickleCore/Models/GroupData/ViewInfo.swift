@@ -71,6 +71,14 @@ extension GroupData.ViewInfo {
         public let operatorID: String?
         public let filterOperator: FilterOperator
         
+        public init(fieldID: GroupData.FieldInfo.ID, type: GroupData.FieldInfo.FieldType, value: TrickleData.FieldDatumValue, operatorID: String?, filterOperator: FilterOperator) {
+            self.fieldID = fieldID
+            self.type = type
+            self.value = value
+            self.operatorID = operatorID
+            self.filterOperator = filterOperator
+        }
+        
         enum CodingKeys: String, CodingKey {
             case type, value
             case fieldID = "fieldId"
@@ -152,7 +160,7 @@ public struct GroupViewTricklesStat: Codable, Hashable {
         }
     }
     
-    static var empty: GroupViewTricklesStat = .init(stats: [
+    public static var empty: GroupViewTricklesStat = .init(stats: [
         .init(groupID: "NULL", counts: 0)
     ])
 }

@@ -88,15 +88,24 @@ public struct NextQuery: Codable {
     public let groupByFilters: GroupData.ViewInfo.FilterData?
     public let filterLogicalOperator: GroupData.ViewInfo.FilterLogicalOperator
     
+    public init(memberID: String, limit: Int, filters: [GroupData.ViewInfo.FilterData]?, sorts: [Sort], groupByFilters: GroupData.ViewInfo.FilterData?, filterLogicalOperator: GroupData.ViewInfo.FilterLogicalOperator) {
+        self.memberID = memberID
+        self.limit = limit
+        self.filters = filters
+        self.sorts = sorts
+        self.groupByFilters = groupByFilters
+        self.filterLogicalOperator = filterLogicalOperator
+    }
+    
     enum CodingKeys: String, CodingKey {
         case memberID = "memberId"
         case limit, sorts, groupByFilters
         case filters, filterLogicalOperator
     }
 
-    static func mock(workspace: WorkspaceData, view: GroupData.ViewInfo,
-                     groupByID: FieldOptions.FieldOptionInfo.ID? = nil,
-                     limit: Int) -> NextQuery {
+    public static func mock(workspace: WorkspaceData, view: GroupData.ViewInfo,
+                            groupByID: FieldOptions.FieldOptionInfo.ID? = nil,
+                            limit: Int) -> NextQuery {
         if let groupBy = view.groupBy {
             let groupByID = groupByID ?? "NULL"
             return .init(memberID: workspace.userMemberInfo.memberID,
@@ -125,6 +134,13 @@ extension NextQuery {
         let fieldID: String?
         let isDescent: Bool
         let next: Next?
+        
+        public init(type: String, fieldID: String?, isDescent: Bool, next: Next?) {
+            self.type = type
+            self.fieldID = fieldID
+            self.isDescent = isDescent
+            self.next = next
+        }
 
         enum CodingKeys: String, CodingKey {
             case type

@@ -10,6 +10,11 @@ import Foundation
 public struct WorkspaceGroupsData: Codable, Hashable {
     public let team: [GroupData]
     public let personal: [GroupData]
+    
+    public init(team: [GroupData], personal: [GroupData]) {
+        self.team = team
+        self.personal = personal
+    }
 }
 
 // MARK: - GroupData
@@ -31,6 +36,21 @@ public struct GroupData: Codable, Hashable {
         case ownerID = "ownerId"
         case name, isWorkspacePublic, channelSpace, viewInfo, fieldInfo, icon, lastViewInfo, isGeneral, belongTo, channelType
 //        case memberIDS = "memberIds"
+    }
+    
+    public init(groupID: String, ownerID: String, name: String, isWorkspacePublic: Bool, channelSpace: ChannelSpace? = nil, viewInfo: [ViewInfo], fieldInfo: [FieldInfo], icon: String, lastViewInfo: LastViewInfo, isGeneral: Bool, belongTo: String, channelType: ChannelType) {
+        self.groupID = groupID
+        self.ownerID = ownerID
+        self.name = name
+        self.isWorkspacePublic = isWorkspacePublic
+        self.channelSpace = channelSpace
+        self.viewInfo = viewInfo
+        self.fieldInfo = fieldInfo
+        self.icon = icon
+        self.lastViewInfo = lastViewInfo
+        self.isGeneral = isGeneral
+        self.belongTo = belongTo
+        self.channelType = channelType
     }
 }
 

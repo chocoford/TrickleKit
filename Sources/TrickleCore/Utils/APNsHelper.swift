@@ -9,31 +9,36 @@ import Foundation
 import OSLog
 import CFWebRepositoryProvider
 
-struct TrickleAPNsHelper: WebRepositoryProvider {
-    var logLevel: [LogOption]
-    var logger: Logger = .init(subsystem: "TrickleKit", category: "TrickleAPNsHelper")
-    var session: URLSession = .shared
-    var baseURL: String = "http://64.176.193.239" //"http://192.168.2.9"
-    var bgQueue: DispatchQueue = DispatchQueue(label: "bg_trickle_queue")
-    var responseDataDecoder: JSONDecoder = {
+public struct TrickleAPNsHelper: WebRepositoryProvider {
+    public var logLevel: [LogOption]
+    public var logger: Logger = .init(subsystem: "TrickleKit", category: "TrickleAPNsHelper")
+    public var session: URLSession = .shared
+    public var baseURL: String = "http://64.176.193.239" //"http://192.168.2.9"
+    public var bgQueue: DispatchQueue = DispatchQueue(label: "bg_trickle_queue")
+    public var responseDataDecoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
         return decoder
     }()
     
-    init(_ logLevel: [LogOption] = [.response, .data]) {
+    public init(_ logLevel: [LogOption] = [.response, .data]) {
         self.logLevel = logLevel
     }
     
-    func registerAPNs(payload: API.RegisterAPNsPayload) async throws -> String {
-        try await call(endpoint: API.registerAPNs(payload: payload))
+    public func registerAPNs(payload: RegisterAPNsPayload) async throws -> String {
+        try await call(endpoint: API.registerAPNs(payload: .init(deviceToken: payload.deviceToken,
+                                                                 trickleToken: payload.trickleToken,
+                                                                 userID: payload.userID,
+                                                                 env: .init(rawValue: payload.env.rawValue)!,
+                                                                 userWorkspaces: payload.userWorkspaces.map{.init(memberID: $0.memberID,
+                                                                                                                  workspaceID: $0.workspaceID)})))
     }
     
-    func logoutAPNs(userID: UserInfo.UserData.ID) async throws -> String {
+    public func logoutAPNs(userID: UserInfo.UserData.ID) async throws -> String {
         try await call(endpoint: API.logoutAPNs(userID: userID))
     }
     
-    func mute(userID: UserInfo.UserData.ID,
+    public func mute(userID: UserInfo.UserData.ID,
               workspaceID: WorkspaceData.ID,
               memberID: MemberData.ID) async throws -> String {
         try await call(endpoint: API.muteWorkspace(payload: .init(userID: userID,
@@ -41,7 +46,7 @@ struct TrickleAPNsHelper: WebRepositoryProvider {
                                                                   memberID: memberID)))
     }
     
-    func unmute(userID: UserInfo.UserData.ID,
+    public func unmute(userID: UserInfo.UserData.ID,
                 workspaceID: WorkspaceData.ID,
                 memberID: MemberData.ID,
                 token: String) async throws -> String {
@@ -51,16 +56,46 @@ struct TrickleAPNsHelper: WebRepositoryProvider {
     }
 }
 
+public extension TrickleAPNsHelper {
+    struct RegisterAPNsPayload: Codable {
+        let deviceToken, trickleToken, userID: String
+        let env: Env
+        let userWorkspaces: [UserWorkspace]
+
+        public init(deviceToken: String, trickleToken: String, userID: String, env: Env, userWorkspaces: [UserWorkspace]) {
+            self.deviceToken = deviceToken
+            self.trickleToken = trickleToken
+            self.userID = userID
+            self.env = env
+            self.userWorkspaces = userWorkspaces
+        }
+        
+        public struct UserWorkspace: Codable {
+            let memberID, workspaceID: String
+            
+            public init(memberID: String, workspaceID: String) {
+                self.memberID = memberID
+                self.workspaceID = workspaceID
+            }
+        }
+
+        public enum Env: String, Codable {
+            case dev
+            case test
+            case live
+        }
+    }
+}
+
 
 extension TrickleAPNsHelper {
-    public enum API {
+    enum API {
         case registerAPNs(payload: RegisterAPNsPayload)
         case logoutAPNs(userID: UserInfo.UserData.ID)
         case muteWorkspace(payload: MuteWorkspacePayload)
         case unmuteWorkspace(payload: UnmuteWorkspacePayload)
     }
 }
-
 
 extension TrickleAPNsHelper.API {
     struct RegisterAPNsPayload: Codable {

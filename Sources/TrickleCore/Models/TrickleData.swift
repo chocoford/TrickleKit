@@ -81,6 +81,11 @@ extension TrickleData {
     public struct ViewedMemberData: Codable, Hashable {
         public var counts: Int
         public var members: [MemberData]
+        
+        public init(counts: Int, members: [MemberData]) {
+            self.counts = counts
+            self.members = members
+        }
     }
     public struct LastViewData: Codable, Hashable {
         public var unreadCount: Int?
@@ -315,6 +320,14 @@ public struct ReactionData: Codable, Hashable, Identifiable {
     public let code: String
     public let createAt, updateAt: Date?
     public let reactionAuthor: MemberData
+    
+    public init(reactionID: String, code: String, createAt: Date?, updateAt: Date?, reactionAuthor: MemberData) {
+        self.reactionID = reactionID
+        self.code = code
+        self.createAt = createAt
+        self.updateAt = updateAt
+        self.reactionAuthor = reactionAuthor
+    }
     
     enum CodingKeys: String, CodingKey {
         case code, createAt, updateAt

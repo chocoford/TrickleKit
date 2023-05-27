@@ -25,7 +25,7 @@ public struct CommentData: Codable, Hashable {
         case hasQuoted, commentAuthor, mentionedMemberInfo, quoteCommentInfo, reactionInfo, createAt, updateAt
     }
     
-    var quoted: QuoteCommentData {
+    public var quoted: QuoteCommentData {
         QuoteCommentData(commentID: commentID,
                          typ: typ ?? .normal,
                          text: .init(),
@@ -35,6 +35,31 @@ public struct CommentData: Codable, Hashable {
                          createAt: createAt,
                          updateAt: updateAt)
     }
+    
+    public init(commentID: String,
+                typ: CommentType?,
+                text: Text?,
+                blocks: [TrickleData.Block]?,
+                hasQuoted: Bool = false,
+                commentAuthor: MemberData,
+                mentionedMemberInfo: [MemberData],
+                quoteCommentInfo: QuoteCommentData?,
+                reactionInfo: [ReactionData],
+                createAt: Date,
+                updateAt: Date) {
+        self.commentID = commentID
+        self.typ = typ
+        self.text = text
+        self.blocks = blocks
+        self.hasQuoted = hasQuoted
+        self.commentAuthor = commentAuthor
+        self.mentionedMemberInfo = mentionedMemberInfo
+        self.quoteCommentInfo = quoteCommentInfo
+        self.reactionInfo = reactionInfo
+        self.createAt = createAt
+        self.updateAt = updateAt
+    }
+    
 }
 
 extension CommentData: Identifiable {

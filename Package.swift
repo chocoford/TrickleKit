@@ -10,10 +10,11 @@ let package = Package(
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
-        .library(name: "TrickleKit", targets: ["TrickleCore", "TrickleEditor", "TrickleAWS"]),
+        .library(name: "TrickleKit", targets: ["TrickleEditor", "TrickleAWS", "TrickleStore"]),
         .library(name: "TrickleCore", targets: ["TrickleCore"]),
         .library(name: "TrickleEditor", targets: ["TrickleEditor"]),
-//        .library(name: "TrickleCore", targets: ["TrickleCore"]),
+        .library(name: "TrickleSocket", targets: ["TrickleSocket"]),
+        //        .library(name: "TrickleCore", targets: ["TrickleCore"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -25,7 +26,7 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-markdown.git", branch: "main"),
         .package(url: "https://github.com/soto-project/soto.git", from: "6.5.0"),
         .package(url: "https://github.com/Kitura/Swift-JWT.git", from: "4.0.0"),
-//        .package(url: "https://github.com/socketio/socket.io-client-swift", .upToNextMinor(from: "16.0.0"))
+        //        .package(url: "https://github.com/socketio/socket.io-client-swift", .upToNextMinor(from: "16.0.0"))
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -35,7 +36,6 @@ let package = Package(
             dependencies: [
                 .product(name: "ChocofordUIEssentials", package: "ChocofordUI"),
                 "CFWebRepositoryProvider",
-                .product(name: "SwiftJWT", package: "Swift-JWT"),
             ],
             path: "Sources/TrickleCore",
             resources: [
@@ -46,27 +46,28 @@ let package = Package(
             name: "TrickleEditor",
             dependencies: [
                 "TrickleCore",
+                "TrickleAWS",
                 .product(name: "ChocofordUI", package: "ChocofordUI"),
                 "Highlightr",
                 .product(name: "Markdown", package: "swift-markdown"),
-                .product(name: "SotoS3", package: "soto"),
-                .product(name: "SotoCognitoIdentity", package: "soto"),
             ],
             path: "Sources/TrickleEditor"
         ),
+        .target(name: "TrickleStore", dependencies: ["TrickleSocket"], path: "Sources/Store"),
+        .target(name: "TrickleSocket", dependencies: ["TrickleCore"], path: "Sources/SocketRepository"),
+        .target(name: "TrickleAuth",
+                dependencies: [
+                    "TrickleCore",
+                    .product(name: "SwiftJWT", package: "Swift-JWT"),
+                ],
+                path: "Sources/TrickleAuth"),
         .target(name: "TrickleAWS",
                 dependencies: [
                     "TrickleCore",
                     .product(name: "SotoS3", package: "soto"),
                     .product(name: "SotoCognitoIdentity", package: "soto"),
                 ], path: "Sources/TrickleAWS"),
-//        .target(name: "TrickleStore", dependencies: ["TrickleCore"], path: "Sources/TrickleStore"),
-//        .target(name: "TrickleAuth",
-//                dependencies: [
-//                    "TrickleCore",
-//                    .product(name: "JWTDecode", package: "JWTDecode.swift")
-//                ],
-//                path: "Sources/TrickleAuth"),
         .testTarget(name: "TrickleKitTests", dependencies: ["TrickleCore", "TrickleEditor"]),
+        
     ]
 )

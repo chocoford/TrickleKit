@@ -78,7 +78,7 @@ public enum Loadable<T> {
     }
 }
 
-extension Loadable {
+public extension Loadable {
     mutating func setIsLoading() { //cancelBag: CancelBag
         self = .isLoading(last: value) //, cancelBag: cancelBag
     }
@@ -113,7 +113,7 @@ extension Loadable {
         }
     }
     
-    public func map<V>(_ transform: (T) throws -> V) -> Loadable<V> {
+    func map<V>(_ transform: (T) throws -> V) -> Loadable<V> {
         do {
             switch self {
                 case .notRequested: return .notRequested

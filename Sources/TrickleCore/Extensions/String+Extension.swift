@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension String {
+public extension String {
     func toJSON() -> [String: Any]? {
         guard let data = self.data(using: .utf8) else { return nil }
         return try? JSONSerialization.jsonObject(with: data, options: [.mutableContainers]) as? [String: Any]

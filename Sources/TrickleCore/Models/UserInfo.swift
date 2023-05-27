@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct AuthData: Codable {
-    let accessToken: String
-    let refreshToken: String
-    let expiresIn: Int
-    let tokenType: String
+public struct AuthData: Codable {
+    public let accessToken: String
+    public let refreshToken: String
+    public let expiresIn: Int
+    public let tokenType: String
 
     enum CodingKeys: String, CodingKey {
         case accessToken = "access_token"
@@ -23,12 +23,20 @@ struct AuthData: Codable {
 
 
 public struct TokenInfo: Codable {
-    let sub: String
-    let iat: Int
-    let exp: Int
-    let scope: String
+    public let sub: String
+    public let iat: Int
+    public let exp: Int
+    public let scope: String
     
-    let token: String
+    public let token: String
+    
+    public init(sub: String, iat: Int, exp: Int, scope: String, token: String) {
+        self.sub = sub
+        self.iat = iat
+        self.exp = exp
+        self.scope = scope
+        self.token = token
+    }
 }
 
 public struct UserInfo: Codable, Equatable {
@@ -37,6 +45,13 @@ public struct UserInfo: Codable, Equatable {
         public var name: String
         public let email: String?
         public var avatarURL: String
+        
+        public init(id: String, name: String, email: String?, avatarURL: String) {
+            self.id = id
+            self.name = name
+            self.email = email
+            self.avatarURL = avatarURL
+        }
         
         enum CodingKeys: String, CodingKey {
             case id, email
@@ -47,10 +62,12 @@ public struct UserInfo: Codable, Equatable {
     
     public var user: UserData
     
-    var token: String?
+    public var token: String?
     
-    
-    
+    public init(user: UserData, token: String?) {
+        self.user = user
+        self.token = token
+    }
     
     struct KeychainRepresentation: Codable {
         let id: UUID
