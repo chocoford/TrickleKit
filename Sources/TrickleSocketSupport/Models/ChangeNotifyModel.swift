@@ -27,7 +27,7 @@ public struct ChangeNotifyData: Codable {
 
 
     public struct Trigger: Codable {
-        let trickleTraceID: TrickleData.ID?
+        public let trickleTraceID: MemberData.ID?
 
         enum CodingKeys: String, CodingKey {
             case trickleTraceID = "trickleTraceId"

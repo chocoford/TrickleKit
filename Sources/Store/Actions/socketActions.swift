@@ -88,7 +88,7 @@ public extension TrickleStore {
             _ = try await apnsHelper.registerAPNs(payload: .init(deviceToken: deviceToken,
                                                                  trickleToken: token,
                                                                  userID: userInfo.user.id,
-                                                                 env: .dev,
+                                                                 env: .init(rawValue: Config.env) ?? TrickleAPNsHelper.RegisterAPNsPayload.Env.dev,
                                                                  userWorkspaces: userWorkspaces))
         } catch {
             throw TrickleStoreError.apnsError(.registerFailed(error))
