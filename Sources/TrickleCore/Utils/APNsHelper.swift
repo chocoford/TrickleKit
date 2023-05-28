@@ -6,12 +6,12 @@
 //
 
 import Foundation
-import OSLog
+import Logging
 import CFWebRepositoryProvider
 
 public struct TrickleAPNsHelper: WebRepositoryProvider {
     public var logLevel: [LogOption]
-    public var logger: Logger = .init(subsystem: "TrickleKit", category: "TrickleAPNsHelper")
+    public var logger: Logger = .init(label: "TrickleAPNsHelper")
     public var session: URLSession = .shared
     public var baseURL: String = "http://64.176.193.239" //"http://192.168.2.9"
     public var bgQueue: DispatchQueue = DispatchQueue(label: "bg_trickle_queue")

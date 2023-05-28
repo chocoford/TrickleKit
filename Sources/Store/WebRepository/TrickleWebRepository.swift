@@ -8,12 +8,12 @@
 import Foundation
 import CFWebRepositoryProvider
 import Combine
-import OSLog
+import Logging
 import TrickleCore
 
 public struct TrickleWebRepository: TrickleWebRepositoryProvider {
     public var logLevel: [LogOption]
-    public var logger: Logger = .init(subsystem: "TrickleKit", category: "TrickleWebRepository")
+    public var logger: Logger = .init(label: "TrickleWebRepository")
     public var session: URLSession
     public var baseURL: String
     public var bgQueue: DispatchQueue = DispatchQueue(label: "bg_trickle_queue")

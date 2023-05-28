@@ -60,7 +60,7 @@
       "location" : "https://github.com/chocoford/CFWebRepositoryProvider.git",
       "state" : {
         "branch" : "main",
-        "revision" : "5108a3ccbc94fdbc3939c0d2906322048381c5dc"
+        "revision" : "f299e929956320b905bedb4f22d0ad205f55c1ce"
       }
     },
     {
@@ -69,7 +69,7 @@
       "location" : "https://github.com/chocoford/ChocofordKit.git",
       "state" : {
         "branch" : "main",
-        "revision" : "a65aebb1b5885c8f020350c34818148faa095e39"
+        "revision" : "36eb28b76a44b61b1923e322c33a5a0144287f56"
       }
     },
     {
