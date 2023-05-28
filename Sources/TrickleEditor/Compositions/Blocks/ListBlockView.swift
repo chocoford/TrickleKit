@@ -7,7 +7,7 @@
 
 import SwiftUI
 import TrickleCore
-import ChocofordUIEssentials
+import ChocofordEssentials
 
 struct ListBlockView: View {
     @EnvironmentObject var config: TrickleEditorConfig

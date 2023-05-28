@@ -6,9 +6,9 @@
 //
 
 import SwiftUI
-import ChocofordUIEssentials
+import ChocofordEssentials
 import TrickleCore
-import ChocofordUIComponents
+import ChocofordUI
 
 public class TrickleEditorConfig: ObservableObject {
     static var `default` = TrickleEditorConfig(version: .v0,

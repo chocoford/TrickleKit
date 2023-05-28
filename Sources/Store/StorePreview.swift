@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import ChocofordUIEssentials
+import ChocofordEssentials
 import TrickleCore
 #if DEBUG
 extension TrickleStore {

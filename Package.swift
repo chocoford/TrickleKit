@@ -10,7 +10,7 @@ let package = Package(
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
-        .library(name: "TrickleKit", targets: ["TrickleEditor", "TrickleAWS", "TrickleStore"]),
+        .library(name: "TrickleKit", targets: ["TrickleEditor", "TrickleAWS", "TrickleStore", "TrickleUI"]),
         .library(name: "TrickleCore", targets: ["TrickleCore"]),
         .library(name: "TrickleEditor", targets: ["TrickleEditor"]),
         .library(name: "TrickleSocket", targets: ["TrickleSocket"]),
@@ -19,7 +19,7 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
-        .package(url: "https://github.com/chocoford/ChocofordUI.git", branch: "main"),
+        .package(url: "https://github.com/chocoford/ChocofordKit.git", branch: "main"),
         .package(url: "https://github.com/chocoford/CFWebRepositoryProvider.git", branch: "main"),
         .package(url: "https://github.com/auth0/JWTDecode.swift.git", from: "3.0.0"),
         .package(url: "https://github.com/raspu/Highlightr.git", from: "2.1.2"),
@@ -34,8 +34,8 @@ let package = Package(
         .target(
             name: "TrickleCore",
             dependencies: [
-                .product(name: "ChocofordUIEssentials", package: "ChocofordUI"),
                 "CFWebRepositoryProvider",
+                .product(name: "ChocofordEssentials", package: "ChocofordKit"),
             ],
             path: "Sources/TrickleCore",
             resources: [
@@ -47,7 +47,7 @@ let package = Package(
             dependencies: [
                 "TrickleCore",
                 "TrickleAWS",
-                .product(name: "ChocofordUI", package: "ChocofordUI"),
+                .product(name: "ChocofordUI", package: "ChocofordKit"),
                 "Highlightr",
                 .product(name: "Markdown", package: "swift-markdown"),
             ],
@@ -61,6 +61,12 @@ let package = Package(
                     .product(name: "SwiftJWT", package: "Swift-JWT"),
                 ],
                 path: "Sources/TrickleAuth"),
+        .target(name: "TrickleUI",
+                dependencies: [
+                    "TrickleCore",
+                    .product(name: "ChocofordUI", package: "ChocofordKit"),
+                ],
+                path: "Sources/TrickleUI"),
         .target(name: "TrickleAWS",
                 dependencies: [
                     "TrickleCore",

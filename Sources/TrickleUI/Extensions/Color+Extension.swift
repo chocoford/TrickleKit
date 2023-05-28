@@ -6,7 +6,8 @@
 //
 
 import SwiftUI
-import ChocofordUIEssentials
+import TrickleCore
+import ChocofordUI
 
 extension Color {
     public init(_ selectOptionColor: FieldOptions.FieldOptionInfo.FieldOptionColor, scheme: ColorScheme = .light) {

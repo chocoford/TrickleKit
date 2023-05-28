@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import ChocofordUIComponents
+import ChocofordUI
 import TrickleCore
 
 struct GalleryBlockView: View {

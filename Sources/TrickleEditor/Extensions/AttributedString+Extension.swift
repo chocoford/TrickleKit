@@ -7,7 +7,7 @@
 
 import SwiftUI
 import TrickleCore
-import ChocofordUIEssentials
+import ChocofordEssentials
 #if os(macOS)
 extension NSAttributedString {
     func toBlocks() -> [TrickleData.Block] {

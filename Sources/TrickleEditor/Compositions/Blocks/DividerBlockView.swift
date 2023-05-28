@@ -7,7 +7,7 @@
 
 import SwiftUI
 import TrickleCore
-import ChocofordUIEssentials
+import ChocofordEssentials
 
 struct DividerBlockView: View {
     var block: TrickleData.Block
