@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
 
 public enum LoadableError: Error, LocalizedError {
     case cancelled

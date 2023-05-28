@@ -91,15 +91,6 @@
       }
     },
     {
-      "identity" : "jwtdecode.swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/auth0/JWTDecode.swift.git",
-      "state" : {
-        "revision" : "7918a343e674c7707e0be120bb4e21d679be014c",
-        "version" : "3.0.1"
-      }
-    },
-    {
       "identity" : "kituracontracts",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Kitura/KituraContracts.git",

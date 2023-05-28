@@ -21,7 +21,6 @@ let package = Package(
         // .package(url: /* package url */, from: "1.0.0"),
         .package(url: "https://github.com/chocoford/ChocofordKit.git", branch: "main"),
         .package(url: "https://github.com/chocoford/CFWebRepositoryProvider.git", branch: "main"),
-        .package(url: "https://github.com/auth0/JWTDecode.swift.git", from: "3.0.0"),
         .package(url: "https://github.com/raspu/Highlightr.git", from: "2.1.2"),
         .package(url: "https://github.com/apple/swift-markdown.git", branch: "main"),
         .package(url: "https://github.com/soto-project/soto.git", from: "6.5.0"),
@@ -37,7 +36,6 @@ let package = Package(
                 .product(name: "ChocofordEssentials", package: "ChocofordKit"),
             ],
             path: "Sources/TrickleCore",
-            exclude: ["SwiftUI"],
             resources: [
                 .process("Resources")
             ]
