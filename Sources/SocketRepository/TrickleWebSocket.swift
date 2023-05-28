@@ -7,7 +7,6 @@
 
 import Foundation
 import OSLog
-import Combine
 import TrickleCore
 
 public class TrickleWebSocket {
@@ -51,7 +50,7 @@ public class TrickleWebSocket {
     var workspaceID: String?
     var memberID: String?
     
-    var changeNotifyPulisher: PassthroughSubject<[ChangeNotifyData], Never> = .init()
+//    var changeNotifyPulisher: PassthroughSubject<[ChangeNotifyData], Never> = .init()
     
     public init(handlers: @escaping (IncomingMessageType) -> Void) {
         self.onMessage = handlers

@@ -6,8 +6,7 @@
 //
 
 import Foundation
-import OSLog
-import SwiftUI
+import Logging
 
 enum WebSocketStreamError: Error {
     case encodingError
@@ -25,7 +24,7 @@ class WebSocketStream: NSObject, AsyncSequence {
          return stream.makeAsyncIterator()
     }
     
-    private let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "WebSocketStream")
+    private let logger = Logger(label: "WebSocketStream")
     
     private var stream: AsyncThrowingStream<Element, Error>?
     private var continuation: AsyncThrowingStream<Element, Error>.Continuation?

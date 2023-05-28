@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import OSLog
+import Logging
 
 extension TrickleWebSocket {
     public enum IncomingMessageType {
@@ -28,7 +28,7 @@ public class TrickleSocketMessageHandler {
     
     public static var shared: TrickleSocketMessageHandler = .init()
     
-    let logger = Logger(subsystem: Bundle.main.bundleIdentifier ?? "TrickleKit", category: "TrickleSocketMessageHandler")
+    let logger = Logger(label: "TrickleSocketMessageHandler")
     
     private init() {}
     
