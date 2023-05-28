@@ -6,11 +6,11 @@
 //
 
 import Foundation
-import TrickleSocket
+import TrickleSocketSupport
 
 extension TrickleStore {
     @MainActor
-    func handleWorkspaceChange(_ changeEvent: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.WorkspaceChangeEvent) {
+    func handleWorkspaceChange(_ changeEvent: ChangeNotifyData.LatestChangeEvent.WorkspaceChangeEvent) {
         switch changeEvent {
             case .updated(let event):
                 guard var workspace = workspaces[event.eventData.workspaceID] else {

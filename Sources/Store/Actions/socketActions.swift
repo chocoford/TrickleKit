@@ -7,7 +7,7 @@
 
 import Foundation
 import TrickleCore
-import TrickleSocket
+
 
 public extension TrickleStoreError {
     enum APNsError: LocalizedError {

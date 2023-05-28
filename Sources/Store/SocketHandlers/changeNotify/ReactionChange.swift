@@ -6,12 +6,12 @@
 //
 
 import Foundation
-import TrickleSocket
 import TrickleCore
+import TrickleSocketSupport
 
 extension TrickleStore {
     @MainActor
-    func handleReactionChange(_ event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.ReactionChangeEvent) {
+    func handleReactionChange(_ event: ChangeNotifyData.LatestChangeEvent.ReactionChangeEvent) {
         switch event {
             case .created(let event):
                 addReaction(event.eventData.reactionInfo, to: event.eventData.trickleID)

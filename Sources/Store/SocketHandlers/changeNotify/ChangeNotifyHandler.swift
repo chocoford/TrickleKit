@@ -6,11 +6,11 @@
 //
 
 import Foundation
-import TrickleSocket
+import TrickleSocketSupport
 
 extension TrickleStore {
     @MainActor
-    func handleChangeNotify(_ data: [TrickleWebSocket.ChangeNotifyData]) {
+    func handleChangeNotify(_ data: [ChangeNotifyData]) {
         for data in data {
             for code in data.codes {
                 switch code.value.latestChangeEvent {

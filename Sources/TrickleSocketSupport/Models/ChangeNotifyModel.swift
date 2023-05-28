@@ -16,28 +16,26 @@ protocol ChangeEvent: Codable {
     var eventData: T { get set }
 }
 
-public extension TrickleWebSocket {
-    struct ChangeNotifyData: Codable {
-        public let codes: [String : CodeData]
+public struct ChangeNotifyData: Codable {
+    public let codes: [String : CodeData]
 
-        public struct CodeData: Codable {
-            public let version: Int
-            public let latestChangeEvent: LatestChangeEvent
-            public let trigger: Trigger
-        }
+    public struct CodeData: Codable {
+        public let version: Int
+        public let latestChangeEvent: LatestChangeEvent
+        public let trigger: Trigger
+    }
 
 
-        public struct Trigger: Codable {
-            let trickleTraceID: TrickleData.ID?
+    public struct Trigger: Codable {
+        let trickleTraceID: TrickleData.ID?
 
-            enum CodingKeys: String, CodingKey {
-                case trickleTraceID = "trickleTraceId"
-            }
+        enum CodingKeys: String, CodingKey {
+            case trickleTraceID = "trickleTraceId"
         }
     }
 }
 
-public extension TrickleWebSocket.ChangeNotifyData {
+public extension ChangeNotifyData {
     enum LatestChangeEvent: Codable {
         case workspace(WorkspaceChangeEvent)
         case group(GroupChangeEvent)
@@ -101,7 +99,7 @@ public extension TrickleWebSocket.ChangeNotifyData {
     }
 }
 
-public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent {
+public extension ChangeNotifyData.LatestChangeEvent {
     enum EventType: Codable {
         case board(BoardEventType)
         case group(ChannelEventType)
@@ -215,7 +213,7 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent {
     }
 }
 
-public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent {
+public extension ChangeNotifyData.LatestChangeEvent {
     enum WorkspaceChangeEvent: Codable {
 //        case created
         case updated(WorkspaceUpdatedEvent)
@@ -473,9 +471,9 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent {
 }
 
 // MARK: - Workspace Change Events
-public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.WorkspaceChangeEvent {
+public extension ChangeNotifyData.LatestChangeEvent.WorkspaceChangeEvent {
     struct WorkspaceUpdatedEvent: ChangeEvent {
-        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.WorkspaceEventType
+        public var event: ChangeNotifyData.LatestChangeEvent.WorkspaceEventType
         public var eventData: EventData
         
         public struct EventData: Codable {
@@ -494,14 +492,14 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.WorkspaceCh
 }
 
 // MARK: - Board Change Events
-public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.BoardChangeEvent {
+public extension ChangeNotifyData.LatestChangeEvent.BoardChangeEvent {
     
 }
 
 // MARK: - Trickles Change Events
-public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleChangeEvent {
+public extension ChangeNotifyData.LatestChangeEvent.TrickleChangeEvent {
     struct TrickleCreatedEvent: ChangeEvent {
-        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleEventType
+        public var event: ChangeNotifyData.LatestChangeEvent.TrickleEventType
         public var eventData: EventData
         
         public struct EventData: Codable {
@@ -520,7 +518,7 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleChan
     }
     
     struct TrickleUpdatedEvent: ChangeEvent {
-        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleEventType
+        public var event: ChangeNotifyData.LatestChangeEvent.TrickleEventType
         public var eventData: EventData
         
         public struct EventData: Codable {
@@ -539,7 +537,7 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleChan
     }
     
     struct TrickleDeletedEvent: ChangeEvent {
-        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleEventType
+        public var event: ChangeNotifyData.LatestChangeEvent.TrickleEventType
         public var eventData: EventData
         
         public struct EventData: Codable {
@@ -559,7 +557,7 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleChan
     }
     
     struct TrickleMovedEvent: ChangeEvent {
-        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleEventType
+        public var event: ChangeNotifyData.LatestChangeEvent.TrickleEventType
         public var eventData: EventData
         
         public struct EventData: Codable {
@@ -583,7 +581,7 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleChan
     }
     
     struct TrickleViewdEvent: ChangeEvent {
-        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleEventType
+        public var event: ChangeNotifyData.LatestChangeEvent.TrickleEventType
         public var eventData: EventData
         
         public struct EventData: Codable {
@@ -617,7 +615,7 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleChan
     }
     
 //    struct TricklePinnedEvent: ChangeEvent {
-//        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleEventType
+//        public var event: ChangeNotifyData.LatestChangeEvent.TrickleEventType
 //        public var eventData: EventData
 //
 //        public struct EventData: Codable {
@@ -636,7 +634,7 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleChan
 //    }
     
     struct TricklePinRankChangedEvent: ChangeEvent {
-        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleEventType
+        public var event: ChangeNotifyData.LatestChangeEvent.TrickleEventType
         public var eventData: EventData
         
         public struct EventData: Codable {
@@ -655,7 +653,7 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleChan
     }
     
     struct TrickleStarredEvent: ChangeEvent {
-        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleEventType
+        public var event: ChangeNotifyData.LatestChangeEvent.TrickleEventType
         public var eventData: EventData
         
         public struct EventData: Codable {
@@ -672,7 +670,7 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleChan
     }
     
     struct TrickleUnstarredEvent: ChangeEvent {
-        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleEventType
+        public var event: ChangeNotifyData.LatestChangeEvent.TrickleEventType
         public var eventData: EventData
         
         public struct EventData: Codable {
@@ -691,9 +689,9 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.TrickleChan
 
 
 // MARK: - Comments Change Events
-public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.CommentChangeEvent {
+public extension ChangeNotifyData.LatestChangeEvent.CommentChangeEvent {
     struct CommentCreatedEvent: ChangeEvent {
-        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.CommentEventType
+        public var event: ChangeNotifyData.LatestChangeEvent.CommentEventType
         public var eventData: EventData
         
         public struct EventData: Codable {
@@ -709,7 +707,7 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.CommentChan
         }
     }
     struct CommentDeletedEvent: ChangeEvent {
-        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.CommentEventType
+        public var event: ChangeNotifyData.LatestChangeEvent.CommentEventType
         public var eventData: EventData
         
         public struct EventData: Codable {
@@ -725,7 +723,7 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.CommentChan
         }
     }
     struct StatusCommentCreatedEvent: ChangeEvent {
-        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.CommentEventType
+        public var event: ChangeNotifyData.LatestChangeEvent.CommentEventType
         public var eventData: EventData
         
         public struct EventData: Codable {
@@ -740,7 +738,7 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.CommentChan
         }
     }
     struct ThreadsUnreadCountUpdatedEvent: Codable, ChangeEvent {
-        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.CommentEventType
+        public var event: ChangeNotifyData.LatestChangeEvent.CommentEventType
         public var eventData: EventData
         
         public struct EventData: Codable {
@@ -759,7 +757,7 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.CommentChan
     }
     
     struct DMUnreadCountUpdatedEvent: ChangeEvent {
-        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.CommentEventType
+        public var event: ChangeNotifyData.LatestChangeEvent.CommentEventType
         public var eventData: EventData
         
         public struct EventData: Codable {
@@ -769,9 +767,9 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.CommentChan
 }
 
 // MARK: - Reactions Change Events
-public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.ReactionChangeEvent {
+public extension ChangeNotifyData.LatestChangeEvent.ReactionChangeEvent {
     struct ReactionCreatedEvent: ChangeEvent {
-        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.ReactionEventType
+        public var event: ChangeNotifyData.LatestChangeEvent.ReactionEventType
         public var eventData: EventData
         
         public struct EventData: Codable {
@@ -792,7 +790,7 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.ReactionCha
     }
     
     struct ReactionDeletedEvent: ChangeEvent {
-        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.ReactionEventType
+        public var event: ChangeNotifyData.LatestChangeEvent.ReactionEventType
         public var eventData: EventData
         
         public struct EventData: Codable {
@@ -809,7 +807,7 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.ReactionCha
     }
     
     struct CommentReactionCreatedEvent: ChangeEvent {
-        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.ReactionEventType
+        public var event: ChangeNotifyData.LatestChangeEvent.ReactionEventType
         public var eventData: EventData
         
         public struct EventData: Codable {
@@ -829,7 +827,7 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.ReactionCha
     }
     
     struct CommentReactionDeletedEvent: ChangeEvent {
-        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.ReactionEventType
+        public var event: ChangeNotifyData.LatestChangeEvent.ReactionEventType
         public var eventData: EventData
         
         public struct EventData: Codable {
@@ -849,9 +847,9 @@ public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.ReactionCha
 }
 
 // MARK: - View Change Events
-public extension TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.ViewChangeEvent {
+public extension ChangeNotifyData.LatestChangeEvent.ViewChangeEvent {
     struct GroupFieldUpdatedEvent: ChangeEvent {
-        public var event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.ViewEventType
+        public var event: ChangeNotifyData.LatestChangeEvent.ViewEventType
         public var eventData: EventData
         
         public struct EventData: Codable {

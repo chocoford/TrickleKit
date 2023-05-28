@@ -8,8 +8,6 @@
 import SwiftUI
 import CFWebRepositoryProvider
 import TrickleCore
-import TrickleSocket
-
 
 public enum TrickleStoreError: LocalizedError {
     case lodableError(_ error: LoadableError)

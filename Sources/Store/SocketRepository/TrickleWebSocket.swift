@@ -8,6 +8,7 @@
 import Foundation
 import Logging
 import TrickleCore
+import TrickleSocketSupport
 
 public class TrickleWebSocket {
     let logger = Logger(label: "TrickleWebSocket")
@@ -138,72 +139,72 @@ extension TrickleWebSocket {
 }
 
 // MARK: - Message Payload
-public extension TrickleWebSocket {
-    enum MessageType {
-        case connect
-
-        case hello(data: HelloData)
-        
-        case subscribeWorkspaces(data: SubscribeWorkspacesPayload)
-
-        case joinRoom(data: RoomData)
-        case roomStatus(data: RoomData)
-        case leaveRoom(data: RoomData)
-    }
-
-    enum MessageAction: String, Codable {
-        case message
-        case notification
-        case version
-    }
-    
-    struct MessageMeta: Codable {
-        let seqNo: Int?
-        let version: String
-    }
-    
-    struct Message<T: Codable, P: Codable>: Codable {
-        public let id: String
-        public let authorization: String?
-        public let action: MessageAction
-        public let path: P
-        public let data: T?
-        public let meta: MessageMeta?
-
-        init(id: String? = nil, authorization: String? = nil, action: MessageAction, path: P, data: T? = nil, meta: MessageMeta? = nil) {
-            self.id = id ?? UUID().uuidString
-            self.authorization = authorization
-            self.action = action
-            self.path = path
-            self.data = data
-            self.meta = .init(seqNo: nil, version: "SwifyTrickle \(Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String)")
-        }
-    }
-
-    enum IncomingMessagePath: String, Codable {
-        case connectSuccess = "connect_success"
-        case helloAck = "connect_hello_ack"
-        case joinRoomAck = "join_room_ack"
-        case roomMembers = "room_members"
-        
-        /// actions
-        case sync
-        case changeNotify = "change_notify"
-    }
-    typealias IncomingEmptyMessage = IncomingMessage<EmptyData>
-    typealias IncomingMessage<T: Codable> = Message<T, IncomingMessagePath>
-    
-    enum OutgoingMessagePath: String, Codable {
-        case connect
-        case hello = "connect_hello"
-        case subscribe
-        case joinRoom = "join_room"
-        case roomStatus = "room_status"
-        case leaveRoom = "leave_room"
-    }
-    typealias OutgoingEmptyMessage = OutgoingMessage<EmptyData>
-    typealias OutgoingMessage<T: Codable> = Message<T, OutgoingMessagePath>
-}
+//public extension TrickleWebSocket {
+//    enum MessageType {
+//        case connect
+//
+//        case hello(data: HelloData)
+//
+//        case subscribeWorkspaces(data: SubscribeWorkspacesPayload)
+//
+//        case joinRoom(data: RoomData)
+//        case roomStatus(data: RoomData)
+//        case leaveRoom(data: RoomData)
+//    }
+//
+//    enum MessageAction: String, Codable {
+//        case message
+//        case notification
+//        case version
+//    }
+//
+//    struct MessageMeta: Codable {
+//        let seqNo: Int?
+//        let version: String
+//    }
+//
+//    struct Message<T: Codable, P: Codable>: Codable {
+//        public let id: String
+//        public let authorization: String?
+//        public let action: MessageAction
+//        public let path: P
+//        public let data: T?
+//        public let meta: MessageMeta?
+//
+//        init(id: String? = nil, authorization: String? = nil, action: MessageAction, path: P, data: T? = nil, meta: MessageMeta? = nil) {
+//            self.id = id ?? UUID().uuidString
+//            self.authorization = authorization
+//            self.action = action
+//            self.path = path
+//            self.data = data
+//            self.meta = .init(seqNo: nil, version: "SwifyTrickle \(Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String)")
+//        }
+//    }
+//
+//    enum IncomingMessagePath: String, Codable {
+//        case connectSuccess = "connect_success"
+//        case helloAck = "connect_hello_ack"
+//        case joinRoomAck = "join_room_ack"
+//        case roomMembers = "room_members"
+//
+//        /// actions
+//        case sync
+//        case changeNotify = "change_notify"
+//    }
+//    typealias IncomingEmptyMessage = IncomingMessage<EmptyData>
+//    typealias IncomingMessage<T: Codable> = Message<T, IncomingMessagePath>
+//
+//    enum OutgoingMessagePath: String, Codable {
+//        case connect
+//        case hello = "connect_hello"
+//        case subscribe
+//        case joinRoom = "join_room"
+//        case roomStatus = "room_status"
+//        case leaveRoom = "leave_room"
+//    }
+//    typealias OutgoingEmptyMessage = OutgoingMessage<EmptyData>
+//    typealias OutgoingMessage<T: Codable> = Message<T, OutgoingMessagePath>
+//}
 
 // MARK: - Handle Message
 extension TrickleWebSocket {
@@ -306,106 +307,4 @@ extension TrickleWebSocket {
 // MARK: - internal interface
 private extension TrickleWebSocket {
     typealias Configs = ConnectData
-}
-
-public extension TrickleWebSocket.MessageType {
-    struct HelloData: Codable {
-        let userID: String
-        enum CodingKeys: String, CodingKey {
-            case userID = "userId"
-        }
-    }
-    
-    struct RoomData: Codable {
-        let roomID, memberID: String
-        enum Status: String, Codable {
-            case online
-            case offline
-        }
-        let status: Status
-        
-        enum CodingKeys: String, CodingKey {
-            case roomID = "roomId"
-            case memberID = "memberId"
-            case status
-        }
-    }
-    
-    struct SubscribeWorkspacesPayload: Codable {
-        let workspaceIds: [String]
-        let userId: String
-    }
-}
-
-// MARK: - Incoming Socket Data
-public extension TrickleWebSocket {
-    struct ConnectData: Codable {
-        var connectionID: String
-        let helloInterval, deadInterval, maxRetryConnection, retryConnectionInterval: Int
-        let roomStatusHelloInterval, roomStatusDeadInterval, joinRoomMaxRetryCounts, joinRoomMaxRetryInterval: Int
-        let listRoomInterval: Int
-        
-        enum CodingKeys: String, CodingKey {
-            case connectionID = "connectionId"
-            case helloInterval = "hello_interval"
-            case deadInterval = "dead_interval"
-            case maxRetryConnection = "max_retry_connection"
-            case retryConnectionInterval = "retry_connection_interval"
-            case roomStatusHelloInterval = "room_status_hello_interval"
-            case roomStatusDeadInterval = "room_status_dead_interval"
-            case joinRoomMaxRetryCounts = "join_room_max_retry_counts"
-            case joinRoomMaxRetryInterval = "join_room_max_retry_interval"
-            case listRoomInterval = "list_room_interval"
-        }
-    }
-    
-    struct HelloAckData: Codable {
-        let connectionID: String
-        
-        enum CodingKeys: String, CodingKey {
-            case connectionID = "connId"
-        }
-    }
-    
-    struct RoomMembers: Codable {
-        struct RoomMembersUpdate: Codable {
-            let memberID: String
-            let roomID: String
-            let type: String
-            
-            enum CodingKeys: String, CodingKey {
-                case memberID = "memberId"
-                case roomID = "roomId"
-                case type
-            }
-        }
-        
-        let all: [String : [String]]
-        let update: RoomMembersUpdate
-    }
-}
-
-extension TrickleWebSocket {
-    // MARK: - EventData
-    struct EventData: Codable {
-        let trickleID, title, authorMemberID: String
-        let mentionedMemberIDS: [String]
-        let receiverType, receiverID, workspaceID: String
-        let createAt: Int
-        let threadID, prevTrickleID, appMemberID: String?
-
-        enum CodingKeys: String, CodingKey {
-            case trickleID = "trickleId"
-            case title
-            case authorMemberID = "authorMemberId"
-            case mentionedMemberIDS = "mentionedMemberIds"
-            case receiverType
-            case receiverID = "receiverId"
-            case workspaceID = "workspaceId"
-            case createAt
-            case threadID = "threadId"
-            case prevTrickleID = "prevTrickleId"
-            case appMemberID = "appMemberId"
-        }
-    }
 }

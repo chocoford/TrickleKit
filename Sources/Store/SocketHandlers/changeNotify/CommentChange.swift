@@ -6,11 +6,11 @@
 //
 
 import Foundation
-import TrickleSocket
+import TrickleSocketSupport
 
 extension TrickleStore {
     @MainActor
-    func handleCommentChange(_ event: TrickleWebSocket.ChangeNotifyData.LatestChangeEvent.CommentChangeEvent) {
+    func handleCommentChange(_ event: ChangeNotifyData.LatestChangeEvent.CommentChangeEvent) {
         switch event {
             case .created(let event):
                 addComment(to: event.eventData.trickleID, commentData: event.eventData.commentInfo)

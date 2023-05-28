@@ -13,7 +13,7 @@ let package = Package(
         .library(name: "TrickleKit", targets: ["TrickleEditor", "TrickleAWS", "TrickleStore", "TrickleUI"]),
         .library(name: "TrickleCore", targets: ["TrickleCore"]),
         .library(name: "TrickleEditor", targets: ["TrickleEditor"]),
-        .library(name: "TrickleSocket", targets: ["TrickleSocket"]),
+        .library(name: "TrickleSocketSupport", targets: ["TrickleSocketSupport"]),
         //        .library(name: "TrickleCore", targets: ["TrickleCore"]),
     ],
     dependencies: [
@@ -46,8 +46,8 @@ let package = Package(
                     .product(name: "SwiftJWT", package: "Swift-JWT"),
                 ],
                 path: "Sources/TrickleAuth"),
-        .target(name: "TrickleSocket", dependencies: ["TrickleCore"], path: "Sources/SocketRepository"),
-        .target(name: "TrickleStore", dependencies: ["TrickleSocket", "CFWebRepositoryProvider", "TrickleAuth"], path: "Sources/Store"),
+        .target(name: "TrickleSocketSupport", dependencies: ["TrickleCore"], path: "Sources/TrickleSocketSupport"),
+        .target(name: "TrickleStore", dependencies: ["TrickleSocketSupport", "CFWebRepositoryProvider", "TrickleAuth"], path: "Sources/Store"),
         .target(name: "TrickleUI",
                 dependencies: [
                     "TrickleCore",
