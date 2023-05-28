@@ -34,7 +34,6 @@ let package = Package(
         .target(
             name: "TrickleCore",
             dependencies: [
-                "CFWebRepositoryProvider",
                 .product(name: "ChocofordEssentials", package: "ChocofordKit"),
             ],
             path: "Sources/TrickleCore",
@@ -42,25 +41,14 @@ let package = Package(
                 .process("Resources")
             ]
         ),
-        .target(
-            name: "TrickleEditor",
-            dependencies: [
-                "TrickleCore",
-                "TrickleAWS",
-                .product(name: "ChocofordUI", package: "ChocofordKit"),
-                "Highlightr",
-                .product(name: "Markdown", package: "swift-markdown"),
-            ],
-            path: "Sources/TrickleEditor"
-        ),
-        .target(name: "TrickleStore", dependencies: ["TrickleSocket"], path: "Sources/Store"),
-        .target(name: "TrickleSocket", dependencies: ["TrickleCore"], path: "Sources/SocketRepository"),
         .target(name: "TrickleAuth",
                 dependencies: [
                     "TrickleCore",
                     .product(name: "SwiftJWT", package: "Swift-JWT"),
                 ],
                 path: "Sources/TrickleAuth"),
+        .target(name: "TrickleSocket", dependencies: ["TrickleCore"], path: "Sources/SocketRepository"),
+        .target(name: "TrickleStore", dependencies: ["TrickleSocket", "CFWebRepositoryProvider", "TrickleAuth"], path: "Sources/Store"),
         .target(name: "TrickleUI",
                 dependencies: [
                     "TrickleCore",
@@ -73,7 +61,17 @@ let package = Package(
                     .product(name: "SotoS3", package: "soto"),
                     .product(name: "SotoCognitoIdentity", package: "soto"),
                 ], path: "Sources/TrickleAWS"),
+        .target(
+            name: "TrickleEditor",
+            dependencies: [
+                "TrickleCore",
+                "TrickleAWS",
+                .product(name: "ChocofordUI", package: "ChocofordKit"),
+                "Highlightr",
+                .product(name: "Markdown", package: "swift-markdown"),
+            ],
+            path: "Sources/TrickleEditor"
+        ),
         .testTarget(name: "TrickleKitTests", dependencies: ["TrickleCore", "TrickleEditor"]),
-        
     ]
 )

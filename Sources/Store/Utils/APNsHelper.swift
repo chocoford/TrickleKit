@@ -8,6 +8,7 @@
 import Foundation
 import Logging
 import CFWebRepositoryProvider
+import TrickleCore
 
 public struct TrickleAPNsHelper: WebRepositoryProvider {
     public var logLevel: [LogOption]

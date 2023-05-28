@@ -6,11 +6,11 @@
 //
 
 import Foundation
-import OSLog
+import Logging
 import TrickleCore
 
 public class TrickleWebSocket {
-    let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "TrickleWebSocket")
+    let logger = Logger(label: "TrickleWebSocket")
     
     var onMessage: (IncomingMessageType) -> Void
     
