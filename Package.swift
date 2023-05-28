@@ -37,6 +37,7 @@ let package = Package(
                 .product(name: "ChocofordEssentials", package: "ChocofordKit"),
             ],
             path: "Sources/TrickleCore",
+            exclude: ["SwiftUI"],
             resources: [
                 .process("Resources")
             ]
@@ -65,6 +66,7 @@ let package = Package(
             name: "TrickleEditor",
             dependencies: [
                 "TrickleCore",
+                "TrickleUI",
                 "TrickleAWS",
                 .product(name: "ChocofordUI", package: "ChocofordKit"),
                 "Highlightr",
