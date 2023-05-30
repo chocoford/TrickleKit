@@ -59,6 +59,7 @@ public enum IncomingMessagePath: String, Codable {
     case helloAck = "connect_hello_ack"
     case joinRoomAck = "join_room_ack"
     case roomMembers = "room_members"
+    case roomStatus = "room_status"
     
     /// actions
     case sync
@@ -181,7 +182,7 @@ public struct RoomMembers: Codable {
     }
 }
 
-public struct JoinRoomAckData: Codable {
+public struct RoomStatusData: Codable {
     public let memberID: MemberData.ID
     public let status: Status
     public let roomID, connectionID: String

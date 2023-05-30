@@ -138,74 +138,6 @@ extension TrickleWebSocket {
     }
 }
 
-// MARK: - Message Payload
-//public extension TrickleWebSocket {
-//    enum MessageType {
-//        case connect
-//
-//        case hello(data: HelloData)
-//
-//        case subscribeWorkspaces(data: SubscribeWorkspacesPayload)
-//
-//        case joinRoom(data: RoomData)
-//        case roomStatus(data: RoomData)
-//        case leaveRoom(data: RoomData)
-//    }
-//
-//    enum MessageAction: String, Codable {
-//        case message
-//        case notification
-//        case version
-//    }
-//
-//    struct MessageMeta: Codable {
-//        let seqNo: Int?
-//        let version: String
-//    }
-//
-//    struct Message<T: Codable, P: Codable>: Codable {
-//        public let id: String
-//        public let authorization: String?
-//        public let action: MessageAction
-//        public let path: P
-//        public let data: T?
-//        public let meta: MessageMeta?
-//
-//        init(id: String? = nil, authorization: String? = nil, action: MessageAction, path: P, data: T? = nil, meta: MessageMeta? = nil) {
-//            self.id = id ?? UUID().uuidString
-//            self.authorization = authorization
-//            self.action = action
-//            self.path = path
-//            self.data = data
-//            self.meta = .init(seqNo: nil, version: "SwifyTrickle \(Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String)")
-//        }
-//    }
-//
-//    enum IncomingMessagePath: String, Codable {
-//        case connectSuccess = "connect_success"
-//        case helloAck = "connect_hello_ack"
-//        case joinRoomAck = "join_room_ack"
-//        case roomMembers = "room_members"
-//
-//        /// actions
-//        case sync
-//        case changeNotify = "change_notify"
-//    }
-//    typealias IncomingEmptyMessage = IncomingMessage<EmptyData>
-//    typealias IncomingMessage<T: Codable> = Message<T, IncomingMessagePath>
-//
-//    enum OutgoingMessagePath: String, Codable {
-//        case connect
-//        case hello = "connect_hello"
-//        case subscribe
-//        case joinRoom = "join_room"
-//        case roomStatus = "room_status"
-//        case leaveRoom = "leave_room"
-//    }
-//    typealias OutgoingEmptyMessage = OutgoingMessage<EmptyData>
-//    typealias OutgoingMessage<T: Codable> = Message<T, OutgoingMessagePath>
-//}
-
 // MARK: - Handle Message
 extension TrickleWebSocket {
     private func handleMessage(_ message: URLSessionWebSocketTask.Message) {
@@ -285,7 +217,7 @@ extension TrickleWebSocket {
         timers[configs.connectionID]?.deadCountdown = dead
     }
     
-    private func onJoinRoomAck(_ data: IncomingMessage<[JoinRoomAckData]>) {
+    private func onJoinRoomAck(_ data: IncomingMessage<[RoomStatusData]>) {
         guard let configs = self.configs,
               let data = data.data?.first,
               let workspaceID = data.roomID.components(separatedBy: ":").last else { return }
