@@ -74,7 +74,7 @@ public class TrickleSocketMessageHandler {
             case .roomStatus:
                 self.logger.info("on room status: \(message)")
                 guard let messageData = message.decode(IncomingMessage<[RoomStatusData]>.self) else { break }
-                onEvent(.joinRoomAck(messageData))
+                onEvent(.roomStatus(messageData))
                 return
                 
             case .none:

@@ -11,6 +11,7 @@ import TrickleAuth
 
 public extension TrickleStore {
     func logout() {
+        Task { await logoutAPNs() }
         TrickleAuthMiddleware.shared.removeToken()
         reinit()
     }

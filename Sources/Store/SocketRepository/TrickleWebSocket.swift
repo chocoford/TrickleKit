@@ -50,9 +50,7 @@ public class TrickleWebSocket {
     
     var workspaceID: String?
     var memberID: String?
-    
-//    var changeNotifyPulisher: PassthroughSubject<[ChangeNotifyData], Never> = .init()
-    
+        
     public init(handlers: @escaping (IncomingMessageType) -> Void) {
         self.onMessage = handlers
     }
@@ -151,7 +149,6 @@ extension TrickleWebSocket {
         }
     }
     private func handleMessage(_ message: String) {
-        print(message)
         DispatchQueue.main.async {
             TrickleSocketMessageHandler.shared.handleMessage(message) { event in
                 switch event {
