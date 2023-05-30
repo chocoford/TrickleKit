@@ -19,7 +19,7 @@ public extension TrickleStore {
         let nextTS: TrickleWebRepository.API.ListQuery
         switch option {
             case .newer(let since):
-                nextTS = .init(until: Int((since ?? tricklesComments[trickleID]?.value?.items.first?.updateAt ?? .now).timeIntervalSince1970),
+                nextTS = .init(until: Int(since.timeIntervalSince1970),
                                limit: 1000,
                                order: .asc)
             case .older:
@@ -35,7 +35,7 @@ public extension TrickleStore {
                                                                          query: nextTS)
             switch option {
                 case .newer:
-                    prependComments(to: trickleID, commentsData: data)
+                    prependComments(to: trickleID, commentsData: .init(items: data.items.reversed(), nextTs: data.nextTs))
                 case .older:
                     appendComments(to: trickleID, commentsData: data)
             }

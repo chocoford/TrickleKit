@@ -22,13 +22,13 @@ public struct AnyStreamable<T: Codable>: Codable {
         self.nextTs = nextTs
     }
     
-    public func appending(_ contentsOf: Self) -> Self where T: Hashable {
+    public func appending(_ contentsOf: Self, replace: Bool = false) -> Self where T: Hashable {
         let items = self.items + contentsOf.items
-        return .init(items: items.removingDuplicate(), nextTs: contentsOf.nextTs)
+        return .init(items: items.removingDuplicate(replace: replace), nextTs: contentsOf.nextTs)
     }
-    public func prepending(_ contentsOf: Self) -> Self where T: Hashable {
+    public func prepending(_ contentsOf: Self, replace: Bool = false) -> Self where T: Hashable {
         let items = contentsOf.items + self.items
-        return .init(items: items.removingDuplicate(), nextTs: self.nextTs)
+        return .init(items: items.removingDuplicate(replace: replace), nextTs: self.nextTs)
     }
     
     public func map<V>(_ transform: (T) -> V) -> AnyStreamable<V> {
@@ -65,15 +65,15 @@ public struct AnyQueryStreamable<T: Codable>: Codable {
         self.nextQuery = nextQuery
     }
     
-    public func appending(_ contentsOf: Self) -> Self {
+    public func appending(_ contentsOf: Self, replace: Bool = false) -> Self where T: Hashable {
         let items = self.items + contentsOf.items
         let nextQuery = contentsOf.nextQuery
-        return .init(items: items, nextQuery: nextQuery)
+        return .init(items: items.removingDuplicate(replace: replace), nextQuery: nextQuery)
     }
     
-    public func prepending(_ contentsOf: Self) -> Self {
+    public func prepending(_ contentsOf: Self, replace: Bool = false) -> Self where T: Hashable {
         let items = contentsOf.items + self.items
-        return .init(items: items, nextQuery: self.nextQuery)
+        return .init(items: items.removingDuplicate(replace: replace), nextQuery: self.nextQuery)
     }
     
     public func map<V>(_ transform: (T) -> V) -> AnyQueryStreamable<V> {
@@ -97,6 +97,7 @@ public struct NextQuery: Codable {
         self.groupByFilters = groupByFilters
         self.filterLogicalOperator = filterLogicalOperator
     }
+
     
     enum CodingKeys: String, CodingKey {
         case memberID = "memberId"
@@ -127,6 +128,21 @@ public struct NextQuery: Codable {
                          groupByFilters: nil,
                          filterLogicalOperator: .and)
         }
+    }
+    
+    public static func morkFeed(workspace: WorkspaceData,
+                                isDescent: Bool,
+                                since: Date,
+                                limit: Int) -> NextQuery {
+        NextQuery(memberID: workspace.userMemberInfo.memberID,
+                  limit: limit,
+                  filters: nil,
+                  sorts: [.init(type: "create_on",
+                                fieldID: nil,
+                                isDescent: isDescent,
+                                next: .int(Int(since.timeIntervalSince1970)))],
+                  groupByFilters: nil,
+                  filterLogicalOperator: .and)
     }
 }
 extension NextQuery {

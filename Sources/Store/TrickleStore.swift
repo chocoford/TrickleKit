@@ -182,7 +182,7 @@ public class TrickleStore: ObservableObject {
     
     /// A dictionary describes all trickles of `groupView`s.
     /// The value of dictionary store all trickles group by field value's id.
-    @Published var viewsTrickleIDs: [GroupData.ViewInfo.ID : [FieldOptions.FieldOptionInfo.ID : Loadable<AnyQueryStreamable<TrickleData.ID>>]] = [:]
+    @Published public var viewsTrickleIDs: [GroupData.ViewInfo.ID : [FieldOptions.FieldOptionInfo.ID : Loadable<AnyQueryStreamable<TrickleData.ID>>]] = [:]
     public var viewsTrickles: [GroupData.ViewInfo.ID : [FieldOptions.FieldOptionInfo.ID : Loadable<AnyQueryStreamable<TrickleData>>]] {
         viewsTrickleIDs.map {
             [$0.key : $0.value.map {
@@ -347,6 +347,6 @@ public class TrickleStore: ObservableObject {
     
     public enum LoadMoreOption {
         case older(_ since: Date? = nil)
-        case newer(_ since: Date? = nil)
+        case newer(_ since: Date)
     }
 }

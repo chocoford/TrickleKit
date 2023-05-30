@@ -35,10 +35,7 @@ let package = Package(
             dependencies: [
                 .product(name: "ChocofordEssentials", package: "ChocofordKit"),
             ],
-            path: "Sources/TrickleCore",
-            resources: [
-                .process("Resources")
-            ]
+            path: "Sources/TrickleCore"
         ),
         .target(name: "TrickleAuth",
                 dependencies: [
@@ -47,7 +44,12 @@ let package = Package(
                 ],
                 path: "Sources/TrickleAuth"),
         .target(name: "TrickleSocketSupport", dependencies: ["TrickleCore"], path: "Sources/TrickleSocketSupport"),
-        .target(name: "TrickleStore", dependencies: ["TrickleSocketSupport", "CFWebRepositoryProvider", "TrickleAuth"], path: "Sources/Store"),
+        .target(name: "TrickleStore",
+                dependencies: ["TrickleSocketSupport", "CFWebRepositoryProvider", "TrickleAuth"],
+                path: "Sources/Store",
+                resources: [
+                    .process("Resources")
+                ]),
         .target(name: "TrickleUI",
                 dependencies: [
                     "TrickleCore",
