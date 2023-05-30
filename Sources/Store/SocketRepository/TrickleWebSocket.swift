@@ -269,7 +269,7 @@ extension TrickleWebSocket {
         stream?.isSocketReady = true
     }
     
-    private func onHelloAck(_ data: IncomingMessage<HelloAckData>) {
+    private func onHelloAck(_ data: IncomingMessage<[HelloAckData]>) {
         guard let _ = data.data else { return }
 //        self.configs?.connectionID = data.connectionID
         setDeadTimer()

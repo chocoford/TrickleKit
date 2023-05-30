@@ -10,7 +10,7 @@ import Logging
 
 public enum IncomingMessageType {
     case connectSuccess(IncomingMessage<[ConnectData]>)
-    case helloAck(IncomingMessage<HelloAckData>)
+    case helloAck(IncomingMessage<[HelloAckData]>)
     case joinRoomAck(IncomingEmptyMessage)
     case roomMembers(IncomingMessage<[RoomMembers]>)
     
@@ -41,7 +41,7 @@ public class TrickleSocketMessageHandler {
                 
             case .helloAck:
                 self.logger.info("on hello ack: \(message)")
-                guard let messageData = message.decode(IncomingMessage<HelloAckData>.self) else { break }
+                guard let messageData = message.decode(IncomingMessage<[HelloAckData]>.self) else { break }
                 onEvent(.helloAck(messageData))
                 return
                 
