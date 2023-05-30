@@ -11,7 +11,7 @@ import Logging
 public enum IncomingMessageType {
     case connectSuccess(IncomingMessage<[ConnectData]>)
     case helloAck(IncomingMessage<[HelloAckData]>)
-    case joinRoomAck(IncomingEmptyMessage)
+    case joinRoomAck(IncomingMessage<[JoinRoomAckData]>)
     case roomMembers(IncomingMessage<[RoomMembers]>)
     
     /// actions

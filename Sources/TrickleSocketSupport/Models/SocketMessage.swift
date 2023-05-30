@@ -181,6 +181,28 @@ public struct RoomMembers: Codable {
     }
 }
 
+public struct JoinRoomAckData: Codable {
+    public let memberID: MemberData.ID
+    public let status: Status
+    public let roomID, connectionID: String
+    
+    enum CodingKeys: String, CodingKey {
+        case memberID = "memberId"
+        case status
+        case roomID = "roomId"
+        case connectionID = "connectionId"
+    }
+    
+    public struct Status: Codable {
+        public let mode: Mode
+        
+        public enum Mode: String, Codable {
+            case online
+            case offline
+        }
+    }
+}
+
 // MARK: - EventData
 public struct EventData: Codable {
     public let trickleID, title, authorMemberID: String
