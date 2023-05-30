@@ -30,15 +30,20 @@ class WebSocketStream: NSObject, AsyncSequence {
     private var continuation: AsyncThrowingStream<Element, Error>.Continuation?
     private let socket: URLSessionWebSocketTask
     
-    private var waitingList: [any Codable] = []
+//    enum QueuedMessage {
+//        case string(String)
+//    }
+    
+    private var messageQueue: [URLSessionWebSocketTask.Message] = []
     
     /// indicate the web socket is open
     private(set) var isSocketOpen: Bool = false {
         didSet {
             if isSocketOpen {
                 Task {
-                    for message in waitingList {
-                        await send(data: message)
+                    for message in messageQueue {
+                        logger.error("send queued message: \(String(describing: message))")
+                        try await socket.send(message)
                     }
                 }
             }
@@ -111,14 +116,14 @@ class WebSocketStream: NSObject, AsyncSequence {
 
 extension WebSocketStream {
     public func send(data: Codable) async {
-//        guard isSocketOpen else {
-//            waitingList.append(data)
-//            return
-//        }
-        socket.resume()
         do {
             logger.error("send data: \(String(describing: data))")
             let data = try JSONEncoder().encode(data)
+            
+            guard isSocketOpen else {
+                messageQueue.append(.data(data))
+                return
+            }
             try await socket.send(.data(data))
         } catch {
             logger.error("\(error)")
@@ -126,17 +131,16 @@ extension WebSocketStream {
     }
     
     public func send(message: Codable, force: Bool = false) async {
-//        guard isSocketOpen else {
-//            waitingList.append(message)
-//            return
-//        }
-        socket.resume()
         do {
-            logger.error("send message: \(String(describing: message))")
             let data = try JSONEncoder().encode(message)
             guard let string = String(data: data, encoding: .utf8) else {
                 throw WebSocketStreamError.encodingError
             }
+            guard isSocketOpen else {
+                messageQueue.append(.string(string))
+                return
+            }
+            logger.info("send message: \(String(describing: message))")
             try await socket.send(.string(string))
         } catch {
             logger.error("\(error)")
@@ -144,11 +148,11 @@ extension WebSocketStream {
     }
     
     public func send(message: String) async {
-//        guard isSocketOpen else {
-//            waitingList.append(message)
-//            return
-//        }
-        socket.resume()
+        guard isSocketOpen else {
+            messageQueue.append(.string(message))
+            return
+        }
+//        socket.resume()
         do {
             logger.error("send message: \(String(describing: message))")
             try await socket.send(.string(message))

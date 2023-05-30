@@ -14,7 +14,7 @@ public struct TrickleAPNsHelper: WebRepositoryProvider {
     public var logLevel: [LogOption]
     public var logger: Logger = .init(label: "TrickleAPNsHelper")
     public var session: URLSession = .shared
-    public var baseURL: String = "http://64.176.193.239" //"http://192.168.2.9"
+    public var baseURL: String = "http://10.200.62.143"//"http://192.168.2.9" //"http://64.176.193.239" //
     public var bgQueue: DispatchQueue = DispatchQueue(label: "bg_trickle_queue")
     public var responseDataDecoder: JSONDecoder = {
         let decoder = JSONDecoder()
@@ -35,25 +35,24 @@ public struct TrickleAPNsHelper: WebRepositoryProvider {
                                                                                                                   workspaceID: $0.workspaceID)})))
     }
     
-    public func logoutAPNs(userID: UserInfo.UserData.ID) async throws -> String {
-        try await call(endpoint: API.logoutAPNs(userID: userID))
+    public func logoutAPNs(deviceToken: String) async throws -> String {
+        try await call(endpoint: API.logoutAPNs(deviceToken: deviceToken))
     }
     
-    public func mute(userID: UserInfo.UserData.ID,
-              workspaceID: WorkspaceData.ID,
-              memberID: MemberData.ID) async throws -> String {
-        try await call(endpoint: API.muteWorkspace(payload: .init(userID: userID,
-                                                                  workspaceID: workspaceID,
-                                                                  memberID: memberID)))
+    public func mute(deviceToken: String,
+              workspaceID: WorkspaceData.ID) async throws -> String {
+        try await call(endpoint: API.muteWorkspace(payload: .init(deviceToken: deviceToken,
+                                                                  workspaceID: workspaceID)))
     }
     
-    public func unmute(userID: UserInfo.UserData.ID,
+    public func unmute(deviceToken: String,
                 workspaceID: WorkspaceData.ID,
                 memberID: MemberData.ID,
                 token: String) async throws -> String {
-        try await call(endpoint: API.unmuteWorkspace(payload: .init(userID: userID,
-                                                                  workspaceID: workspaceID,
-                                                                  memberID: memberID, token: token)))
+        try await call(endpoint: API.unmuteWorkspace(payload: .init(deviceToken: deviceToken,
+                                                                    workspaceInfo: .init(workspaceID: workspaceID,
+                                                                                         memberID: memberID),
+                                                                    token: token)))
     }
 }
 
@@ -92,7 +91,7 @@ public extension TrickleAPNsHelper {
 extension TrickleAPNsHelper {
     enum API {
         case registerAPNs(payload: RegisterAPNsPayload)
-        case logoutAPNs(userID: UserInfo.UserData.ID)
+        case logoutAPNs(deviceToken: String)
         case muteWorkspace(payload: MuteWorkspacePayload)
         case unmuteWorkspace(payload: UnmuteWorkspacePayload)
     }
@@ -116,15 +115,18 @@ extension TrickleAPNsHelper.API {
     }
     
     struct MuteWorkspacePayload: Codable {
-        let userID: UserInfo.UserData.ID
+        let deviceToken: String
         let workspaceID: WorkspaceData.ID
-        let memberID: MemberData.ID
     }
     struct UnmuteWorkspacePayload: Codable {
-        let userID: UserInfo.UserData.ID
+        let deviceToken: String
+        let workspaceInfo: APNsWorkspaceInfo
+        let token: String
+    }
+    
+    struct APNsWorkspaceInfo: Codable {
         let workspaceID: WorkspaceData.ID
         let memberID: MemberData.ID
-        let token: String
     }
 }
 

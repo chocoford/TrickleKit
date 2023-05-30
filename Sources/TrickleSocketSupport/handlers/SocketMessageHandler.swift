@@ -34,37 +34,47 @@ public class TrickleSocketMessageHandler {
         
         switch IncomingMessagePath(rawValue: rawPath) {
             case .connectSuccess:
-                guard let messageData = message.decode(IncomingMessage<[ConnectData]>.self) else { fallthrough }
-                self.logger.info("on connect: \(messageData.description)")
+                self.logger.info("on connect: \(message)")
+                guard let messageData = message.decode(IncomingMessage<[ConnectData]>.self) else { break }
                 onEvent(.connectSuccess(messageData))
+                return
                 
             case .helloAck:
-                guard let messageData = message.decode(IncomingMessage<HelloAckData>.self) else { fallthrough }
-                self.logger.info("on hello ack: \(messageData.description)")
+                self.logger.info("on hello ack: \(message)")
+                guard let messageData = message.decode(IncomingMessage<HelloAckData>.self) else { break }
                 onEvent(.helloAck(messageData))
-                
-            case .joinRoomAck:
-                guard let messageData = message.decode(IncomingEmptyMessage.self) else { fallthrough }
-                self.logger.info("on join room ack: \(messageData.description)")
-                onEvent(.joinRoomAck(messageData))
+                return
                 
             case .roomMembers:
-                guard let messageData = message.decode(IncomingMessage<[RoomMembers]>.self) else { fallthrough }
-                self.logger.info("on room members: \(messageData.description)")
+                self.logger.info("on room members: \(message)")
+                guard let messageData = message.decode(IncomingMessage<[RoomMembers]>.self) else { break }
                 onEvent(.roomMembers(messageData))
+                return
+                
             case .sync:
-                guard let messageData = message.decode(IncomingMessage<[RoomMembers]>.self) else { fallthrough }
+                guard let messageData = message.decode(IncomingMessage<[RoomMembers]>.self) else { break }
                 onEvent(.sync(messageData))
+                return
                 
             case .changeNotify:
+                self.logger.info("on change notify: \(message)")
                 guard let messageData = message.decode(IncomingMessage<[ChangeNotifyData]>.self, onFailed: { error in
                     dump(error)
-                }) else { fallthrough }
-                self.logger.info("on change notify: \(messageData.description)")
+                }) else { break }
                 onEvent(.changeNotify(messageData))
+                return
+                
+            case .joinRoomAck:
+                self.logger.info("on join room ack: \(message)")
+                guard let messageData = message.decode(IncomingEmptyMessage.self) else { break }
+                onEvent(.joinRoomAck(messageData))
+                return
                 
             case .none:
-                self.logger.error("Unhandled message: \(msgDic)")
+                self.logger.error("Unknown path: \(rawPath)")
+                return
         }
+        
+        self.logger.error("Unhandled message: \(msgDic)")
     }
 }

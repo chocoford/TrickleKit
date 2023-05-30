@@ -59,7 +59,7 @@ public class TrickleWebSocket {
     
     
     public func initSocket(token: String, userID: String) {
-        self.token = token
+        self.token = "Bearer \(token)"
         self.userID = userID
         let wsURL = URL(string: "wss://\(Config.webSocketDomain)?authToken=Bearer%20\(token)")
         guard let url = wsURL else { return }
@@ -87,15 +87,15 @@ public class TrickleWebSocket {
     private func send(_ message: MessageType) async {
         switch message {
             case .connect:
-                await stream?.send(message: OutgoingEmptyMessage(action: .message, path: .connect))
+                await stream?.send(message: OutgoingEmptyMessage(authorization: self.token, action: .message, path: .connect))
             case .hello(let data):
                 await stream?.send(message: OutgoingMessage(action: .message, path: .hello, data: data))
             case .subscribeWorkspaces(let data):
-                await stream?.send(message: OutgoingMessage(action: .message, path: .subscribe, data: data))
+                await stream?.send(message: OutgoingMessage(authorization: self.token, action: .message, path: .subscribe, data: data))
             case .joinRoom(let data):
-                await stream?.send(message: OutgoingMessage(action: .message, path: .joinRoom, data: data))
+                await stream?.send(message: OutgoingMessage(authorization: self.token, action: .message, path: .joinRoom, data: data))
             case .roomStatus(let data):
-                await stream?.send(message: OutgoingMessage(action: .message, path: .roomStatus, data: data))
+                await stream?.send(message: OutgoingMessage(authorization: self.token, action: .message, path: .roomStatus, data: data))
             case .leaveRoom(let data):
                 await stream?.send(message: OutgoingMessage(action: .message, path: .leaveRoom, data: data))
         }
@@ -219,6 +219,7 @@ extension TrickleWebSocket {
         }
     }
     private func handleMessage(_ message: String) {
+        print(message)
         DispatchQueue.main.async {
             TrickleSocketMessageHandler.shared.handleMessage(message) { event in
                 switch event {

@@ -105,20 +105,21 @@ public extension TrickleStore {
     
     func logoutAPNs() async {
         do {
-            guard let value = userInfo.value, let userInfo = value else { throw TrickleStoreError.unauthorized }
-            _ = try await apnsHelper.logoutAPNs(userID: userInfo.user.id)
+            guard let deviceToken = deviceToken else { throw TrickleStoreError.apnsError(.deviceTokenInvalid(nil)) }
+            _ = try await apnsHelper.logoutAPNs(deviceToken: deviceToken)
         } catch {
             self.error = .init(error)
         }
     }
     
     func tryEnablePushNotification(for workspaceID: WorkspaceData.ID) async throws {
+        guard let deviceToken = deviceToken else { throw TrickleStoreError.apnsError(.deviceTokenInvalid(nil)) }
         guard let workspace = workspaces[workspaceID] else { throw TrickleStoreError.invalidWorkspaceID(workspaceID) }
         guard let value = userInfo.value,
               let userInfo = value,
               let token = userInfo.token else { throw TrickleStoreError.unauthorized }
         
-        _ = try await apnsHelper.unmute(userID: userInfo.user.id,
+        _ = try await apnsHelper.unmute(deviceToken: deviceToken,
                                         workspaceID: workspaceID,
                                         memberID: workspace.userMemberInfo.memberID,
                                         token: token)
@@ -126,9 +127,8 @@ public extension TrickleStore {
     }
     
     func tryDisablePushNotification(for workspaceID: WorkspaceData.ID) async throws {
-        guard let workspace = workspaces[workspaceID] else { throw TrickleStoreError.invalidWorkspaceID(workspaceID) }
-        _ = try await apnsHelper.mute(userID: workspace.userID,
-                                        workspaceID: workspaceID,
-                                        memberID: workspace.userMemberInfo.memberID)
+        guard let deviceToken = deviceToken else { throw TrickleStoreError.apnsError(.deviceTokenInvalid(nil)) }
+        _ = try await apnsHelper.mute(deviceToken: deviceToken,
+                                        workspaceID: workspaceID)
     }
 }
