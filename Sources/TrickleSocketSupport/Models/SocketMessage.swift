@@ -150,7 +150,7 @@ public struct HelloAckData: Codable {
     public let connectionID: String
     
     enum CodingKeys: String, CodingKey {
-        case connectionID = "connId"
+        case connectionID = "connectionId"
     }
 }
 
