@@ -12,6 +12,8 @@ public enum IncomingMessageType {
     case connectSuccess(IncomingMessage<[ConnectData]>)
     case helloAck(IncomingMessage<[HelloAckData]>)
     case joinRoomAck(IncomingMessage<[RoomStatusData]>)
+    
+    case joinRoom(IncomingMessage<[RoomStatusData]>)
     case roomMembers(IncomingMessage<[RoomMembers]>)
     case roomStatus(IncomingMessage<[RoomStatusData]>)
     
@@ -72,11 +74,18 @@ public class TrickleSocketMessageHandler {
                 onEvent(.joinRoomAck(messageData))
                 return
                 
+            case .joinRoom:
+                self.logger.info("on join room: \(message)")
+                guard let messageData = message.decode(IncomingMessage<[RoomStatusData]>.self) else { break }
+                onEvent(.joinRoom(messageData))
+                return
+                
             case .roomStatus:
                 self.logger.info("on room status: \(message)")
                 guard let messageData = message.decode(IncomingMessage<[RoomStatusData]>.self) else { break }
                 onEvent(.roomStatus(messageData))
                 return
+                
                 
             case .none:
                 self.logger.error("Unknown path: \(rawPath)")

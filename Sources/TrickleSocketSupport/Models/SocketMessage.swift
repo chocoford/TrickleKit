@@ -57,6 +57,7 @@ public struct Message<T: Codable, P: Codable>: Codable {
 public enum IncomingMessagePath: String, Codable {
     case connectSuccess = "connect_success"
     case helloAck = "connect_hello_ack"
+    case joinRoom = "join_room"
     case joinRoomAck = "join_room_ack"
     case roomMembers = "room_members"
     case roomStatus = "room_status"

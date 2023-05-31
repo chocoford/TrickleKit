@@ -67,8 +67,8 @@ public struct AnyQueryStreamable<T: Codable>: Codable {
     
     public func appending(_ contentsOf: Self, replace: Bool = false) -> Self where T: Hashable {
         let items = self.items + contentsOf.items
-        let nextQuery = contentsOf.nextQuery
-        return .init(items: items.removingDuplicate(replace: replace), nextQuery: nextQuery)
+        
+        return .init(items: items.removingDuplicate(replace: replace), nextQuery: contentsOf.nextQuery)
     }
     
     public func prepending(_ contentsOf: Self, replace: Bool = false) -> Self where T: Hashable {

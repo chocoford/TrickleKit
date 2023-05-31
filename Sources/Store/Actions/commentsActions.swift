@@ -9,12 +9,10 @@ import Foundation
 import TrickleCore
 
 public extension TrickleStore {
-    func loadMoreComments(_ trickleID: TrickleData.ID, option: LoadMoreOption, silent: Bool = false) async {
+    func loadMoreComments(_ trickleID: TrickleData.ID, option: LoadMoreOption, silent: Bool = false, replace: Bool = false) async {
         guard let theTrickle = trickles[trickleID] else { return }
         
-        if !silent {
-            tricklesCommentIDs[trickleID]?.setIsLoading()
-        }
+        if !silent { tricklesCommentIDs[trickleID]?.setIsLoading() }
         
         let nextTS: TrickleWebRepository.API.ListQuery
         switch option {
@@ -37,7 +35,11 @@ public extension TrickleStore {
                 case .newer:
                     prependComments(to: trickleID, commentsData: .init(items: data.items.reversed(), nextTs: data.nextTs))
                 case .older:
-                    appendComments(to: trickleID, commentsData: data)
+                    if replace {
+                        resetComments(of: trickleID, commentsData: data)
+                    } else {
+                        appendComments(to: trickleID, commentsData: data)
+                    }
             }
         } catch {
             if !silent {
@@ -146,7 +148,7 @@ public extension TrickleStore {
     func appendComments(to trickleID: TrickleData.ID, commentsData: AnyStreamable<CommentData>) {
         commentsData.items.forEach { comments.updateValue($0, forKey: $0.commentID) }
         tricklesCommentIDs[trickleID] = tricklesCommentIDs[trickleID]?.map { stream in
-            return .init(items: stream.items + commentsData.items.map{$0.commentID}, nextTs: commentsData.nextTs)
+            return stream.appending(commentsData.map{$0.commentID})
         }
         trickles[trickleID]?.commentCounts = tricklesComments[trickleID]?.value?.items.filter({$0.typ == .normal}).count ?? 0
     }
@@ -155,6 +157,11 @@ public extension TrickleStore {
         tricklesCommentIDs[trickleID] = tricklesCommentIDs[trickleID]?.map { stream in
             return stream.prepending(commentsData.map{$0.commentID})
         }
+        trickles[trickleID]?.commentCounts = tricklesComments[trickleID]?.value?.items.filter({$0.typ == .normal}).count ?? 0
+    }
+    func resetComments(of trickleID: TrickleData.ID, commentsData: AnyStreamable<CommentData>) {
+        commentsData.items.forEach { comments.updateValue($0, forKey: $0.commentID) }
+        tricklesCommentIDs[trickleID] = .loaded(data: commentsData.map{ $0.commentID })
         trickles[trickleID]?.commentCounts = tricklesComments[trickleID]?.value?.items.filter({$0.typ == .normal}).count ?? 0
     }
     

@@ -37,26 +37,19 @@ public extension TrickleStore {
     func tryLoadOlderViewTrickles(_ viewID: GroupData.ViewInfo.ID,
                                   groupByID: FieldOptions.FieldOptionInfo.ID = "NULL",
                                   since: Date?,
-                                  silent: Bool = false) async throws {
-        if !silent {
-            viewsTrickleIDs[viewID]?[groupByID]?.setIsLoading()
-        }
+                                  silent: Bool = false,
+                                  replace: Bool = false) async throws {
+        if !silent { viewsTrickleIDs[viewID]?[groupByID]?.setIsLoading() }
         do {
             let group = try findViewGroup(viewID)
             let theWorkspace = try findGroupWorkspace(group.groupID)
             
-            
             let query: NextQuery?
             if let since = since {
-                query = NextQuery(memberID: theWorkspace.userMemberInfo.memberID,
-                          limit: 20,
-                          filters: nil,
-                          sorts: [.init(type: "create_on",
-                                        fieldID: nil,
-                                        isDescent: true,
-                                        next: .int(Int(since.timeIntervalSince1970)))],
-                          groupByFilters: nil,
-                          filterLogicalOperator: .and)
+                query = .morkFeed(workspace: theWorkspace,
+                                  isDescent: true,
+                                  since: since,
+                                  limit: 20)
             } else {
                 query = viewsTrickleIDs[viewID]?[groupByID]?.value?.nextQuery
             }
@@ -66,7 +59,11 @@ public extension TrickleStore {
                                                                        groupID: group.groupID,
                                                                        query: query)
             
-            appendTrickles(data, to: viewID, groupByID: groupByID)
+            if replace {
+                replaceTrickles(data, to: viewID, groupByID: groupByID)
+            } else {
+                appendTrickles(data, to: viewID, groupByID: groupByID)
+            }
         } catch {
             viewsTrickleIDs[viewID]?[groupByID]?.setAsFailed(error)
             throw error
@@ -74,18 +71,20 @@ public extension TrickleStore {
     }
     
     
-    func loadMoreViewTrickles(_ viewID: GroupData.ViewInfo.ID, groupByID: FieldOptions.FieldOptionInfo.ID = "NULL", target: LoadMoreOption, silent: Bool = false) async {
+    func loadMoreViewTrickles(_ viewID: GroupData.ViewInfo.ID, groupByID: FieldOptions.FieldOptionInfo.ID = "NULL", target: LoadMoreOption, silent: Bool = false, replace: Bool = false) async {
         do {
             let group = try findViewGroup(viewID)
             let workspace = try findGroupWorkspace(group.groupID)
             switch target {
                 case .newer(let since):
-                    try await tryLoadNewerViewTrickles(viewID, groupByID: groupByID, nextQuery: .morkFeed(workspace: workspace,
-                                                                                                          isDescent: false,
-                                                                                                          since: since,
-                                                                                                          limit: 20))
+                    try await tryLoadNewerViewTrickles(viewID,
+                                                       groupByID: groupByID,
+                                                       nextQuery: .morkFeed(workspace: workspace,
+                                                                            isDescent: false,
+                                                                            since: since,
+                                                                            limit: 20))
                 case .older(let since):
-                    try await tryLoadOlderViewTrickles(viewID, groupByID: groupByID, since: since, silent: silent)
+                    try await tryLoadOlderViewTrickles(viewID, groupByID: groupByID, since: since, silent: silent, replace: replace)
             }
         } catch {
             self.error = .init(error)
@@ -291,28 +290,32 @@ public extension TrickleStore {
         }
     }
     
+    /// Append trickles to `viewTrickles`. Normally, it will append the trickles directly to current `viewTrickles`.
+    /// Once duplication is detected, it will replace the original `viewTrickles` from occurance's start to its end.
+    /// - Parameters:
+    ///   - trickles: The trickles want to be appended.
+    ///   - viewID: The ID of incoming trickles' view.
+    ///   - groupByID: The groupByID of incoming trickles. defaults to `NULL`, which means no groupBy was applied.
+    ///   - replace: <#replace description#>
     func appendTrickles(_ trickles: AnyQueryStreamable<TrickleData>,
                         to viewID: GroupData.ViewInfo.ID,
                         groupByID: FieldOptions.FieldOptionInfo.ID = "NULL",
                         replace: Bool = false) {
-        trickles.items.forEach { trickleData in
-            self.trickles.updateValue(trickleData, forKey: trickleData.trickleID)
-            if tricklesCommentIDs[trickleData.trickleID] == nil {
-                self.tricklesCommentIDs[trickleData.trickleID] = .loaded(data: .init(items: [], nextTs: Int(Date.now.timeIntervalSince1970)))
-            }
-        }
+        _updateTrickles(trickles)
         viewsTrickleIDs[viewID]?[groupByID] = .loaded(data: viewsTrickleIDs[viewID]?[groupByID]?.value?.appending(trickles.map{$0.trickleID}, replace: replace) ?? trickles.map{$0.trickleID})
     }
     
     func prependTrickles(_ trickles: AnyQueryStreamable<TrickleData>,
                          to viewID: GroupData.ViewInfo.ID,
                          groupByID: FieldOptions.FieldOptionInfo.ID = "NULL") {
-        trickles.items.forEach { trickleData in
-            self.trickles.updateValue(trickleData, forKey: trickleData.trickleID)
-            if tricklesCommentIDs[trickleData.trickleID] == nil {
-                self.tricklesCommentIDs[trickleData.trickleID] = .loaded(data: .init(items: [], nextTs: Int(Date.now.timeIntervalSince1970)))
-            }
-        }
+        _updateTrickles(trickles)
+        viewsTrickleIDs[viewID]?[groupByID] = .loaded(data: viewsTrickleIDs[viewID]?[groupByID]?.value?.prepending(trickles.map{$0.trickleID}) ?? trickles.map{$0.trickleID})
+    }
+    
+    func replaceTrickles(_ trickles: AnyQueryStreamable<TrickleData>,
+                         to viewID: GroupData.ViewInfo.ID,
+                         groupByID: FieldOptions.FieldOptionInfo.ID = "NULL") {
+        _updateTrickles(trickles)
         viewsTrickleIDs[viewID]?[groupByID] = .loaded(data: viewsTrickleIDs[viewID]?[groupByID]?.value?.prepending(trickles.map{$0.trickleID}) ?? trickles.map{$0.trickleID})
     }
     
@@ -334,5 +337,17 @@ public extension TrickleStore {
                 
         trickles[trickleID]?.viewedMemberInfo.members.removeAll(where: {$0.memberID == memberID})
         trickles[trickleID]?.viewedMemberInfo.counts -= trickles[trickleID]?.viewedMemberInfo.members.count ?? 0
+    }
+}
+
+
+internal extension TrickleStore {
+    func _updateTrickles(_ trickles: AnyQueryStreamable<TrickleData>) {
+        trickles.items.forEach { trickleData in
+            self.trickles.updateValue(trickleData, forKey: trickleData.trickleID)
+            if tricklesCommentIDs[trickleData.trickleID] == nil {
+                self.tricklesCommentIDs[trickleData.trickleID] = .loaded(data: .init(items: [], nextTs: Int(Date.now.timeIntervalSince1970)))
+            }
+        }
     }
 }
