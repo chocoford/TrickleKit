@@ -30,6 +30,7 @@ public class TrickleSocketMessageHandler {
     public func handleMessage(_ message: String, onEvent: (IncomingMessageType) -> Void) {
         let msgDic = message.toJSON() ?? [:]
         guard let rawPath = msgDic["path"] as? String else {
+            self.logger.error("\(msgDic)")
             return
         }
         
