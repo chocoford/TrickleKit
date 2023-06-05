@@ -301,21 +301,21 @@ public extension TrickleStore {
                         to viewID: GroupData.ViewInfo.ID,
                         groupByID: FieldOptions.FieldOptionInfo.ID = "NULL",
                         replace: Bool = false) {
-        _updateTrickles(trickles)
+        _updateTrickles(trickles.items)
         viewsTrickleIDs[viewID]?[groupByID] = .loaded(data: viewsTrickleIDs[viewID]?[groupByID]?.value?.appending(trickles.map{$0.trickleID}, replace: replace) ?? trickles.map{$0.trickleID})
     }
     
     func prependTrickles(_ trickles: AnyQueryStreamable<TrickleData>,
                          to viewID: GroupData.ViewInfo.ID,
                          groupByID: FieldOptions.FieldOptionInfo.ID = "NULL") {
-        _updateTrickles(trickles)
+        _updateTrickles(trickles.items)
         viewsTrickleIDs[viewID]?[groupByID] = .loaded(data: viewsTrickleIDs[viewID]?[groupByID]?.value?.prepending(trickles.map{$0.trickleID}) ?? trickles.map{$0.trickleID})
     }
     
     func replaceTrickles(_ trickles: AnyQueryStreamable<TrickleData>,
                          to viewID: GroupData.ViewInfo.ID,
                          groupByID: FieldOptions.FieldOptionInfo.ID = "NULL") {
-        _updateTrickles(trickles)
+        _updateTrickles(trickles.items)
         viewsTrickleIDs[viewID]?[groupByID] = .loaded(data: viewsTrickleIDs[viewID]?[groupByID]?.value?.prepending(trickles.map{$0.trickleID}) ?? trickles.map{$0.trickleID})
     }
     
@@ -342,8 +342,8 @@ public extension TrickleStore {
 
 
 internal extension TrickleStore {
-    func _updateTrickles(_ trickles: AnyQueryStreamable<TrickleData>) {
-        trickles.items.forEach { trickleData in
+    func _updateTrickles(_ trickles: [TrickleData]) {
+        trickles.forEach { trickleData in
             self.trickles.updateValue(trickleData, forKey: trickleData.trickleID)
             if tricklesCommentIDs[trickleData.trickleID] == nil {
                 self.tricklesCommentIDs[trickleData.trickleID] = .loaded(data: .init(items: [], nextTs: Int(Date.now.timeIntervalSince1970)))

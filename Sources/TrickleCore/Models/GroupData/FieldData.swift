@@ -9,6 +9,7 @@ import Foundation
 
 
 extension GroupData {
+    /// `FieldInfo` represents the Database headers info. It does not store the options of this field.
     public struct FieldInfo: Codable, Hashable, Identifiable {
         public let fieldID, name: String
         public let display: Bool

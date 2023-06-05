@@ -12,7 +12,8 @@ extension TrickleData.Element {
         case text
         case inlineCode = "inline_code"
         case user
-        case bold, italic, url, image, embed, escape, math, linkToPost, link, highlight, `subscript`, superscript, colored, backgroundColored
+        case bold, italic, underline, url, image, embed, escape, math, linkToPost, link, highlight, `subscript`, superscript
+        case colored, backgroundColored
         case lineThrough = "line_through"
         case smartText = "smart_text"
     }

@@ -91,15 +91,19 @@ extension GroupData {
     }
 }
 
-public struct FieldOptions: Codable, Hashable {
+public struct FieldOptions: Codable, Hashable, Identifiable  {
     public let fieldID: String
-    public let fieldOptionInfo: [FieldOptionInfo]
+    public let options: [FieldOptionInfo]
     
     enum CodingKeys: String, CodingKey {
         case fieldID = "fieldId"
-        case fieldOptionInfo
+        case options = "fieldOptionInfo"
     }
     
+    public var id: String { fieldID }
+}
+
+extension FieldOptions {
     public struct FieldOptionInfo: Codable, Hashable, Identifiable {
         public let fieldOptionID, value: String
         public let color: FieldOptionColor
@@ -109,9 +113,7 @@ public struct FieldOptions: Codable, Hashable {
             case color, value
         }
         
-        public var id: String {
-            fieldOptionID
-        }
+        public var id: String { fieldOptionID }
     }
 }
 

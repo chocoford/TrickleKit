@@ -218,6 +218,9 @@ public class TrickleStore: ObservableObject {
         return viewsTricklesStat[currentGroup.groupID] ?? .notRequested
     }
     
+    /// This is a dictionary represents `FieldsOptions` of every group.
+    ///
+    /// `FieldsOptions` are the table cell dropdown options of database view.
     @Published public var groupsFieldsOptions: [GroupData.ID : Loadable<FieldsOptions>] = [:]
     
     // MARK: - Trickles/Threads/Notifications/Stars

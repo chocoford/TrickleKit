@@ -9,7 +9,7 @@ import Foundation
 import TrickleCore
 
 public extension TrickleStore {
-    func loadMoreThreads(_ workspaceID: WorkspaceData.ID, option: LoadMoreOption, silent: Bool = false) async {
+    func loadMoreThreads(_ workspaceID: WorkspaceData.ID, option: LoadMoreOption, silent: Bool = false, replace: Bool = false) async {
         guard let theWorkspace = workspaces[workspaceID] else { return }
         if !silent {
             workspaceThreadIDs[workspaceID]?.setIsLoading()
@@ -32,7 +32,11 @@ public extension TrickleStore {
                                                                                   query: .init(until: nextTs,
                                                                                                limit: 20 ,
                                                                                                order: .desc))
-                    appendThreads(data, to: workspaceID)
+                    if replace {
+                        resetThreads(data, of: workspaceID)
+                    } else {
+                        appendThreads(data, to: workspaceID)
+                    }
             }
         } catch {
             self.error = .init(error)
@@ -73,24 +77,14 @@ public extension TrickleStore {
     }
 }
 
-extension TrickleStore {
+public extension TrickleStore {
     func appendThreads(_ threads: AnyStreamable<TrickleData>, to workspaceID: WorkspaceData.ID) {
-        threads.items.forEach { trickleData in
-            trickles[trickleData.trickleID] = trickleData
-            if tricklesCommentIDs[trickleData.trickleID] == nil {
-                tricklesCommentIDs[trickleData.trickleID] = .loaded(data: .init(items: [], nextTs: Int(Date.now.timeIntervalSince1970)))
-            }
-        }
+        _updateTrickles(threads.items)
         workspaceThreadIDs[workspaceID] = .loaded(data: workspaceThreadIDs[workspaceID]?.value?.appending(threads.map{$0.trickleID}) ?? threads.map{$0.trickleID})
     }
     
     func prependThreads(_ threads: AnyStreamable<TrickleData>, to workspaceID: WorkspaceData.ID) {
-        threads.items.forEach { trickleData in
-            trickles[trickleData.trickleID] = trickleData
-            if tricklesCommentIDs[trickleData.trickleID] == nil {
-                tricklesCommentIDs[trickleData.trickleID] = .loaded(data: .init(items: [], nextTs: Int(Date.now.timeIntervalSince1970)))
-            }
-        }
+        _updateTrickles(threads.items)
         workspaceThreadIDs[workspaceID] = .loaded(data: workspaceThreadIDs[workspaceID]?.value?.prepending(threads.map{$0.trickleID}) ?? threads.map{$0.trickleID})
     }
     
@@ -101,7 +95,11 @@ extension TrickleStore {
     }
     
     
-    public func resetThreads(_ workspaceID: WorkspaceData.ID) {
+    func resetThreads(_ threads: AnyStreamable<TrickleData>, of workspaceID: WorkspaceData.ID) {
+        _updateTrickles(threads.items)
+        workspaceThreadIDs[workspaceID] = .loaded(data: threads.map{$0.trickleID})
+    }
+    func resetThreads(_ workspaceID: WorkspaceData.ID) {
         workspaceThreadIDs[workspaceID] = .loaded(data: .init(items: [], nextTs: Int(Date.now.timeIntervalSince1970)))
     }
     

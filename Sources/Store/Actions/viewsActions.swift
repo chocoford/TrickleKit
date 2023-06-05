@@ -8,13 +8,11 @@
 import Foundation
 import TrickleCore
 
-extension TrickleStore {
-    public func listGroupViewTricklesStat(_ viewID: GroupData.ViewInfo.ID?) async {
-        guard let viewID = viewID ?? currentGroupViewID,
-              let view = views[viewID]
-        else { return }
+public extension TrickleStore {
+    func tryListGroupViewTricklesStat(_ viewID: GroupData.ViewInfo.ID, silent: Bool = false) async throws {
+        guard let view = views[viewID] else { throw TrickleStoreError.invalidViewID(viewID) }
         
-        viewsTricklesStat[viewID] = .isLoading(last: viewsTricklesStat[viewID]?.value)
+        if !silent { viewsTricklesStat[viewID]?.setIsLoading() }
         
         guard let groupBy = view.groupBy else {
             viewsTricklesStat[viewID] = .loaded(data: .empty)
@@ -35,8 +33,16 @@ extension TrickleStore {
             viewsTricklesStat[viewID] = .loaded(data: stat)
             resetViewTrickles(viewID)
         } catch {
-            self.error = .init(error)
             viewsTricklesStat[viewID]?.setAsFailed(error)
+            throw error
+        }
+    }
+    
+    func listGroupViewTricklesStat(_ viewID: GroupData.ViewInfo.ID, silent: Bool = false) async {
+        do {
+          try await tryListGroupViewTricklesStat(viewID, silent: silent)
+        } catch {
+            self.error = .init(error)
         }
     }
 }
