@@ -72,46 +72,65 @@ public extension TrickleStore {
         }
     }
     
-    func tryRegisterAPNs(_ workspaceIDs: [WorkspaceData.ID]) async throws {
+    func tryRegisterAPNs(_ workspaceEnableStates: TrickleAPNsHelper.RegisterAPNsPayload.WorkspaceEnableStates, isSandbox: Bool = false) async throws {
         guard let deviceToken = deviceToken else { throw TrickleStoreError.apnsError(.deviceTokenInvalid(nil)) }
-        guard let value = userInfo.value, let userInfo = value, let token = userInfo.token else { throw TrickleStoreError.unauthorized }
+        guard let value = userInfo.value, let userInfo = value else { throw TrickleStoreError.unauthorized }
         
         do {
-            let userWorkspaces: [TrickleAPNsHelper.RegisterAPNsPayload.UserWorkspace] = workspaceIDs.compactMap {
-                if let workspace = workspaces[$0] {
-                    return .init(memberID: workspace.userMemberInfo.memberID,
-                                 workspaceID: workspace.workspaceID)
-                } else {
-                    return nil
-                }
-            }
+
             _ = try await apnsHelper.registerAPNs(payload: .init(deviceToken: deviceToken,
-                                                                 trickleToken: token,
                                                                  userID: userInfo.user.id,
-                                                                 env: .init(rawValue: Config.env) ?? TrickleAPNsHelper.RegisterAPNsPayload.Env.dev,
-                                                                 userWorkspaces: userWorkspaces))
+                                                                 env: .init(rawValue: Config.env) ?? TrickleAPNsHelper.Env.dev,
+                                                                 workspaceEnableStates: workspaceEnableStates,
+                                                                isSandbox: isSandbox))
         } catch {
             throw TrickleStoreError.apnsError(.registerFailed(error))
         }
     }
     
-    func registerAPNs(_ workspaceIDs: [WorkspaceData.ID]) async {
+    func registerAPNs(_ workspaceEnableStates: TrickleAPNsHelper.RegisterAPNsPayload.WorkspaceEnableStates, isSandbox: Bool = false) async {
         do {
-            try await tryRegisterAPNs(workspaceIDs)
+            try await tryRegisterAPNs(workspaceEnableStates, isSandbox: isSandbox)
         } catch {
             self.error = .init(error)
         }
     }
     
-    func logoutAPNs() async {
+    func tryUpdateAPNsSettings(_ workspaceID: WorkspaceData.ID, enableStates: TrickleAPNsHelper.WorkspaceEnableState, isSandbox: Bool = false) async throws {
+        guard let deviceToken = deviceToken else { throw TrickleStoreError.apnsError(.deviceTokenInvalid(nil)) }
+        
+        do {
+
+            _ = try await apnsHelper.updateAPNsSettings(deviceToken: deviceToken,
+                                                        payload: .init(workspaceID: workspaceID,
+                                                                       env: .init(rawValue: Config.env) ?? .dev,
+                                                                       enableStates: enableStates,
+                                                                       isSandbox: isSandbox))
+        } catch {
+            throw TrickleStoreError.apnsError(.registerFailed(error))
+        }
+    }
+    
+    func updateAPNsSettings(_ workspaceID: WorkspaceData.ID,
+                            enableStates: TrickleAPNsHelper.WorkspaceEnableState,
+                            isSandbox: Bool = false) async {
+        do {
+            try await tryUpdateAPNsSettings(workspaceID, enableStates: enableStates, isSandbox: isSandbox)
+        } catch {
+            self.error = .init(error)
+        }
+    }
+    
+    func logoutAPNs(isSandbox: Bool) async {
         do {
             guard let deviceToken = deviceToken else { throw TrickleStoreError.apnsError(.deviceTokenInvalid(nil)) }
-            _ = try await apnsHelper.logoutAPNs(deviceToken: deviceToken)
+            _ = try await apnsHelper.logoutAPNs(deviceToken: deviceToken, payload: .init(isSandbox: isSandbox))
         } catch {
             self.error = .init(error)
         }
     }
     
+    @available(*, deprecated)
     func tryEnablePushNotification(for workspaceID: WorkspaceData.ID) async throws {
         guard let deviceToken = deviceToken else { throw TrickleStoreError.apnsError(.deviceTokenInvalid(nil)) }
         guard let workspace = workspaces[workspaceID] else { throw TrickleStoreError.invalidWorkspaceID(workspaceID) }
@@ -126,6 +145,7 @@ public extension TrickleStore {
         
     }
     
+    @available(*, deprecated)
     func tryDisablePushNotification(for workspaceID: WorkspaceData.ID) async throws {
         guard let deviceToken = deviceToken else { throw TrickleStoreError.apnsError(.deviceTokenInvalid(nil)) }
         _ = try await apnsHelper.mute(deviceToken: deviceToken,

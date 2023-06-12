@@ -10,8 +10,8 @@ import TrickleCore
 import TrickleAuth
 
 public extension TrickleStore {
-    func logout() {
-        Task { await logoutAPNs() }
+    func logout(isSandbox: Bool) {
+        Task { await logoutAPNs(isSandbox: isSandbox) }
         TrickleAuthMiddleware.shared.removeToken()
         reinit()
     }

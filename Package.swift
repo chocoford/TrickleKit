@@ -24,6 +24,7 @@ let package = Package(
         .package(url: "https://github.com/raspu/Highlightr.git", from: "2.1.2"),
         .package(url: "https://github.com/apple/swift-markdown.git", branch: "main"),
         .package(url: "https://github.com/soto-project/soto.git", from: "6.5.0"),
+//        .package(url: "https://github.com/awslabs/aws-sdk-swift", from: "0.16.0"),
         .package(url: "https://github.com/Kitura/Swift-JWT.git", from: "4.0.0"),
         //        .package(url: "https://github.com/socketio/socket.io-client-swift", .upToNextMinor(from: "16.0.0"))
     ],
@@ -61,6 +62,7 @@ let package = Package(
                     "TrickleCore",
                     .product(name: "SotoS3", package: "soto"),
                     .product(name: "SotoCognitoIdentity", package: "soto"),
+                    .product(name: "SotoSNS", package: "soto")
                 ], path: "Sources/TrickleAWS"),
         .target(
             name: "TrickleEditor",
