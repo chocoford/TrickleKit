@@ -96,7 +96,7 @@ public class TrickleStore: ObservableObject {
     
     @Published public var allWorkspaces: Loadable<AnyStreamable<WorkspaceData>> = .notRequested
     // TODO: Be the source of truth
-    public var workspaces: [String : WorkspaceData] {
+    public var workspaces: [WorkspaceData.ID : WorkspaceData] {
         formDic(payload: allWorkspaces.value?.items ?? [], id: \.workspaceID)
     }
     

@@ -7,6 +7,7 @@
 
 import SotoS3 //ensure this module is specified as a dependency in your package.swift
 import SotoCognitoIdentity
+import SotoSNS
 import Foundation
 import TrickleCore
 //
@@ -15,60 +16,24 @@ import TrickleCore
 
 public final class TrickleAWSProvider {
     static public let shared = TrickleAWSProvider()
-
+    
     internal let bucket = Config.ossBucket
     internal let client: AWSClient
     internal let s3: S3
+    
+    internal let sns: SNS
 
     internal init() {
+        let region: Region = .useast1
+        
         let credentialProvider: CredentialProviderFactory = .cognitoIdentity(identityPoolId: "us-east-1:f4dd8331-7136-45c8-bbb1-26a539c43002",
                                                                              identityProvider: .static(logins: nil),
-                                                                             region: .useast1)
-        self.client = .init(credentialProvider: credentialProvider, httpClientProvider: .createNew)
+                                                                             region: region)
+        self.client = AWSClient(credentialProvider: credentialProvider, httpClientProvider: .createNew)
         self.s3 = S3(client: client, region: .useast1)
+        
+        self.sns = SNS(client: self.client, region: region)
     }
-
-
-//    func createBucketPutGetObject() async throws -> S3.GetObjectOutput {
-//        // Create Bucket, Put an Object, Get the Object
-//        let createBucketRequest = S3.CreateBucketRequest(bucket: bucket)
-//        _ = try await s3.createBucket(createBucketRequest)
-//        // Upload text file to the s3
-//        let bodyData = "hello world"
-//        let putObjectRequest = S3.PutObjectRequest(
-//            acl: .publicRead,
-//            body: .string(bodyData),
-//            bucket: bucket,
-//            key: "hello.txt"
-//        )
-//        _ = try await s3.putObject(putObjectRequest)
-//        // download text file just uploaded to S3
-//        let getObjectRequest = S3.GetObjectRequest(bucket: bucket, key: "hello.txt")
-//        let response = try await s3.getObject(getObjectRequest)
-//        // print contents of response
-//        if let body = response.body?.asString() {
-//            print(body)
-//        }
-//        return response
-//    }
-//
-//    init() {
-//        let cognitoIdentityClient = try CognitoIdentityClient(region: "us-east-1")
-//        let cognitoInputCall = CreateIdentityPoolInput(developerProviderName: "com.amazonaws.mytestapplication",
-//                                                        identityPoolName: "identityPoolMadeWithSwiftSDK")
-//
-//        let result = try await cognitoIdentityClient.createIdentityPool(input: cognitoInputCall)
-//        return result
-//    }
-//
-//    func createIdentityPool() async throws -> CreateIdentityPoolOutputResponse {
-//        let cognitoIdentityClient = try CognitoIdentityClient(region: "us-east-1")
-//        let cognitoInputCall = CreateIdentityPoolInput(developerProviderName: "com.amazonaws.mytestapplication",
-//                                                        identityPoolName: "identityPoolMadeWithSwiftSDK")
-//
-//        let result = try await cognitoIdentityClient.createIdentityPool(input: cognitoInputCall)
-//        return result
-//    }
 }
 
 
@@ -120,5 +85,13 @@ extension TrickleAWSProvider {
         return url
     }
     
-    
+    public func createEndpoint(_ token: String, customUserData: String? = nil) async throws {
+        let topicArn = "arn:aws:sns:us-east-1:257417524232:app/APNS/chocoford_apns"
+        let res = try await sns.createPlatformEndpoint(.init(attributes: nil, customUserData: customUserData, platformApplicationArn: topicArn, token: token))
+//        let topicArn = res.ß≈endpointArn
+//        let subscriptionArn = try await sns.subscribe(SNS.SubscribeInput(attributes: ["FilterPolicy": ""], endpoint: nil, protocol: "", topicArn: ""))
+//        try await sns.confirmSubscription(SNS.ConfirmSubscriptionInput(token: "", topicArn: ""))
+//        try await sns.setSubscriptionAttributes(SNS.SetSubscriptionAttributesInput(attributeName: "FilterPolicy", attributeValue: "", subscriptionArn: ""))
+        print(res)
+    }
 }
