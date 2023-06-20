@@ -17,7 +17,7 @@ public extension TrickleStore {
         let nextTS: TrickleWebRepository.API.ListQuery
         switch option {
             case .newer(let since):
-                nextTS = .init(until: Int(since.timeIntervalSince1970),
+                nextTS = .init(until: Int((since ?? tricklesComments[trickleID]?.value?.items.first?.createAt ?? .now).timeIntervalSince1970),
                                limit: 1000,
                                order: .asc)
             case .older:

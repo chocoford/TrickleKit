@@ -10,17 +10,12 @@ import TrickleCore
 
 extension TrickleWebRepository {
     
-    func createPost(workspaceID: String,
-                      channelID: String,
-                      payload: TrickleWebRepository.API.CreatePostPayload) -> AnyPublisher<TrickleData, Error> {
-         call(endpoint: API.createPost(workspaceID: workspaceID, channelID: channelID, payload: payload))
+    func createPost(workspaceID: WorkspaceData.ID,
+                    groupID: GroupData.ID,
+                    payload: TrickleWebRepository.API.CreatePostPayload) async throws -> TrickleData {
+        try await call(endpoint: API.createPost(workspaceID: workspaceID, groupID: groupID, payload: payload))
      }
-    func createPost(workspaceID: String,
-                     channelID: String,
-                     payload: TrickleWebRepository.API.CreatePostPayload) async throws -> TrickleData {
-        try await call(endpoint: API.createPost(workspaceID: workspaceID, channelID: channelID, payload: payload))
-    }
-    
+
     func listTrickles(workspaceID: String,
                      query: TrickleWebRepository.API.ListTricklesQuery) -> AnyPublisher<AnyStreamable<TrickleData>, Error> {
         call(endpoint: API.listTrickles(workspaceID: workspaceID, query: query))

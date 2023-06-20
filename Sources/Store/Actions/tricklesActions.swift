@@ -9,6 +9,7 @@ import Foundation
 import TrickleCore
 
 public extension TrickleStore {
+    // MARK: - List Trickles
     func tryLoadNewerViewTrickles(_ viewID: GroupData.ViewInfo.ID, groupByID: FieldOptions.FieldOptionInfo.ID = "NULL", nextQuery: NextQuery? = nil) async throws {
         // setIsLoading make view been redrawn, which will cancel the refresh processs
 //        viewsTrickleIDs[viewID]?[groupByID]?.setIsLoading()
@@ -70,7 +71,6 @@ public extension TrickleStore {
         }
     }
     
-    
     func loadMoreViewTrickles(_ viewID: GroupData.ViewInfo.ID, groupByID: FieldOptions.FieldOptionInfo.ID = "NULL", target: LoadMoreOption, silent: Bool = false, replace: Bool = false) async {
         do {
             let group = try findViewGroup(viewID)
@@ -81,7 +81,7 @@ public extension TrickleStore {
                                                        groupByID: groupByID,
                                                        nextQuery: .morkFeed(workspace: workspace,
                                                                             isDescent: false,
-                                                                            since: since,
+                                                                            since: since ?? .now,
                                                                             limit: 20))
                 case .older(let since):
                     try await tryLoadOlderViewTrickles(viewID, groupByID: groupByID, since: since, silent: silent, replace: replace)
@@ -90,7 +90,48 @@ public extension TrickleStore {
             self.error = .init(error)
         }
     }
+    
+    // MARK: - Get Trickle
+    /// Get a specific post
+    func tryGetTrickle(workspaceID: WorkspaceData.ID, trickleID: TrickleData.ID) async throws -> TrickleData {
+        guard let workspace = workspaces[workspaceID] else { throw TrickleStoreError.invalidWorkspaceID(workspaceID) }
+        
+        let res = try await webRepositoryClient.listTrickles(workspaceID: workspaceID, query: .init(workspaceID: workspaceID, trickleID: trickleID, memberID: workspace.userMemberInfo.memberID, limit: 1))
+        
+        guard let trickle = res.items.first else { throw TrickleStoreError.lodableError(.notFound) }
+        
+        trickles[trickle.trickleID] = trickle
+        
+        return trickle
+    }
+    
+    // MARK: - Create Trickle
+    func tryCreateTrickle(workspaceID: WorkspaceData.ID? = nil,
+                          groupID: GroupData.ID,
+                          blocks: [TrickleData.Block],
+                          mentionedMemberIDs: [MemberData.ID],
+                          referTrickleIDs: [TrickleData.ID],
+                          medias: [String],
+                          files: [String]) async throws {
+        let workspace = try workspaces[workspaceID ?? ""] ?? findGroupWorkspace(groupID)
+        
+        let author = workspace.userMemberInfo
+        do {
+            let res = try await webRepositoryClient.createPost(workspaceID: workspace.workspaceID,
+                                                     groupID: groupID,
+                                                     payload: .init(authorMemberID: author.memberID,
+                                                                    blocks: blocks,
+                                                                    mentionedMemberIDs: mentionedMemberIDs,
+                                                                    referTrickleIDs: referTrickleIDs,
+                                                                    medias: medias,
+                                                                    files: files))
+            insertTrickle(res, to: groupID)
+        } catch {
+            throw error
+        }
+    }
 
+    // MARK: - Copy Trickle
     func tryCopyTrickle(trickleID: TrickleData.ID, to groupID: GroupData.ID, afterTrickleID: TrickleData.ID? = nil) async throws {
         guard var trickle = trickles[trickleID] else { throw TrickleStoreError.invalidTrickleID(trickleID) }
         let group = try findTrickleGroup(trickleID)
@@ -139,6 +180,7 @@ public extension TrickleStore {
         }
     }
     
+    // MARK: - Duplicate Trickle
     func tryDuplicateTrickle(trickleID: TrickleData.ID, afterTrickleID: TrickleData.ID? = nil) async throws {
         let group = try findTrickleGroup(trickleID)
         try await tryCopyTrickle(trickleID: trickleID, to: group.groupID)
@@ -152,6 +194,7 @@ public extension TrickleStore {
         }
     }
     
+    // MARK: - Add Trickle Last View
     func tryAddTrickleLastView(trickleID: TrickleData.ID) async throws {
         let workspace = try findTrickleWorkspace(trickleID)
         guard let originalLastViewInfo = trickles[trickleID]?.lastViewInfo else {

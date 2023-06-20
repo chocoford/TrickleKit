@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "TrickleKit",
     platforms: [
-        .iOS(.v15), .watchOS(.v6), .macOS(.v12)
+        .iOS(.v16), .watchOS(.v6), .macOS(.v12)
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
@@ -74,7 +74,10 @@ let package = Package(
                 "Highlightr",
                 .product(name: "Markdown", package: "swift-markdown"),
             ],
-            path: "Sources/TrickleEditor"
+            path: "Sources/TrickleEditor",
+            resources: [
+                .process("Resources")
+            ]
         ),
         .testTarget(name: "TrickleKitTests", dependencies: ["TrickleCore", "TrickleEditor"]),
     ]

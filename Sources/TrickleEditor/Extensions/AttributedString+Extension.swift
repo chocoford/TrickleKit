@@ -24,7 +24,7 @@ extension AttributedString {
             
             switch line.runs.first?.attributes.font {
                 default:
-                    type = .h1
+                    type = .richText
             }
             
             return TrickleData.Block(type: type,

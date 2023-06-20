@@ -49,9 +49,9 @@ extension TrickleWebRepository {
         case listFieldOptions(workspaceID: String, groupID: String)
         
         // trickles
-        case createPost(workspaceID: String, channelID: String, payload: CreatePostPayload)
-        case listTrickles(workspaceID: String, query: ListTricklesQuery)
-        case listGroupTrickles(workspaceID: String, groupID: String, payload: NextQuery)
+        case createPost(workspaceID: WorkspaceData.ID, groupID: GroupData.ID, payload: CreatePostPayload)
+        case listTrickles(workspaceID: WorkspaceData.ID, query: ListTricklesQuery)
+        case listGroupTrickles(workspaceID: WorkspaceData.ID, groupID: GroupData.ID, payload: NextQuery)
         case copyTrickle(workspaceID: WorkspaceData.ID, trickleID: TrickleData.ID, payload: CopyTricklePayload)
         case addTrickleLastView(workspaceID: WorkspaceData.ID, trickleID: TrickleData.ID, payload: AddTrickleLastViewPayload)
 
@@ -144,8 +144,8 @@ extension TrickleWebRepository.API: APICall {
                 return "/f2b/v1/workspaces/\(workspaceID)/groups/\(groupID)/fields/-/fieldOptions"
                 
             // Post CRUD API
-            case .createPost(let workspaceID, let channelID, _):
-                return "/f2b/v1/workspaces/\(workspaceID)/groups/\(channelID)/trickles"
+            case .createPost(let workspaceID, let groupID, _):
+                return "/f2b/v1/workspaces/\(workspaceID)/groups/\(groupID)/trickles"
                 
             case let .listTrickles(workspaceID, _):
                 return "/f2b/v1/workspaces/\(workspaceID)/trickles"

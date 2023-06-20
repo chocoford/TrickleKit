@@ -13,7 +13,7 @@ public extension TrickleStoreError {
         case alreadyPinned
         case alreadyUnpinned
         
-        public var errorDescription: String? {
+        public var errorDescription: String {
             switch self {
                 case .alreadyPinned:
                     return "The trickle is already pinned."
