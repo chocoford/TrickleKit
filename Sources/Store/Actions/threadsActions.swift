@@ -9,30 +9,30 @@ import Foundation
 import TrickleCore
 
 public extension TrickleStore {
-    func loadMoreThreads(_ workspaceID: WorkspaceData.ID, option: LoadMoreOption, silent: Bool = false, replace: Bool = false) async {
+    func loadMoreThreads(_ workspaceID: WorkspaceData.ID, option: LoadMoreOption, silent: Bool = false, reset: Bool = false) async {
         guard let theWorkspace = workspaces[workspaceID] else { return }
         if !silent {
             workspaceThreadIDs[workspaceID]?.setIsLoading()
         }
-        guard let nextTs = workspaceThreads[workspaceID]?.value?.nextTs else { return }
+        let nextTs = workspaceThreads[workspaceID]?.value?.nextTs ?? Int(Date.now.timeIntervalSince1970)
 
         do {
             switch option {
-                case .newer:
+                case .newer(let since):
                     let data = try await webRepositoryClient.listWorkspaceThreads(workspaceID: workspaceID,
                                                                                   memberID: theWorkspace.userMemberInfo.memberID,
-                                                                                  query: .init(until: Int((workspaceThreads[workspaceID]?.value?.items.first?.updateAt ?? .now).timeIntervalSince1970),
+                                                                                  query: .init(until: Int(since?.timeIntervalSince1970 ?? (workspaceThreads[workspaceID]?.value?.items.first?.updateAt ?? .now).timeIntervalSince1970),
                                                                                                limit: 1000,
                                                                                                order: .asc))
                     prependThreads(data, to: workspaceID)
                     
-                case .older:
+                case .older(let since):
                     let data = try await webRepositoryClient.listWorkspaceThreads(workspaceID: workspaceID,
                                                                                   memberID: theWorkspace.userMemberInfo.memberID,
-                                                                                  query: .init(until: nextTs,
+                                                                                  query: .init(until: Int(since?.timeIntervalSince1970) ?? nextTs,
                                                                                                limit: 20 ,
                                                                                                order: .desc))
-                    if replace {
+                    if reset {
                         resetThreads(data, of: workspaceID)
                     } else {
                         appendThreads(data, to: workspaceID)

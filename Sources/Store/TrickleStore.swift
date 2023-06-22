@@ -23,7 +23,7 @@ public enum TrickleStoreError: LocalizedError {
     case starError(_ error: StarError)
     case apnsError(_ error: APNsError)
     
-    public var errorDescription: String? {
+    public var errorDescription: String {
         switch self {
             case .lodableError(let error):
                 return "Loadable error: \(error.localizedDescription)"
@@ -350,6 +350,6 @@ public class TrickleStore: ObservableObject {
     
     public enum LoadMoreOption {
         case older(_ since: Date? = nil)
-        case newer(_ since: Date)
+        case newer(_ since: Date? = nil)
     }
 }

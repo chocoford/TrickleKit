@@ -10,24 +10,6 @@ import TrickleCore
 
 // MARK: - Queries
 extension TrickleWebRepository.API {
-    struct CreatePostPayload: Codable {
-        let authorMemberID: String
-        let blocks: [TrickleData.Block]
-        let mentionedMemberIDs: [String]
-        
-        enum CodingKeys: String, CodingKey {
-            case authorMemberID = "authorMemberId"
-            case blocks
-            case mentionedMemberIDs = "mentionedMemberIds"
-        }
-        
-        init(authorMemberID: String, blocks: [TrickleData.Block], mentionedMemberIDs: [String] = []) {
-            self.authorMemberID = authorMemberID
-            self.blocks = blocks
-            self.mentionedMemberIDs = mentionedMemberIDs
-        }
-    }
-    
     struct ListPostsQuery: Codable {
         let workspaceID: String
         let receiverID: String?

@@ -240,7 +240,7 @@ extension TrickleEditorView {
     /// Editor v2:  an overall rich NSTextView
     private var v2Editor: some View {
         VStack(alignment: .leading, spacing: 0) {
-            TrickleTextView(blocks: $blocks, height: $textViewHeight, editable: config.editable)
+            TrickleTextView(height: $textViewHeight)
                 .environmentObject(textStorage)
                 .frame(height: config.maxHeight == nil ? textViewHeight : textViewHeight != nil ? min(config.maxHeight!, textViewHeight!) : 300)
                 .onAppear { textStorage.blocks = blocks }

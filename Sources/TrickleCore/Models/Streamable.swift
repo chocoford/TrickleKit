@@ -8,7 +8,7 @@
 import Foundation
 import ChocofordEssentials
 
-public struct AnyStreamable<T: Codable>: Codable {
+public struct AnyStreamable<T>: Codable, Equatable where T: Codable, T: Equatable {
     public var items: [T]
     public let nextTs: Int?
     

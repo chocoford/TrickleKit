@@ -54,11 +54,11 @@ protocol TrickleWebRepositoryProvider: WebRepositoryProvider {
     func listGroupViewTricklesStat(workspaceID: String, groupID: String, query: TrickleWebRepository.API.ListGroupViewTricklesStatQuery) async throws -> GroupViewTricklesStat
     
     // MARK: - Posts
-    func createPost(workspaceID: String,
-                    channelID: String,
-                    payload: TrickleWebRepository.API.CreatePostPayload) -> AnyPublisher<TrickleData, Error>
+    func createPost(workspaceID: WorkspaceData.ID,
+                    groupID: GroupData.ID,
+                    payload: TrickleWebRepository.API.CreatePostPayload) async throws -> TrickleData
     
-    func listTrickles(workspaceID: String, query: TrickleWebRepository.API.ListTricklesQuery) -> AnyPublisher<AnyStreamable<TrickleData>, Error>
+    func listTrickles(workspaceID: WorkspaceData.ID, query: TrickleWebRepository.API.ListTricklesQuery) async throws -> AnyStreamable<TrickleData>
     func listGroupTrickles(workspaceID: String, groupID: String,
                            query: NextQuery) -> AnyPublisher<AnyQueryStreamable<TrickleData>, Error>
     

@@ -10,13 +10,12 @@ import TrickleCore
 import ChocofordEssentials
 import TrickleUI
 
-#if os(macOS)
 extension NSAttributedString {
     func toBlocks() -> [TrickleData.Block] {
         AttributedString(self).toBlocks()
     }
 }
-#endif
+
 extension AttributedString {
     func toBlocks(_ config: TrickleEditorConfig = .default) -> [TrickleData.Block] {
         return self.split("\n").map { line in
@@ -24,7 +23,7 @@ extension AttributedString {
             
             switch line.runs.first?.attributes.font {
                 default:
-                    type = .h1
+                    type = .richText
             }
             
             return TrickleData.Block(type: type,

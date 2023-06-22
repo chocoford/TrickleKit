@@ -12,6 +12,7 @@ extension TrickleWebRepository.API {
     struct ListTricklesQuery: Codable {
         var workspaceID: String? = nil
         var receiverID: String? = nil
+        var trickleID: TrickleData.ID? = nil
         var memberID: String
         var authorID: String? = nil
         var text: String? = nil
@@ -23,6 +24,7 @@ extension TrickleWebRepository.API {
         enum CodingKeys: String, CodingKey {
             case workspaceID = "workspaceId"
             case receiverID = "receiverIds"
+            case trickleID = "trickleId"
             case memberID = "memberId"
             case authorID = "authorId"
             case text, until, limit, order

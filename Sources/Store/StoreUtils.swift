@@ -75,5 +75,11 @@ public extension TrickleStore {
         let workspace = try findGroupWorkspace(group.groupID)
         return workspace
     }
+    
+    func findViewWorkspace(_ viewID: GroupData.ViewInfo.ID) throws -> WorkspaceData {
+        let group = try findViewGroup(viewID)
+        let workspace = try findGroupWorkspace(group.groupID)
+        return workspace
+    }
 }
 
