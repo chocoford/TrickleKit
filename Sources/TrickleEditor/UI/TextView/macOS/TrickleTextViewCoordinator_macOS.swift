@@ -8,6 +8,71 @@
 import Foundation
 import AppKit
 import SwiftUI
+import Combine
+
+public class TTextView: NSTextView {
+    var didFocused: (() -> Void)?
+    var minHeight: CGFloat = 14
+    
+    internal var _textContentStorage: NSTextContentStorage?
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
+    override init(frame frameRect: NSRect, textContainer container: NSTextContainer?) {
+        super.init(frame: frameRect, textContainer: container)
+    }
+
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+    }
+    
+    public override func becomeFirstResponder() -> Bool {
+        if let didFocused = didFocused {
+            didFocused()
+        }
+        return super.becomeFirstResponder() // <-- important
+    }
+    
+//    public override var textStorage: NSTextStorage? {
+//        return sharedTextStorage
+//    }
+    
+    
+//    public override var textContentStorage: NSTextContentStorage? {
+//        return _textContentStorage
+//    }
+    
+    public func setTextContentStorage(_ textContentStorage: NSTextContentStorage) {
+        self._textContentStorage = textContentStorage
+    }
+//
+
+    // override this method will cause fall into TextKit 1.
+//    public override func draw(_ dirtyRect: NSRect) {
+//        super.draw(dirtyRect)
+//    }
+    
+//    public override var minSize: NSSize {
+//        .init(width: self.visibleRect.width, height: 200)
+//    }
+
+//    public override var intrinsicContentSize: NSSize {
+////        guard let container = self.textContainer else { return .zero }
+////        return self.layoutManager?.usedRect(for: container).size ?? .zero
+////        var height: CGFloat = 0
+////        textLayoutManager?.enumerateTextLayoutFragments(from: textLayoutManager?.documentRange.endLocation,
+////                                                                 options: [.reverse, .ensuresLayout]) { layoutFragment in
+////            height = layoutFragment.layoutFragmentFrame.maxY
+////            return false // stop
+////        }
+////        let intrinsicContentSize = NSSize(width: max(100, super.intrinsicContentSize.width), height: max(height, minHeight))
+////        print("intrinsicContentSize: ", intrinsicContentSize)
+//        return .init(width: self.visibleRect.width, height: 200)//intrinsicContentSize // super.intrinsicContentSize //
+//    }
+}
+
 
 // MARK: - Coordinator
 extension TrickleTextView {
@@ -28,16 +93,19 @@ extension TrickleTextView {
 //            return view
 //        }()
 //
+        
+        var cancellable: AnyCancellable?
+        
         init(_ parent: TrickleTextView) {
             self.editorView = TextView.scrollableTextView()
-            self.textView = TextView() //editorView.documentView as! TextView
-//            self.textView.sharedTextStorage = parent.textStorage
+            self.textView = TextView(frame: .zero, textContainer: parent.store.textContainer) //editorView.documentView as! TextView
             self.parent = parent
             super.init()
 //            editorView.drawsBackground = false
 //            textView.drawsBackground = false
 
             self.textView.delegate = self
+            self.parent.store.delegate = self
 //            textView.textLayoutManager?.delegate = self
 //            assert(textView.textLayoutManager != nil, "textLayoutManager is nil")
 
@@ -45,12 +113,11 @@ extension TrickleTextView {
                 self.parent.isFocus?.wrappedValue = true
                 self.parent.focusState = true
             }
-            
+
             NotificationCenter.default.addObserver(self,
                                                    selector: #selector(willSwitchToNSLayoutManager),
                                                    name: TTextView.willSwitchToNSLayoutManagerNotification,
                                                    object: nil)
-            
         }
 
         @objc func willSwitchToNSLayoutManager(notification: Notification) {
@@ -67,28 +134,36 @@ extension TrickleTextView {
             }
             
             parent.height?.wrappedValue = max(height + textView.textContainerInset.height * 2, parent.config.minHeight) // textView.intrinsicContentSize.height
+//            print("updateContentSize")
         }
     }
 }
 //
 extension TrickleTextView.Coordinator: NSTextViewDelegate {
     public func textDidChange(_ notification: Notification) {
-        guard let textView = notification.object as? TextView else {
+        guard let _ = notification.object as? TextView else {
             return
         }
         DispatchQueue.main.async {
-            self.parent.blocks = textView.attributedString().toBlocks()
             self.updateContentSize()
         }
     }
     
     public func textDidEndEditing(_ notification: Notification) {
-        guard let textView = notification.object as? TextView else {
+        guard let _ = notification.object as? TextView else {
             return
         }
         self.parent.isFocus?.wrappedValue = false
         self.parent.focusState = false
-//        print("didEndEditing", textView)
+    }
+    
+    public func textView(_ textView: NSTextView, willDisplayToolTip tooltip: String, forCharacterAt characterIndex: Int) -> String? {
+        "Tooltip"
+    }
+    
+    public func textView(_ textView: NSTextView, willShow servicePicker: NSSharingServicePicker, forItems items: [Any]) -> NSSharingServicePicker? {
+        print("textView willShow servicePicker", servicePicker, items)
+        return servicePicker
     }
 //
 //    public func textViewDidChangeSelection(_ notification: Notification) {
@@ -132,6 +207,14 @@ extension TrickleTextView.Coordinator: NSTextViewDelegate {
 //        return newSelectedCharRange
 //    }
 //
+}
+
+extension TrickleTextView.Coordinator: TrickleEditorStoreDelegate {
+    public func textContentStorageDidChanged() {
+        DispatchQueue.main.async {
+            self.updateContentSize()
+        }
+    }
 }
 //
 //extension TrickleTextView.Coordinator: NSTextLayoutManagerDelegate {

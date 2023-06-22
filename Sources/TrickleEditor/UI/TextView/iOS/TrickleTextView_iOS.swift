@@ -9,15 +9,15 @@ import SwiftUI
 import TrickleCore
 
 struct TrickleTextView: UIViewRepresentable {
+    @EnvironmentObject var store: TrickleEditorStore
+
     @ObservedObject var config = Config()
     
-    @Binding var blocks: [TrickleData.Block]
     var height: Binding<CGFloat?>?
     var isFocus: Binding<Bool>?
     @State internal var focusState: Bool = false
 
-    public init(blocks: Binding<[TrickleData.Block]>, height: Binding<CGFloat?>? = nil, isFocus: Binding<Bool>? = nil) {
-        self._blocks = blocks
+    public init(height: Binding<CGFloat?>? = nil, isFocus: Binding<Bool>? = nil) {
         self.height = height
         self.isFocus = isFocus
     }
@@ -47,7 +47,7 @@ struct TrickleTextPreviewView: View {
     
     var body: some View {
 //        VStack {
-        TrickleTextView(blocks: $blocks, height: $textViewHeight, isFocus: $isFocused)
+        TrickleTextView(height: $textViewHeight, isFocus: $isFocused)
             .minHeight(minHeight)
             .frame(height: max(minHeight, textViewHeight ?? 0))
 //                .animation(.default, value: height)

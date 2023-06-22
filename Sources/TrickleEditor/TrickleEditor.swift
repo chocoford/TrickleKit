@@ -2,11 +2,11 @@ import SwiftUI
 import TrickleCore
 
 public struct TrickleEditor: View {
-    @Binding var blocks: [TrickleData.Block]
+    @ObservedObject var store: TrickleEditorStore
     var minHeight: CGFloat
     
-    public init(blocks: Binding<[TrickleData.Block]>, minHeight: CGFloat = 72) {
-        self._blocks = blocks
+    public init(store: TrickleEditorStore = .init(), minHeight: CGFloat = 72) {
+        self.store = store
         self.minHeight = minHeight
     }
 
@@ -14,11 +14,11 @@ public struct TrickleEditor: View {
     @State private var isFocused: Bool = true
     
     public var body: some View {
-        TrickleTextView(blocks: $blocks, height: $textViewHeight, isFocus: $isFocused)
+        TrickleTextView(height: $textViewHeight, isFocus: $isFocused)
             .minHeight(minHeight)
             .frame(height: textViewHeight)
             .frame(minHeight: minHeight)
             .animation(.default, value: textViewHeight)
-            .environmentObject(SharedTextContentStorage())
+            .environmentObject(store)
     }
 }

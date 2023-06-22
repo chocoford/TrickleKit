@@ -18,11 +18,12 @@ extension TrickleTextView {
         var parent: TrickleTextView
 
         init(_ parent: TrickleTextView) {
-            self.textView = TextView(usingTextLayoutManager: true)
+            self.textView = TextView(frame: .zero, textContainer: parent.store.textContainer)
             self.parent = parent
             super.init()
 
             self.textView.delegate = self
+            self.parent.store.delegate = self
 
 //            self.textView.didFocused = {
 //                self.parent.isFocus?.wrappedValue = true
@@ -35,34 +36,24 @@ extension TrickleTextView {
 //                                                   object: nil)
 //
         }
-
-//        @objc func willSwitchToNSLayoutManager(notification: Notification) {
-//            // 处理通知逻辑
-//            fatalError("willSwitchToNSLayoutManager")
-//        }
-//
-//        func updateContentSize() {
-//            var height: CGFloat = 0
-//            textView.textLayoutManager?.enumerateTextLayoutFragments(from: textView.textLayoutManager?.documentRange.endLocation,
-//                                                                     options: [.reverse, .ensuresLayout]) { layoutFragment in
-//                height = layoutFragment.layoutFragmentFrame.maxY
-//                return false // stop
-//            }
-//
-//            parent.height?.wrappedValue = max(height + textView.textContainerInset.height * 2, parent.config.minHeight) // textView.intrinsicContentSize.height
-//        }
     }
     
 }
 
 extension TrickleTextView.Coordinator: UITextViewDelegate {
     public func textViewDidChange(_ textView: UITextView) {
-        DispatchQueue.main.async {
-            self.parent.blocks = AttributedString(textView.attributedText).toBlocks()
-        }
+//        DispatchQueue.main.async {
+//            self.parent.blocks = AttributedString(textView.attributedText).toBlocks()
+//        }
     }
     
     public func textViewDidEndEditing(_ textView: UITextView) {
+        
+    }
+}
+
+extension TrickleTextView.Coordinator: TrickleEditorStoreDelegate {
+    public func textContentStorageDidChanged() {
         
     }
 }
