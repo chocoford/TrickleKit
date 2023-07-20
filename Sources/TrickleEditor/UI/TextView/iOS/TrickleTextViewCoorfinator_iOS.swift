@@ -14,11 +14,16 @@ extension TrickleTextView {
     public class Coordinator: NSObject {
         typealias TextView = UITextView
         let textView: TextView
-
         var parent: TrickleTextView
 
-        init(_ parent: TrickleTextView) {
-            self.textView = TextView(frame: .zero, textContainer: parent.store.textContainer)
+        init(_ parent: TrickleTextView, stretch: Bool = false) {
+            if stretch {
+//                let scrollView = TextView.
+                self.textView = TextView(frame: .zero, textContainer: parent.store.textContainer)
+            } else {
+                self.textView = TextView(frame: .zero, textContainer: parent.store.textContainer)
+            }
+            
             self.parent = parent
             super.init()
 
@@ -36,15 +41,28 @@ extension TrickleTextView {
 //                                                   object: nil)
 //
         }
+        
+        func updateContentSize() {
+            var height: CGFloat = 0
+            textView.textLayoutManager?.enumerateTextLayoutFragments(from: textView.textLayoutManager?.documentRange.endLocation,
+                                                                     options: [.reverse, .ensuresLayout]) { layoutFragment in
+                height = layoutFragment.layoutFragmentFrame.maxY
+                return false // stop
+            }
+            
+            parent.height?.wrappedValue = max(height + textView.textContainerInset.top + textView.textContainerInset.bottom, parent.config.minHeight)
+        }
     }
-    
 }
 
 extension TrickleTextView.Coordinator: UITextViewDelegate {
     public func textViewDidChange(_ textView: UITextView) {
-//        DispatchQueue.main.async {
+        DispatchQueue.main.async {
+//            print("store.objectWillChange.send()")
+            self.parent.store.objectWillChange.send()
+            self.updateContentSize()
 //            self.parent.blocks = AttributedString(textView.attributedText).toBlocks()
-//        }
+        }
     }
     
     public func textViewDidEndEditing(_ textView: UITextView) {

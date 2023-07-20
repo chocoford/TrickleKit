@@ -1,0 +1,114 @@
+[
+    {
+        "id": "1967c90c-249f-11ee-b790-0a58a9feac02",
+        "type": "rich_texts",
+        "blocks": [],
+        "elements": [
+            {
+                "id": "1013d9ef-c48d-4ead-bdd3-7561893ac5af",
+                "type": "text",
+                "elements": [],
+                "text": "Redis是一种开源的内存数据存储系统，它支持多种数据类型。下面是Redis的主要数据类型："
+            }
+        ],
+        "indent": 0
+    },
+    {
+        "id": "1967caba-249f-11ee-b790-0a58a9feac02",
+        "type": "rich_texts",
+        "blocks": [],
+        "elements": [
+            {
+                "id": "94be6a43-0c83-46af-bf74-7565f8942831",
+                "type": "text",
+                "elements": [],
+                "text": "1. 字符串（String）：字符串是最简单的数据类型，可以包含任何类型的数据，例如整数、浮点数、JSON字符串等。"
+            }
+        ],
+        "indent": 0
+    },
+    {
+        "id": "1967cfa6-249f-11ee-b790-0a58a9feac02",
+        "type": "rich_texts",
+        "blocks": [],
+        "elements": [
+            {
+                "id": "50b4937f-1fea-4f5a-a7c4-53d430fc7d8e",
+                "type": "text",
+                "elements": [],
+                "text": "2. 哈希（Hash）：哈希是一个键值对的集合，其中每个键都是唯一的。哈希适合存储对象，可以用于存储用户信息、商品信息等。"
+            }
+        ],
+        "indent": 0
+    },
+    {
+        "id": "1967d0c8-249f-11ee-b790-0a58a9feac02",
+        "type": "rich_texts",
+        "blocks": [],
+        "elements": [
+            {
+                "id": "14d1ebb2-565d-4389-a225-0340ce61d546",
+                "type": "text",
+                "elements": [],
+                "text": "3. 列表（List）：列表是一个有序的字符串集合，可以在列表的两端进行插入和删除操作。列表可以用于实现队列、栈等数据结构。"
+            }
+        ],
+        "indent": 0
+    },
+    {
+        "id": "1967d140-249f-11ee-b790-0a58a9feac02",
+        "type": "rich_texts",
+        "blocks": [],
+        "elements": [
+            {
+                "id": "f81a7037-0838-417e-90f4-49e2e91f5416",
+                "type": "text",
+                "elements": [],
+                "text": "4. 集合（Set）：集合是一个无序的字符串集合，每个元素都是唯一的。集合支持集合间的交集、并集、差集等操作。"
+            }
+        ],
+        "indent": 0
+    },
+    {
+        "id": "1967d1ae-249f-11ee-b790-0a58a9feac02",
+        "type": "rich_texts",
+        "blocks": [],
+        "elements": [
+            {
+                "id": "cc4814cb-2800-4556-8f52-0da65f76cc82",
+                "type": "text",
+                "elements": [],
+                "text": "5. 有序集合（Sorted Set）：有序集合是一个有序的字符串集合，每个元素都关联着一个分数。有序集合可以按照分数进行排序，并支持按照分数范围进行查找。"
+            }
+        ],
+        "indent": 0
+    },
+    {
+        "id": "1967d21c-249f-11ee-b790-0a58a9feac02",
+        "type": "rich_texts",
+        "blocks": [],
+        "elements": [
+            {
+                "id": "31f4143b-33eb-4335-a5b4-98b7b19f1ed0",
+                "type": "text",
+                "elements": [],
+                "text": "6. 地理空间索引（Geospatial Index）：Redis支持存储和查询地理位置信息，可以用于实现附近的人、附近的店等功能。"
+            }
+        ],
+        "indent": 0
+    },
+    {
+        "id": "1967d28a-249f-11ee-b790-0a58a9feac02",
+        "type": "rich_texts",
+        "blocks": [],
+        "elements": [
+            {
+                "id": "fb825e3b-54d1-46d6-8b8e-3db57a439af7",
+                "type": "text",
+                "elements": [],
+                "text": "除了以上的基本数据类型，Redis还支持一些特殊的数据结构和功能，如位图（Bitmap）、HyperLogLog（基数统计）、发布订阅（Pub/Sub）等。这些数据类型和功能使得Redis成为一个功能强大的数据存储系统，适用于各种场景和用途。"
+            }
+        ],
+        "indent": 0
+    }
+]

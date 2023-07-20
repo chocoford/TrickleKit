@@ -27,6 +27,7 @@ public struct AnyStreamable<T>: Codable, Equatable where T: Codable, T: Equatabl
         return .init(items: items.removingDuplicate(replace: replace), nextTs: contentsOf.nextTs)
     }
     public func prepending(_ contentsOf: Self, replace: Bool = false) -> Self where T: Hashable {
+        if self.items.isEmpty { return contentsOf }
         let items = contentsOf.items + self.items
         return .init(items: items.removingDuplicate(replace: replace), nextTs: self.nextTs)
     }

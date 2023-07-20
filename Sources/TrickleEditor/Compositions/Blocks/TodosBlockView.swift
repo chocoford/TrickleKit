@@ -9,12 +9,13 @@ import SwiftUI
 import TrickleCore
 
 struct TodosBlockView: View {
-    var block: TrickleData.Block
+    var block: TrickleBlock.TaskBlock
     
     @State private var progress: CGFloat = 0.0
     
-    var checkboxBlocks: [TrickleData.Block]? {
-        guard let blocks = block.blocks, blocks.count >= 2 else {
+    var checkboxBlocks: [TrickleBlock]? {
+        let blocks = block.blocks
+        guard blocks.count >= 2 else {
             return nil
         }
         
@@ -33,7 +34,7 @@ struct TodosBlockView: View {
     
     @ViewBuilder private var content: some View {
         VStack(alignment: .leading, spacing: 0) {
-            TrickleEditorParser.parse(block.blocks?.prefix(2) ?? [])
+            TrickleEditor.renderBlocks(block.blocks.prefix(2))
             
             HStack {
                 ProgressView(value: progress)
@@ -42,10 +43,10 @@ struct TodosBlockView: View {
                 Text("\(Int(progress * 100))%")
             }
             
-            if block.blocks?[2].type == .nest {
+            if block.blocks[2].type == .nest {
                 VStack(alignment: .leading, spacing: 4) {
-                    ForEach(block.blocks?[2].blocks ?? []) { block in
-                        TrickleEditorParser.parse([block])
+                    ForEach(block.blocks[2].blocks ?? []) { block in
+                        TrickleEditor.renderBlocks([block])
                     }
                 }
             }
@@ -63,8 +64,8 @@ struct TodosBlockView: View {
         var checked = 0
         guard let total = checkboxBlocks?.count else { return }
         checkboxBlocks?.forEach({ checkbox in
-            if case .checkbox(let val) = checkbox.userDefinedValue {
-                if val.status == .checked {
+            if case .checkbox(let checkboxBlock) = checkbox {
+                if checkboxBlock.userDefinedValue?.status == .checked {
                     checked += 1
                 }
             }
@@ -79,24 +80,26 @@ struct TodosBlockView: View {
 
 struct TodosBlockView_Previews: PreviewProvider {
     static var previews: some View {
-        TodosBlockView(block: .init(type: .vote, blocks: [
-            TrickleData.Block(type: .h3, elements: [
-                TrickleData.Element(.text, text: "Todo title")
-            ]),
-            
-            TrickleData.Block(type: .richText, elements: [
-                TrickleData.Element(.text, text: "Todo description")
-            ]),
-            
-            TrickleData.Block(type: .nest, blocks: [
-                TrickleData.Block(type: .checkbox, elements: [
-                    TrickleData.Element(.text, text: "Todo option 1")
-                ]),
-                TrickleData.Block(type: .checkbox, elements: [
-                    TrickleData.Element(.text, text: "Todo option 2")
-                ])
-            ])
-        ]))
+        TodosBlockView(
+            block: .init(
+                blocks: [
+                    .headline(.init(type: .h2, elements: .text("Todo title"))),
+                    .text(.init(elements: .text("Todo description"))),
+                    .nestable(
+                        .init(type: .nest, blocks: [
+                            .checkbox(.init(
+                                elements: .text("Todo option 1"),
+                                userDefinedValue: .unchecked
+                            )),
+                            .checkbox(.init(
+                                elements: .text("Todo option 2"),
+                                userDefinedValue: .unchecked
+                            )),
+                        ])
+                    )
+                ]
+            )
+        )
         .frame(width: 720, height: nil)
         .previewLayout(.fixed(width: 720, height: 400))
     }

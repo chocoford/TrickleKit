@@ -14,12 +14,13 @@ public struct TrickleData: Codable, Hashable {
     public var allowWorkspaceMemberComment, allowWorkspaceMemberReact: Bool
     public var authorMemberInfo: MemberData
     public var authorAppMemberInfo: MemberData?
-    public var blocks: [Block]
+    public var blocks: [TrickleBlock]
+    public var commentInfo: [CommentData]?
     public var commentCounts: Int
     public var editBy: MemberData?
     public var hasStarred, isPinned, isPublic: Bool
     public var lastViewInfo: LastViewData
-    public var mentionedMemberInfo: [MentionedMemberData]
+    public var mentionedMemberInfo: [MentionedMemberData]?
     public var reactionInfo: [ReactionData]
     public var groupInfo: GroupData
     public var referInfo: ReferData?
@@ -34,7 +35,7 @@ public struct TrickleData: Codable, Hashable {
     
     enum CodingKeys: String, CodingKey {
         case trickleID = "trickleId"
-        case allowGuestMemberComment, allowGuestMemberReact, allowWorkspaceMemberComment, allowWorkspaceMemberReact, authorAppMemberInfo, authorMemberInfo, blocks, commentCounts, createAt, editAt, editBy, hasStarred, isPinned, isPublic, lastViewInfo, mentionedMemberInfo, reactionInfo, groupInfo, referInfo, title
+        case allowGuestMemberComment, allowGuestMemberReact, allowWorkspaceMemberComment, allowWorkspaceMemberReact, authorAppMemberInfo, authorMemberInfo, blocks, commentInfo, commentCounts, createAt, editAt, editBy, hasStarred, isPinned, isPublic, lastViewInfo, mentionedMemberInfo, reactionInfo, groupInfo, referInfo, title
         case threadID = "threadId"
         case updateAt, userDefinedTitle, viewedMemberInfo, editingMemberInfo, fieldData
     }
@@ -57,7 +58,7 @@ extension TrickleData {
             return title
         } else {
             return String(blocks.map { block in
-                switch block.type {
+                switch block {
                     case .code:
                         return "[Code Block]"
                     case .gallery:
@@ -100,7 +101,7 @@ extension TrickleData {
         }
     }
     public struct GroupData: Codable, Hashable {
-        public let groupID, ranks: String
+        public let groupID, ranks: String?
         
         enum CodingKeys: String, CodingKey {
             case groupID = "groupId"
@@ -185,58 +186,48 @@ extension TrickleData {
     }
     
     // MARK: - Editor
-    public struct Block: Codable, Hashable, Identifiable {
-        public let id: String
-        public var type: BlockType
-        public var isFirst: Bool
-        public var indent: Int
-        public var blocks: [Block]?
-        public var elements: [Element]?
-        public var isCurrent: Bool
-        public var constraint: String?
-        public var display: String
-        public var userDefinedValue: UserDefinedValue?
-        
-        private init(type: BlockType, value: UserDefinedValue? = nil, blocks: [Block]?, elements: [Element]?) {
-            self.id = UUID().uuidString
-            self.type = type
-            self.isFirst = true
-            self.indent = 0
-            self.blocks = blocks
-            self.elements = elements
-            self.isCurrent = false
-            self.constraint = "free"
-            self.display = "block"
-            self.userDefinedValue = value
-        }
-        
-        public init(type: BlockType, value: UserDefinedValue? = nil, elements: [Element]) {
-            self.init(type: type, value: value, blocks: nil, elements: elements)
-        }
-        
-        public init(type: BlockType, value: UserDefinedValue? = nil, blocks: [Block]) {
-            self.init(type: type, value: value, blocks: blocks, elements: nil)
-        }
-        
-        
-    }
-    public struct Element: Codable, Hashable, Identifiable {
-        public let id: String
-        public var text: String
-        public var type: ElementType
-        public var value: UserDefinedValue?
-        public var elements: [Element]?
-        public var isCurrent: Bool
-        
-        public init(_ type: ElementType, text: String = "", value: UserDefinedValue? = nil) {
-            self.id = UUID().uuidString
-            self.text = text
-            self.type = type
-            self.elements = nil
-            self.isCurrent = false
-            self.value = value
-        }
-    }
+//    public struct Block: Codable, Hashable, Identifiable {
+//        public let id: String
+//        public var type: BlockType
+//        public var isFirst: Bool?
+//        public var indent: Int
+//        public var blocks: [Block]?
+//        public var elements: [Element]?
+//        public var userDefinedValue: UserDefinedValue?
+//        
+//        private init(type: BlockType, value: UserDefinedValue? = nil, blocks: [Block]?, elements: [Element]?) {
+//            self.id = UUID().uuidString
+//            self.type = type
+//            self.isFirst = true
+//            self.indent = 0
+//            self.blocks = blocks
+//            self.elements = elements
+//            self.userDefinedValue = value
+//        }
+//        
+//        public init(type: BlockType, value: UserDefinedValue? = nil, elements: [Element]) {
+//            self.init(type: type, value: value, blocks: nil, elements: elements)
+//        }
+//        
+//        public init(type: BlockType, value: UserDefinedValue? = nil, blocks: [Block]) {
+//            self.init(type: type, value: value, blocks: blocks, elements: nil)
+//        }
+//    }
+//    public struct Element: Codable, Hashable, Identifiable {
+//        public let id: String
+//        public var text: String
+//        public var type: ElementType
+//        public var value: UserDefinedValue?
+//        public var elements: [Element]?
+//        
+//        public init(_ type: ElementType, text: String = "", value: UserDefinedValue? = nil) {
+//            self.id = UUID().uuidString
+//            self.text = text
+//            self.type = type
+//            self.elements = nil
+//            self.value = value
+//        }
+//    }
 }
 
 
@@ -253,6 +244,7 @@ public enum AnyDictionaryValue: Codable, Hashable {
     case double(Double)
     case strings([String])
     case dictinoary([String : AnyDictionaryValue])
+    case dicArray([String : [AnyDictionaryValue]])
     case null
     
     public init(from decoder: Decoder) throws {
@@ -275,6 +267,10 @@ public enum AnyDictionaryValue: Codable, Hashable {
         }
         if let v = try? container.decode(Bool.self) {
             self = .bool(v)
+            return
+        }
+        if let v = try? container.decode([String : [AnyDictionaryValue]].self) {
+            self = .dicArray(v)
             return
         }
         if let v = try? container.decode([String : AnyDictionaryValue].self) {
@@ -303,6 +299,8 @@ public enum AnyDictionaryValue: Codable, Hashable {
             case .bool(let value):
                 try container.encode(value)
             case .dictinoary(let value):
+                try container.encode(value)
+            case .dicArray(let value):
                 try container.encode(value)
             case .null:
                 try container.encodeNil()

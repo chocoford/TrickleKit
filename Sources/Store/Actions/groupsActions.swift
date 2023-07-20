@@ -11,14 +11,12 @@ import TrickleCore
 // Web
 public extension TrickleStore {
     func loadWorkspaceGroups(_ workspaceID: WorkspaceData.ID, silent: Bool = false) async {
-        if !silent {
-            workspacesGroups[workspaceID]?.setIsLoading()
-        }
+        if !silent { workspacesGroups[workspaceID]?.setIsLoading() }
         do {
             guard let memberID = workspaces[workspaceID]?.userMemberInfo.memberID else { throw TrickleStoreError.invalidWorkspaceID(workspaceID) }
 
             let data = try await webRepositoryClient.listWorkspaceGroups(workspaceID: workspaceID, memberID: memberID)
-            workspacesGroups[workspaceID] = .loaded(data: data)
+            self.workspacesGroups[workspaceID] = .loaded(data: data)
         } catch {
             self.error = .init(error)
             workspacesGroups[workspaceID]?.setAsFailed(error)

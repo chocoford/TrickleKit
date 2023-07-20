@@ -11,7 +11,7 @@ public struct CommentData: Codable, Hashable {
     public var commentID: String
     public var typ: CommentType?
     public var text: Text?
-    public var blocks: [TrickleData.Block]?
+    public var blocks: [TrickleBlock]?
     public var hasQuoted: Bool?
     public var commentAuthor: MemberData
     public var mentionedMemberInfo: [MemberData]?
@@ -39,7 +39,7 @@ public struct CommentData: Codable, Hashable {
     public init(commentID: String,
                 typ: CommentType?,
                 text: Text?,
-                blocks: [TrickleData.Block]?,
+                blocks: [TrickleBlock]?,
                 hasQuoted: Bool = false,
                 commentAuthor: MemberData,
                 mentionedMemberInfo: [MemberData],
@@ -80,7 +80,7 @@ extension CommentData {
         public let commentID: String
         public let typ: CommentType
         public let text: QuoteCommentDataText
-        public let blocks: [TrickleData.Block]
+        public let blocks: [TrickleBlock]
         public let hasQuoted: Bool
         public let commentAuthor: MemberData
         public let createAt, updateAt: Date
@@ -89,6 +89,37 @@ extension CommentData {
             case typ, text, blocks, createAt, updateAt
             case commentID = "commentId"
             case hasQuoted, commentAuthor
+        }
+        
+        public init(from decoder: Decoder) throws {
+            let container: KeyedDecodingContainer<CommentData.QuoteCommentData.CodingKeys> = try decoder.container(keyedBy: CommentData.QuoteCommentData.CodingKeys.self)
+            self.typ = try container.decode(CommentData.CommentType.self, forKey: CommentData.QuoteCommentData.CodingKeys.typ)
+            self.text = try container.decode(CommentData.QuoteCommentData.QuoteCommentDataText.self, forKey: CommentData.QuoteCommentData.CodingKeys.text)
+            self.blocks = try container.decode([TrickleBlock].self, forKey: CommentData.QuoteCommentData.CodingKeys.blocks)
+            if let dirtyCreateAt = try? container.decode([Date].self, forKey: CommentData.QuoteCommentData.CodingKeys.createAt) {
+                self.createAt = dirtyCreateAt.first ?? .distantPast
+            } else {
+                self.createAt = try container.decode(Date.self, forKey: CommentData.QuoteCommentData.CodingKeys.createAt)
+            }
+            if let dirtyUpdateeAt = try? container.decode([Date].self, forKey: CommentData.QuoteCommentData.CodingKeys.updateAt) {
+                self.updateAt = dirtyUpdateeAt.first ?? .distantPast
+            } else {
+                self.updateAt = try container.decode(Date.self, forKey: CommentData.QuoteCommentData.CodingKeys.updateAt)
+            }
+            self.commentID = try container.decode(String.self, forKey: CommentData.QuoteCommentData.CodingKeys.commentID)
+            self.hasQuoted = try container.decode(Bool.self, forKey: CommentData.QuoteCommentData.CodingKeys.hasQuoted)
+            self.commentAuthor = try container.decode(MemberData.self, forKey: CommentData.QuoteCommentData.CodingKeys.commentAuthor)
+        }
+        
+        public init(commentID: String, typ: CommentType, text: QuoteCommentDataText, blocks: [TrickleBlock], hasQuoted: Bool, commentAuthor: MemberData, createAt: Date, updateAt: Date) {
+            self.commentID = commentID
+            self.typ = typ
+            self.text = text
+            self.blocks = blocks
+            self.hasQuoted = hasQuoted
+            self.commentAuthor = commentAuthor
+            self.createAt = createAt
+            self.updateAt = updateAt
         }
     }
 }

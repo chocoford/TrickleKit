@@ -11,7 +11,7 @@ import TrickleCore
 extension TrickleWebRepository.API {
     struct CreatePostPayload: Codable {
         var authorMemberID: MemberData.ID
-        var blocks: [TrickleData.Block]
+        var blocks: [TrickleBlock]
         var mentionedMemberIDs: [MemberData.ID]
         var referTrickleIDs: [TrickleData.ID]
         var medias, files: [String]
@@ -25,7 +25,7 @@ extension TrickleWebRepository.API {
             case medias, files
         }
         
-        init(authorMemberID: MemberData.ID, blocks: [TrickleData.Block], mentionedMemberIDs: [MemberData.ID], referTrickleIDs: [TrickleData.ID], medias: [String], files: [String]) {
+        init(authorMemberID: MemberData.ID, blocks: [TrickleBlock], mentionedMemberIDs: [MemberData.ID], referTrickleIDs: [TrickleData.ID], medias: [String], files: [String]) {
             self.authorMemberID = authorMemberID
             self.blocks = blocks
             self.mentionedMemberIDs = mentionedMemberIDs

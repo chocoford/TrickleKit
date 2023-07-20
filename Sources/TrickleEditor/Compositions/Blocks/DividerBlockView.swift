@@ -10,7 +10,7 @@ import TrickleCore
 import ChocofordEssentials
 
 struct DividerBlockView: View {
-    var block: TrickleData.Block
+    var block: TrickleBlock.DividerBlock
     var editable: Bool = true
     
     var focused: Binding<Bool>?
@@ -100,7 +100,7 @@ final class DividerTextAttachment: NSTextAttachment {
 #if DEBUG
 struct DividerBlockView_Previews: PreviewProvider {
     static var previews: some View {
-        TrickleEditorView(blocks: .constant(load("blocks.json")))
+        TrickleEditor.renderBlocks(load("blocks.json") as [TrickleBlock])
         .padding()
     }
 }

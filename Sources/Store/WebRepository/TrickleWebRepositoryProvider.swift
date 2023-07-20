@@ -76,6 +76,11 @@ protocol TrickleWebRepositoryProvider: WebRepositoryProvider {
     func listWorkspaceThreads(workspaceID: String, memberID: String, query: TrickleWebRepository.API.ListQuery) -> AnyPublisher<AnyStreamable<TrickleData>, Error>
     func getWorkspaceThreadsUnreadCount(workspaceID: String, memberID: String) async throws -> TrickleWebRepository.API.ThreadsUnreadCountResponse
     
+    // MARK: - DirectMessage
+    func createWorkspaceDirectMessage(workspaceID: WorkspaceData.ID, memberID: MemberData.ID, payload: TrickleWebRepository.API.CreateDirectMessagePayload) async throws -> TrickleData
+    func listWorkspaceDirectMessages(workspaceID: WorkspaceData.ID, memberID: MemberData.ID, query: TrickleWebRepository.API.ListQuery) async throws -> AnyStreamable<TrickleData>
+    func getWorkspaceDirectMessagesUnreadCount(workspaceID: WorkspaceData.ID, memberID: MemberData.ID) async throws -> TrickleWebRepository.API.DirectMessagesUnreadCountResponse
+    
     // MARK: - Reactions
     func createTrickleReaction(workspaceID: String, trickleID: String, payload: TrickleWebRepository.API.CreateReactionPayload) async throws -> ReactionData
     func deleteTrickleReaction(workspaceID: String, trickleID: String, reactionID: String, payload: TrickleWebRepository.API.MemberOnlyPayload) async throws -> String

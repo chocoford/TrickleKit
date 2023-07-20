@@ -9,11 +9,11 @@ import SwiftUI
 import TrickleCore
 
 struct VoteBlockView: View {
-    var block: TrickleData.Block
+    var block: TrickleBlock.VoteBlock
     
     var body: some View {
         VStack(alignment: .leading) {
-            TrickleEditorParser.parse(block.blocks?.prefix(2) ?? [])
+            TrickleEditor.renderBlocks(block.blocks.prefix(2))
             
 //            HStack {
 //                ProgressView(value: 0.5)
@@ -22,10 +22,10 @@ struct VoteBlockView: View {
 //                Text("50%")
 //            }
             
-            if block.blocks?[2].type == .nest {
-                ForEach(block.blocks?[2].blocks ?? []) { block in
+            if block.blocks[2].type == .nest {
+                ForEach(block.blocks[2].blocks ?? []) { block in
                     HStack {
-                        TrickleEditorParser.parse([block])
+                        TrickleEditor.renderBlocks([block])
                         Spacer(minLength: 0)
                     }
                     .padding(8)
@@ -45,24 +45,25 @@ struct VoteBlockView: View {
 
 struct VoteBlockView_Previews: PreviewProvider {
     static var previews: some View {
-        VoteBlockView(block: .init(type: .vote, blocks: [
-            TrickleData.Block(type: .h3, elements: [
-                TrickleData.Element(.text, text: "Vote title")
-            ]),
-            
-            TrickleData.Block(type: .richText, elements: [
-                TrickleData.Element(.text, text: "Vote description")
-            ]),
-            
-            TrickleData.Block(type: .nest, blocks: [
-                TrickleData.Block(type: .richText, elements: [
-                    TrickleData.Element(.text, text: "Vote option 1")
-                ]),
-                TrickleData.Block(type: .richText, elements: [
-                    TrickleData.Element(.text, text: "Vote option 2")
-                ])
-            ])
-        ]))
+//        VoteBlockView(block: .init(type: .vote, blocks: [
+//            TrickleBlock(type: .h3, elements: [
+//                TrickleElement(.text, text: "Vote title")
+//            ]),
+//
+//            TrickleBlock(type: .richText, elements: [
+//                TrickleElement(.text, text: "Vote description")
+//            ]),
+//
+//            TrickleBlock(type: .nest, blocks: [
+//                TrickleBlock(type: .richText, elements: [
+//                    TrickleElement(.text, text: "Vote option 1")
+//                ]),
+//                TrickleBlock(type: .richText, elements: [
+//                    TrickleElement(.text, text: "Vote option 2")
+//                ])
+//            ])
+//        ]))
+        Text("")
         .frame(width: 720, height: nil)
         .previewLayout(.fixed(width: 720, height: 400))
     }

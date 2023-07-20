@@ -66,15 +66,17 @@ public extension TrickleAPNsHelper {
         var newComment: Bool
         var mentions: Bool
         var reaction: Bool
+        var directMessages: Bool
         
-        public init(newPost: Bool, newComment: Bool, mentions: Bool, reaction: Bool) {
+        public init(newPost: Bool, newComment: Bool, mentions: Bool, reaction: Bool, directMessages: Bool) {
             self.newPost = newPost
             self.newComment = newComment
             self.mentions = mentions
             self.reaction = reaction
+            self.directMessages = directMessages
         }
         
-        public static var `default`: WorkspaceEnableState = WorkspaceEnableState(newPost: true, newComment: true, mentions: true, reaction: true)
+        public static var `default`: WorkspaceEnableState = WorkspaceEnableState(newPost: true, newComment: true, mentions: true, reaction: true, directMessages: true)
     }
     struct RegisterAPNsPayload: Codable {
         public typealias WorkspaceEnableStates = [WorkspaceData.ID : WorkspaceInfo]

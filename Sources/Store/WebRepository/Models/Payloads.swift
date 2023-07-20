@@ -97,12 +97,18 @@ extension TrickleWebRepository.API {
         }
     }
     
-    
+    struct CreateDirectMessagePayload: Codable {
+        var targetMemberID: MemberData.ID
+        
+        enum CodingKeys: String, CodingKey {
+            case targetMemberID = "targetMemberId"
+        }
+    }
     
     struct CreateCommentPayload: Codable {
         let authorMemberID: String
         let mentionedMemberIDs: [String];
-        let blocks: [TrickleData.Block];
+        let blocks: [TrickleBlock];
         let quoteCommentID: String?;
         
         enum CodingKeys: String, CodingKey {

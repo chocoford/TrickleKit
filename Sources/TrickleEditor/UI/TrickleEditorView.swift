@@ -4,77 +4,20 @@
 //
 //  Created by Chocoford on 2023/2/14.
 //
-
+/*
 import SwiftUI
 import ChocofordEssentials
 import TrickleCore
 import ChocofordUI
 
-public class TrickleEditorConfig: ObservableObject {
-    static var `default` = TrickleEditorConfig(version: .v0,
-                                               selectable: true,
-                                               editable: true,
-                                               scrollable: true,
-                                               isSending: false,
-                                               singleLine: false,
-                                               showToolbar: false,
-                                               rounded: false,
-                                               showRowActions: true,
-                                               baseFontSize: 16)
-    
-    public enum Version {
-        case v0
-        case v1
-        case v2
-    }
-    
-    var version: Version = .v0
-    
-    var editable: Bool = true
-    var selectable: Bool = true
-    var scrollable: Bool = true
-    var isSending: Bool = false
-    var singleLine: Bool = false
-    var showToolbar: Bool = true
-    var rounded: Bool = true
-    var showRowActions: Bool = true
-    
-    
-    var baseFontSize: CGFloat = 16
-    var maxHeight: CGFloat?
-    
-    var onSend: (([TrickleData.Block]) -> Void)?
-        
-    public init(version: Version,
-                selectable: Bool,
-                editable: Bool, scrollable: Bool,
-                isSending: Bool, singleLine: Bool,
-                showToolbar: Bool, rounded: Bool,
-                showRowActions: Bool,
-                baseFontSize: CGFloat,
-                maxHeight: CGFloat? = nil) {
-        self.version = version
-        
-        self.editable = editable
-        self.scrollable = scrollable
-        self.isSending = isSending
-        self.singleLine = singleLine
-        self.showToolbar = showToolbar
-        self.rounded = rounded
-        self.showRowActions = showRowActions
-        self.baseFontSize = baseFontSize
-        self.maxHeight = maxHeight
-    }
-}
-
 public struct TrickleEditorView: View {
     @ObservedObject var config: TrickleEditorConfig = .default
 
-    @Binding var blocks: [TrickleData.Block]
+    @Binding var blocks: [TrickleBlock]
     
     @StateObject private var textStorage = SharedTextContentStorage()
     
-    public init(blocks: Binding<[TrickleData.Block]>) {
+    public init(blocks: Binding<[TrickleBlock]>) {
         self._blocks = blocks
     }
     
@@ -169,7 +112,7 @@ extension TrickleEditorView {
                 TextEditor(text: $inputText)
                     .padding(4)
                     .onChange(of: inputText) { newValue in
-                        blocks = TrickleEditorParser.formBlock(string: newValue)
+                        
                     }
 #if os(macOS)
                 VStack {
@@ -189,7 +132,7 @@ extension TrickleEditorView {
             .background(Color.textBackgroundColor)
             .frame(height: 40)
         } else {
-            TrickleEditorParser.parse(blocks, baseFontSize: config.baseFontSize)
+            TrickleEditor.renderBlocks(blocks, baseFontSize: config.baseFontSize)
         }
     }
 }
@@ -214,13 +157,13 @@ extension TrickleEditorView {
                 ScrollView {
                     TextEditor(text: $inputText)
                         .onChange(of: inputText) { newValue in
-                            blocks = TrickleEditorParser.formBlock(string: newValue)
+//                            blocks = TrickleEditorParser.formBlock(string: newValue)
                         }
                 }
                 
                 ScrollView {
                     HStack {
-                        TrickleEditorParser.parse(blocks, baseFontSize: config.baseFontSize)
+                        TrickleEditor.renderBlocks(blocks, baseFontSize: config.baseFontSize)
                         Spacer(minLength: 0)
                     }
                 }
@@ -229,7 +172,7 @@ extension TrickleEditorView {
             
             #endif
         } else {
-            TrickleEditorParser.parse(blocks, baseFontSize: config.baseFontSize)
+            TrickleEditor.renderBlocks(blocks, baseFontSize: config.baseFontSize)
         }
     }
 }
@@ -314,7 +257,7 @@ extension TrickleEditorView {
         blocks = .default
     }
     
-    func newLine(block: TrickleData.Block = .default) {
+    func newLine(block: TrickleBlock = .default) {
         withAnimation {
             if focusedRow == -1 {
                 focusedRow = blocks.count
@@ -353,11 +296,11 @@ extension TrickleEditorView {
                         imgHeight = header["PixelHeight"] as? CGFloat ?? 0
                     }
                     
-                    let imageElementValue: TrickleData.Element.ImageElementValue = .local(.init(filename: filename,
+                    let imageElementValue: TrickleElement.ImageElementValue = .local(.init(filename: filename,
                                                                                                 localSrc: data,
                                                                                                 naturalWidth: imgWidth,
                                                                                                 naturalHeight: imgHeight))
-                    let galleryBlock = TrickleData.Block(type: .gallery,
+                    let galleryBlock = TrickleBlock(type: .gallery,
                                                          elements: [
                                                             .init(.image,
                                                                   value: .galleryImageValue(imageElementValue))
@@ -394,7 +337,7 @@ extension TrickleEditorView {
         return self
     }
     
-    public func onSend(_ onSend: @escaping ([TrickleData.Block]) -> Void) -> TrickleEditorView {
+    public func onSend(_ onSend: @escaping ([TrickleBlock]) -> Void) -> TrickleEditorView {
         self.config.onSend = onSend
         return self
     }
@@ -425,3 +368,4 @@ struct TrickleEditorView_Previews: PreviewProvider {
 //                    blocks.removeLast()
 //                }
 //            }
+*/

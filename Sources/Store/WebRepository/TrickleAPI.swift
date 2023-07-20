@@ -24,29 +24,29 @@ extension TrickleWebRepository {
         
         // workspaces
         case listWorkspaces(userID: String)
-        case getWorkspaceInvitations(workspaceID: String)
-        case createWorkspaceInvitation(workspaceID: String, payload: CreateWorkspaceInvitationPayload)
+        case getWorkspaceInvitations(workspaceID: WorkspaceData.ID)
+        case createWorkspaceInvitation(workspaceID: WorkspaceData.ID, payload: CreateWorkspaceInvitationPayload)
         case createWorkspace(payload: CreateWorkspacePayload)
         case updateWorkspace(workspaceID: WorkspaceData.ID, payload: UpdateWorkspacePayload)
         case leaveWorkspace(workspaceID: WorkspaceData.ID, payload: MemberOnlyPayload)
-        case sendWorkspaceInvitations(workspaceID: String, invitationID: String, payload: SendEmailPayload)
+        case sendWorkspaceInvitations(workspaceID: WorkspaceData.ID, invitationID: String, payload: SendEmailPayload)
         
         // members
-        case listWorkspaceMembers(workspaceID: String, limit: Int)
-        case listGroupMembers(workspaceID: String, groupID: String)
+        case listWorkspaceMembers(workspaceID: WorkspaceData.ID, limit: Int)
+        case listGroupMembers(workspaceID: WorkspaceData.ID, groupID: String)
         
         // groups
-        case createGroup(workspaceID: String, payload: CreateGroupPayload)
-        case createPersonalGroup(workspaceID: String, memberID: MemberData.ID, payload: CreateGroupPayload)
-        case listWorkspaceGroups(workspaceID: String, memberID: String)
+        case createGroup(workspaceID: WorkspaceData.ID, payload: CreateGroupPayload)
+        case createPersonalGroup(workspaceID: WorkspaceData.ID, memberID: MemberData.ID, payload: CreateGroupPayload)
+        case listWorkspaceGroups(workspaceID: WorkspaceData.ID, memberID: String)
         case updateGroup(workspaceID: WorkspaceData.ID, groupID: GroupData.ID, payload: UpdateGroupPayload)
         case deleteGroup(workspaceID: WorkspaceData.ID, groupID: GroupData.ID)
         case ackGroup(workspaceID: WorkspaceData.ID, groupID: GroupData.ID, payload: AckGroupPayload)
         // views
-        case listGroupViewTricklesStat(workspaceID: String, groupID: String, query: API.ListGroupViewTricklesStatQuery)
+        case listGroupViewTricklesStat(workspaceID: WorkspaceData.ID, groupID: String, query: API.ListGroupViewTricklesStatQuery)
         
         // fileds
-        case listFieldOptions(workspaceID: String, groupID: String)
+        case listFieldOptions(workspaceID: WorkspaceData.ID, groupID: String)
         
         // trickles
         case createPost(workspaceID: WorkspaceData.ID, groupID: GroupData.ID, payload: CreatePostPayload)
@@ -56,13 +56,18 @@ extension TrickleWebRepository {
         case addTrickleLastView(workspaceID: WorkspaceData.ID, trickleID: TrickleData.ID, payload: AddTrickleLastViewPayload)
 
         // comments
-        case createTrickleComment(workspaceID: String, trickleID: String, payload: CreateCommentPayload)
-        case listTrickleComments(workspaceID: String, trickleID: String, query: ListQuery)
-        case ackTrickleComments(workspaceID: String, trickleID: String, payload: ACKTrickleCommentsPayload)
+        case createTrickleComment(workspaceID: WorkspaceData.ID, trickleID: String, payload: CreateCommentPayload)
+        case listTrickleComments(workspaceID: WorkspaceData.ID, trickleID: String, query: ListQuery)
+        case ackTrickleComments(workspaceID: WorkspaceData.ID, trickleID: String, payload: ACKTrickleCommentsPayload)
+        
+        // directMessage
+        case createWorkspaceDirectMessage(workspaceID: WorkspaceData.ID, memberID: MemberData.ID, payload: CreateDirectMessagePayload)
+        case listWorkspaceDirectMessages(workspaceID: WorkspaceData.ID, memberID: MemberData.ID, query: ListQuery)
+        case getWorkspaceDirectMessagesUnreadCount(workspaceID: WorkspaceData.ID, memberID: MemberData.ID)
         
         // reactions
-        case createTrickleReaction(workspaceID: String, trickleID: String, payload: CreateReactionPayload)
-        case deleteTrickleReaction(workspaceID: String, trickleID: String, reactionID: String, payload: MemberOnlyPayload)
+        case createTrickleReaction(workspaceID: WorkspaceData.ID, trickleID: String, payload: CreateReactionPayload)
+        case deleteTrickleReaction(workspaceID: WorkspaceData.ID, trickleID: String, reactionID: String, payload: MemberOnlyPayload)
         
         // pins
         case pinTrickle(workspaceID: WorkspaceData.ID, groupID: GroupData.ID, trickleID: TrickleData.ID, payload: PinTricklePayload)
@@ -74,8 +79,8 @@ extension TrickleWebRepository {
         case unstarTrickle(workspaceID: WorkspaceData.ID, trickleID: TrickleData.ID, payload: UnstarTricklePayload)
         
         // threads
-        case listWorkspaceThreads(workspaceID: String, memberID: String, query: ListQuery)
-        case getWorkspaceThreadsUnreadCount(workspaceID: String, memberID: String)
+        case listWorkspaceThreads(workspaceID: WorkspaceData.ID, memberID: String, query: ListQuery)
+        case getWorkspaceThreadsUnreadCount(workspaceID: WorkspaceData.ID, memberID: String)
     }
 }
 
@@ -167,6 +172,14 @@ extension TrickleWebRepository.API: APICall {
             case .ackTrickleComments(let workspaceID, let trickleID, _):
                 return "/f2b/v1/workspaces/\(workspaceID)/trickles/\(trickleID)/comments:ack"
                 
+            // Direct Messages
+            case .createWorkspaceDirectMessage(let workspaceID, let memberID, _):
+                return "/trickle/workspaces/\(workspaceID)/members/\(memberID)/dmTrickles"
+            case .listWorkspaceDirectMessages(let workspaceID, let memberID, _):
+                return "/trickle/workspaces/\(workspaceID)/members/\(memberID)/dmTrickles"
+            case .getWorkspaceDirectMessagesUnreadCount(let workspaceID, let memberID):
+                return "/trickle/workspaces/\(workspaceID)/members/\(memberID)/dmUnreadCount"
+                
             // Reactions
             case .createTrickleReaction(let workspaceID, let trickleID, _):
                 return "/f2b/v1/workspaces/\(workspaceID)/trickles/\(trickleID)/reactions"
@@ -235,6 +248,10 @@ extension TrickleWebRepository.API: APICall {
                 }
             case .listPinTrickles(_, _, let query):
                 return query
+                
+            case .listWorkspaceDirectMessages(_, _, let query):
+                return query
+                
             default:
                 return nil
         }
@@ -256,6 +273,7 @@ extension TrickleWebRepository.API: APICall {
                     .createPost,
                     .addTrickleLastView,
                     .createTrickleComment,
+                    .createWorkspaceDirectMessage,
                     .ackTrickleComments,
                     .createTrickleReaction,
                     .pinTrickle,
@@ -349,6 +367,8 @@ extension TrickleWebRepository.API: APICall {
             case .addTrickleLastView(_, _, let payload):
                 return try makeBody(payload: payload)
             case .createTrickleComment(_, _, let payload):
+                return try makeBody(payload: payload)
+            case .createWorkspaceDirectMessage(_, _, let payload):
                 return try makeBody(payload: payload)
             case .ackTrickleComments(_, _, let payload):
                 return try makeBody(payload: payload)

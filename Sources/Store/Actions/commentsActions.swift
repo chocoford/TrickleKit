@@ -27,7 +27,8 @@ public extension TrickleStore {
         }
         
         do {
-            let theWorkspace = try findGroupWorkspace(theTrickle.groupInfo.groupID)
+            // groupID is nil when trickle is dmTrickle
+            let theWorkspace = try findTrickleWorkspace(trickleID)
             let data = try await webRepositoryClient.listTrickleComments(workspaceID: theWorkspace.workspaceID,
                                                                          trickleID: trickleID,
                                                                          query: nextTS)
@@ -49,7 +50,7 @@ public extension TrickleStore {
         }
     }
     
-    func tryCreateComment(_ trickleID: TrickleData.ID, blocks: [TrickleData.Block], mentionedMemberIDs: [MemberData.ID], quoteCommentID: CommentData.ID?) async throws {
+    func tryCreateComment(_ trickleID: TrickleData.ID, blocks: [TrickleBlock], mentionedMemberIDs: [MemberData.ID], quoteCommentID: CommentData.ID?) async throws {
         let workspace = try findTrickleWorkspace(trickleID)
         
         let fakeComment = CommentData(commentID: UUID().uuidString,
@@ -85,7 +86,7 @@ public extension TrickleStore {
         }
     }
     
-    func createComment(_ trickleID: TrickleData.ID, blocks: [TrickleData.Block], mentionedMemberIDs: [MemberData.ID], quoteCommentID: CommentData.ID?) async {
+    func createComment(_ trickleID: TrickleData.ID, blocks: [TrickleBlock], mentionedMemberIDs: [MemberData.ID], quoteCommentID: CommentData.ID?) async {
         do {
             try await tryCreateComment(trickleID, blocks: blocks, mentionedMemberIDs: mentionedMemberIDs, quoteCommentID: quoteCommentID)
         } catch {
@@ -149,14 +150,14 @@ public extension TrickleStore {
         commentsData.items.forEach { comments.updateValue($0, forKey: $0.commentID) }
         tricklesCommentIDs[trickleID] = tricklesCommentIDs[trickleID]?.map { stream in
             return stream.appending(commentsData.map{$0.commentID})
-        }
+        } ?? .loaded(data: commentsData.map{$0.commentID})
         trickles[trickleID]?.commentCounts = tricklesComments[trickleID]?.value?.items.filter({$0.typ == .normal}).count ?? 0
     }
     func prependComments(to trickleID: TrickleData.ID, commentsData: AnyStreamable<CommentData>) {
         commentsData.items.forEach { comments.updateValue($0, forKey: $0.commentID) }
         tricklesCommentIDs[trickleID] = tricklesCommentIDs[trickleID]?.map { stream in
             return stream.prepending(commentsData.map{$0.commentID})
-        }
+        } ?? .loaded(data: commentsData.map{$0.commentID})
         trickles[trickleID]?.commentCounts = tricklesComments[trickleID]?.value?.items.filter({$0.typ == .normal}).count ?? 0
     }
     func resetComments(of trickleID: TrickleData.ID, commentsData: AnyStreamable<CommentData>) {

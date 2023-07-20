@@ -108,7 +108,7 @@ public extension TrickleStore {
     // MARK: - Create Trickle
     func tryCreateTrickle(workspaceID: WorkspaceData.ID? = nil,
                           groupID: GroupData.ID,
-                          blocks: [TrickleData.Block],
+                          blocks: [TrickleBlock],
                           mentionedMemberIDs: [MemberData.ID],
                           referTrickleIDs: [TrickleData.ID],
                           medias: [String],
@@ -125,7 +125,7 @@ public extension TrickleStore {
                                                                     referTrickleIDs: referTrickleIDs,
                                                                     medias: medias,
                                                                     files: files))
-            insertTrickle(res, to: groupID)
+            insertTrickle(res)
         } catch {
             throw error
         }
@@ -150,7 +150,7 @@ public extension TrickleStore {
         trickle.isPinned = false
         trickle.hasStarred = false
                 
-        insertTrickle(trickle, to: group.groupID, after: afterTrickleID) { viewID in
+        insertTrickle(trickle, after: afterTrickleID) { viewID in
             viewsTrickleIDs[viewID]?.first(where: { (key, value) in
                 value.value?.items.contains(trickleID) == true
             })?.key
@@ -266,11 +266,15 @@ public extension TrickleStore {
     ///
     /// If not specify `after`, the trickle will be insert to the view's groupBy.
     func insertTrickle(_ trickle: TrickleData,
-                       to groupID: GroupData.ID,
                        after afterID: TrickleData.ID? = nil,
                        toGroupBy: (_ viewID: GroupData.ViewInfo.ID) -> String? = { _ in return "NULL"}) {
         trickles[trickle.trickleID] = trickle
-        guard let group = groups[groupID] else { return }
+        trickle.commentInfo?.forEach {
+            self.comments[$0.commentID] = $0
+        }
+        self.tricklesCommentIDs[trickle.trickleID] = .loaded(data: .init(items: trickle.commentInfo?.map{$0.commentID} ?? [],
+                                                                         nextTs: Int(trickle.commentInfo?.last?.createAt.timeIntervalSince1970)))
+        guard let groupID = trickle.groupInfo.groupID, let group = groups[groupID] else { return }
         group.viewInfo.forEach { viewInfo in
             var viewGroupby = "NULL"
             var index = -1
@@ -313,7 +317,7 @@ public extension TrickleStore {
               let group = try? findTrickleGroup(trickleID) else { return }
         
         removeTrickle(trickleID, in: group)
-        insertTrickle(trickle, to: targetGroupID)
+        insertTrickle(trickle)
     }
     
     func removeTrickle(_ trickleID: TrickleData.ID, in group: GroupData? = nil) {

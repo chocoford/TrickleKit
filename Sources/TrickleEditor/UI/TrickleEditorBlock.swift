@@ -4,7 +4,7 @@
 //
 //  Created by Chocoford on 2023/2/23.
 //
-
+/*
 import SwiftUI
 
 struct TrickleEditorBlock: View {
@@ -68,10 +68,8 @@ struct TrickleEditorBlock: View {
 #if DEBUG
 struct TrickleEditorBlock_Previews: PreviewProvider {
     static var previews: some View {
-        TrickleEditorView(blocks: .constant([.init(type: .richText, elements: [
-            .init(.text, text: "akjdlakjlakkjsdlaweqweqweqwe")
-        ])]))
-//        .frame(height: 100)
+        TrickleEditorView(blocks: .constant([.text(.init(elements: .text("")))]))
     }
 }
 #endif
+*/

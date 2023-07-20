@@ -19,9 +19,11 @@ public enum TrickleStoreError: LocalizedError {
     case invalidViewID(_ viewID: GroupData.ViewInfo.ID?)
     case invalidTrickleID(_ trickleID: TrickleData.ID?)
     case invalidReactionID(_ reactionID: ReactionData.ID?)
+    case invalidMemberID(_ memberID: MemberData.ID?)
     case pinError(_ error: PinError)
     case starError(_ error: StarError)
     case apnsError(_ error: APNsError)
+    case aiAgentError(_ error: AIAgentError)
     
     public var errorDescription: String {
         switch self {
@@ -44,11 +46,15 @@ public enum TrickleStoreError: LocalizedError {
                 return "Invalid trickleID(\(trickleID ?? "nil"))"
             case .invalidReactionID(let reactionID):
                 return "Invalid reactionID(\(reactionID ?? "nil"))"
+            case .invalidMemberID(let memberID):
+                return "Invalid memberID(\(memberID ?? "nil"))"
             case .pinError(let error):
                 return error.errorDescription
             case .starError(let error):
                 return error.errorDescription
             case .apnsError(let error):
+                return error.errorDescription
+            case .aiAgentError(let error):
                 return error.errorDescription
         }
     }
@@ -70,6 +76,9 @@ public enum TrickleStoreError: LocalizedError {
 public class TrickleStore: ObservableObject {
     internal var webRepositoryClient: TrickleWebRepository
     internal var socket: TrickleWebSocket
+    internal lazy var aiAgentSocket: TrickleAIAgentSocketClient = {
+        TrickleAIAgentSocketClient(onEvents: self.onAIAgentSocketEvents)
+    }()
     internal var apnsHelper: TrickleAPNsHelper
 
     public init(storeHTTPClient: TrickleWebRepository = .init(session: .shared,
@@ -79,7 +88,6 @@ public class TrickleStore: ObservableObject {
         self.socket = TrickleWebSocket(handlers: { message in
             
         })
-//        self.socket.store = self
     }
     
     @Published public var deviceToken: String? = nil
@@ -277,7 +285,14 @@ public class TrickleStore: ObservableObject {
         return trickles[currentTrickleID]
     }
     
-    
+    @Published public var workspacesDirectMessageIDs: [WorkspaceData.ID : Loadable<AnyStreamable<TrickleData.ID>>] = [:]
+    public var workspacesDirectMessages: [WorkspaceData.ID : Loadable<AnyStreamable<TrickleData>>] {
+        workspacesDirectMessageIDs.map {
+            [$0.key : $0.value.map{ $0.compactMap{ trickles[$0] } }]
+        }.merged()
+    }
+    @Published public var workspacesDirectMessagesUnreadCount: [WorkspaceData.ID : Int] = [:]
+
     
     // MARK: - Trickles Comments
     @Published public var tricklesCommentIDs: [TrickleData.ID : Loadable<AnyStreamable<CommentData.ID>>] = [:]
@@ -310,6 +325,10 @@ public class TrickleStore: ObservableObject {
     @Published public var starredTrickleIDs: [WorkspaceData.ID : Loadable<AnyStreamable<TrickleData.ID>>] = [:]
     
     
+    // MARK: - AIAgent
+    @Published public var aiAgentState: AIAgentState = .init() // can not trigger view update when changed if it is ObservableObject
+//    @Published public var aiAgents: [AIAgentData] = []
+    
     
     // MARK: - Error
     @Published public var error: TrickleStoreError? = nil {
@@ -337,8 +356,10 @@ public class TrickleStore: ObservableObject {
         viewsTricklesStat.removeAll()
         groupsFieldsOptions.removeAll()
         trickles.removeAll()
-//        groupsTrickleIDs.removeAll()
         workspaceThreadIDs.removeAll()
+        workspacesThreadsUnreadCount.removeAll()
+        workspacesDirectMessageIDs.removeAll()
+        workspacesDirectMessagesUnreadCount.removeAll()
         currentTrickleID = nil
         tricklesCommentIDs.removeAll()
         comments.removeAll()

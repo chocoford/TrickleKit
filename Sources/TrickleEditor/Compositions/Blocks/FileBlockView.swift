@@ -7,53 +7,48 @@
 
 import SwiftUI
 import TrickleCore
+import SFSymbolEnum
 
 public struct FileBlockView: View {
-    var block: TrickleData.Block
+    var block: TrickleBlock.FileBlock
     
     @State private var isHover = false
     
     public var body: some View {
         HStack {
-            if case .file(let value) = block.userDefinedValue {
-                content(value: value)
-            } else {
-                Text("File Block Error.")
-                    .italic()
-                    .foregroundColor(.red)
-            }
+            content(value: block.userDefinedValue)
         }
         .padding(4)
         .contentShape(RoundedRectangle(cornerRadius: 6))
         .background(RoundedRectangle(cornerRadius: 6).fill(isHover ? .gray.opacity(0.4) : .clear))
     }
     
-    @ViewBuilder private func content(value: TrickleData.Block.FileBlockValue) -> some View {
+    @ViewBuilder private func content(value: TrickleBlock.FileBlockValue) -> some View {
         HStack {
-            Image(systemName: "doc.fill")
+            Image(systemName: .docFill)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(height: 16)
             
-            Text(value.name)
-                .fontWeight(.bold)
-            Text(value.size)
-                .foregroundColor(.gray)
+//            Text(value.name ?? "Untitled file")
+//                .fontWeight(.bold)
+//            Text(value.size ?? "")
+//                .foregroundColor(.gray)
             
             Spacer()
-            
-            Menu {
-                Button {
-                    
-                } label: {
-                    Label("Download", systemImage: "arrow.down.circle")
-                }
-            } label: {
-                Image(systemName: "ellipsis")
-            }
-            .frame(width: 20)
-            .menuIndicator(.hidden)
-            .menuStyle(.borderlessButton)
+//
+//            Menu {
+//                Button {
+//
+//                } label: {
+//                    Label("Download", systemImage: "arrow.down.circle")
+//                }
+//            } label: {
+//                Image(systemName: "ellipsis")
+//            }
+//            .frame(width: 20)
+//            .menuIndicator(.hidden)
+//            .menuStyle(.borderlessButton)
         }
         .onHover { hover in
             withAnimation {
@@ -65,9 +60,11 @@ public struct FileBlockView: View {
 #if DEBUG
 struct FileBlockView_Previews: PreviewProvider {
     static var previews: some View {
-        FileBlockView(block: .init(type: .file, value: .file(.init(url: URL(string: "https://devres.trickle.so/upload/users/18555201329823745/workspaces/76957788663709699/1680588753699/GoogleJ.jpeg")!,
-                                                                   name: "GoogleJ.jpeg",
-                                                                   size: "208KB")), blocks: []))
+        FileBlockView(block: .init(userDefinedValue:
+                .init(url: URL(string: "https://devres.trickle.so/upload/users/18555201329823745/workspaces/76957788663709699/1680588753699/GoogleJ.jpeg")!,
+                      name: "GoogleJ.jpeg",
+                      size: "208KB"))
+        )
     }
 }
 #endif

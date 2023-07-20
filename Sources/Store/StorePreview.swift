@@ -31,18 +31,33 @@ extension TrickleStore {
         let threads: AnyStreamable<TrickleData> = load("threads.json")
         store.trickles = formDic(payload: trickles.items, id: \.trickleID)
         store.viewsTrickleIDs[store.currentGroupViewID!] = ["NULL" : .loaded(data: trickles.map{$0.trickleID})]
-//        store.groupsTrickleIDs = [store.currentGroupID! : .loaded(data: trickles.map{$0.trickleID})]
         store.workspaceThreadIDs = [store.currentWorkspaceID! : .loaded(data: threads.map{$0.trickleID})]
         
         store.currentTrickleID = store.trickles.values.first?.trickleID
-        
+
         store.tricklesCommentIDs = [store.currentTrickleID! : .loaded(data: (load("comments.json") as AnyStreamable<CommentData>).map{$0.commentID})]
+        
+        let dmTrickles: AnyStreamable<TrickleData> = load("dmTrickles.json")
+        store.workspacesDirectMessageIDs = [store.currentWorkspaceID! : .loaded(data: dmTrickles.map{$0.trickleID}) ]
+        dmTrickles.items.forEach { trickle in
+            store.trickles[trickle.trickleID] = trickle
+            trickle.commentInfo?.forEach{ comment in
+                store.comments[comment.commentID] = comment
+            }
+            store.tricklesCommentIDs[trickle.trickleID] = .loaded(data: .init(items: trickle.commentInfo?.map{$0.commentID} ?? [], nextTs: nil))
+        }
+
         
         store.workspacesMembers = [store.currentWorkspaceID! : .loaded(data: load("members.json"))]
         
         let pins = (load("pins.json") as AnyStreamable<TrickleData>).items
         store.groupsPinTrickleIDs = [store.currentGroupID! : pins.map{$0.trickleID}]
         store.trickles.merge(pins.formDic(\.trickleID), uniquingKeysWith: {$1})
+        
+        
+        store.aiAgentState.agents = load("aiAgents.json")
+        store.aiAgentState.conversationSession = load("aiAgentConversation.json")
+        
         return store
     }()
 }

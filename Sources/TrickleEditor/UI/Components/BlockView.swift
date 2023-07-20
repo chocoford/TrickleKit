@@ -11,7 +11,7 @@ import TrickleCore
 #if os(macOS)
 struct BlockView: NSViewRepresentable {
     typealias NSViewType = BlockTextView
-    typealias Block = TrickleData.Block
+    typealias Block = TrickleBlock
     
     @EnvironmentObject var sharedTextStorage: SharedTextContentStorage
     

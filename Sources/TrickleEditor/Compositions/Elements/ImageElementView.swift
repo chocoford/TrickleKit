@@ -8,37 +8,23 @@
 import SwiftUI
 import ChocofordUI
 import SDWebImageSwiftUI
+//import Kingfisher
 import TrickleCore
 
 
 struct ImageElementView: View {
-    var element: TrickleData.Element
-    var contentMode: ContentMode = .fit
+    var element: TrickleElement.ImageElement
+    var contentMode: SwiftUI.ContentMode = .fit
     
-    var imageData: TrickleData.Element.ImageElementValue? {
-        if case .galleryImageValue(let value) = element.value {
-            return value
-        } else if case .str(let src) = element.value {
-            return TrickleData.Element.ImageElementValue.air(.init(url: src, name: "untitled"))
-        }
-        return nil
-    }
+    var imageData: TrickleElement.ImageElementValue { element.value }
     
     @State private var error: Error? = nil
     
     var body: some View {
-        if let imageData = imageData {
-            content(imageData: imageData)
-        } else {
-            Text("Image load failed: invalid image data.")
-                .italic()
-                .foregroundColor(.red)
-                .padding()
-                .background(.ultraThickMaterial)
-        }
+        content(imageData: imageData)
     }
     
-    @ViewBuilder private func content(imageData: TrickleData.Element.ImageElementValue) -> some View {
+    @ViewBuilder private func content(imageData: TrickleElement.ImageElementValue) -> some View {
         switch imageData {
             case .local(let data):
                 if let image = Image(data: data.localSrc) {
@@ -52,23 +38,82 @@ struct ImageElementView: View {
                    error == nil {
                     let urls = extractImageURLs(url)
                     ImageViewer(url: urls.url) {
-                        WebImage(url: urls.previewURL)
-                            .resizable()
-                            .placeholder {
-                                Rectangle()
-                                    .shimmering()
-                            }
-                            .onFailure { error in
-                                self.error = error
-                            }
-                            .aspectRatio(contentMode: contentMode)
+                        webImage(urls.previewURL)
                     }
                 } else {
                     errorView(url: data.url)
                 }
         }
         
-       
+        
+    }
+    
+    @ViewBuilder
+    private func webImage(_ url: URL) -> some View {
+#if os(macOS)
+        let isAnimating: Binding<Bool> = .constant(false)
+#elseif os(iOS)
+        let isAnimating: Binding<Bool> = .constant(true)
+#endif
+        WebImage(url: url, isAnimating: isAnimating)
+            .resizable()
+            .placeholder {
+                Rectangle()
+                    .shimmering()
+            }
+            .onFailure { error in
+                self.error = error
+            }
+            .aspectRatio(contentMode: contentMode)
+#if os(macOS)
+            .overlay(alignment: .bottomTrailing) {
+                if url.pathExtension == "gif" {
+                    Text("GIF")
+                        .font(.headline)
+                        .padding()
+                        .background(.ultraThickMaterial)
+                }
+            }
+#endif
+    }
+//
+//    @ViewBuilder
+//    private func kfImage(_ url: URL) -> some View {
+//#if os(macOS)
+//        AnimatedImage(url: url)
+//#elseif os(iOS)
+//        KFImage(url: url)
+//            .cacheMemoryOnly()
+//            .resizable()
+//            .placeholder {
+//                Rectangle()
+//                    .shimmering()
+//            }
+//            .onFailure { error in
+//                self.error = error
+//            }
+//            .aspectRatio(contentMode: contentMode)
+//#endif
+//
+//    }
+    
+    @ViewBuilder
+    private func asyncImage(_ url: URL) -> some View {
+        AsyncImage(url: url) { phase in
+            switch phase {
+                case .success(let image):
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: contentMode)
+                case .empty:
+                    Rectangle()
+                        .shimmering()
+                case .failure(let error):
+                    errorView(url: url.absoluteString)
+                @unknown default:
+                    errorView(url: url.absoluteString)
+            }
+        }
     }
     
     @ViewBuilder private func errorView(url: String) -> some View {
@@ -104,11 +149,13 @@ extension ImageElementView {
 }
 
 
-
 #if DEBUG
 struct ImageElementView_Previews: PreviewProvider {
     static var previews: some View {
-        ImageElementView(element: .init(.image, value: .galleryImageValue(.air(.init(url: "https://devres.trickle.so/upload/users/50356547938680833/workspaces/76957788663709699/1675312457501/%E6%88%AA%E5%B1%8F2023-02-02%2012.32.26.png", name: "image"))))
+        ImageElementView(
+            element:
+                    .init(value: .air(.init(url: "https://devres.trickle.so/upload/users/50356547938680833/workspaces/76957788663709699/1675312457501/%E6%88%AA%E5%B1%8F2023-02-02%2012.32.26.png",
+                                            name: "image")))
         )
         .frame(width: 600)
     }

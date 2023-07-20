@@ -23,11 +23,17 @@ struct TrickleTextView: UIViewRepresentable {
     }
     
     func makeUIView(context: Context) -> UITextView {
-        return context.coordinator.textView
+        let textView = context.coordinator.textView
+        DispatchQueue.main.async {
+            self.height?.wrappedValue = config.minHeight
+        }
+        return textView
     }
     
     func updateUIView(_ uiView: UITextView, context: Context) {
-        
+        DispatchQueue.main.async {
+            context.coordinator.updateContentSize()
+        }
     }
     
     func makeCoordinator() -> Coordinator {
@@ -41,20 +47,15 @@ struct TrickleTextPreviewView: View {
     
     var height: Binding<CGFloat>?
     
-    @State private var blocks: [TrickleData.Block] = .default
+    @State private var blocks: [TrickleBlock] = .default
     @State private var textViewHeight: CGFloat? = nil
     @State private var isFocused: Bool = true
     
     var body: some View {
-//        VStack {
         TrickleTextView(height: $textViewHeight, isFocus: $isFocused)
             .minHeight(minHeight)
             .frame(height: max(minHeight, textViewHeight ?? 0))
-//                .animation(.default, value: height)
-//                .environmentObject(SharedTextContentStorage())
-//        }
-//        .background(Color.textBackgroundColor)
-//        .frame(height: max(minHeight, height ?? 0))
+            .environmentObject(TrickleEditorStore())
     }
 }
 

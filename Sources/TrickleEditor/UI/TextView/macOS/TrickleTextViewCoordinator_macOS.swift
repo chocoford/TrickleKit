@@ -102,13 +102,11 @@ extension TrickleTextView {
             self.parent = parent
             super.init()
 //            editorView.drawsBackground = false
-//            textView.drawsBackground = false
+            textView.drawsBackground = false
 
             self.textView.delegate = self
             self.parent.store.delegate = self
-//            textView.textLayoutManager?.delegate = self
-//            assert(textView.textLayoutManager != nil, "textLayoutManager is nil")
-
+            self.textView.setFrameSize(.init(width: self.textView.frame.width, height: self.parent.config.minHeight))
             self.textView.didFocused = {
                 self.parent.isFocus?.wrappedValue = true
                 self.parent.focusState = true
@@ -235,7 +233,7 @@ extension TrickleTextView.Coordinator: TrickleEditorStoreDelegate {
 //
 //        if let rawBlockType = rawBlockType {
 //            switch rawBlockType {
-//                case TrickleData.Block.BlockType.divider.rawValue:
+//                case TrickleBlock.BlockType.divider.rawValue:
 //                    let divider = DividerLayoutFragment(textElement: textElement, range: elementRange)
 //                    divider.width = self.textView.textLayoutManager?.usageBoundsForTextContainer.width
 //                    return divider
@@ -247,7 +245,7 @@ extension TrickleTextView.Coordinator: TrickleEditorStoreDelegate {
 //
 ////        if let elementType = rawElementType {
 ////            switch elementType {
-////                case TrickleData.Element.ElementType.inlineCode.rawValue:
+////                case TrickleElement.ElementType.inlineCode.rawValue:
 ////                    let layoutFragment = InlineCodeLayoutFragment(textElement: textElement, range: elementRange)
 ////                    return layoutFragment
 ////

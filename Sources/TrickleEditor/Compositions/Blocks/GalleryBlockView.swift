@@ -10,7 +10,7 @@ import ChocofordUI
 import TrickleCore
 
 struct GalleryBlockView: View {
-    var block: TrickleData.Block
+    var block: TrickleBlock.GalleryBlock
     var focused: Binding<Bool>?
     var onKeydown: ((KeyboardEvent) -> Void)?
     
@@ -62,11 +62,10 @@ struct GalleryBlockView: View {
     }
     
     @ViewBuilder private var content: some View {
-        if block.elements?.count == 1,
-           let element = block.elements?.first,
-           case .galleryImageValue(let imageValue) = element.value {
+        if block.elements.count == 1,
+           let element = block.elements.first {
             SingleAxisGeometryReader(axis: .horizontal) { width in
-                switch imageValue {
+                switch element.value {
                     case .local(let localValue):
                         let height = localValue.naturalHeight / localValue.naturalWidth * width
                         ImageElementView(element: element)
@@ -81,12 +80,12 @@ struct GalleryBlockView: View {
             }
         } else {
             if #available(macOS 13.0, iOS 15.0, *) {
-                galleryGrid
+                galleryGrid()
             } else {
                 // Fallback on earlier versions
                 ScrollView(.horizontal) {
                     HStack {
-                        ForEach(block.elements ?? []) { element in
+                        ForEach(block.elements) { element in
                             ImageElementView(element: element)
                         }
                     }
@@ -98,28 +97,30 @@ struct GalleryBlockView: View {
     
     @available(macOS 13.0, iOS 15.0, *)
     @ViewBuilder
-    private var galleryGrid: some View {
-        if let elements: [TrickleData.Element] = block.elements {
-            if elements.count % 3 == 0 || elements.count > 4 {
-                let columns = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
-                LazyVGrid(columns: columns) {
-                    ForEach(elements) { element in
-                        squareImageElement(element)
-                    }
-                }
-            } else if elements.count % 2 == 0 {
-                let columns = [GridItem(.flexible()), GridItem(.flexible())]
-                LazyVGrid(columns: columns) {
-                    ForEach(elements) { element in
-                        squareImageElement(element)
-                    }
+    private func galleryGrid() -> some View {
+        let elements = block.elements
+        
+        if elements.count % 3 == 0 || elements.count > 4 {
+            let columns = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
+            LazyVGrid(columns: columns) {
+                ForEach(elements) { element in
+                    squareImageElement(element)
                 }
             }
+        } else if elements.count % 2 == 0 {
+            let columns = [GridItem(.flexible()), GridItem(.flexible())]
+            LazyVGrid(columns: columns) {
+                ForEach(elements) { element in
+                    squareImageElement(element)
+                }
+            }
+        } else {
+            EmptyView()
         }
     }
     
     @ViewBuilder
-    private func squareImageElement(_ element: TrickleData.Element) -> some View {
+    private func squareImageElement(_ element: TrickleElement.ImageElement) -> some View {
         SingleAxisGeometryReader(axis: .horizontal) { width in
             ImageElementView(element: element, contentMode: .fill)
                 .frame(width: width, height: width)
@@ -162,10 +163,20 @@ struct GalleryBlockView: View {
 #if DEBUG
 struct GalleryBlockView_Previews: PreviewProvider {
     static var previews: some View {
-        GalleryBlockView(block: .init(type: .gallery, elements: [
-            .init(.image, value: .galleryImageValue(.air(.init(url: "https://devres.trickle.so/upload/users/50356547938680833/workspaces/76957788663709699/1675312457501/%E6%88%AA%E5%B1%8F2023-02-02%2012.32.26.png",
-                                                               name: "image"))))
-        ]), focused: .constant(false))
+        GalleryBlockView(
+            block: TrickleBlock.GalleryBlock(
+                elements: [
+                    TrickleElement.ImageElement(
+                        value: .air(
+                            .init(
+                                url: "https://devres.trickle.so/upload/users/50356547938680833/workspaces/76957788663709699/1675312457501/%E6%88%AA%E5%B1%8F2023-02-02%2012.32.26.png",
+                                name: "image")
+                        )
+                    )
+                ]
+            ),
+            focused: .constant(false)
+        )
         .frame(width: 400, height: 260)
     }
 }

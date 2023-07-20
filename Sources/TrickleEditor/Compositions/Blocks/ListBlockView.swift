@@ -12,7 +12,7 @@ import ChocofordEssentials
 struct ListBlockView: View {
     @EnvironmentObject var config: TrickleEditorConfig
 
-    var block: TrickleData.Block
+    var block: TrickleBlock.ListBlock
     @Binding var text: AttributedString
     var editable: Bool = true
     
@@ -27,19 +27,17 @@ struct ListBlockView: View {
         HStack(spacing: 0) {
             Group {
                 switch block.type {
-                    case .list:
-                        Text("·")
-                    case .numberedList:
-                        if case .str(let val) = block.userDefinedValue {
-                            Text(val)
-                        } else {
-                            EmptyView()
-                        }
+//                    case .list:
+//                        Text("·")
+//                    case .numberedList:
+//                        Text(block.userDefinedValue ?? "1. ")
                     default:
                         EmptyView()
                 }
-            }.frame(minWidth: 10)
-            TrickleEditorBlock(text: $text, font: .systemFont(ofSize: config.baseFontSize), editable: editable, focused: $focused, onKeydown: onKeydown)
+            }
+            .frame(minWidth: 10)
+            
+//            TrickleEditorBlock(text: $text, font: .systemFont(ofSize: config.baseFontSize), editable: editable, focused: $focused, onKeydown: onKeydown)
         }
     }
 }
@@ -47,7 +45,7 @@ struct ListBlockView: View {
 #if DEBUG
 struct ListBlockView_Previews: PreviewProvider {
     static var previews: some View {
-        TrickleEditorView(blocks: .constant(load("blocks.json")))
+        TrickleEditor.renderBlocks(load("blocks.json") as [TrickleBlock])
         .padding()
     }
 }

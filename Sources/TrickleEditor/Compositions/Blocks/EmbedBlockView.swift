@@ -17,7 +17,7 @@ import Shimmer
 /// 3. Therefore, we must first get the first scale, held by `WKWebView`, represent the scale of `twttr widgets`. Then we can make it full-width.
 /// 4. Secondly, we must get the scale of `WKWebView` pixel width to `SwiftUI view` width. Then we can calculate the actual height of `twttr widgets` in SwiftUI envrionment.
 public struct EmbedBlockView: View {
-    var block: TrickleData.Block
+    var block: TrickleBlock.EmbedBlock
 
     @State var webWidth: CGFloat? = nil
     @State var webHeight: CGFloat? = nil
@@ -26,19 +26,9 @@ public struct EmbedBlockView: View {
     public var body: some View {
         SingleAxisGeometryReader(axis: .horizontal) { width in
             let webViewHeight = (webHeight ?? 0) * (width / (webWidth ?? width))
-            Group {
-                switch block.userDefinedValue {
-                    case .str(let iframeCode):
-                        EmbedWebView(iframeCode: iframeCode, isLoading: $isLoading, webWidth: $webWidth, webHeight: $webHeight)
-                            .frame(minHeight: 100)
-                    case .embed(let value):
-                        EmbedWebView(iframeCode: value.src, isLoading: $isLoading, webWidth: $webWidth, webHeight: $webHeight)
-                            .frame(height: value.height != nil ? CGFloat(Double(value.height!) ?? 300) : min(10000, webViewHeight + 10))
-                            .frame(minHeight: 100)
-                    default:
-                        EmptyView()
-                }
-            }
+            EmbedWebView(iframeCode: block.userDefinedValue.src, isLoading: $isLoading, webWidth: $webWidth, webHeight: $webHeight)
+                .frame(height: block.userDefinedValue.height != nil ? CGFloat(block.userDefinedValue.height ?? 300) : min(10000, webViewHeight + 10))
+                .frame(minHeight: 100)
             .onTapGesture {}
             .overlay {
                 if isLoading {
@@ -330,8 +320,12 @@ struct EmbedBlockView_Previews: PreviewProvider {
         ScrollView {
             VStack {
                 Rectangle().fill(.red).frame(height: 80)
-                EmbedBlockView(block: .init(type: .embed, value: .embed(.init(src: "<blockquote class=\"twitter-tweet\"><p lang=\"zh\" dir=\"ltr\">现在做基于Embedding的文档问答已经不是什么新鲜事，但是这个视频还是值得一看，主要是他介绍了几种不同的生成问答结果的方式：<br>1. Stuff，我们熟知的把找到的文档块和问题一起扔给LLM总结<br>2.… <a href=\"https://t.co/Lt4kuqvHqs\">https://t.co/Lt4kuqvHqs</a> <a href=\"https://t.co/b9GfItmwjM\">pic.twitter.com/b9GfItmwjM</a></p>&mdash; 宝玉 (@dotey) <a href=\"https://twitter.com/dotey/status/1667790801420558342?ref_src=twsrc%5Etfw\">June 11, 2023</a></blockquote>\n<script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>\n")), blocks: []))
-                    .border(.red)
+                EmbedBlockView(
+                    block: .init(
+                        userDefinedValue: .init(src: "<blockquote class=\"twitter-tweet\"><p lang=\"zh\" dir=\"ltr\">现在做基于Embedding的文档问答已经不是什么新鲜事，但是这个视频还是值得一看，主要是他介绍了几种不同的生成问答结果的方式：<br>1. Stuff，我们熟知的把找到的文档块和问题一起扔给LLM总结<br>2.… <a href=\"https://t.co/Lt4kuqvHqs\">https://t.co/Lt4kuqvHqs</a> <a href=\"https://t.co/b9GfItmwjM\">pic.twitter.com/b9GfItmwjM</a></p>&mdash; 宝玉 (@dotey) <a href=\"https://twitter.com/dotey/status/1667790801420558342?ref_src=twsrc%5Etfw\">June 11, 2023</a></blockquote>\n<script async src=\"https://platform.twitter.com/widgets.js\" charset=\"utf-8\"></script>\n")
+                    )
+                )
+                .border(.red)
                 Rectangle().fill(.green).frame(height: 80)
             }
             .background(.black)

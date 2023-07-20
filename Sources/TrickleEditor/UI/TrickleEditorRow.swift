@@ -4,7 +4,7 @@
 //
 //  Created by Chocoford on 2023/2/15.
 //
-
+/*
 import SwiftUI
 import Shimmer
 import ChocofordUI
@@ -14,7 +14,7 @@ import TrickleCore
 struct TrickleEditorRow: View {
     @EnvironmentObject var config: TrickleEditorConfig
 
-    @Binding var block: TrickleData.Block
+    @Binding var block: TrickleBlock
     var editable: Bool {
         config.editable
     }
@@ -32,7 +32,7 @@ struct TrickleEditorRow: View {
         Binding {
             block.elements?
                 .map { element in
-                    try! AttributedString(markdown: TrickleEditorParser.parseElement(element: element))
+                    try! AttributedString(markdown: element.text)
                 }
                 .reduce(.init(""), +) ?? .init("")
         } set: { val in
@@ -143,7 +143,7 @@ extension TrickleEditorRow {
     
     
     
-    @ViewBuilder private func errorBlock(_ block: TrickleData.Block) -> some View {
+    @ViewBuilder private func errorBlock(_ block: TrickleBlock) -> some View {
         Text("Unsupported block: \(block.type.description)")
             .foregroundColor(.red)
             .padding(8)
@@ -222,3 +222,4 @@ struct TrickleEditorRow_Previews: PreviewProvider {
     }
 }
 #endif
+*/

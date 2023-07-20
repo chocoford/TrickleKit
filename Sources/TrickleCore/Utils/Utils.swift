@@ -7,8 +7,6 @@
 
 import Foundation
 
-
-
 public func formDic<T>(payload: [T], id: KeyPath<T, String>) -> [String: T] {
     var dic: [String : T] = [:]
     for item in payload {

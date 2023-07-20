@@ -56,4 +56,8 @@ extension Color {
                 fatalError()
         }
     }
+    
+    public init (trickleColorName name: String, scheme: ColorScheme = .light) {
+        self = Color(FieldOptions.FieldOptionInfo.FieldOptionColor.init(rawValue: name) ?? .gray, scheme: scheme)
+    }
 }

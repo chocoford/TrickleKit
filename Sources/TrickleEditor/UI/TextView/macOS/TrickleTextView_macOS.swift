@@ -28,6 +28,9 @@ struct TrickleTextView: NSViewRepresentable {
     
     public func makeNSView(context: Context) -> TTextView {
         let textView = context.coordinator.textView
+        DispatchQueue.main.async {
+            self.height?.wrappedValue = config.minHeight
+        }
         return textView
     }
     
@@ -56,7 +59,7 @@ struct TrickleTextMacOSPreviewView: View {
     
     var height: Binding<CGFloat>?
     
-    @State private var blocks: [TrickleData.Block] = .default
+    @State private var blocks: [TrickleBlock] = .default
     @State private var textViewHeight: CGFloat? = nil
     @State private var isFocused: Bool = true
     

@@ -35,7 +35,7 @@ public class TrickleEditorStore: NSObject, ObservableObject {
     
     public var delegate: TrickleEditorStoreDelegate? = nil
     
-    public var blocks: [TrickleData.Block] {
+    public var blocks: [TrickleBlock] {
         set(val) {
             textContentStorage.textStorage = .init(attributedString: NSAttributedString(val.toAttributedString()))
         }
@@ -86,20 +86,20 @@ public class TrickleEditorStore: NSObject, ObservableObject {
     
 #if os(macOS)
     public func testInsertImage() {
-        let panel = NSOpenPanel()
-        if panel.runModal() == .OK {
-            if let url = panel.url {
-                let attachment = url.textAttachment
-                
-                let imageSize = NSImage(contentsOf: url)?.size ?? .zero
-                let containerWidth = (self.textContainer.size.width) - 12
-                let result: CGRect = .init(origin: .zero,
-                                           size: .init(width: containerWidth, height: containerWidth / imageSize.width * imageSize.height))
-//                attachment.bounds = result
-                self.textContentStorage.textStorage?.append(.init(attachment: attachment))
-                delegate?.textContentStorageDidChanged()
-            }
-        }
+//        let panel = NSOpenPanel()
+//        if panel.runModal() == .OK {
+//            if let url = panel.url {
+//                let attachment = url.textAttachment
+//                
+//                let imageSize = NSImage(contentsOf: url)?.size ?? .zero
+//                let containerWidth = (self.textContainer.size.width) - 12
+//                let result: CGRect = .init(origin: .zero,
+//                                           size: .init(width: containerWidth, height: containerWidth / imageSize.width * imageSize.height))
+////                attachment.bounds = result
+//                self.textContentStorage.textStorage?.append(.init(attachment: attachment))
+//                delegate?.textContentStorageDidChanged()
+//            }
+//        }
     }
 #endif
     
@@ -116,7 +116,7 @@ extension TrickleEditorStore: NSTextLayoutManagerDelegate {
         let fallbackFragment = NSTextLayoutFragment(textElement: textElement, range: textElement.elementRange)
         let index = textLayoutManager.offset(from: textLayoutManager.documentRange.location, to: location)
         guard self.textContentStorage.textStorage?.length ?? 0 > 0 else { return fallbackFragment }
-        if let blockType = self.textContentStorage.textStorage?.attribute(.blockType, at: index, effectiveRange: nil) as? TrickleCore.TrickleData.Block.BlockType {
+        if let blockType = self.textContentStorage.textStorage?.attribute(.blockType, at: index, effectiveRange: nil) as? TrickleCore.TrickleBlock.BlockType {
             switch blockType {
                 case .gallery:
                     let galleryFragment = GalleryLayoutFragment(textElement: textElement, range: textElement.elementRange)

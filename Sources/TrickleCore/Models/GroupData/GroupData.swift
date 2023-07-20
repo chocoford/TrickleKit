@@ -124,6 +124,7 @@ extension FieldOptions.FieldOptionInfo {
         public init(from decoder: Decoder) throws {
             self = try FieldOptionColor(rawValue: decoder.singleValueContainer().decode(RawValue.self)) ?? .gray
         }
+        
     }
 }
 

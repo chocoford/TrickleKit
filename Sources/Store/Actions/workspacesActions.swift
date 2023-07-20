@@ -11,9 +11,7 @@ import TrickleCore
 public extension TrickleStore {
     func tryLoadAllWorkspaces(silent: Bool = false) async throws {
         guard let userID = userInfo.value??.user.id else { throw TrickleStoreError.unauthorized }
-        if !silent {
-            allWorkspaces.setIsLoading()
-        }
+        if !silent { allWorkspaces.setIsLoading() }
         do {
             let data = try await webRepositoryClient.listUserWorkspaces(userID: userID)
             allWorkspaces.setAsLoaded(data)

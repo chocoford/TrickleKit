@@ -10,7 +10,7 @@ import TrickleCore
 
 public struct CheckboxBlockView: View {
     @EnvironmentObject var config: TrickleEditorConfig
-    var block: TrickleData.Block
+    var block: TrickleBlock.ChecklistBlock
     @Binding var text: AttributedString
     var editable: Bool = true
     
@@ -18,18 +18,14 @@ public struct CheckboxBlockView: View {
     var onKeydown: ((KeyboardEvent) -> Void)?
     
     public var body: some View {
-        if case .checkbox(let value) = block.userDefinedValue {
-            content(value)
-        } else {
-            Text("CheckboxBlockView - Error")
-        }
+        content(block.userDefinedValue ?? .unchecked)
     }
     
-    @ViewBuilder private func content(_ value: TrickleData.Block.CheckboxBlockValue) -> some View {
+    @ViewBuilder private func content(_ value: TrickleBlock.CheckboxBlockValue) -> some View {
         HStack(spacing: 0) {
             Toggle("", isOn: .constant(value.status == .checked))
                 .fixedSize()
-            TrickleEditorBlock(text: $text, font: .systemFont(ofSize: config.baseFontSize), editable: editable, focused: $focused, onKeydown: onKeydown)
+            ElementsRenderer(elements: block.elements)
         }
     }
 }

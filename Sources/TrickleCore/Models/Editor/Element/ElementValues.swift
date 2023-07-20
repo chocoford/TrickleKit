@@ -7,8 +7,7 @@
 
 import Foundation
 
-// MARK: - Image
-extension TrickleData.Element {
+extension TrickleElement {
     public enum ImageElementValue: Codable, Hashable {
         case local(LocalImageData)
         case air(ImageData)
@@ -56,6 +55,11 @@ extension TrickleData.Element {
                 self = .local(v)
                 return
             }
+            if let v = try? container.decode(String.self) {
+                self = .air(.init(url: v, name: ""))
+                return
+            }
+            
             
             throw DecodingError.typeMismatch(
                 ImageElementValue.self,
@@ -72,5 +76,11 @@ extension TrickleData.Element {
         }
     }
     
-  
+    public struct ColoredElementValue: Codable, Hashable {
+        public var color: String
+    }
+    
+    public struct BackgroundColoredElementValue: Codable, Hashable {
+        public var backgroundColor: String
+    }
 }

@@ -13,21 +13,15 @@ import ChocofordEssentials
 
 public struct WebBookmarkBlockView: View {
     @Environment(\.openURL) var openURL
-    var block: TrickleData.Block
+    var block: TrickleBlock.WebBookmarkBlock
     
     @State private var webInfo: [String : String] = [:]
     @State private var isHover: Bool = false
     public var body: some View {
-        if case .webBookmark(let value) = block.userDefinedValue {
-            content(value)
-        } else {
-            Text("Web Bookmark Block Error.")
-                .italic()
-                .foregroundColor(.red)
-        }
+        content(block.userDefinedValue)
     }
     
-    @ViewBuilder private func content(_ value: TrickleData.Block.WebBookmarkBlockValue) -> some View {
+    @ViewBuilder private func content(_ value: TrickleBlock.WebBookmarkBlockValue) -> some View {
         HStack {
             VStack(alignment: .leading) {
                 Text(webInfo["title"] ?? "")
@@ -121,7 +115,7 @@ extension WebBookmarkBlockView {
 #if DEBUG
 struct WebBookmarkBlockView_Previews: PreviewProvider {
     static var previews: some View {
-        TrickleEditorView(blocks: .constant(load("blocks.json")))
+        TrickleEditor.renderBlocks(load("blocks.json") as [TrickleBlock])
     }
 }
 #endif

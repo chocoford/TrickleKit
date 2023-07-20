@@ -1,18 +1,31 @@
 //
-//  File.swift
+//  TrickleBlockData.swift
 //  
 //
-//  Created by Dove Zachary on 2023/5/27.
+//  Created by Dove Zachary on 2023/7/19.
 //
 
 import Foundation
-extension TrickleData.Block {
-    public static var `default`: Self {
-        .init(type: .richText, elements: [.init(.text, text: "")])
-    }
-    public static var newLine: Self {
-        .init(type: .richText, elements: [.init(.text, text: "")])
-    }
+
+
+// MARK: - Trickle Block
+public enum TrickleBlock: Hashable {
+    case text(TextBlock)
+    case headline(HeadlineBlock)
+    case code(CodeBlock)
+    case list(ListBlock)
+    case checkbox(ChecklistBlock)
+    case divider(DividerBlock)
+    case gallery(GalleryBlock)
+    case image(ImageBlock)
+    case embed(EmbedBlock)
+    case webBookmark(WebBookmarkBlock)
+    case reference(ReferenceBlock)
+    case file(FileBlock)
+    case nestable(NestableBlock)
+    case task(TaskBlock)
+    case vote(VoteBlock)
+    case progress(ProgressBlock)
     
     public enum BlockType: String, Codable {
         case h1, h2, h3, h4, h5, h6, code, list, checkbox
@@ -22,202 +35,383 @@ extension TrickleData.Block {
         case gallery, image, embed, webBookmark, reference, file
         case quote, nest
         case todos, vote
+        case progress
+    }
+}
+
+// MARK: - Codable
+extension TrickleBlock: Codable {
+    enum CodingKeys: String, CodingKey {
+        case type = "type"
     }
     
-    public enum UserDefinedValue: Codable, Hashable {
-        case str(String)
-        case dic([String: AnyDictionaryValue])
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let blockType = try container.decode(BlockType.self, forKey: .type)
         
-        case checkbox(CheckboxBlockValue)
-        case file(FileBlockValue)
-        case webBookmark(WebBookmarkBlockValue)
-        case embed(EmbedBlockValue)
-        case code(CodeBlockValue)
-        
-        public init(from decoder: Decoder) throws {
-            let container = try decoder.singleValueContainer()
-            
-            if let v = try? container.decode(CheckboxBlockValue.self) {
-                self = .checkbox(v)
-                return
-            }
-            if let v = try? container.decode(FileBlockValue.self) {
-                self = .file(v)
-                return
-            }
-            if let v = try? container.decode(WebBookmarkBlockValue.self) {
-                self = .webBookmark(v)
-                return
-            }
-            if let v = try? container.decode(EmbedBlockValue.self) {
-                self = .embed(v)
-                return
-            }
-            if let v = try? container.decode(CodeBlockValue.self) {
-                self = .code(v)
-                return
-            }
-            
-            if let v = try? container.decode(String.self) {
-                self = .str(v)
-                return
-            }
-            if let v = try? container.decode([String: AnyDictionaryValue].self) {
-                self = .dic(v)
-                return
-            }
-            throw DecodingError.typeMismatch(
-                UserDefinedValue.self,
-                DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "[Block UserDefinedValue] Type is not matched", underlyingError: nil))
+        switch blockType {
+            case .richText:
+                self = .text(try TextBlock(from: decoder))
+            case .h1, .h2, .h3, .h4, .h5, .h6:
+                self = .headline(try HeadlineBlock(from: decoder))
+            case .code:
+                self = .code(try CodeBlock(from: decoder))
+            case .list, .numberedList:
+                self = .list(try ListBlock(from: decoder))
+            case .checkbox:
+                self = .checkbox(try ChecklistBlock(from: decoder))
+            case .divider:
+                self = .divider(try DividerBlock(from: decoder))
+            case .gallery:
+                self = .gallery(try GalleryBlock(from: decoder))
+            case .image:
+                self = .image(try ImageBlock(from: decoder))
+            case .embed:
+                self = .embed(try EmbedBlock(from: decoder))
+            case .webBookmark:
+                self = .webBookmark(try WebBookmarkBlock(from: decoder))
+            case .reference:
+                self = .reference(try ReferenceBlock(from: decoder))
+            case .file:
+                self = .file(try FileBlock(from: decoder))
+            case .quote, .nest:
+                self = .nestable(try NestableBlock(from: decoder))
+            case .todos:
+                self = .task(try TaskBlock(from: decoder))
+            case .vote:
+                self = .vote(try VoteBlock(from: decoder))
+            case .progress:
+                self = .progress(try ProgressBlock(from: decoder))
         }
-        public func encode(to encoder: Encoder) throws {
-            var container = encoder.singleValueContainer()
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        
+        switch self {
+            case .text(let block):
+                try container.encode(block)
+            case .image(let block):
+                try container.encode(block)
+            case .headline(let block):
+                try container.encode(block)
+            case .code(let block):
+                try container.encode(block)
+            case .list(let block):
+                try container.encode(block)
+            case .checkbox(let block):
+                try container.encode(block)
+            case .divider(let block):
+                try container.encode(block)
+            case .gallery(let block):
+                try container.encode(block)
+            case .embed(let block):
+                try container.encode(block)
+            case .webBookmark(let block):
+                try container.encode(block)
+            case .reference(let block):
+                try container.encode(block)
+            case .file(let block):
+                try container.encode(block)
+            case .nestable(let block):
+                try container.encode(block)
+            case .task(let block):
+                try container.encode(block)
+            case .vote(let block):
+                try container.encode(block)
+            case .progress(let block):
+                try container.encode(block)
+        }
+    }
+}
+
+// MARK: - Identifiable
+extension TrickleBlock: Identifiable {
+    public var id: String {
+        switch self {
+            case .text(let block):
+                return block.id
+            case .image(let block):
+                return block.id
+            case .headline(let block):
+                return block.id
+            case .code(let block):
+                return block.id
+            case .list(let block):
+                return block.id
+            case .checkbox(let block):
+                return block.id
+            case .divider(let block):
+                return block.id
+            case .gallery(let block):
+                return block.id
+            case .embed(let block):
+                return block.id
+            case .webBookmark(let block):
+                return block.id
+            case .reference(let block):
+                return block.id
+            case .file(let block):
+                return block.id
+            case .nestable(let block):
+                return block.id
+            case .task(let block):
+                return block.id
+            case .vote(let block):
+                return block.id
+            case .progress(let block):
+                return block.id
+        }
+    }
+}
+
+// MARK: - TrickleBlockData
+extension TrickleBlock: TrickleBlockData {
+    public var type: BlockType {
+        get {
             switch self {
-                case .checkbox(let value):
-                    try container.encode(value)
-                case .file(let value):
-                    try container.encode(value)
-                case .webBookmark(let value):
-                    try container.encode(value)
-                case .embed(let value):
-                    try container.encode(value)
-                case .code(let value):
-                    try container.encode(value)
-                case .str(let value):
-                    try container.encode(value)
-                case .dic(let value):
-                    try container.encode(value)
+                case .text(let block):
+                    return block.type
+                case .image(let block):
+                    return block.type
+                case .headline(let block):
+                    return block.type
+                case .code(let block):
+                    return block.type
+                case .list(let block):
+                    return block.type
+                case .checkbox(let block):
+                    return block.type
+                case .divider(let block):
+                    return block.type
+                case .gallery(let block):
+                    return block.type
+                case .embed(let block):
+                    return block.type
+                case .webBookmark(let block):
+                    return block.type
+                case .reference(let block):
+                    return block.type
+                case .file(let block):
+                    return block.type
+                case .nestable(let block):
+                    return block.type
+                case .task(let block):
+                    return block.type
+                case .vote(let block):
+                    return block.type
+                case .progress(let block):
+                    return block.type
             }
+        }
+        set {
+            fatalError("Not implement")
+        }
+    }
+    
+    public var indent: Int {
+        get {
+            switch self {
+                case .text(let block):
+                    return block.indent
+                case .image(let block):
+                    return block.indent
+                case .headline(let block):
+                    return block.indent
+                case .code(let block):
+                    return block.indent
+                case .list(let block):
+                    return block.indent
+                case .checkbox(let block):
+                    return block.indent
+                case .divider(let block):
+                    return block.indent
+                case .gallery(let block):
+                    return block.indent
+                case .embed(let block):
+                    return block.indent
+                case .webBookmark(let block):
+                    return block.indent
+                case .reference(let block):
+                    return block.indent
+                case .file(let block):
+                    return block.indent
+                case .nestable(let block):
+                    return block.indent
+                case .task(let block):
+                    return block.indent
+                case .vote(let block):
+                    return block.indent
+                case .progress(let block):
+                    return block.indent
+            }
+        }
+        set {
+            fatalError("Not implement")
+        }
+    }
+    
+    public var blocks: [TrickleBlock]? {
+        switch self {
+//            case .text(let block):
+//                return block.blocks
+//            case .image(let block):
+//                return block.blocks
+//            case .headline(let block):
+//                return block.blocks
+//            case .code(let block):
+//                return block.blocks
+//            case .list(let block):
+//                return block.blocks
+//            case .checkbox(let block):
+//                return block.blocks
+//            case .divider(let block):
+//                return block.blocks
+//            case .gallery(let block):
+//                return block.blocks
+//            case .embed(let block):
+//                return block.blocks
+//            case .webBookmark(let block):
+//                return block.blocks
+//            case .reference(let block):
+//                return block.blocks
+//            case .file(let block):
+//                return block.blocks
+            case .nestable(let block):
+                return block.blocks
+            case .task(let block):
+                return block.blocks
+            case .vote(let block):
+                return block.blocks
+            default:
+                return nil
+        }
+    }
+    
+    public var elements: [TrickleElement]? {
+        switch self {
+            case .text(let block):
+                return block.elements
+//            case .image(let block):
+//                return block.elements
+            case .headline(let block):
+                return block.elements
+            case .code(let block):
+                return block.elements
+            case .list(let block):
+                return block.elements
+            case .checkbox(let block):
+                return block.elements
+            default:
+                return nil
+//            case .divider(let block):
+//                return block.elements
+//            case .gallery(let block):
+//                return block.elements
+//            case .embed(let block):
+//                return block.elements
+//            case .webBookmark(let block):
+//                return block.elements
+//            case .reference(let block):
+//                return block.elements
+//            case .file(let block):
+//                return block.elements
+//            case .nestable(let block):
+//                return block.elements
+//            case .task(let block):
+//                return block.elements
+//            case .vote(let block):
+//                return block.elements
+        }
+    }
+    
+    public var text: String {
+        switch self {
+            case .text(let block):
+                return block.text
+            case .image(let block):
+                return block.text
+            case .headline(let block):
+                return block.text
+            case .code(let block):
+                return block.text
+            case .list(let block):
+                return block.text
+            case .checkbox(let block):
+                return block.text
+            case .divider(let block):
+                return block.text
+            case .gallery(let block):
+                return block.text
+            case .embed(let block):
+                return block.text
+            case .webBookmark(let block):
+                return block.text
+            case .reference(let block):
+                return block.text
+            case .file(let block):
+                return block.text
+            case .nestable(let block):
+                return block.text
+            case .task(let block):
+                return block.text
+            case .vote(let block):
+                return block.text
+            case .progress(let block):
+                return block.text
+        }
+    }
+    
+    public var markdownString: String {
+        switch self {
+            case .text(let block):
+                return block.markdownString
+            case .image(let block):
+                return block.markdownString
+            case .headline(let block):
+                return block.markdownString
+            case .code(let block):
+                return block.markdownString
+            case .list(let block):
+                return block.markdownString
+            case .checkbox(let block):
+                return block.markdownString
+            case .divider(let block):
+                return block.markdownString
+            case .gallery(let block):
+                return block.markdownString
+            case .embed(let block):
+                return block.markdownString
+            case .webBookmark(let block):
+                return block.markdownString
+            case .reference(let block):
+                return block.markdownString
+            case .file(let block):
+                return block.markdownString
+            case .nestable(let block):
+                return block.markdownString
+            case .task(let block):
+                return block.markdownString
+            case .vote(let block):
+                return block.markdownString
+            case .progress(let block):
+                return block.markdownString
         }
     }
 }
 
 
-extension Array<TrickleData.Block> {
-    public static var `default`: Self {
-        [.default]
-    }
-    
-    public func toRawText() -> String {
-        var lastNumberedListIndex = 1
-        return self.map { block in
-            var blockString = String()
-            
-            for element in block.elements ?? [] {
-                switch element.type {
-                    case .text:
-                        blockString.append(element.text)
-                        
-                    case .image:
-                        break
-                        
-                    default:
-                        blockString.append(element.text)
-                }
-            }
-            
-            switch block.type {
-                case .h1:
-                    blockString = "# " + blockString
-                case .h2:
-                    blockString = "## " + blockString
-                case .h3:
-                    blockString = "### " + blockString
-                case .h4:
-                    blockString = "#### " + blockString
-                case .h5:
-                    blockString = "##### " + blockString
-                case .h6:
-                    blockString = "###### " + blockString
-                    
-                case .list:
-                    blockString = "- " + blockString
-                    
-                case .numberedList:
-                    if case .str(let index) = block.userDefinedValue {
-                        blockString = "\(index) " + blockString
-                        lastNumberedListIndex = Int(index.prefix(index.count - 1)) ?? 1
-                    } else if block.isFirst == false {
-                        blockString = "\(lastNumberedListIndex + 1). " + blockString
-                        lastNumberedListIndex += 1
-                    }
-                    
-                default:
-                    break
-                    
-            }
-            return blockString
-        }.joined(separator: "\n")
-    }
-    
-    /// Transform `TrickleData.Block`s to an `Foundation.AttributedString`
-    /// - Parameter baseFontSize: font size of body text. Headline font size will resize according to it.
-    /// - Returns:an `AttributedString` that represent the blocks.
-    public func toAttributedString(ofBaseSize baseFontSize: CGFloat = 12) -> AttributedString {
-        var attributedString = AttributedString()
+// MARK: - getters
+extension TrickleBlock {
 
-        for (i, block) in self.enumerated() {
-            var blockAttributedString = AttributedString()
-            
-            // elements
-            for element in block.elements ?? [] {
-                var elementAttributedString = AttributedString(stringLiteral: element.text)
-                switch element.type {
-                    case .text:
-                        elementAttributedString.font = .systemFont(ofSize: baseFontSize)
-                    case .bold:
-                        elementAttributedString.font = .boldSystemFont(ofSize: baseFontSize)
-                    case .italic:
-                        elementAttributedString.inlinePresentationIntent = .emphasized
-                    default:
-                        elementAttributedString.font = .systemFont(ofSize: baseFontSize)
-                }
-                
-                blockAttributedString.append(elementAttributedString)
-            }
-            
-            switch block.type {
-                case .richText:
-                    blockAttributedString.presentationIntent = .init(.paragraph, identity: 100)
-                case .h1:
-                    blockAttributedString.presentationIntent = .init(.header(level: 1), identity: 1)
-                case .h2:
-                    blockAttributedString.presentationIntent = .init(.header(level: 2), identity: 2)
-                case .h3:
-                    blockAttributedString.presentationIntent = .init(.header(level: 3), identity: 3)
-                case .h4:
-                    blockAttributedString.presentationIntent = .init(.header(level: 4), identity: 4)
-                case .h5:
-                    blockAttributedString.presentationIntent = .init(.header(level: 5), identity: 5)
-                case .h6:
-                    blockAttributedString.presentationIntent = .init(.header(level: 6), identity: 6)
-                    
-                case .list:
-                    break
-//                    blockAttributedString.presentationIntent = .init(.listItem(ordinal: 0), identity: 7)
-                    
-                case .numberedList:
-                    break
-//                    if case .str(let index) = block.userDefinedValue {
-//                        blockString = "\(index) " + blockString
-//                        lastNumberedListIndex = Int(index.prefix(index.count - 1)) ?? 1
-//                    } else if block.isFirst == false {
-//                        blockString = "\(lastNumberedListIndex + 1). " + blockString
-//                        lastNumberedListIndex += 1
-//                    }
-                    
-                default:
-                    break
-                    
-            }
-            
-            if i < self.count - 1 {
-                blockAttributedString.append(AttributedString(stringLiteral: "\n"))
-            }
-            
-            attributedString.append(blockAttributedString)
-        }
-        
-        return attributedString
+}
+
+// MARK: - static
+extension TrickleBlock {
+    public static var `default`: Self {
+        .text(.init(elements: [.text(.init(text: ""))]))
+    }
+    public static var newLine: Self {
+        .text(.init(elements: [.text(.init(text: ""))]))
     }
 }

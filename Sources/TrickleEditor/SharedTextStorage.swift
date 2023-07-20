@@ -46,7 +46,7 @@ extension SharedTextStorage: NSTextStorageDelegate {
 }
 
 final class SharedTextContentStorage: NSTextContentStorage, ObservableObject {
-    var blocks: [TrickleData.Block] = .default {
+    var blocks: [TrickleBlock] = .default {
         didSet {
             commonInit()
         }
@@ -56,7 +56,7 @@ final class SharedTextContentStorage: NSTextContentStorage, ObservableObject {
     
     var baseFontSize: CGFloat = 16
     
-    init(blocks: [TrickleData.Block] = .default, baseFontSize: CGFloat = 16) {
+    init(blocks: [TrickleBlock] = .default, baseFontSize: CGFloat = 16) {
         self.blocks = blocks
         self.baseFontSize = baseFontSize
         super.init()
@@ -92,13 +92,10 @@ final class SharedTextContentStorage: NSTextContentStorage, ObservableObject {
                 let elementAttributedString = NSMutableAttributedString(string: element.text)
                 elementAttributedString.addAttribute(.elementType, value: element.type.rawValue, range: .init(location: 0, length: elementAttributedString.length))
                 blockAttributedString.append(elementAttributedString)
-//                }
-//                let attributedString = try? AttributedString(markdown: TrickleEditorParser.parseElement(element: element))
-//                blockAttributedString.append(NSAttributedString(attributedString ?? ""))
             }
             
             let linebreak = NSMutableAttributedString(string: "\n")
-            linebreak.addAttribute(.elementType, value: TrickleData.Element.ElementType.text.rawValue, range: .init(location: 0, length: linebreak.length))
+            linebreak.addAttribute(.elementType, value: TrickleElement.ElementType.text.rawValue, range: .init(location: 0, length: linebreak.length))
             blockAttributedString.append(linebreak)
             blockAttributedString.addAttribute(.blockType, value: block.type.rawValue, range: .init(location: 0, length: blockAttributedString.length))
 #if os(macOS)
@@ -131,22 +128,22 @@ extension SharedTextContentStorage: NSTextContentStorageDelegate {
             let textWithDisplayAttributes = NSMutableAttributedString()
             
             switch blockType {
-                case TrickleData.Block.BlockType.h1.rawValue:
+                case TrickleBlock.BlockType.h1.rawValue:
                     displayAttributes[.font] = Font.systemFont(ofSize: baseFontSize * 2, weight: .bold)
                     break
-                case TrickleData.Block.BlockType.h2.rawValue:
+                case TrickleBlock.BlockType.h2.rawValue:
                     displayAttributes[.font] = Font.systemFont(ofSize: baseFontSize * 1.75, weight: .bold)
                     break
-                case TrickleData.Block.BlockType.h3.rawValue:
+                case TrickleBlock.BlockType.h3.rawValue:
                     displayAttributes[.font] = Font.systemFont(ofSize: baseFontSize * 1.5, weight: .semibold)
                     break
-                case TrickleData.Block.BlockType.h4.rawValue:
+                case TrickleBlock.BlockType.h4.rawValue:
                     displayAttributes[.font] = Font.systemFont(ofSize: baseFontSize * 1.375, weight: .semibold)
                     break
-                case TrickleData.Block.BlockType.h5.rawValue:
+                case TrickleBlock.BlockType.h5.rawValue:
                     displayAttributes[.font] = Font.systemFont(ofSize: baseFontSize * 1.25, weight: .medium)
                     break
-                case TrickleData.Block.BlockType.h6.rawValue:
+                case TrickleBlock.BlockType.h6.rawValue:
                     displayAttributes[.font] = Font.systemFont(ofSize: baseFontSize * 1.125, weight: .medium)
                     break
 
@@ -162,9 +159,9 @@ extension SharedTextContentStorage: NSTextContentStorageDelegate {
                 let attrString = originalText.attributedSubstring(from: range)
                 var elementAttrString = NSMutableAttributedString(attributedString: attrString)
                 
-                guard let elementType = val as? TrickleData.Element.ElementType.RawValue else { return }
+                guard let elementType = val as? TrickleElement.ElementType.RawValue else { return }
                 switch elementType {
-                    case TrickleData.Element.ElementType.inlineCode.rawValue:
+                    case TrickleElement.ElementType.inlineCode.rawValue:
                         #if os(macOS)
                         elementAttrString.addAttributes(displayAttributes, range: elementAttrString.range)
                         let attachment = InlineCodeAttachment(data: try? elementAttrString.data(from: elementAttrString.range), ofType: nil)
@@ -256,7 +253,7 @@ extension AttributeScopes {
 
 extension AttributeScopes.TrickleAttributes {
     struct TrickleBlockType: CodableAttributedStringKey, MarkdownDecodableAttributedStringKey {
-        typealias Value = TrickleData.Block.BlockType
+        typealias Value = TrickleBlock.BlockType
         
         static var name: String {
             "TrickleBlockType"
@@ -264,7 +261,7 @@ extension AttributeScopes.TrickleAttributes {
     }
 
     struct TrickleElementType: CodableAttributedStringKey, MarkdownDecodableAttributedStringKey {
-        typealias Value = TrickleData.Element.ElementType
+        typealias Value = TrickleElement.ElementType
         
         static var name: String {
             "TrickleElementType"

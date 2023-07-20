@@ -10,10 +10,10 @@ import TrickleCore
 import ChocofordEssentials
 
 struct QuoteBlockView: View {
-    var block: TrickleData.Block
+    var block: TrickleBlock
     var body: some View {
         VStack(spacing: 0) {
-            TrickleEditorParser.parse(block.blocks ?? [])
+            TrickleEditor.renderBlocks(block.blocks ?? [])
                 
 //            ForEach(block.blocks ?? []) { block in
 //
@@ -35,7 +35,7 @@ struct QuoteBlockView: View {
 #if DEBUG
 struct QuoteBlockView_Previews: PreviewProvider {
     static var previews: some View {
-        TrickleEditorView(blocks: .constant(load("blocks.json")))
+        TrickleEditor.renderBlocks(load("blocks.json") as [TrickleBlock])
     }
 }
 #endif

@@ -6,72 +6,29 @@
 //
 
 import SwiftUI
-import WebKit
-import Markdown
 import TrickleCore
-
-struct BlocksRenderer: View {
-    var blocks: [TrickleData.Block]
-    var baseFontSize: CGFloat = 16
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            ForEach(Array(blocks.enumerated()), id: \.1.id) { index, block in
-                if let childBlocks: [TrickleData.Block] = block.blocks,
-                    !childBlocks.isEmpty {
-                    BlocksRenderer(blocks: childBlocks, baseFontSize: baseFontSize)
-                        .blockModifier(block,
-                                       baseFontSize: baseFontSize)
-                } else {
-                    let backupNumberedListPrefix: String = {
-                        if block.type == .numberedList && block.userDefinedValue == .none {
-                            for i in 0..<index {
-                                let blockIndex = index - i
-                                if case .str(let value) = blocks[blockIndex].userDefinedValue,
-                                   let theIndex = Int(value.prefix(value.count - 1)) {
-                                    return "\(theIndex + i)."
-                                } else if blocks[blockIndex].type != .numberedList {
-                                    return "\(i)."
-                                }
-                            }
-                        }
-                        return "1."
-                    }()
-                    
-                    TrickleEditorParser.renderElements(block.elements ?? [])
-                        .blockModifier(block,
-                                       baseFontSize: baseFontSize,
-                                       backupNumberedListPrefix: backupNumberedListPrefix)
-                }
-            }
-        }
-        
-    }
-}
-
-
+/*
 public struct TrickleEditorParser {
     @ViewBuilder
     public static func parse<S: RandomAccessCollection,
                                 TS: TextSelectability>(_ blocks: S, textSelectable: TS = .enabled,
                                                        baseFontSize: CGFloat = 16) -> some View
-    where S.Element == TrickleData.Block, S.Index == Int {
+    where S.Element == TrickleBlock, S.Index == Int {
         BlocksRenderer(blocks: Array(blocks), baseFontSize: baseFontSize)
             .textSelection(textSelectable)
     }
     
     @ViewBuilder
-    static func renderElements(_ elements: [TrickleData.Element]) -> some View {
+    static func renderElements(_ elements: [TrickleElement]) -> some View {
         Array(elements.enumerated()).map { (i, element) in
             try! AttributedString(markdown: parseElement(element: element),
                                   options: .init(interpretedSyntax: .inlineOnlyPreservingWhitespace))
         }
         .reduce(Text(""), { $0 + Text($1) })
-        
     }
     
     
-    public static func getContentDescription(_ blocks: [TrickleData.Block], maxLength: Int? = nil) -> String {
+    public static func getContentDescription(_ blocks: [TrickleBlock], maxLength: Int? = nil) -> String {
         let text = blocks.map { block in
             switch block.type {
                 case .code:
@@ -97,10 +54,10 @@ public struct TrickleEditorParser {
         
     }
     
-    public static func formBlock(string: String) -> [TrickleData.Block] {
-        func parseMarkup(_ markup: BlockMarkup, line: Int) -> [TrickleData.Block] {
-            var block = TrickleData.Block(type: .richText, blocks: .default)
-            var blocks: [TrickleData.Block] = []
+    public static func formBlock(string: String) -> [TrickleBlock] {
+        func parseMarkup(_ markup: BlockMarkup, line: Int) -> [TrickleBlock] {
+            var block = TrickleBlock(type: .richText, blocks: .default)
+            var blocks: [TrickleBlock] = []
 
             if let heading = markup as? Heading {
                 switch heading.level {
@@ -213,9 +170,9 @@ public struct TrickleEditorParser {
             return [block]
         }
         
-        func parseMarkupInlineNode(_ node: InlineMarkup) -> TrickleData.Element {
+        func parseMarkupInlineNode(_ node: InlineMarkup) -> TrickleElement {
 //            dump(node)
-            var element = TrickleData.Element(.text)
+            var element = TrickleElement(.text)
             if let emphasis = node as? Emphasis {
                 element.type = .italic
                 element.elements = emphasis.inlineChildren.map {
@@ -263,14 +220,14 @@ public struct TrickleEditorParser {
         
         
         let document = Document(parsing: string, options: [])
-        var blocks: [TrickleData.Block] = []
+        var blocks: [TrickleBlock] = []
         var line = 1
         document.blockChildren.forEach { markup in
 //            dump(markup)
             guard let range = markup.range else { return }
             if line <= range.lowerBound.line - 1 {
                 for _ in line..<range.lowerBound.line-1 { // double empty line == newLine
-                    blocks.append(TrickleData.Block.newLine)
+                    blocks.append(TrickleBlock.newLine)
                 }
             }
             blocks.append(contentsOf: parseMarkup(markup, line: range.lowerBound.line))
@@ -288,7 +245,7 @@ public struct TrickleEditorParser {
 }
 
 extension TrickleEditorParser {
-    static func parseElement(element: TrickleData.Element) -> String {
+    static func parseElement(element: TrickleElement) -> String {
         switch element.type {
             case .inlineCode:
                 return "`\(element.text)`"
@@ -337,161 +294,19 @@ extension TrickleEditorParser {
         }
     }
     
-    static func parseElements(_ elements: [TrickleData.Element]?) -> String {
+    static func parseElements(_ elements: [TrickleElement]?) -> String {
         elements?.map{parseElement(element: $0)}.joined() ?? ""
     }
 
 }
-
-
-fileprivate extension View {
-    @ViewBuilder func blockModifier(_ block: TrickleData.Block,
-                                    baseFontSize: CGFloat = 16,
-                                    backupNumberedListPrefix: String = "1.") -> some View {
-        switch block.type {
-            case .h1:
-                font(.system(size: baseFontSize * 2, weight: .bold))
-            case .h2:
-                font(.system(size: baseFontSize * 1.75, weight: .bold))
-            case .h3:
-                font(.system(size: baseFontSize * 1.5, weight: .semibold))
-            case .h4:
-                font(.system(size: baseFontSize * 1.375, weight: .semibold))
-            case .h5:
-                font(.system(size: baseFontSize * 1.25, weight: .medium))
-            case .h6:
-                font(.system(size: baseFontSize * 1.125, weight: .medium))
-                
-            case .code:
-                CodeBlockView(block: block)
-                    
-            case .list:
-                HStack(alignment: .top) {
-                    Circle()
-                        .frame(width: 4, height: 4)
-                        .foregroundColor(.textColor)
-                        .padding(.vertical, baseFontSize / 2)
-                    self.font(.system(size: baseFontSize))
-                }
-            case .numberedList:
-                HStack(alignment: .top) {
-                    if case .str(let value) = block.userDefinedValue {
-                        Text("\(value) ")
-                            .padding(.vertical, 2)
-                    } else {
-                        Text("\(backupNumberedListPrefix) ")
-                            .padding(.vertical, 2)
-                    }
-                    self.font(.system(size: baseFontSize))
-                }
-                
-            case .checkbox:
-                let checkboxBlockValue: TrickleData.Block.CheckboxBlockValue = {
-                    switch block.userDefinedValue {
-                        case .dic(let dic):
-                            if let checkboxBlockValue = dic.dictionary.decodeTo(TrickleData.Block.CheckboxBlockValue.self) {
-                                return checkboxBlockValue
-                            } else {
-                                return .init(status: .unchecked, operatorID: nil)
-                            }
-                        default:
-                            return .init(status: .unchecked, operatorID: nil)
-                    }
-                }()
-                    
-                HStack(alignment: .top) {
-                    Toggle("", isOn: .constant(checkboxBlockValue.status == .checked))
-                        .toggleStyle(.checkboxStyle)
-                        .fixedSize()
-                    self.font(.body)
-                }
-                
-            case .divider:
-                DividerBlockView(block: block)
-                
-
-            case .gallery:
-                GalleryBlockView(block: block, focused: .constant(false))
-                
-            case .image:
-                font(.title3)
-                
-            case .embed:
-                EmbedBlockView(block: block)
-                
-            case .webBookmark:
-                WebBookmarkBlockView(block: block)
-                
-            case .reference:
-                font(.title3)
-                
-            case .file:
-                FileBlockView(block: block)
-                
-            case .quote:
-                QuoteBlockView(block: block)
-                
-            case .nest:
-                font(.body)
-                
-            case .todos:
-                TodosBlockView(block: block)
-                
-            case .vote:
-                VoteBlockView(block: block)
-                
-            case .richText:
-                font(.system(size: baseFontSize))
-        }
-    }
-    
-//    @ViewBuilder func elementModifier(_ element: TrickleData.Element) -> some View {
-//        switch element.type {
-//            case .text:
-////                font()
-//            case .inlineCode:
-//                background(
-//                    RoundedRectangle(cornerRadius: 4)
-//                        .stroke(.purple)
-//                        .foregroundColor(.purple.opacity(2))
-//                        .padding(2)
-//                )
-//            case .user:
-//                foregroundColor(.blue)
-//            case .bold:
-////                fontWeight(.bold)
-//            case .url:
-//                foregroundColor(.blue)
-//            case .image:
-//                self
-//            case .embed:
-//                self
-//            case .escape:
-//                self
-//            case .math:
-//                self
-//            case .linkToPost:
-//                self
-//            case .italic:
-//                self
-//        }
-//    }
-    
-//    static func parseBlockValue<T: Decodable>(_ payload: [String : Any], to: T.Type) -> T? {
-//        guard let data = try? JSONSerialization.data(withJSONObject: payload) else { return nil }
-//        return try? JSONDecoder().decode(T.self, from: data)
-//    }
-}
-
-
 
 #if DEBUG
 struct TrickleEditorParser_Previews: PreviewProvider {
     static var previews: some View {
         ScrollView {
             TrickleEditorParser.parse([
-                TrickleData.Block(type: .richText, elements: [
-                    TrickleData.Element(.text, text: "123")
+                TrickleBlock(type: .richText, elements: [
+                    TrickleElement(.text, text: "123")
                 ])
             ])
             .border(.red)
@@ -518,3 +333,4 @@ struct TrickleEditorParser_Previews: PreviewProvider {
     }
 }
 #endif
+*/
