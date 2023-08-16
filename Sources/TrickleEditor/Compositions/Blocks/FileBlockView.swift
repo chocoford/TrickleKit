@@ -7,6 +7,7 @@
 
 import SwiftUI
 import TrickleCore
+import ChocofordUI
 
 public struct FileBlockView: View {
     var block: TrickleBlock.FileBlock
@@ -24,7 +25,7 @@ public struct FileBlockView: View {
     
     @ViewBuilder private func content(value: TrickleBlock.FileBlockValue) -> some View {
         HStack {
-            Image(systemName: .docFill)
+            Image(systemSymbol: .docFill)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(height: 16)
