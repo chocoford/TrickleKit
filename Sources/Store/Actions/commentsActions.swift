@@ -9,7 +9,7 @@ import Foundation
 import TrickleCore
 
 public extension TrickleStore {
-    func loadMoreComments(_ trickleID: TrickleData.ID, option: LoadMoreOption, silent: Bool = false, replace: Bool = false) async {
+    func loadMoreComments(_ trickleID: TrickleData.ID, option: LoadMoreOption, silent: Bool = false) async {
         guard let theTrickle = trickles[trickleID] else { return }
         
         if !silent { tricklesCommentIDs[trickleID]?.setIsLoading() }
@@ -17,13 +17,16 @@ public extension TrickleStore {
         let nextTS: TrickleWebRepository.API.ListQuery
         switch option {
             case .newer(let since):
-                nextTS = .init(until: Int((since ?? tricklesComments[trickleID]?.value?.items.first?.createAt ?? .now).timeIntervalSince1970),
+                nextTS = .init(until: since ?? tricklesComments[trickleID]?.value?.items.first?.createAt ?? .now,
                                limit: 1000,
                                order: .asc)
             case .older:
-                nextTS = .init(until: tricklesCommentIDs[trickleID]?.value?.nextTs ?? Int(Date.now.timeIntervalSince1970),
+                nextTS = .init(until: tricklesCommentIDs[trickleID]?.value?.nextTs ?? .now,
                               limit: 20,
                               order: .desc)
+                
+            case .refresh:
+                nextTS = .init(until: .now, limit: 20, order: .desc)
         }
         
         do {
@@ -34,13 +37,11 @@ public extension TrickleStore {
                                                                          query: nextTS)
             switch option {
                 case .newer:
-                    prependComments(to: trickleID, commentsData: .init(items: data.items.reversed(), nextTs: data.nextTs))
+                    self.prependComments(to: trickleID, commentsData: .init(items: data.items.reversed(), nextTs: data.nextTs))
                 case .older:
-                    if replace {
-                        resetComments(of: trickleID, commentsData: data)
-                    } else {
-                        appendComments(to: trickleID, commentsData: data)
-                    }
+                    self.appendComments(to: trickleID, commentsData: data)
+                case .refresh:
+                    self.resetComments(of: trickleID, commentsData: data)
             }
         } catch {
             if !silent {

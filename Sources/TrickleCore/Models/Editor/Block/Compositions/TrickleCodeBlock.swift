@@ -46,5 +46,10 @@ extension TrickleBlock {
         public init(language: String) {
             self.language = language
         }
+        
+        public init(from decoder: Decoder) throws {
+            let container: KeyedDecodingContainer<TrickleBlock.CodeBlockValue.CodingKeys> = try decoder.container(keyedBy: TrickleBlock.CodeBlockValue.CodingKeys.self)
+            self.language = try container.decodeIfPresent(String.self, forKey: TrickleBlock.CodeBlockValue.CodingKeys.language) ?? "plain"
+        }
     }
 }

@@ -49,6 +49,19 @@ extension TrickleBlock {
             self.operatorID = operatorID
         }
         
+        public init(from decoder: Decoder) throws {
+            let singleContainer = try decoder.singleValueContainer()
+            if let x = try? singleContainer.decode(String.self) {
+                self.status = x == "checked" ? .checked : .unchecked
+                self.operatorID = nil
+                return
+            }
+            
+            let container: KeyedDecodingContainer<TrickleBlock.CheckboxBlockValue.CodingKeys> = try decoder.container(keyedBy: TrickleBlock.CheckboxBlockValue.CodingKeys.self)
+            self.status = try container.decode(TrickleBlock.CheckboxBlockValue.CheckboxStatus.self, forKey: TrickleBlock.CheckboxBlockValue.CodingKeys.status)
+            self.operatorID = try container.decodeIfPresent(String.self, forKey: TrickleBlock.CheckboxBlockValue.CodingKeys.operatorID)
+        }
+        
         public static var unchecked: CheckboxBlockValue { .init(status: .unchecked) }
     }
 }

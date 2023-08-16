@@ -31,6 +31,33 @@ extension TrickleStore {
         public var conversationID: String? = nil
         public var conversationSession: AIAgentConversationSession? = nil
         public var updateMessagePublisher = PassthroughSubject<Void, Never>()
+        var messageHelper = AIStateMessageHelper()
+    }
+    
+    
+    internal class AIStateMessageHelper {
+        var timers: [String : Timer] = [:]
+        var actionsQueue: [String : () -> Void] = [:]
+        
+        func throttle(_ id: AIAgentConversationSession.Message.ID, action: @escaping () -> Void) {
+//            print("[throttle] call throttle \(id)")
+            self.actionsQueue[id] = action
+            if self.timers[id] == nil {
+                self.timers[id] = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { timer in
+//                    print("[throttle] timer fired \(id) - \(Date.now.timeIntervalSince1970)")
+                    
+                    guard let action = self.actionsQueue.removeValue(forKey: id) else {
+//                        print("[throttle] not finding action \(id), invalidate timer")
+                        self.timers[id]?.invalidate()
+                        self.timers.removeValue(forKey: id)
+                        return
+                    }
+//                    print("[throttle] perform action \(id)")
+                    action()
+                })
+                self.timers[id]?.fire()
+            }
+        }
     }
 }
 
@@ -139,11 +166,17 @@ public extension TrickleStore {
     
     /// update a `AIAgentConversationSession.Message`, or creating a new one if not exist.
     func updateAIAgentMessage(_ message: AIAgentConversationSession.Message) {
-        if let index = self.aiAgentState.conversationSession?.messages.firstIndex(where: {$0.messageID == message.messageID}) {
-            self.aiAgentState.conversationSession?.messages[index] = message
+        if let index = self.aiAgentState.conversationSession?.messages.firstIndex(where: {
+            $0.messageID == message.messageID
+        }) {
+            self.aiAgentState.messageHelper.throttle(message.messageID) {
+                self.aiAgentState.conversationSession?.messages[index] = message
+                DispatchQueue.main.async {
+                    self.aiAgentState.updateMessagePublisher.send()
+                }
+            }
         } else {
             self.aiAgentState.conversationSession?.messages.append(message)
         }
-        self.aiAgentState.updateMessagePublisher.send()
     }
 }

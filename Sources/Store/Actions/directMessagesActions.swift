@@ -9,34 +9,60 @@ import Foundation
 import TrickleCore
 
 public extension TrickleStore {
-    func tryLoadMoreDirectMessages(workspaceID: WorkspaceData.ID, option: LoadMoreOption) async throws -> AnyStreamable<TrickleData> {
+    func tryLoadMoreDirectMessages(
+        workspaceID: WorkspaceData.ID,
+        option: LoadMoreOption,
+        silent: Bool = false
+    ) async throws -> AnyStreamable<TrickleData> {
         guard let workspace = self.workspaces[workspaceID] else { throw TrickleStoreError.invalidWorkspaceID(workspaceID) }
         
-        let data: AnyStreamable<TrickleData>
+        if !silent { self.workspacesDirectMessageIDs[workspaceID]?.setIsLoading() }
+        
+        let query: TrickleWebRepository.API.ListQuery
         switch option {
             case .older(let since):
-                let until = Int(since?.timeIntervalSince1970) ?? self.workspacesDirectMessageIDs[workspaceID]?.value?.nextTs ?? Int(Date.now.timeIntervalSince1970)
-                data = try await webRepositoryClient.listWorkspaceDirectMessages(workspaceID: workspaceID, memberID: workspace.userMemberInfo.memberID,
-                                                                                 query: .init(until: until,
-                                                                                              limit: 20,
-                                                                                              order: .desc))
+                query = .init(
+                    until: since ?? self.workspacesDirectMessageIDs[workspaceID]?.value?.nextTs ?? .now,
+                    limit: 20,
+                    order: .desc
+                )
             case .newer(let since):
-                let until = Int(since?.timeIntervalSince1970 ?? self.workspacesDirectMessages[workspaceID]?.value?.items.first?.updateAt?.timeIntervalSince1970)
-                data = try await webRepositoryClient.listWorkspaceDirectMessages(workspaceID: workspaceID, memberID: workspace.userMemberInfo.memberID,
-                                                                                 query: .init(until: until,
-                                                                                              limit: 20,
-                                                                                              order: .asc))
+                query = .init(
+                    until: since ?? self.workspacesDirectMessages[workspaceID]?.value?.items.first?.updateAt ?? .now,
+                    limit: 20,
+                    order: .asc
+                )
+            case .refresh:
+                query = .init(
+                    until: .now,
+                    limit: 20,
+                    order: .desc
+                )
         }
         
-        data.items.forEach { self.insertTrickle($0) }
+        let data = try await webRepositoryClient.listWorkspaceDirectMessages(
+            workspaceID: workspaceID, memberID: workspace.userMemberInfo.memberID,
+            query: query
+        )
+        
+        // TODO: ...
+        switch option {
+            case .newer:
+                self._updateTrickles(data.items)
+            case .older:
+                self._updateTrickles(data.items)
+            case .refresh:
+                self._updateTrickles(data.items)
+        }
+        
         self.workspacesDirectMessageIDs[workspaceID] = .loaded(data: data.map{ $0.trickleID })
 
         return data
     }
     
-    func loadMoreDirectMessages(workspaceID: WorkspaceData.ID, option: LoadMoreOption) async {
+    func loadMoreDirectMessages(workspaceID: WorkspaceData.ID, option: LoadMoreOption, silent: Bool = false) async {
         do {
-            _ = try await tryLoadMoreDirectMessages(workspaceID: workspaceID, option: option)
+            _ = try await tryLoadMoreDirectMessages(workspaceID: workspaceID, option: option, silent: silent)
         } catch {
             self.error = .init(error)
         }

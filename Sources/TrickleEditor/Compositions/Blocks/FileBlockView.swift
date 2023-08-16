@@ -7,7 +7,6 @@
 
 import SwiftUI
 import TrickleCore
-import SFSymbolEnum
 
 public struct FileBlockView: View {
     var block: TrickleBlock.FileBlock

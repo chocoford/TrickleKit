@@ -22,44 +22,50 @@ public struct WebBookmarkBlockView: View {
     }
     
     @ViewBuilder private func content(_ value: TrickleBlock.WebBookmarkBlockValue) -> some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text(webInfo["title"] ?? "")
-                    .font(.title2)
-                    .padding(.bottom, 4)
-                Text(webInfo["description"] ?? "")
-                    .font(.footnote)
+        if value.url == nil {
+            EmptyView()
+        } else {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(webInfo["title"] ?? "")
+                        .font(.title2)
+                        .padding(.bottom, 4)
+                    Text(webInfo["description"] ?? "")
+                        .font(.footnote)
+                }
+                
+                AsyncImage(url: URL(string: webInfo["cover"] ?? "")) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                    
+                } placeholder: {
+                    Rectangle()
+                        .shimmering()
+                }
             }
-            
-            AsyncImage(url: URL(string: webInfo["cover"] ?? "")) { image in
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-
-            } placeholder: {
-                Rectangle()
-                    .shimmering()
+            .frame(height: 60)
+            .padding()
+            .background(.ultraThickMaterial, in: RoundedRectangle(cornerRadius: 8))
+            .overlay {
+                isHover ?
+                RoundedRectangle(cornerRadius: 8).fill(.indigo.opacity(0.2))
+                :
+                nil
             }
-        }
-        .frame(height: 60)
-        .padding()
-        .background(.ultraThickMaterial, in: RoundedRectangle(cornerRadius: 8))
-        .overlay {
-            isHover ?
-            RoundedRectangle(cornerRadius: 8).fill(.indigo.opacity(0.2))
-            :
-            nil
-        }
-        .onTapGesture {
-            openURL(value.url)
-        }
-        .onHover{ hover in
-            withAnimation {
-                isHover = hover
+            .onTapGesture {
+                guard let url = value.url else { return }
+                openURL(url)
             }
-        }
-        .task {
-            await fetchWebInfo(url: value.url)
+            .onHover{ hover in
+                withAnimation {
+                    isHover = hover
+                }
+            }
+            .task {
+                guard let url = value.url else { return }
+                await fetchWebInfo(url: url)
+            }
         }
     }
 }

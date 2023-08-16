@@ -11,26 +11,31 @@ import Foundation
 public struct AIAgentData: Codable, Hashable {
     public let agent: String
     public let version: Int
-    public let displayName, role, capability, constraints: String
+    public let isPublished, handleParsingError: Bool
+    public let workMode, displayName, role, capability: String
+    public let constraints: String
     public let enableChatHistory: Bool
     public let toolInstruction: String
     public let tools: [Tool]
     public let temperature: Double
     public let useChatAPI: Bool
-    public let model, formatInstruction, userID, appName: String
-    public let appDescription: String
+    public let model, formatInstruction, singlePromptFormatInstruction, userID: String
+    public let appName, appDescription: String
 //    public let appActionCards: JSONNull?
     public let appDecoration: AppDecoration?
-    public let agentConfigID: String
+    public let category: Category
+    public let maxIterations: Int
+    public let maxExecutionTime: Int?
+    public let earlyStoppingMethod, agentConfigID: String
     public let createAt, updateAt: Int
 
     enum CodingKeys: String, CodingKey {
-        case agent, version, displayName, role, capability, constraints, enableChatHistory, toolInstruction, tools, temperature, useChatAPI, model, formatInstruction
+        case agent, version, isPublished, handleParsingError, workMode, displayName, role, capability, constraints, enableChatHistory, toolInstruction, tools, temperature, useChatAPI, model, formatInstruction, singlePromptFormatInstruction
         case userID = "userId"
-        case appName, appDescription, appDecoration
+        case appName, appDescription, appDecoration, category, maxIterations, maxExecutionTime, earlyStoppingMethod
+        // appActionCards,
         case agentConfigID = "agentConfigId"
         case createAt, updateAt
-//         appActionCards,
     }
 }
 
@@ -38,91 +43,99 @@ extension AIAgentData: Identifiable {
     public var id: String { agentConfigID }
 }
 
-// MARK: - AppDecoration
-public struct AppDecoration: Codable, Hashable {
-    public let logo: String
-    public let placeholder: String
-    public let sortIndex: String?
+extension AIAgentData {
+    // MARK: - AppDecoration
+    public struct AppDecoration: Codable, Hashable {
+        public let logo: URL?
+        public let placeholder: String
+        public let sortIndex: String?
+        
+        public init(logo: URL, placeholder: String, sortIndex: String?) {
+            self.logo = logo
+            self.placeholder = placeholder
+            self.sortIndex = sortIndex
+        }
+    }
+    
+    
+    // MARK: - Tool
+    public struct Tool: Codable, Hashable {
+        public let toolConfigID: String?
+        //    public let createAt, updateAt: Int
+        public let tool, name, description: String
+        public let returnDirect, supportOutput, supportReturnDirect, supportLLM: Bool
+        public let supportIntg, supportTxtToImage: Bool
+        public let supportMultiTask: Bool?
+        public let supportAgent, supportLongTermMemory: Bool
+        public let version: Int
+        public let isPublished: Bool
+        public let displayInfo: DisplayInfo
+        public let category: Category
+        public let agentConfigID: AIAgentData.ID?
+        
+        enum CodingKeys: String, CodingKey {
+            case toolConfigID = "toolConfigId"
+            case agentConfigID = "agentConfigId"
+            //        case createAt, updateAt
+            case tool, name, description, returnDirect, supportOutput, supportReturnDirect, supportLLM, supportIntg, supportTxtToImage, supportMultiTask, supportAgent, supportLongTermMemory, version, isPublished, displayInfo, category
+        }
+        
+        public struct DisplayInfo: Codable, Hashable {
+            public let name, description: String
+            public let icon: URL?
+            
+            public init(name: String, description: String, icon: URL?) {
+                self.name = name
+                self.description = description
+                self.icon = icon
+            }
+        }
+        
+        public enum Category: String, Codable {
+            case basic = "basic"
+        }
+    }
+    
+    
+    public enum Category: String, Codable {
+        case normal = "normal_agent"
+        case simplePrompt = "single_prompt_agent"
+        case superAgent = "super_agent"
+    }
+}
+extension AIAgentData.Tool { //Identifiable
+    public typealias ID = String
+//    public var id: String { toolConfigID }
+}
 
-    public init(logo: String, placeholder: String, sortIndex: String?) {
-        self.logo = logo
-        self.placeholder = placeholder
-        self.sortIndex = sortIndex
+extension AIAgentData.Tool {
+    // MARK: - Intg
+    public struct Intg: Codable, Hashable {
+        public let type: String
+        public let oauthURL: String
+        public let intgID: String?
+        
+        enum CodingKeys: String, CodingKey {
+            case type
+            case oauthURL = "oauthUrl"
+            case intgID = "intgId"
+        }
+        
+        public init(type: String, oauthURL: String, intgID: String) {
+            self.type = type
+            self.oauthURL = oauthURL
+            self.intgID = intgID
+        }
     }
 }
 
-// MARK: - Tool
-public struct Tool: Codable, Hashable {
-    public let tool, name, description: String
-    public let supportReturnDirect, returnDirect, supportOutput: Bool
-    public let output: String?
-    public let supportLLM: Bool
-    public let promptPrefix, promptSuffix: String?
-    public let temperature: Double?
-    public let model: String?
-    public let useChatAPI, useAgentScratchpadAsContext: Bool?
-    public let supportIntg: Bool
-    public let intg: Intg?
-    public let notionSearchDepth: Int?
-    public let githubOrgName: String?
-    public let githubRepo: String?
-    public let supportTxtToImage: Bool
-    public let numberOfImages: Int?
-    public let imageSize: String?
-    public let supportMultiTask: Bool?
-    public let supportAgent: Bool
-    public let agentConfigID: String?
 
-    enum CodingKeys: String, CodingKey {
-        case tool, name, description, supportReturnDirect, returnDirect, supportOutput, output, supportLLM, promptPrefix, promptSuffix, temperature, model, useChatAPI, useAgentScratchpadAsContext, supportIntg, intg, notionSearchDepth, githubOrgName, githubRepo, supportTxtToImage, numberOfImages, imageSize, supportMultiTask, supportAgent
-        case agentConfigID = "agentConfigId"
-    }
-
-    public init(tool: String, name: String, description: String, supportReturnDirect: Bool, returnDirect: Bool, supportOutput: Bool, output: String, supportLLM: Bool, promptPrefix: String, promptSuffix: String, temperature: Double, model: String, useChatAPI: Bool, useAgentScratchpadAsContext: Bool, supportIntg: Bool, intg: Intg?, notionSearchDepth: Int, githubOrgName: String, githubRepo: String, supportTxtToImage: Bool, numberOfImages: Int, imageSize: String, supportMultiTask: Bool?, supportAgent: Bool, agentConfigID: String) {
-        self.tool = tool
-        self.name = name
-        self.description = description
-        self.supportReturnDirect = supportReturnDirect
-        self.returnDirect = returnDirect
-        self.supportOutput = supportOutput
-        self.output = output
-        self.supportLLM = supportLLM
-        self.promptPrefix = promptPrefix
-        self.promptSuffix = promptSuffix
-        self.temperature = temperature
-        self.model = model
-        self.useChatAPI = useChatAPI
-        self.useAgentScratchpadAsContext = useAgentScratchpadAsContext
-        self.supportIntg = supportIntg
-        self.intg = intg
-        self.notionSearchDepth = notionSearchDepth
-        self.githubOrgName = githubOrgName
-        self.githubRepo = githubRepo
-        self.supportTxtToImage = supportTxtToImage
-        self.numberOfImages = numberOfImages
-        self.imageSize = imageSize
-        self.supportMultiTask = supportMultiTask
-        self.supportAgent = supportAgent
-        self.agentConfigID = agentConfigID
+extension [AIAgentData] {
+    public func sorted() -> Self {
+        sorted {
+            let a: Int = Int($0.appDecoration?.sortIndex ?? "99999") ?? 99999
+            let b: Int = Int($1.appDecoration?.sortIndex ?? "99999") ?? 99999
+            return a < b
+        }
     }
 }
-
-// MARK: - Intg
-public struct Intg: Codable, Hashable {
-    public let type: String
-    public let oauthURL: String
-    public let intgID: String?
-
-    enum CodingKeys: String, CodingKey {
-        case type
-        case oauthURL = "oauthUrl"
-        case intgID = "intgId"
-    }
-
-    public init(type: String, oauthURL: String, intgID: String) {
-        self.type = type
-        self.oauthURL = oauthURL
-        self.intgID = intgID
-    }
-}
-

@@ -10,15 +10,15 @@ import TrickleCore
 
 extension TrickleWebRepository.API {
     struct ListTricklesQuery: Codable {
-        var workspaceID: String? = nil
+        var workspaceID: WorkspaceData.ID? = nil
         var receiverID: String? = nil
         var trickleID: TrickleData.ID? = nil
-        var memberID: String
-        var authorID: String? = nil
+        var memberID: MemberData.ID
+        var authorID: MemberData.ID? = nil
         var text: String? = nil
-        var until: Int? = nil
+        var until: Date? = nil
         var limit: Int? = nil
-        var order: Int? = nil
+        var order: Order? = nil
         var starredByMemberID: MemberData.ID? = nil
         
         enum CodingKeys: String, CodingKey {
@@ -29,6 +29,22 @@ extension TrickleWebRepository.API {
             case authorID = "authorId"
             case text, until, limit, order
             case starredByMemberID = "starredByMemberId"
+        }
+        
+        enum Order: Int, Codable {
+            case asc = 1 // from old to new
+            case desc = -1 // from new to old
+        }
+    }
+    
+    struct ListQuery: Codable {
+        let until: Date?
+        let limit: Int
+        let order: Order
+        
+        enum Order: Int, Codable {
+            case asc = 1 // from old to new
+            case desc = -1 // from new to old
         }
     }
 }

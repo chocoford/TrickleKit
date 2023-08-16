@@ -15,7 +15,6 @@ struct ElementsRenderer: View {
     var body: some View {
         Array(elements.enumerated()).map { (i, element) in
             elementText(element)
-                .elementModifier(element)
         }
         .reduce(Text(""), +)
     }

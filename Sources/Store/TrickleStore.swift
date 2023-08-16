@@ -239,7 +239,7 @@ public class TrickleStore: ObservableObject {
     @Published internal var workspaceThreadIDs: [WorkspaceData.ID : Loadable<AnyStreamable<TrickleData.ID>>] = [:]
     
     @Published public var workspacesThreadsUnreadCount: [WorkspaceData.ID : Int] = [:]
-    
+    @available(*, deprecated)
     public var groupsTrickles: [GroupData.ID : [TrickleData]] {
         var result: [GroupData.ID : [TrickleData]] = [:]
         // group all view's trickles
@@ -265,7 +265,7 @@ public class TrickleStore: ObservableObject {
         }
         return result
     }
-    
+    @available(*, deprecated)
     public var currentGroupTrickles: [TrickleData] {
         guard let currentGroupID = currentGroupID else { return [] }
         return groupsTrickles[currentGroupID] ?? []
@@ -274,6 +274,7 @@ public class TrickleStore: ObservableObject {
 //        guard let currentGroupViewID = currentGroupViewID else { return nil }
 //        return viewsTrickles[currentGroupViewID] ?? .notRequested
 //    }
+    @available(*, deprecated)
     public var currentWorkspaceThreads: Loadable<AnyStreamable<TrickleData>> {
         guard let currentWorkspaceID = currentWorkspaceID else { return .notRequested }
         return workspaceThreads[currentWorkspaceID] ?? .notRequested
@@ -293,6 +294,14 @@ public class TrickleStore: ObservableObject {
     }
     @Published public var workspacesDirectMessagesUnreadCount: [WorkspaceData.ID : Int] = [:]
 
+    @Published public var workspacesTrickleIDs: [WorkspaceData.ID : Loadable<AnyStreamable<TrickleData.ID>>] = [:]
+    public var workspacesTrickles: [WorkspaceData.ID : Loadable<AnyStreamable<TrickleData>>] {
+        workspacesTrickleIDs.map {
+            [$0.key : $0.value.map { $0.compactMap{ trickles[$0] } }]
+        }
+        .merged()
+    }
+    
     
     // MARK: - Trickles Comments
     @Published public var tricklesCommentIDs: [TrickleData.ID : Loadable<AnyStreamable<CommentData.ID>>] = [:]
@@ -372,5 +381,6 @@ public class TrickleStore: ObservableObject {
     public enum LoadMoreOption {
         case older(_ since: Date? = nil)
         case newer(_ since: Date? = nil)
+        case refresh
     }
 }

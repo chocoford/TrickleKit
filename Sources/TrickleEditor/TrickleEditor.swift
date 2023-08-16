@@ -18,10 +18,18 @@ public struct TrickleEditor: View {
     }
     
     public var body: some View {
-        TrickleTextView(height: $textViewHeight, isFocus: $isFocused)
+        TrickleTextView(height: config.fitContent ? nil : $textViewHeight, isFocus: $isFocused)
             .minHeight(config.minHeight)
-            .frame(height: textViewHeight == nil ? config.minHeight : textViewHeight)
-            .frame(minHeight: config.minHeight)
+            .if(config.fitContent) { content in
+                content
+                    .frame(height: textViewHeight == nil ? config.minHeight : textViewHeight)
+                    .frame(minHeight: config.minHeight)
+            } falseTransform: { content in
+                GeometryReader { geometry in
+                    content
+                        .frame(height: geometry.size.height)
+                }
+            }
             .animation(.default, value: textViewHeight)
             .environmentObject(store)
             .overlay(alignment: .topLeading) {
@@ -42,6 +50,7 @@ extension TrickleEditor {
     final class Config: ObservableObject {
         @Published var placeholder: String = ""
         @Published var minHeight: CGFloat = 14 + 16
+        @Published var fitContent: Bool = true
     }
     
     public func placeholder(_ string: String) -> TrickleEditor {
@@ -51,6 +60,11 @@ extension TrickleEditor {
     
     public func minHeight(_ height: CGFloat) -> TrickleEditor {
         self.config.minHeight = height
+        return self
+    }
+    
+    public func stretch(_ flag: Bool = true) -> TrickleEditor {
+        self.config.fitContent = !flag
         return self
     }
 }
@@ -65,8 +79,12 @@ public extension TrickleEditor {
 #if DEBUG
 struct TrickleEditor_Previews: PreviewProvider {
     static var previews: some View {
-        TrickleEditor()
-            .placeholder("Send a message and request to create...")
+        VStack {
+            TrickleEditor()
+                .stretch()
+                .placeholder("Send a message and request to create...")
+                .border(.red)
+        }
     }
 }
 #endif

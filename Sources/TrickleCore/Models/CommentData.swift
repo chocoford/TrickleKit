@@ -81,7 +81,7 @@ extension CommentData {
         public let typ: CommentType
         public let text: QuoteCommentDataText
         public let blocks: [TrickleBlock]
-        public let hasQuoted: Bool
+        public let hasQuoted: Bool?
         public let commentAuthor: MemberData
         public let createAt, updateAt: Date
 
@@ -107,7 +107,7 @@ extension CommentData {
                 self.updateAt = try container.decode(Date.self, forKey: CommentData.QuoteCommentData.CodingKeys.updateAt)
             }
             self.commentID = try container.decode(String.self, forKey: CommentData.QuoteCommentData.CodingKeys.commentID)
-            self.hasQuoted = try container.decode(Bool.self, forKey: CommentData.QuoteCommentData.CodingKeys.hasQuoted)
+            self.hasQuoted = try container.decodeIfPresent(Bool.self, forKey: CommentData.QuoteCommentData.CodingKeys.hasQuoted)
             self.commentAuthor = try container.decode(MemberData.self, forKey: CommentData.QuoteCommentData.CodingKeys.commentAuthor)
         }
         

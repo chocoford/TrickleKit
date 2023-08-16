@@ -27,18 +27,22 @@ public struct CodeBlockView: View {
     }
     
     public var body: some View {
-        HStack {
-            Text(code)
-                .onAppear {
-                    guard let highlightr = Highlightr() else { return }
-                    highlightr.setTheme(to: "paraiso-dark")
-                    let code = block.elements.first?.text ?? ""
-                    // You can omit the second parameter to use automatic language detection.
-                    let highlightedCode = highlightr.highlight(code, as: block.userDefinedValue.language == "plain" ? nil : block.userDefinedValue.language)
-                    self.code = AttributedString(highlightedCode ?? .init())
+        ScrollView(.horizontal) {
+            VStack {
+                Text(code)
+                    .onAppear {
+                        guard let highlightr = Highlightr() else { return }
+                        highlightr.setTheme(to: "paraiso-dark")
+                        let code = String(block.elements.first?.text.prefix(2048) ?? "")
+                        // You can omit the second parameter to use automatic language detection.
+                        let highlightedCode = highlightr.highlight(code, as: block.userDefinedValue.language == "plain" ? nil : block.userDefinedValue.language)
+                        self.code = AttributedString(highlightedCode ?? .init())
+                    }
+                
+                if let count = block.elements.first?.text.count, count > 2048 {
+                    Text("...")
                 }
-            
-            Spacer(minLength: 0)
+            }
         }
         .padding(8)
         .background(

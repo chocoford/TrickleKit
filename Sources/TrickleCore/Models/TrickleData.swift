@@ -33,17 +33,31 @@ public struct TrickleData: Codable, Hashable {
     public var editingMemberInfo: [MemberData]
     public var fieldData: [String: FieldDatumValue]?
     
+    // Local info
+//    public var localProperties: LocalProperties?
+    
     enum CodingKeys: String, CodingKey {
         case trickleID = "trickleId"
         case allowGuestMemberComment, allowGuestMemberReact, allowWorkspaceMemberComment, allowWorkspaceMemberReact, authorAppMemberInfo, authorMemberInfo, blocks, commentInfo, commentCounts, createAt, editAt, editBy, hasStarred, isPinned, isPublic, lastViewInfo, mentionedMemberInfo, reactionInfo, groupInfo, referInfo, title
         case threadID = "threadId"
         case updateAt, userDefinedTitle, viewedMemberInfo, editingMemberInfo, fieldData
+//        case localProperties
     }
 }
 
 extension TrickleData: Identifiable {
     public var id: String {
         trickleID
+    }
+}
+
+extension TrickleData {
+    public struct LocalProperties: Codable, Hashable {
+        var localSent: Bool
+        
+        public init(localSent: Bool) {
+            self.localSent = localSent
+        }
     }
 }
 
@@ -229,12 +243,6 @@ extension TrickleData {
 //        }
 //    }
 }
-
-
-
-
-
-
 
 
 public enum AnyDictionaryValue: Codable, Hashable {

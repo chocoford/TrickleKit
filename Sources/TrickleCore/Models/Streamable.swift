@@ -10,14 +10,14 @@ import ChocofordEssentials
 
 public struct AnyStreamable<T>: Codable, Equatable where T: Codable, T: Equatable {
     public var items: [T]
-    public let nextTs: Int?
+    public let nextTs: Date?
     
     public init() {
         self.items = []
-        self.nextTs = Int(Date.now.timeIntervalSince1970)
+        self.nextTs = .now
     }
     
-    public init(items: [T], nextTs: Int?) {
+    public init(items: [T], nextTs: Date?) {
         self.items = items
         self.nextTs = nextTs
     }
@@ -66,15 +66,22 @@ public struct AnyQueryStreamable<T: Codable>: Codable {
         self.nextQuery = nextQuery
     }
     
-    public func appending(_ contentsOf: Self, replace: Bool = false) -> Self where T: Hashable {
+    /// Returns the array by appending the contents of the spcific array without modifying the original array.
+    /// - Parameters:
+    ///   - contentsOf: The contents of the spcific array
+    ///   - replace: Indicates the incoming items should replace the original items if duplicated.
+    public func appending(_ contentsOf: Self, replace: Bool = true) -> Self where T: Hashable {
         let items = self.items + contentsOf.items
-        
         return .init(items: items.removingDuplicate(replace: replace), nextQuery: contentsOf.nextQuery)
     }
     
-    public func prepending(_ contentsOf: Self, replace: Bool = false) -> Self where T: Hashable {
+    /// Returns the array by prepending the contents of the spcific array without modifying the original array.
+    /// - Parameters:
+    ///   - contentsOf: The contents of the spcific array
+    ///   - replace: Indicates the incoming items should replace the original items if duplicated.
+    public func prepending(_ contentsOf: Self, replace: Bool = true) -> Self where T: Hashable {
         let items = contentsOf.items + self.items
-        return .init(items: items.removingDuplicate(replace: replace), nextQuery: self.nextQuery)
+        return .init(items: items.removingDuplicate(replace: !replace), nextQuery: self.nextQuery)
     }
     
     public func map<V>(_ transform: (T) -> V) -> AnyQueryStreamable<V> {

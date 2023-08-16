@@ -52,10 +52,14 @@ struct TrickleTextPreviewView: View {
     @State private var isFocused: Bool = true
     
     var body: some View {
-        TrickleTextView(height: $textViewHeight, isFocus: $isFocused)
-            .minHeight(minHeight)
-            .frame(height: max(minHeight, textViewHeight ?? 0))
-            .environmentObject(TrickleEditorStore())
+        VStack {
+            TrickleTextView(height: $textViewHeight, isFocus: $isFocused)
+//                .frame(height: .infinity)
+                .minHeight(minHeight)
+                .frame(height: max(minHeight, textViewHeight ?? 0))
+                .environmentObject(TrickleEditorStore())
+                .border(.red)
+        }
     }
 }
 

@@ -27,6 +27,9 @@ public extension TrickleStoreError {
 
 public extension TrickleStore {
     func tryRegisterAPNs(_ workspaceEnableStates: TrickleAPNsHelper.RegisterAPNsPayload.WorkspaceEnableStates, isSandbox: Bool = false) async throws {
+        if self.deviceToken == nil {
+            try await Task.sleep(for: .seconds(3))
+        }
         guard let deviceToken = deviceToken else { throw TrickleStoreError.apnsError(.deviceTokenInvalid(nil)) }
         guard let value = userInfo.value, let userInfo = value else { throw TrickleStoreError.unauthorized }
         
