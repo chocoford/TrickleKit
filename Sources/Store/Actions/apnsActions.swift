@@ -26,6 +26,7 @@ public extension TrickleStoreError {
 }
 
 public extension TrickleStore {
+    @available(macOS 13.0, iOS 16.0, visionOS 1.0, *)
     func tryRegisterAPNs(_ workspaceEnableStates: TrickleAPNsHelper.RegisterAPNsPayload.WorkspaceEnableStates, isSandbox: Bool = false) async throws {
         if self.deviceToken == nil {
             try await Task.sleep(for: .seconds(3))
