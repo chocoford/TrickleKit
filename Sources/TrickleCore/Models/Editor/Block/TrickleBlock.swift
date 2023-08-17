@@ -26,6 +26,7 @@ public enum TrickleBlock: Hashable {
     case task(TaskBlock)
     case vote(VoteBlock)
     case progress(ProgressBlock)
+    case table(TableBlock)
     
     public enum BlockType: String, Codable {
         case h1, h2, h3, h4, h5, h6, code, list, checkbox
@@ -36,6 +37,7 @@ public enum TrickleBlock: Hashable {
         case quote, nest
         case todos, vote
         case progress
+        case table
     }
 }
 
@@ -82,6 +84,8 @@ extension TrickleBlock: Codable {
                 self = .vote(try VoteBlock(from: decoder))
             case .progress:
                 self = .progress(try ProgressBlock(from: decoder))
+            case .table:
+                self = .table(try TableBlock(from: decoder))
         }
     }
     
@@ -120,6 +124,8 @@ extension TrickleBlock: Codable {
             case .vote(let block):
                 try container.encode(block)
             case .progress(let block):
+                try container.encode(block)
+            case .table(let block):
                 try container.encode(block)
         }
     }
@@ -160,6 +166,8 @@ extension TrickleBlock: Identifiable {
             case .vote(let block):
                 return block.id
             case .progress(let block):
+                return block.id
+            case .table(let block):
                 return block.id
         }
     }
@@ -202,6 +210,8 @@ extension TrickleBlock: TrickleBlockData {
                     return block.type
                 case .progress(let block):
                     return block.type
+                case .table(let block):
+                    return block.type
             }
         }
         set {
@@ -243,6 +253,8 @@ extension TrickleBlock: TrickleBlockData {
                 case .vote(let block):
                     return block.indent
                 case .progress(let block):
+                    return block.indent
+                case .table(let block):
                     return block.indent
             }
         }
@@ -289,39 +301,62 @@ extension TrickleBlock: TrickleBlockData {
     }
     
     public var elements: [TrickleElement]? {
-        switch self {
-            case .text(let block):
-                return block.elements
-//            case .image(let block):
-//                return block.elements
-            case .headline(let block):
-                return block.elements
-            case .code(let block):
-                return block.elements
-            case .list(let block):
-                return block.elements
-            case .checkbox(let block):
-                return block.elements
-            default:
-                return nil
-//            case .divider(let block):
-//                return block.elements
-//            case .gallery(let block):
-//                return block.elements
-//            case .embed(let block):
-//                return block.elements
-//            case .webBookmark(let block):
-//                return block.elements
-//            case .reference(let block):
-//                return block.elements
-//            case .file(let block):
-//                return block.elements
-//            case .nestable(let block):
-//                return block.elements
-//            case .task(let block):
-//                return block.elements
-//            case .vote(let block):
-//                return block.elements
+        get {
+            switch self {
+                case .text(let block):
+                    return block.elements
+                    //            case .image(let block):
+                    //                return block.elements
+                case .headline(let block):
+                    return block.elements
+                case .code(let block):
+                    return block.elements
+                case .list(let block):
+                    return block.elements
+                case .checkbox(let block):
+                    return block.elements
+                default:
+                    return nil
+                    //            case .divider(let block):
+                    //                return block.elements
+                    //            case .gallery(let block):
+                    //                return block.elements
+                    //            case .embed(let block):
+                    //                return block.elements
+                    //            case .webBookmark(let block):
+                    //                return block.elements
+                    //            case .reference(let block):
+                    //                return block.elements
+                    //            case .file(let block):
+                    //                return block.elements
+                    //            case .nestable(let block):
+                    //                return block.elements
+                    //            case .task(let block):
+                    //                return block.elements
+                    //            case .vote(let block):
+                    //                return block.elements
+            }
+        }
+        set {
+            switch self {
+                case .text(var block):
+                    block.elements = newValue ?? []
+                    self = .text(block)
+                case .headline(var block):
+                    block.elements = newValue ?? []
+                    self = .headline(block)
+                case .code(var block):
+                    block.elements = newValue ?? []
+                    self = .code(block)
+                case .list(var block):
+                    block.elements = newValue ?? []
+                    self = .list(block)
+                case .checkbox(var block):
+                    block.elements = newValue ?? []
+                    self = .checkbox(block)
+                default:
+                    break
+            }
         }
     }
     
@@ -359,6 +394,8 @@ extension TrickleBlock: TrickleBlockData {
                 return block.text
             case .progress(let block):
                 return block.text
+            case .table(let block):
+                return block.text
         }
     }
     
@@ -395,6 +432,8 @@ extension TrickleBlock: TrickleBlockData {
             case .vote(let block):
                 return block.markdownString
             case .progress(let block):
+                return block.markdownString
+            case .table(let block):
                 return block.markdownString
         }
     }

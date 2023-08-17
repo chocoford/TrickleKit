@@ -231,7 +231,7 @@ extension AIAgentConversationSession.Message.ActionCard {
     
     // MARK: - ActionCardArgs
     public struct ActionCardArgs: Codable, Hashable {
-        public let direction: Direction
+        public let direction: Direction?
         public let fulfill: Bool?
         public let style: CSSStyle?
 
@@ -243,7 +243,7 @@ extension AIAgentConversationSession.Message.ActionCard {
     // MARK: - CSSStyle
     public struct CSSStyle: Codable, Hashable {
         public let background, boxShadow: String?
-        public let padding: Int?
+        public let padding: PaddingValue?
         public let marginTop: String?
         public let fontSize, color: String?
 
@@ -252,6 +252,29 @@ extension AIAgentConversationSession.Message.ActionCard {
             case marginTop = "margin-top"
             case fontSize = "font-size"
             case color
+        }
+        
+        public enum PaddingValue: Codable, Hashable {
+            case int(Int)
+            case string(String)
+            
+            public init(from decoder: Decoder) throws {
+                let container = try decoder.singleValueContainer()
+                
+                if let x = try? container.decode(Int.self) {
+                    self = .int(x)
+                } else if let x = try? container.decode(String.self) {
+                    self = .string(x)
+                } else {
+                    throw DecodingError.typeMismatch(PaddingValue.self,
+                                                     DecodingError.Context(codingPath: decoder.codingPath,
+                                                                           debugDescription: "Wrong type for PaddingValue"))
+                }
+            }
+            
+            public func encode(to encoder: Encoder) throws {
+                fatalError("Not implement")
+            }
         }
     }
 }

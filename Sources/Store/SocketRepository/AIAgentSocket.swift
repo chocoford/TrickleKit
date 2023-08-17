@@ -15,20 +15,20 @@ class TrickleAIAgentSocketLogger: SocketLogger {
     let logger: Logger = .init(subsystem: Bundle.main.bundleIdentifier!, category: "TrickleAIAgentSocket")
     func log(_ message: @autoclosure () -> String, type: String) {
         let msg = message()
-        logger.log("\(type): \(msg)")
+        /*logger.log*/print("\(type): \(msg)")
     }
     
     func error(_ message: @autoclosure () -> String, type: String) {
         let msg = message()
-        logger.error("\(type): \(msg)")
+        /*logger.error*/print("\(type): \(msg)")
     }
     
     func debug(_ message: String) {
-        logger.debug("\(message)")
+        /*logger.debug*/print("\(message)")
     }
     
     func info(_ message: String) {
-        logger.info("\(message)")
+        /*logger.info*/print("\(message)")
     }
 }
 
@@ -101,6 +101,7 @@ public extension TrickleAIAgentSocketClient {
         case startConversationInWorkspace
         case syncConversation
         case newMessage
+        case executeToolConfig
         case clearMessages = "clearConversation"
     }
     
@@ -165,7 +166,23 @@ public extension TrickleAIAgentSocketClient {
     }
     func newMessage(payload: NewMessagePayload) async throws {
         guard let socket = self.socket else { throw AIAgentSocketError.socketNil }
-        let _: [String] = try await socket.send(.newMessage, payload: payload)
+        let _: SocketResponse<String> = try await socket.send(.newMessage, payload: payload)
+    }
+    
+    // Execute tool config
+    struct ExecuteToolConfigPayload: Codable {
+        var toolConfigID: String
+        var toolInput: String
+        
+        enum CodingKeys: String, CodingKey {
+            case toolConfigID = "toolConfigId"
+            case toolInput
+        }
+    }
+    func executeToolConfig(payload: ExecuteToolConfigPayload) async throws -> String {
+        guard let socket = self.socket else { throw AIAgentSocketError.socketNil }
+        let res: SocketResponse<String> = try await socket.send(.executeToolConfig, payload: payload)
+        return res.first?.results.first ?? ""
     }
     
     // Clear Messages
@@ -250,7 +267,10 @@ fileprivate extension SocketIOClient {
         self.on(event.rawValue, callback: callback)
     }
     
-    func send<P: Codable, R: Codable>(_ event: TrickleAIAgentSocketClient.SocketEvent, payload: P = TrickleAIAgentSocketClient.EmptyData()) async throws -> R {
+    func send<P: Codable, R: Codable>(
+        _ event: TrickleAIAgentSocketClient.SocketEvent,
+        payload: P = TrickleAIAgentSocketClient.EmptyData()
+    ) async throws -> R {
         return try await withCheckedThrowingContinuation { continuation in
             self.emitWithAck(event,
                              items: ["arguments": [payload.dictionary]])

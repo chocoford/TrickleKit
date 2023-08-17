@@ -153,6 +153,17 @@ public extension TrickleStore {
             self.aiAgentState.conversationSession?.messages = backup
         }
     }
+    
+    func executeSummaryTool(input: String) async -> String {
+        do {
+            return try await self.aiAgentSocket.executeToolConfig(
+                payload: .init(toolConfigID: "ad90c53c196844b1b0647d0d7d1835b6", toolInput: input)
+            )
+        } catch {
+            self.error = .init(error)
+            return ""
+        }
+    }
 }
 
 

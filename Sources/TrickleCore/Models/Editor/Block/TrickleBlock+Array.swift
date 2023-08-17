@@ -142,4 +142,99 @@ extension [TrickleBlock] {
             TrickleBlock.text(.init(elements: [.text(.init(text: $0))]))
         }
     }
+    public static func from(markdown: String) throws -> Self {
+        let attributedString = try AttributedString(markdown: markdown)
+        return attributedString.toBlocks()
+    }
+    public static func from(attributedString: AttributedString) -> Self {
+        return attributedString.toBlocks()
+    }
+}
+
+extension NSAttributedString {
+    /// Convert `NSAttributedString` to Trickle Block
+    public func toBlocks() -> [TrickleBlock] {
+        AttributedString(self).toBlocks()
+    }
+}
+
+extension AttributedString {
+    public func toBlocks() -> [TrickleBlock] {
+        var results: [TrickleBlock] = []
+//        print("[DEBUG] AttributedString - toBlocks:", self.runs)
+        for run in self.runs {
+            var oldIdentity = -1
+            guard let intentType = run.attributes.presentationIntent?.components.first else {
+                continue
+            }
+            var newBlock: TrickleBlock
+            if let imageURL = run.attributes.imageURL {
+                newBlock = .gallery(.init(elements: [.init(value: .air(.init(url: imageURL.absoluteString, name: "caputre")))]))
+            } else if oldIdentity != intentType.identity || results.isEmpty {
+                switch intentType.kind {
+                    case .paragraph:
+                        newBlock = .text(.init(elements: [.text(.init(text: ""))]))
+                    case .header(let level):
+                        switch level {
+                            case 1:
+                                newBlock = .headline(.init(type: .h1, text: ""))
+                            case 2:
+                                newBlock = .headline(.init(type: .h2, text: ""))
+                            case 3:
+                                newBlock = .headline(.init(type: .h3, text: ""))
+                            case 4:
+                                newBlock = .headline(.init(type: .h4, text: ""))
+                            case 5:
+                                newBlock = .headline(.init(type: .h5, text: ""))
+                            case 6:
+                                newBlock = .headline(.init(type: .h6, text: ""))
+                            default:
+                                newBlock = .headline(.init(type: .h2, text: ""))
+                        }
+                    case .orderedList:
+                        newBlock = .list(.init(type: .numberedList, indent: 0, elements: []))
+                    case .unorderedList:
+                        newBlock = .list(.init(type: .list, indent: 0, elements: []))
+                    case .listItem(let ordinal):
+                        newBlock = .list(.init(type: .list, indent: 0, elements: []))
+                    case .codeBlock(let languageHint):
+                        newBlock = .code(.init(elements: [], userDefinedValue: .init(language: languageHint ?? "plaintext")))
+                    case .blockQuote:
+                        newBlock = .nestable(.init(type: .quote, blocks: []))
+                    case .thematicBreak:
+                        newBlock = .default
+                    case .table(let columns):
+                        newBlock = .table(.init(userDefinedValue: .init(withHeadings: false, content: [])))
+                    case .tableHeaderRow:
+                        newBlock = .default
+                    case .tableRow(let rowIndex):
+                        newBlock = .default
+                    case .tableCell(let columnIndex):
+                        newBlock = .default
+                    @unknown default:
+                        newBlock = .default
+                }
+            } else {
+                newBlock = results.popLast()!
+            }
+            oldIdentity = intentType.identity
+            let rawText = run.description[
+                String.Index(utf16Offset: 0, in: "")..<run.description.range(of: " {\n")!.lowerBound
+            ]
+            
+            if newBlock.elements == nil { newBlock.elements = [] }
+            
+            var element: TrickleElement
+            switch run.attributes.inlinePresentationIntent {
+                default:
+                    element = .text(.init(text: String(rawText)))
+            }
+            
+            
+            newBlock.elements?.append(element)
+            results.append(newBlock)
+        }
+        
+        return results
+    }
 }

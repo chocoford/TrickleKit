@@ -10,12 +10,16 @@ import SotoCognitoIdentity
 import SotoSNS
 import Foundation
 import TrickleCore
+import os
+
 //
 
 //import AWSCognitoIdentity
 
 public final class TrickleAWSProvider {
     static public let shared = TrickleAWSProvider()
+
+    internal let logger: os.Logger = os.Logger(subsystem: Bundle.main.bundleIdentifier!, category: "TrickleAWSProvider")
     
     internal let bucket = Config.ossBucket
     internal let client: AWSClient
@@ -73,7 +77,7 @@ extension TrickleAWSProvider {
     public func uploadFile(_ fileData: Data, type: FileType, fileExtension: String) async throws -> URL {
         let path = type.path + "." + fileExtension
         let putObjectRequest = S3.PutObjectRequest(
-            acl: .publicRead,
+            acl: .none,
             body: .data(fileData),
             bucket: bucket,
             key: path

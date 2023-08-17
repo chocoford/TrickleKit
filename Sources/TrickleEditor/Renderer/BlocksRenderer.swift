@@ -154,6 +154,9 @@ fileprivate extension View {
             case .progress(let progressBlock):
                 Text("progressBlock..")
                 
+            case .table(let tableBlock):
+                Text("Table block")
+                
             case .text:
                 font(.system(size: baseFontSize))
         }
