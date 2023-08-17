@@ -211,7 +211,7 @@ public extension TrickleStore {
                           mentionedMemberIDs: [MemberData.ID],
                           referTrickleIDs: [TrickleData.ID],
                           medias: [String],
-                          files: [String]) async throws {
+                          files: [String]) async throws -> TrickleData {
         let workspace = try workspaces[workspaceID ?? ""] ?? findGroupWorkspace(groupID)
         
         let author = workspace.userMemberInfo
@@ -229,6 +229,7 @@ public extension TrickleStore {
                 )
             )
             insertTrickle(res)
+            return res
         } catch {
             throw error
         }
