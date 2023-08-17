@@ -9,11 +9,15 @@ import Combine
 import TrickleCore
 
 extension TrickleWebRepository {
-    func listWorkspaceGroups(workspaceID: String, memberID: String) -> AnyPublisher<WorkspaceGroupsData, Error> {
+    func listWorkspaceGroups(workspaceID: WorkspaceData.ID, memberID: MemberData.ID) -> AnyPublisher<WorkspaceGroupsData, Error> {
         call(endpoint: API.listWorkspaceGroups(workspaceID: workspaceID, memberID: memberID))
     }
-    func listWorkspaceGroups(workspaceID: String, memberID: String) async throws -> WorkspaceGroupsData {
+    func listWorkspaceGroups(workspaceID: WorkspaceData.ID, memberID: MemberData.ID) async throws -> WorkspaceGroupsData {
         try await call(endpoint: API.listWorkspaceGroups(workspaceID: workspaceID, memberID: memberID))
+    }
+    
+    func listWorkspaceMemoryGroups(workspaceID: WorkspaceData.ID, memberID: MemberData.ID) async throws -> WorkspaceMemoryGroupsData {
+        try await call(endpoint: API.listWorkspaceMemoryGroups(workspaceID: workspaceID, memberID: memberID))
     }
     
 //     func createChannel(workspaceID: String,

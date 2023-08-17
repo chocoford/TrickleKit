@@ -17,6 +17,16 @@ public struct WorkspaceGroupsData: Codable, Hashable {
     }
 }
 
+public struct WorkspaceMemoryGroupsData: Codable, Hashable {
+    public let team: GroupData
+    public let personal: GroupData
+    
+    public init(team: GroupData, personal: GroupData) {
+        self.team = team
+        self.personal = personal
+    }
+}
+
 // MARK: - GroupData
 public struct GroupData: Codable, Hashable {
     public var groupID, ownerID, name: String

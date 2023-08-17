@@ -23,6 +23,21 @@ public extension TrickleStore {
         }
     }
 
+    func loadWorkspaceMemoryGroups(_ workspaceID: WorkspaceData.ID, silent: Bool = false) async {
+        if !silent { workspacesGroups[workspaceID]?.setIsLoading() }
+        do {
+            guard let memberID = workspaces[workspaceID]?.userMemberInfo.memberID else {
+                throw TrickleStoreError.invalidWorkspaceID(workspaceID)
+            }
+
+            let data = try await webRepositoryClient.listWorkspaceMemoryGroups(workspaceID: workspaceID, memberID: memberID)
+            self.workspaceMemoryGroups[workspaceID] = .loaded(data: data)
+        } catch {
+            self.error = .init(error)
+            self.workspaceMemoryGroups[workspaceID]?.setAsFailed(error)
+        }
+    }
+    
     func loadGroupFieldsOptions(_ groupID: GroupData.ID) async {
         do {
             let workspace = try findGroupWorkspace(groupID)

@@ -44,6 +44,14 @@ extension TrickleWebRepository.API {
         }
     }
     
+    struct MemberOnlyQuery: Codable {
+        public let memberID: String
+        
+        enum CodingKeys: String, CodingKey {
+            case memberID = "memberId"
+        }
+    }
+    
 }
 
 

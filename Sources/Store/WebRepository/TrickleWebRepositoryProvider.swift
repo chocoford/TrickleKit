@@ -40,8 +40,9 @@ protocol TrickleWebRepositoryProvider: WebRepositoryProvider {
     func listGroupMembers(workspaceID: String, groupID: String) ->  AnyPublisher<AnyStreamable<MemberData>, Error>
     
     // MARK: - Groups
-    func listWorkspaceGroups(workspaceID: String, memberID: String) ->  AnyPublisher<WorkspaceGroupsData, Error>
-    func listWorkspaceGroups(workspaceID: String, memberID: String) async throws -> WorkspaceGroupsData
+    func listWorkspaceGroups(workspaceID: WorkspaceData.ID, memberID: MemberData.ID) ->  AnyPublisher<WorkspaceGroupsData, Error>
+    func listWorkspaceGroups(workspaceID: WorkspaceData.ID, memberID: MemberData.ID) async throws -> WorkspaceGroupsData
+    func listWorkspaceMemoryGroups(workspaceID: WorkspaceData.ID, memberID: MemberData.ID) async throws -> WorkspaceMemoryGroupsData
     
     func createGroup(workspaceID: WorkspaceData.ID, payload: TrickleWebRepository.API.CreateGroupPayload) async throws -> GroupData
     func createPersonalGroup(workspaceID: WorkspaceData.ID, memberID: MemberData.ID, payload: TrickleWebRepository.API.CreateGroupPayload) async throws -> GroupData
@@ -49,6 +50,7 @@ protocol TrickleWebRepositoryProvider: WebRepositoryProvider {
     func deleteGroup(workspaceID: WorkspaceData.ID, groupID: GroupData.ID) async throws -> String
     
     func ackGroup(workspaceID: WorkspaceData.ID, groupID: GroupData.ID, payload: TrickleWebRepository.API.AckGroupPayload) async throws -> String
+    
     
     // MARK: - Views
     func listGroupViewTricklesStat(workspaceID: String, groupID: String, query: TrickleWebRepository.API.ListGroupViewTricklesStatQuery) async throws -> GroupViewTricklesStat

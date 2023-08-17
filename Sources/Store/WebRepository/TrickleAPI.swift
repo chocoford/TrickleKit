@@ -39,6 +39,7 @@ extension TrickleWebRepository {
         case createGroup(workspaceID: WorkspaceData.ID, payload: CreateGroupPayload)
         case createPersonalGroup(workspaceID: WorkspaceData.ID, memberID: MemberData.ID, payload: CreateGroupPayload)
         case listWorkspaceGroups(workspaceID: WorkspaceData.ID, memberID: String)
+        case listWorkspaceMemoryGroups(workspaceID: WorkspaceData.ID, memberID: MemberData.ID)
         case updateGroup(workspaceID: WorkspaceData.ID, groupID: GroupData.ID, payload: UpdateGroupPayload)
         case deleteGroup(workspaceID: WorkspaceData.ID, groupID: GroupData.ID)
         case ackGroup(workspaceID: WorkspaceData.ID, groupID: GroupData.ID, payload: AckGroupPayload)
@@ -134,6 +135,8 @@ extension TrickleWebRepository.API: APICall {
                 return "/f2b/v1/workspaces/\(workspaceID)/members/\(memberID)/channels"
             case .listWorkspaceGroups(let workspaceID, let memberID):
                 return "/f2b/v1/workspaces/\(workspaceID)/myChannels?memberId=\(memberID)"
+            case .listWorkspaceMemoryGroups(let workspaceID, _):
+                return "/trickle/workspaces/\(workspaceID)/memoryChannels"
                 
             case .listGroupViewTricklesStat(let workspaceID, let groupID, _):
                 return "/f2b/v1/workspaces/\(workspaceID)/groups/\(groupID)/trickles/stats"
@@ -218,6 +221,8 @@ extension TrickleWebRepository.API: APICall {
 
     var queryItems: Codable? {
         switch self {
+            case .listWorkspaceMemoryGroups(_, let memberID):
+                return MemberOnlyQuery(memberID: memberID)
             case .listTrickles(_, let payload):
                 return payload
             case .listGroupTrickles(_, _, let payload):
