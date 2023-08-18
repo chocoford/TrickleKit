@@ -66,7 +66,7 @@ extension AIAgentConversationSession {
                          authorType: .user,
                          cardVersion: .v1,
                          actionCards: [
-                            .makeUserActionCard(text.replacingOccurrences(of: "\n", with: "<br>"))
+                            .makeUserActionCard(text.replacingOccurrences(of: "\n", with: "\n\n"))
                          ],
                          replyToMessageID: id,
                          createAt: "",

@@ -121,11 +121,23 @@ public extension TrickleAIAgentSocketClient {
         var workspaceID: WorkspaceData.ID
         var memberID: MemberData.ID
         var agentConfigID: AIAgentData.ID
+        var channels: [Channel]
         
         enum CodingKeys: String, CodingKey {
             case workspaceID = "workspaceId"
             case memberID = "memberId"
             case agentConfigID = "agentConfigId"
+            case channels
+        }
+        
+        public struct Channel: Codable {
+            public var id: String
+            public var name: String
+            public var type: ChannelType
+            
+            public enum ChannelType: String, Codable {
+                case personal, team
+            }
         }
     }
     
