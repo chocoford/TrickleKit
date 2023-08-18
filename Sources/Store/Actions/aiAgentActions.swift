@@ -142,7 +142,7 @@ public extension TrickleStore {
         }
     }
     
-    func trySendMessageToAIAgent<Results: Codable>(to agentConfigID: AIAgentData.ID, _ message: AIAgentConversationSession.Message) async throws -> Results? {
+    func trySendMessageToAIAgent<Results: Codable>(to agentConfigID: AIAgentData.ID, _ message: AIAgentConversationSession.Message) async throws -> Results {
         do {
             guard let conversationID = self.aiAgentState.conversationIDs[agentConfigID] else {
                 throw TrickleStoreError.aiAgentError(.invalidConversationID(nil))
