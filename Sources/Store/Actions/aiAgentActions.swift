@@ -111,10 +111,19 @@ public extension TrickleStore {
         }
     }
     
-    func startAIAgentConversation(workspaceID: WorkspaceData.ID, memberID: MemberData.ID, agentConfigID: AIAgentData.ID) async {
+    func startAIAgentConversation(workspaceID: WorkspaceData.ID, memberID: MemberData.ID, agentConfigID: AIAgentData.ID, groups: [GroupData]) async {
         do {
             self.aiAgentState.conversationIDs.removeValue(forKey: agentConfigID)
-            let conversationID = try await self.aiAgentSocket.startConversation(payload: .init(workspaceID: workspaceID, memberID: memberID, agentConfigID: agentConfigID))
+            let conversationID = try await self.aiAgentSocket.startConversation(
+                payload: .init(
+                    workspaceID: workspaceID,
+                    memberID: memberID,
+                    agentConfigID: agentConfigID,
+                    channels: groups.map {
+                        .init(id: $0.groupID, name: $0.name, type: $0.belongTo == "team" ? .team : .personal)
+                    }
+                )
+            )
             self.aiAgentState.conversationIDs.updateValue(conversationID, forKey: agentConfigID)
         } catch {
             self.error = .init(error)
