@@ -96,6 +96,17 @@ public extension TrickleAIAgentSocketClient {
 
 // MARK: - Public API
 public extension TrickleAIAgentSocketClient {
+    enum SocketError: LocalizedError {
+        case responseTypeError
+        
+        public var errorDescription: String {
+            switch self {
+                case .responseTypeError:
+                    return "Socket response is not an array or has no items."
+            }
+        }
+    }
+    
     enum SocketEvent: String {
         case listPublishedAgentConfigs
         case startConversationInWorkspace
@@ -113,7 +124,7 @@ public extension TrickleAIAgentSocketClient {
     
     // List Published Agent Config
     func listPublishedAgentConfigs() async throws -> [AIAgentData] {
-        let res: SocketResponse<[AIAgentData]>? = try await self.socket?.send(.listPublishedAgentConfigs)
+        let res: SocketResponse<[[AIAgentData]]>? = try await self.socket?.send(.listPublishedAgentConfigs)
         return res?.first?.results.first ?? []
     }
     
@@ -151,7 +162,7 @@ public extension TrickleAIAgentSocketClient {
     
     // Start Conversation
     func startConversation(payload: StartConversationPayload) async throws -> String {
-        let res: SocketResponse<ConversationConfig>? = try await self.socket?.send(.startConversationInWorkspace, payload: payload)
+        let res: SocketResponse<[ConversationConfig]>? = try await self.socket?.send(.startConversationInWorkspace, payload: payload)
         struct ConversationIDInvalidError: Error {}
         guard let conversationID = res?.first?.results.first?.conversationID else { throw ConversationIDInvalidError() }
         return conversationID
@@ -160,7 +171,7 @@ public extension TrickleAIAgentSocketClient {
     // Sync Conversation
     func syncConversation(payload: ConversationConfig) async throws -> AIAgentConversationSession {
         guard let socket = self.socket else { throw AIAgentSocketError.socketNil }
-        let res: SocketResponse<AIAgentConversationSession> = try await socket.send(.syncConversation, payload: payload)
+        let res: SocketResponse<[AIAgentConversationSession]> = try await socket.send(.syncConversation, payload: payload)
         struct InvalidResponseData: Error {}
         guard let session =  res.first?.results.first else { throw InvalidResponseData() }
         return session
@@ -176,9 +187,11 @@ public extension TrickleAIAgentSocketClient {
             case message
         }
     }
-    func newMessage(payload: NewMessagePayload) async throws {
+    func newMessage<Results: Codable>(payload: NewMessagePayload) async throws -> Results {
         guard let socket = self.socket else { throw AIAgentSocketError.socketNil }
-        let _: SocketResponse<String> = try await socket.send(.newMessage, payload: payload)
+        let res: SocketResponse<Results> = try await socket.send(.newMessage, payload: payload)
+        guard let response = res.first else { throw SocketError.responseTypeError }
+        return response.results
     }
     
     // Execute tool config
@@ -193,7 +206,7 @@ public extension TrickleAIAgentSocketClient {
     }
     func executeToolConfig(payload: ExecuteToolConfigPayload) async throws -> String {
         guard let socket = self.socket else { throw AIAgentSocketError.socketNil }
-        let res: SocketResponse<String> = try await socket.send(.executeToolConfig, payload: payload)
+        let res: SocketResponse<[String]> = try await socket.send(.executeToolConfig, payload: payload)
         return res.first?.results.first ?? ""
     }
     
@@ -206,9 +219,9 @@ public extension TrickleAIAgentSocketClient {
 
 // MARK: - Message Handlers
 extension TrickleAIAgentSocketClient {
-    public typealias SocketResponse<T: Codable> = [SocketResponseUnit<T>]
-    public struct SocketResponseUnit<T: Codable>: Codable {
-        var results: [T]
+    public typealias SocketResponse<Results: Codable> = [SocketResponseUnit<Results>]
+    public struct SocketResponseUnit<Results: Codable>: Codable {
+        var results: Results
     }
     public typealias SocketMessageResponse<T: Codable> = [SocketMessageResponseUnit<T>]
     public struct SocketMessageResponseUnit<T: Codable>: Codable {
