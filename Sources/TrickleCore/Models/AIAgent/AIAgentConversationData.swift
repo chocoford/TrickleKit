@@ -31,6 +31,7 @@ extension AIAgentConversationSession {
         public let replyToMessageID, text: String
         public var createAt: String
         public var status: Status
+        public var conversationID: String?
 
         enum CodingKeys: String, CodingKey {
             case messageID = "messageId"
@@ -39,11 +40,13 @@ extension AIAgentConversationSession {
             case messageType, actionCards
             case replyToMessageID = "replyToMessageId"
             case createAt, text, status
+            case conversationID = "conversationId"
         }
         
         public var id: String { messageID }
         
-        internal init(messageID: String = UUID().uuidString, messageType: MessageType, authorType: AuthorType, cardVersion: CardVersion, actionCards: [AIAgentConversationSession.Message.ActionCard], replyToMessageID: String, createAt: String, text: String, status: Status) {
+        internal init(messageID: String = UUID().uuidString, messageType: MessageType, authorType: AuthorType, cardVersion: CardVersion, actionCards: [AIAgentConversationSession.Message.ActionCard], replyToMessageID: String, createAt: String, text: String, status: Status,
+                      conversationID: String? = nil) {
             self.messageID = messageID
             self.messageType = messageType
             self.authorType = authorType
@@ -53,6 +56,7 @@ extension AIAgentConversationSession {
             self.createAt = createAt
             self.text = text
             self.status = status
+            self.conversationID = conversationID
         }
         
         static public  func makeUserMessage(text: String, status: Status = .done) -> Self {

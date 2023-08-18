@@ -27,11 +27,21 @@ extension TrickleStoreError {
 
 extension TrickleStore {
     public struct AIAgentState {
+        public typealias ConversationID = String
+        
         public var agents: [AIAgentData] = []
-        public var conversationID: String? = nil
-        public var conversationSession: AIAgentConversationSession? = nil
+        public var conversationIDs: [AIAgentData.ID : ConversationID] = [:]
+        public var conversationSessions: [AIAgentData.ID : AIAgentConversationSession] = [:]
+//        public var conversationID: String? = nil
+//        public var conversationSession: AIAgentConversationSession? = nil
         public var updateMessagePublisher = PassthroughSubject<Void, Never>()
         var messageHelper = AIStateMessageHelper()
+        
+        func getAgentConfigID(with conversationID: ConversationID) -> AIAgentData.ID? {
+            conversationIDs.first {
+                $0.value == conversationID
+            }?.key
+        }
     }
     
     
@@ -103,54 +113,54 @@ public extension TrickleStore {
     
     func startAIAgentConversation(workspaceID: WorkspaceData.ID, memberID: MemberData.ID, agentConfigID: AIAgentData.ID) async {
         do {
-            self.aiAgentState.conversationID = nil
+            self.aiAgentState.conversationIDs.removeValue(forKey: agentConfigID)
             let conversationID = try await self.aiAgentSocket.startConversation(payload: .init(workspaceID: workspaceID, memberID: memberID, agentConfigID: agentConfigID))
-            self.aiAgentState.conversationID = conversationID
+            self.aiAgentState.conversationIDs.updateValue(conversationID, forKey: agentConfigID)
         } catch {
             self.error = .init(error)
         }
     }
     
-    func syncAIAgentConversation() async {
+    func syncAIAgentConversation(with agentConfigID: AIAgentData.ID) async {
         do {
-            guard let conversationID = self.aiAgentState.conversationID else {
+            guard let conversationID = self.aiAgentState.conversationIDs[agentConfigID] else {
                 throw TrickleStoreError.aiAgentError(.invalidConversationID(nil))
             }
             let session = try await self.aiAgentSocket.syncConversation(payload: .init(conversationID: conversationID))
-            self.aiAgentState.conversationSession = session
+            self.aiAgentState.conversationSessions.updateValue(session, forKey: agentConfigID)
         } catch {
             self.error = .init(error)
         }
     }
     
-    func sendMessageToAIAgent(_ message: AIAgentConversationSession.Message) async {
+    func sendMessageToAIAgent(to agentConfigID: AIAgentData.ID, _ message: AIAgentConversationSession.Message) async {
         do {
-            guard let conversationID = self.aiAgentState.conversationID else {
+            guard let conversationID = self.aiAgentState.conversationIDs[agentConfigID] else {
                 throw TrickleStoreError.aiAgentError(.invalidConversationID(nil))
             }
             
-            guard self.aiAgentState.conversationSession != nil else {
+            guard self.aiAgentState.conversationSessions[agentConfigID] != nil else {
                 throw TrickleStoreError.aiAgentError(.emptyConversationSession)
             }
-            self.aiAgentState.conversationSession?.messages.append(message)
+            self.aiAgentState.conversationSessions[agentConfigID]?.messages.append(message)
             try await self.aiAgentSocket.newMessage(payload: .init(conversationID: conversationID, message: message))
         } catch {
             self.error = .init(error)
-            setAIAgentMessageAsFailed(message.messageID)
+            setAIAgentMessageAsFailed(of: agentConfigID, messageID: message.messageID)
         }
     }
     
-    func clearAIAgentMessages() async {
-        let backup = self.aiAgentState.conversationSession?.messages ?? []
+    func clearAIAgentMessages(of agentConfigID: AIAgentData.ID) async {
+        let backup = self.aiAgentState.conversationSessions[agentConfigID]?.messages ?? []
         do {
-            guard let conversationID = self.aiAgentState.conversationID else {
+            guard let conversationID = self.aiAgentState.conversationIDs[agentConfigID] else {
                 throw TrickleStoreError.aiAgentError(.invalidConversationID(nil))
             }
-            self.aiAgentState.conversationSession?.messages.removeAll()
+            self.aiAgentState.conversationSessions[agentConfigID]?.messages.removeAll()
             try await self.aiAgentSocket.clearMessages(payload: .init(conversationID: conversationID))
         } catch {
             self.error = .init(error)
-            self.aiAgentState.conversationSession?.messages = backup
+            self.aiAgentState.conversationSessions[agentConfigID]?.messages = backup
         }
     }
     
@@ -168,26 +178,27 @@ public extension TrickleStore {
 
 
 public extension TrickleStore {
-    func setAIAgentMessageAsFailed(_ id: AIAgentConversationSession.Message.ID) {
-        guard let index = self.aiAgentState.conversationSession?.messages.firstIndex(where: {$0.messageID == id}) else {
+    func setAIAgentMessageAsFailed(of agentConfigID: AIAgentData.ID, messageID: AIAgentConversationSession.Message.ID) {
+        guard let index = self.aiAgentState.conversationSessions[agentConfigID]?.messages.firstIndex(where: {$0.messageID == messageID}) else {
             return
         }
-        self.aiAgentState.conversationSession?.messages[index].status = .error
+        self.aiAgentState.conversationSessions[agentConfigID]?.messages[index].status = .error
     }
     
     /// update a `AIAgentConversationSession.Message`, or creating a new one if not exist.
     func updateAIAgentMessage(_ message: AIAgentConversationSession.Message) {
-        if let index = self.aiAgentState.conversationSession?.messages.firstIndex(where: {
-            $0.messageID == message.messageID
-        }) {
+        guard let agentConfigID = aiAgentState.getAgentConfigID(with: message.conversationID ?? "") else { return }
+        if let index = self.aiAgentState.conversationSessions[agentConfigID]?.messages.firstIndex(where: {
+               $0.messageID == message.messageID
+           }) {
             self.aiAgentState.messageHelper.throttle(message.messageID) {
-                self.aiAgentState.conversationSession?.messages[index] = message
+                self.aiAgentState.conversationSessions[agentConfigID]?.messages[index] = message
                 DispatchQueue.main.async {
                     self.aiAgentState.updateMessagePublisher.send()
                 }
             }
         } else {
-            self.aiAgentState.conversationSession?.messages.append(message)
+            self.aiAgentState.conversationSessions[agentConfigID]?.messages.append(message)
         }
     }
 }
