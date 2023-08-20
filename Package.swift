@@ -27,7 +27,7 @@ let package = Package(
         .package(url: "https://github.com/soto-project/soto.git", from: "6.5.0"),
 //        .package(url: "https://github.com/awslabs/aws-sdk-swift", from: "0.16.0"),
         .package(url: "https://github.com/Kitura/Swift-JWT.git", from: "4.0.0"),
-        .package(url: "https://github.com/socketio/socket.io-client-swift", from: "16.0.1")
+        .package(path: "./socket.io-client-swift-16.0.1")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -47,7 +47,7 @@ let package = Package(
                 path: "Sources/TrickleAuth"),
         .target(name: "TrickleSocketSupport", dependencies: ["TrickleCore"], path: "Sources/TrickleSocketSupport"),
         .target(name: "TrickleStore",
-                dependencies: ["TrickleSocketSupport", "CFWebRepositoryProvider", "TrickleAuth", .product(name: "SocketIO", package: "socket.io-client-swift")],
+                dependencies: ["TrickleSocketSupport", "CFWebRepositoryProvider", "TrickleAuth", .product(name: "SocketIO", package: "socket.io-client-swift-16.0.1")],
                 path: "Sources/Store",
                 resources: [
                     .process("Resources")
