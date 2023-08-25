@@ -18,7 +18,7 @@ public struct WorkspaceData: Codable, Hashable {
     public var createAt, updateAt: Date
     public var userMemberInfo: MemberData
     public var hasUnread: Bool?
-    public var hasEmbedding: HasEmbedding
+//    public var hasEmbedding: HasEmbedding
     public var subscriptionID: String
     public var subscriptionStatus: SubscriptionStatus
     
@@ -27,7 +27,7 @@ public struct WorkspaceData: Codable, Hashable {
         case ownerID = "ownerId"
         case name, memberNum, removedMemberNum, logo, domain
         case userID = "userId"
-        case createAt, updateAt, userMemberInfo, hasUnread, hasEmbedding
+        case createAt, updateAt, userMemberInfo, hasUnread//, hasEmbedding
         case subscriptionID = "subscriptionId"
         case subscriptionStatus
     }
@@ -109,10 +109,10 @@ public extension WorkspaceData {
                     if case .bool(let hasUnread) = val {
                         self.hasUnread = hasUnread
                     }
-                case .hasEmbedding:
-                    if case .string(let hasEmbedding) = val, let hasEmbedding = HasEmbedding(rawValue: hasEmbedding) {
-                        self.hasEmbedding = hasEmbedding
-                    }
+//                case .hasEmbedding:
+//                    if case .string(let hasEmbedding) = val, let hasEmbedding = HasEmbedding(rawValue: hasEmbedding) {
+//                        self.hasEmbedding = hasEmbedding
+//                    }
                 case .subscriptionID:
                     if case .string(let subscriptionID) = val {
                         self.subscriptionID = subscriptionID
