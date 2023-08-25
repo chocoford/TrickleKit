@@ -31,10 +31,10 @@ public extension TrickleStore {
             }
 
             let data = try await webRepositoryClient.listWorkspaceMemoryGroups(workspaceID: workspaceID, memberID: memberID)
-            self.workspaceMemoryGroups[workspaceID] = .loaded(data: data)
+            self.workspacesMemoryGroups[workspaceID] = .loaded(data: data)
         } catch {
             self.error = .init(error)
-            self.workspaceMemoryGroups[workspaceID]?.setAsFailed(error)
+            self.workspacesMemoryGroups[workspaceID]?.setAsFailed(error)
         }
     }
     

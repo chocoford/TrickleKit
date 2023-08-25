@@ -1,0 +1,310 @@
+{
+    "personal": {
+        "groupId": "1514810847581437958",
+        "channelType": "post",
+        "emoji": null,
+        "icon": "",
+        "isGeneral": false,
+        "isWorkspacePublic": false,
+        "name": "Memories",
+        "ownerId": "1514810709605613573",
+        "shareSetting": null,
+        "fieldInfo": [
+            {
+                "fieldId": "1514810847581487142",
+                "name": "Title",
+                "type": "title",
+                "icon": null,
+                "extraData": null,
+                "defaultValue": null,
+                "required": true,
+                "display": true
+            },
+            {
+                "fieldId": "1514810847581503526",
+                "name": "Created time",
+                "type": "create_on",
+                "icon": null,
+                "extraData": {
+                    "dateFormat": 0,
+                    "timeFormat": 1
+                },
+                "defaultValue": null,
+                "required": false,
+                "display": true
+            },
+            {
+                "fieldId": "1514810847581519910",
+                "name": "Created by",
+                "type": "create_by",
+                "icon": null,
+                "extraData": null,
+                "defaultValue": null,
+                "required": false,
+                "display": true
+            },
+            {
+                "fieldId": "1514810847581536294",
+                "name": "Last edited time",
+                "type": "last_edit_on",
+                "icon": null,
+                "extraData": {
+                    "dateFormat": 0,
+                    "timeFormat": 1
+                },
+                "defaultValue": null,
+                "required": false,
+                "display": true
+            },
+            {
+                "fieldId": "1514810847581552678",
+                "name": "Last edited by",
+                "type": "last_edit_by",
+                "icon": null,
+                "extraData": null,
+                "defaultValue": null,
+                "required": false,
+                "display": true
+            },
+            {
+                "fieldId": "1514810847581569062",
+                "name": "Progress",
+                "type": "progress",
+                "icon": null,
+                "extraData": {
+                    "numberLayout": 1,
+                    "numberLayoutBarColor": "green",
+                    "numberLayoutWithNumber": true
+                },
+                "defaultValue": null,
+                "required": false,
+                "display": true
+            }
+        ],
+        "viewInfo": [
+            {
+                "viewId": "1514810847581683749",
+                "name": "Feed",
+                "type": "feed",
+                "sorts": [
+                    {
+                        "type": "create_on",
+                        "fieldId": null,
+                        "isDescent": true
+                    }
+                ],
+                "filters": null,
+                "groupBy": null,
+                "openPageMode": 0,
+                "isDefault": true,
+                "filterLogicalOperator": null,
+                "fieldSettings": [
+                    {
+                        "fieldId": "1514810847581487142",
+                        "display": true,
+                        "ranks": "0:100000:000000",
+                        "width": null
+                    },
+                    {
+                        "fieldId": "1514810847581503526",
+                        "display": true,
+                        "ranks": "0:100008:000000",
+                        "width": null
+                    },
+                    {
+                        "fieldId": "1514810847581519910",
+                        "display": true,
+                        "ranks": "0:10000g:000000",
+                        "width": null
+                    },
+                    {
+                        "fieldId": "1514810847581536294",
+                        "display": true,
+                        "ranks": "0:10000o:000000",
+                        "width": null
+                    },
+                    {
+                        "fieldId": "1514810847581552678",
+                        "display": true,
+                        "ranks": "0:10000w:000000",
+                        "width": null
+                    },
+                    {
+                        "fieldId": "1514810847581569062",
+                        "display": true,
+                        "ranks": "0:100014:000000",
+                        "width": null
+                    }
+                ]
+            }
+        ],
+        "channelSpace": {
+            "bgUrl": "",
+            "bioDescription": "",
+            "position": 0
+        },
+        "belongTo": "personal",
+        "lastViewInfo": {
+            "unreadCount": 0,
+            "lastAckTrickleId": 0,
+            "lastAckTrickleCreateAt": 0
+        },
+        "memberIds": null,
+        "fieldOptions": {},
+        "visibleToEveryone": false
+    },
+    "team": {
+        "groupId": "1514182421522677766",
+        "channelType": "post",
+        "emoji": null,
+        "icon": "",
+        "isGeneral": false,
+        "isWorkspacePublic": true,
+        "name": "Team Hub",
+        "ownerId": "1514182387565608965",
+        "shareSetting": null,
+        "fieldInfo": [
+            {
+                "fieldId": "1514182421522726950",
+                "name": "Title",
+                "type": "title",
+                "icon": null,
+                "extraData": null,
+                "defaultValue": null,
+                "required": true,
+                "display": true
+            },
+            {
+                "fieldId": "1514182421522743334",
+                "name": "Created time",
+                "type": "create_on",
+                "icon": null,
+                "extraData": {
+                    "dateFormat": 0,
+                    "timeFormat": 1
+                },
+                "defaultValue": null,
+                "required": false,
+                "display": true
+            },
+            {
+                "fieldId": "1514182421522759718",
+                "name": "Created by",
+                "type": "create_by",
+                "icon": null,
+                "extraData": null,
+                "defaultValue": null,
+                "required": false,
+                "display": true
+            },
+            {
+                "fieldId": "1514182421522776102",
+                "name": "Last edited time",
+                "type": "last_edit_on",
+                "icon": null,
+                "extraData": {
+                    "dateFormat": 0,
+                    "timeFormat": 1
+                },
+                "defaultValue": null,
+                "required": false,
+                "display": true
+            },
+            {
+                "fieldId": "1514182421522792486",
+                "name": "Last edited by",
+                "type": "last_edit_by",
+                "icon": null,
+                "extraData": null,
+                "defaultValue": null,
+                "required": false,
+                "display": true
+            },
+            {
+                "fieldId": "1514182421522808870",
+                "name": "Progress",
+                "type": "progress",
+                "icon": null,
+                "extraData": {
+                    "numberLayout": 1,
+                    "numberLayoutBarColor": "green",
+                    "numberLayoutWithNumber": true
+                },
+                "defaultValue": null,
+                "required": false,
+                "display": true
+            }
+        ],
+        "viewInfo": [
+            {
+                "viewId": "1514182421522923557",
+                "name": "Feed",
+                "type": "feed",
+                "sorts": [
+                    {
+                        "type": "create_on",
+                        "fieldId": null,
+                        "isDescent": true
+                    }
+                ],
+                "filters": null,
+                "groupBy": null,
+                "openPageMode": 0,
+                "isDefault": true,
+                "filterLogicalOperator": null,
+                "fieldSettings": [
+                    {
+                        "fieldId": "1514182421522726950",
+                        "display": true,
+                        "ranks": "0:100000:000000",
+                        "width": null
+                    },
+                    {
+                        "fieldId": "1514182421522743334",
+                        "display": true,
+                        "ranks": "0:100008:000000",
+                        "width": null
+                    },
+                    {
+                        "fieldId": "1514182421522759718",
+                        "display": true,
+                        "ranks": "0:10000g:000000",
+                        "width": null
+                    },
+                    {
+                        "fieldId": "1514182421522776102",
+                        "display": true,
+                        "ranks": "0:10000o:000000",
+                        "width": null
+                    },
+                    {
+                        "fieldId": "1514182421522792486",
+                        "display": true,
+                        "ranks": "0:10000w:000000",
+                        "width": null
+                    },
+                    {
+                        "fieldId": "1514182421522808870",
+                        "display": true,
+                        "ranks": "0:100014:000000",
+                        "width": null
+                    }
+                ]
+            }
+        ],
+        "channelSpace": {
+            "bgUrl": "",
+            "bioDescription": "",
+            "position": 0
+        },
+        "belongTo": "team",
+        "lastViewInfo": {
+            "unreadCount": 0,
+            "lastAckTrickleId": 0,
+            "lastAckTrickleCreateAt": 0
+        },
+        "memberIds": null,
+        "fieldOptions": {},
+        "visibleToEveryone": false
+    }
+}

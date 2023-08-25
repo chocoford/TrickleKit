@@ -19,6 +19,7 @@ extension TrickleStore {
         store.currentWorkspaceID = store.allWorkspaces.value?.items.first?.workspaceID
         
         store.workspacesGroups = [store.currentWorkspaceID! : .loaded(data: load("groups.json"))]
+        store.workspacesMemoryGroups = [store.currentWorkspaceID! : .loaded(data: load("memoryGroups.json"))]
         store.currentGroupID = "264823540841447430" // store.currentWorkspaceGroups.value?.team.first(where: {$0.}) "909371267092578310" //
         
         store.groupsFieldsOptions = [store.currentGroupID! : .loaded(data: load("fieldsOptions.json"))]

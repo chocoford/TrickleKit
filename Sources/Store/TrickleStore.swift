@@ -154,7 +154,7 @@ public class TrickleStore: ObservableObject {
 
         }
     }
-    @Published public var workspaceMemoryGroups: [WorkspaceData.ID : Loadable<WorkspaceMemoryGroupsData>] = [:]
+    @Published public var workspacesMemoryGroups: [WorkspaceData.ID : Loadable<WorkspaceMemoryGroupsData>] = [:]
     
     public var currentWorkspaceGroups: Loadable<WorkspaceGroupsData>? {
         guard let currentWorkspace = currentWorkspace else { return nil }
