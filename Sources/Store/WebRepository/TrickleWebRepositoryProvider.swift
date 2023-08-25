@@ -95,4 +95,9 @@ protocol TrickleWebRepositoryProvider: WebRepositoryProvider {
     // MARK: - Stars
     func starTrickle(workspaceID: WorkspaceData.ID, trickleID: TrickleData.ID, payload: TrickleWebRepository.API.StarTricklePayload) async throws -> String
     func unstarTrickle(workspaceID: WorkspaceData.ID, trickleID: TrickleData.ID, payload: TrickleWebRepository.API.UnstarTricklePayload) async throws -> String
+    
+    // MARK: - Subscription
+    func createPaymentLink(workspaceID: WorkspaceData.ID, payload: TrickleWebRepository.API.CreatePaymentLinkPayload) async throws -> String
+    func getSubscriptionPlans(workspaceID: WorkspaceData.ID) async throws -> AnyStreamable<SubscriptionPlanData>
+    func getSubscriptionStatus(workspaceID: WorkspaceData.ID) async throws -> SubscriptionStatusData
 }

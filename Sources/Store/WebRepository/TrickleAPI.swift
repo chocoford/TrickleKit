@@ -82,6 +82,11 @@ extension TrickleWebRepository {
         // threads
         case listWorkspaceThreads(workspaceID: WorkspaceData.ID, memberID: String, query: ListQuery)
         case getWorkspaceThreadsUnreadCount(workspaceID: WorkspaceData.ID, memberID: String)
+        
+        // subscription
+        case createPaymentLink(workspaceID: WorkspaceData.ID, payload: CreatePaymentLinkPayload)
+        case getSubscriptionPlans(workspaceID: WorkspaceData.ID)
+        case getSubscriptionStatus(workspaceID: WorkspaceData.ID)
     }
 }
 
@@ -208,6 +213,14 @@ extension TrickleWebRepository.API: APICall {
                 return "/f2b/v1/workspaces/\(workspaceID)/members/\(memberID)/workspaceThreads"
             case .getWorkspaceThreadsUnreadCount(let workspaceID, let memberID):
                 return "/f2b/v1/workspaces/\(workspaceID)/members/\(memberID)/threadsUnreadCount"
+                
+            // Subscription
+            case .createPaymentLink(let workspaceID, _):
+                return "/subs/v1/workspaces/\(workspaceID)/paymentLinks"
+            case .getSubscriptionPlans:
+                return "/subs/v1/plans/available"
+            case .getSubscriptionStatus(let workspaceID):
+                return "/subs/v1/workspaces/\(workspaceID)/subscriptions/active"
         }
     }
     
@@ -257,6 +270,12 @@ extension TrickleWebRepository.API: APICall {
             case .listWorkspaceDirectMessages(_, _, let query):
                 return query
                 
+            case .getSubscriptionPlans(let workspaceID):
+                struct Query: Codable {
+                    var workspaceId: String
+                }
+                return Query(workspaceId: workspaceID)
+                
             default:
                 return nil
         }
@@ -284,7 +303,8 @@ extension TrickleWebRepository.API: APICall {
                     .pinTrickle,
                     .starTrickle,
                     .unstarTrickle,
-                    .copyTrickle:
+                    .copyTrickle,
+                    .createPaymentLink:
                 return .post
                 
             case .deleteGroup, .deleteTrickleReaction, .unpinTrickle:
@@ -388,6 +408,8 @@ extension TrickleWebRepository.API: APICall {
             case .unstarTrickle(_, _, let payload):
                 return try makeBody(payload: payload)
             case .copyTrickle(_, _, let payload):
+                return try makeBody(payload: payload)
+            case .createPaymentLink(_, let payload):
                 return try makeBody(payload: payload)
             default:
                 return nil

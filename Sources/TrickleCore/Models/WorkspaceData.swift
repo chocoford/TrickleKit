@@ -18,13 +18,18 @@ public struct WorkspaceData: Codable, Hashable {
     public var createAt, updateAt: Date
     public var userMemberInfo: MemberData
     public var hasUnread: Bool?
+    public var hasEmbedding: HasEmbedding
+    public var subscriptionID: String
+    public var subscriptionStatus: SubscriptionStatus
     
     enum CodingKeys: String, CodingKey, CaseIterable {
         case workspaceID = "workspaceId"
         case ownerID = "ownerId"
         case name, memberNum, removedMemberNum, logo, domain
         case userID = "userId"
-        case createAt, updateAt, userMemberInfo, hasUnread
+        case createAt, updateAt, userMemberInfo, hasUnread, hasEmbedding
+        case subscriptionID = "subscriptionId"
+        case subscriptionStatus
     }
 }
 
@@ -39,6 +44,17 @@ public extension WorkspaceData {
         case empty = ""
         case testWorkspaceTrickleSo = "test.workspace.trickle.so"
     }
+    enum HasEmbedding: String, Codable {
+        case not = "Not"
+        case inprogress = "Inprogress"
+        case embedded = "Embedded"
+    }
+    enum SubscriptionStatus: String, Codable {
+        case unpaid
+        case active
+        case cancelled
+    }
+    
     mutating func update(by dict: [String : AnyDictionaryValue]) {
         guard !dict.isEmpty else { return }
         for key in CodingKeys.allCases {
@@ -92,6 +108,18 @@ public extension WorkspaceData {
                 case .hasUnread:
                     if case .bool(let hasUnread) = val {
                         self.hasUnread = hasUnread
+                    }
+                case .hasEmbedding:
+                    if case .string(let hasEmbedding) = val, let hasEmbedding = HasEmbedding(rawValue: hasEmbedding) {
+                        self.hasEmbedding = hasEmbedding
+                    }
+                case .subscriptionID:
+                    if case .string(let subscriptionID) = val {
+                        self.subscriptionID = subscriptionID
+                    }
+                case .subscriptionStatus:
+                    if case .string(let status) = val, let status = SubscriptionStatus(rawValue: status) {
+                        self.subscriptionStatus = status
                     }
             }
         }
