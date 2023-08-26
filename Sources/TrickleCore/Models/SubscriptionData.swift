@@ -42,7 +42,7 @@ public struct SubscriptionPlanData: Codable, Hashable, Identifiable {
     public var features: [FeatureData]
     public var prices: [PricingData]
     
-    enum CodingKeys: CodingKey {
+    enum CodingKeys: String, CodingKey {
         case id
         case name
         case description
