@@ -38,7 +38,7 @@ public struct SubscriptionStatusData: Codable, Hashable, Identifiable {
 public struct SubscriptionPlanData: Codable, Hashable, Identifiable {
     public var id: String
     public var name: String
-    public var description: String
+    public var description: String?
     public var features: [FeatureData]
     public var prices: [PricingData]
 }
