@@ -35,7 +35,9 @@ public extension TrickleWebRepository {
         TrickleWebRepository(session: .shared, logLevel: [.error])
     }
     
-    mutating func log(logLevel: [LogOption]) {
-        self.logLevel = logLevel
+    func log(logLevel: [LogOption]) -> Self {
+        var repository = self
+        repository.logLevel = logLevel
+        return repository
     }
 }
