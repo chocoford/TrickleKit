@@ -51,6 +51,12 @@ extension SubscriptionPlanData {
         public var type: PricingType
         public var interval: PricingInterval
         
+        enum CodingKeys: String, CodingKey {
+            case id
+            case unitAmount = "unit_amount"
+            case currency, type, interval
+        }
+        
         public enum PricingType: String, Codable {
             case recurring
         }
