@@ -41,6 +41,14 @@ public struct SubscriptionPlanData: Codable, Hashable, Identifiable {
     public var description: String?
     public var features: [FeatureData]
     public var prices: [PricingData]
+    
+    enum CodingKeys: CodingKey {
+        case id
+        case name
+        case description
+        case features
+        case prices
+    }
 }
 
 extension SubscriptionPlanData {
