@@ -25,15 +25,7 @@ public struct SubscriptionStatusData: Codable, Hashable, Identifiable {
         case planName
         case currentPeriodEnd
     }
-    
-//    enum Status: String, Codable {
-//        case
-//    }
 }
-
-//public struct SubscriptionData: Codable, Hashable, Identifiable {
-//    
-//}
 
 public struct SubscriptionPlanData: Codable, Hashable, Identifiable {
     public var id: String
@@ -41,14 +33,6 @@ public struct SubscriptionPlanData: Codable, Hashable, Identifiable {
     public var description: String?
     public var features: [FeatureData]
     public var prices: [PricingData]
-    
-    enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case description
-        case features
-        case prices
-    }
 }
 
 extension SubscriptionPlanData {
@@ -91,4 +75,9 @@ extension SubscriptionPlanData {
             case tag
         }
     }
+}
+
+
+public struct PaymentLinkData: Codable, Hashable {
+    public var url: String
 }

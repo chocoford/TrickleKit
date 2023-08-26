@@ -20,7 +20,7 @@ public extension TrickleStore {
         )
         
         struct InvalidURL: Error {}
-        guard let url = URL(string: urlString) else { throw InvalidURL() }
+        guard let url = URL(string: urlString.url) else { throw InvalidURL() }
         return url
     }
     
@@ -28,7 +28,7 @@ public extension TrickleStore {
         return try await self.webRepositoryClient.getSubscriptionPlans(workspaceID: workspaceID)
     }
     
-    func tryGetSubscriptionStatus(workspaceID: WorkspaceData.ID) async throws -> SubscriptionStatusData {
+    func tryGetSubscriptionStatus(workspaceID: WorkspaceData.ID) async throws -> SubscriptionStatusData? {
         return try await self.webRepositoryClient.getSubscriptionStatus(workspaceID: workspaceID)
     }
 }

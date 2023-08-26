@@ -9,7 +9,7 @@ import Foundation
 import TrickleCore
 
 extension TrickleWebRepository {
-    func createPaymentLink(workspaceID: WorkspaceData.ID, payload: API.CreatePaymentLinkPayload) async throws -> String {
+    func createPaymentLink(workspaceID: WorkspaceData.ID, payload: API.CreatePaymentLinkPayload) async throws -> PaymentLinkData {
         try await call(endpoint: API.createPaymentLink(workspaceID: workspaceID, payload: payload))
     }
     
@@ -17,7 +17,7 @@ extension TrickleWebRepository {
         try await call(endpoint: API.getSubscriptionPlans(workspaceID: workspaceID))
     }
     
-    func getSubscriptionStatus(workspaceID: WorkspaceData.ID) async throws -> SubscriptionStatusData {
+    func getSubscriptionStatus(workspaceID: WorkspaceData.ID) async throws -> SubscriptionStatusData? {
         try await call(endpoint: API.getSubscriptionStatus(workspaceID: workspaceID))
     }
 }
