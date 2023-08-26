@@ -69,10 +69,18 @@ extension SubscriptionPlanData {
     }
     
     public struct FeatureData: Codable, Hashable {
+        public var id: Double
         public var name: String
         public var enable: Bool
-        public var quota: String?
-        public var unit: String?
-        public var desc: String
+        public var description: String
+        public var tag: String
+        
+        enum CodingKeys: String, CodingKey {
+            case id
+            case name
+            case enable
+            case description = "desc"
+            case tag
+        }
     }
 }
