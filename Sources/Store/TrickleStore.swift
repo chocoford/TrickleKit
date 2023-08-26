@@ -81,8 +81,7 @@ public class TrickleStore: ObservableObject {
     }()
     internal var apnsHelper: TrickleAPNsHelper
 
-    public init(storeHTTPClient: TrickleWebRepository = .init(session: .shared,
-                                                              logLevel: [.error])) {
+    public init(storeHTTPClient: TrickleWebRepository = .default) {
         self.webRepositoryClient = storeHTTPClient
         self.apnsHelper = .init(storeHTTPClient.logLevel)
         self.socket = TrickleWebSocket(handlers: { message in

@@ -23,9 +23,19 @@ public struct TrickleWebRepository: TrickleWebRepositoryProvider {
         return decoder
     }()
     
-    public init(session: URLSession, baseURL: String = "https://\(Config.apiDomain)", logLevel: [LogOption] = [.response, .data]) {
+    internal init(session: URLSession, baseURL: String = "https://\(Config.apiDomain)", logLevel: [LogOption] = [.response, .data]) {
         self.session = session
         self.baseURL = baseURL
+        self.logLevel = logLevel
+    }
+}
+
+public extension TrickleWebRepository {
+    static var `default`: TrickleWebRepository {
+        TrickleWebRepository(session: .shared, logLevel: [.error])
+    }
+    
+    mutating func log(logLevel: [LogOption]) {
         self.logLevel = logLevel
     }
 }
