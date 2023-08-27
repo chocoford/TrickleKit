@@ -95,7 +95,8 @@ public struct SubscriptionUpcomingInvoicesData: Codable, Hashable {
         public var dueDate: Date?
         public var currency, status: String
         public var invoicePDF: URL?
-        public var created, periodEnd, newProration: Date
+        public var created, periodEnd: Date
+        public var newProration: Date?
         public var hostedInvoiceURL: URL?
     }
 }
