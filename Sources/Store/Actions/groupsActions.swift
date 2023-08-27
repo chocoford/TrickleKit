@@ -11,7 +11,7 @@ import TrickleCore
 // Web
 public extension TrickleStore {
     func loadWorkspaceGroups(_ workspaceID: WorkspaceData.ID, silent: Bool = false) async {
-        if !silent { workspacesGroups[workspaceID]?.setIsLoading() }
+        if !silent { workspacesGroups[workspaceID] = .isLoading(last: workspacesGroups[workspaceID]?.value) }
         do {
             guard let memberID = workspaces[workspaceID]?.userMemberInfo.memberID else { throw TrickleStoreError.invalidWorkspaceID(workspaceID) }
 
@@ -24,7 +24,7 @@ public extension TrickleStore {
     }
 
     func loadWorkspaceMemoryGroups(_ workspaceID: WorkspaceData.ID, silent: Bool = false) async {
-        if !silent { workspacesMemoryGroups[workspaceID]?.setIsLoading() }
+        if !silent { workspacesMemoryGroups[workspaceID] = .isLoading(last: workspacesMemoryGroups[workspaceID]?.value) }
         do {
             guard let memberID = workspaces[workspaceID]?.userMemberInfo.memberID else {
                 throw TrickleStoreError.invalidWorkspaceID(workspaceID)
