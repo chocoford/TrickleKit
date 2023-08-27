@@ -85,6 +85,7 @@ extension TrickleWebRepository {
         
         // subscription
         case createPaymentLink(workspaceID: WorkspaceData.ID, payload: CreatePaymentLinkPayload)
+        case createStripePortalSession(workspaceID: WorkspaceData.ID)
         case getSubscriptionPlans(workspaceID: WorkspaceData.ID)
         case getSubscriptionStatus(workspaceID: WorkspaceData.ID)
         case getSubscriptionUpcomingInvoices(workspaceID: WorkspaceData.ID, query: GetSubscriptionUpcomingInvoicesQuery)
@@ -218,6 +219,8 @@ extension TrickleWebRepository.API: APICall {
             // Subscription
             case .createPaymentLink(let workspaceID, _):
                 return "/subs/v1/workspaces/\(workspaceID)/paymentLinks"
+            case .createStripePortalSession(let workspaceID):
+                return "/subs/v1/workspaces/\(workspaceID)/stripe/portalSession"
             case .getSubscriptionPlans:
                 return "/subs/v1/plans/available"
             case .getSubscriptionStatus(let workspaceID):
@@ -310,7 +313,8 @@ extension TrickleWebRepository.API: APICall {
                     .starTrickle,
                     .unstarTrickle,
                     .copyTrickle,
-                    .createPaymentLink:
+                    .createPaymentLink,
+                    .createStripePortalSession:
                 return .post
                 
             case .deleteGroup, .deleteTrickleReaction, .unpinTrickle:

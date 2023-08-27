@@ -13,6 +13,10 @@ extension TrickleWebRepository {
         try await call(endpoint: API.createPaymentLink(workspaceID: workspaceID, payload: payload))
     }
     
+    func createStripePortalSession(workspaceID: WorkspaceData.ID) async throws -> PaymentLinkData {
+        try await call(endpoint: API.createStripePortalSession(workspaceID: workspaceID))
+    }
+    
     func getSubscriptionPlans(workspaceID: WorkspaceData.ID) async throws -> AnyStreamable<SubscriptionPlanData> {
         try await call(endpoint: API.getSubscriptionPlans(workspaceID: workspaceID))
     }

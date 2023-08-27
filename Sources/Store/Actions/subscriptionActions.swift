@@ -24,6 +24,13 @@ public extension TrickleStore {
         return url
     }
     
+    func tryCreateStripePortalSession(workspaceID: WorkspaceData.ID) async throws -> URL {
+        let urlString = try await self.webRepositoryClient.createStripePortalSession(workspaceID: workspaceID)
+        struct InvalidURL: Error {}
+        guard let url = URL(string: urlString.url) else { throw InvalidURL() }
+        return url
+    }
+    
     func tryGetSubscriptionPlans(workspaceID: WorkspaceData.ID) async throws -> AnyStreamable<SubscriptionPlanData> {
         return try await self.webRepositoryClient.getSubscriptionPlans(workspaceID: workspaceID)
     }
@@ -35,7 +42,7 @@ public extension TrickleStore {
     func tryGetSubscriptionUpcomingInvoices(
         workspaceID: WorkspaceData.ID,
         memberID: MemberData.ID,
-        subscriptionID: SubscriptionPlanData.ID? = nil,
+        subscriptionID: SubscriptionStatusData.ID? = nil,
         newPriceID: SubscriptionPlanData.PricingData.ID? = nil,
         quantity: Int? = nil
     ) async throws -> SubscriptionUpcomingInvoicesData {
@@ -48,4 +55,6 @@ public extension TrickleStore {
                 quantity: quantity)
         )
     }
+    
+    
 }
