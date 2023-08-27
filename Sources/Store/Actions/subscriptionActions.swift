@@ -45,7 +45,7 @@ public extension TrickleStore {
         subscriptionID: SubscriptionStatusData.ID? = nil,
         newPriceID: SubscriptionPlanData.PricingData.ID? = nil,
         quantity: Int? = nil
-    ) async throws -> AnyStreamable<SubscriptionUpcomingInvoiceData> {
+    ) async throws -> SubscriptionUpcomingInvoicesData {
         return try await self.webRepositoryClient.getSubscriptionUpcomingInvoices(
             workspaceID: workspaceID,
             query: .init(
