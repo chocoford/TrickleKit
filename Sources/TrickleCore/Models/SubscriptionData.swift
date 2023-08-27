@@ -9,7 +9,7 @@ import Foundation
 
 public struct SubscriptionStatusData: Codable, Hashable, Identifiable {
     public var subscriptionID: String
-    public var status: String
+    public var status: Status
     public var priceID: SubscriptionPlanData.PricingData.ID
     public var planID: SubscriptionPlanData.ID
     public var planName: String
@@ -24,6 +24,11 @@ public struct SubscriptionStatusData: Codable, Hashable, Identifiable {
         case planID = "planId"
         case planName
         case currentPeriodEnd
+    }
+    
+    public enum Status: String, Codable {
+        case trialing
+        case active
     }
 }
 
