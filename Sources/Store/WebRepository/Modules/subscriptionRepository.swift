@@ -20,4 +20,8 @@ extension TrickleWebRepository {
     func getSubscriptionStatus(workspaceID: WorkspaceData.ID) async throws -> SubscriptionStatusData? {
         try await call(endpoint: API.getSubscriptionStatus(workspaceID: workspaceID))
     }
+    
+    func getSubscriptionUpcomingInvoices(workspaceID: WorkspaceData.ID, query: API.GetSubscriptionUpcomingInvoicesQuery) async throws -> SubscriptionUpcomingInvoicesData {
+        try await call(endpoint: API.getSubscriptionUpcomingInvoices(workspaceID: workspaceID, query: query))
+    }
 }

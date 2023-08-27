@@ -31,4 +31,21 @@ public extension TrickleStore {
     func tryGetSubscriptionStatus(workspaceID: WorkspaceData.ID) async throws -> SubscriptionStatusData? {
         return try await self.webRepositoryClient.getSubscriptionStatus(workspaceID: workspaceID)
     }
+    
+    func tryGetSubscriptionUpcomingInvoices(
+        workspaceID: WorkspaceData.ID,
+        memberID: MemberData.ID,
+        subscriptionID: SubscriptionPlanData.ID? = nil,
+        newPriceID: SubscriptionPlanData.PricingData.ID? = nil,
+        quantity: Int? = nil
+    ) async throws -> SubscriptionUpcomingInvoicesData {
+        return try await self.webRepositoryClient.getSubscriptionUpcomingInvoices(
+            workspaceID: workspaceID,
+            query: .init(
+                memberID: memberID,
+                subscriptionID: subscriptionID,
+                newPriceID: newPriceID,
+                quantity: quantity)
+        )
+    }
 }

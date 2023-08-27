@@ -87,6 +87,7 @@ extension TrickleWebRepository {
         case createPaymentLink(workspaceID: WorkspaceData.ID, payload: CreatePaymentLinkPayload)
         case getSubscriptionPlans(workspaceID: WorkspaceData.ID)
         case getSubscriptionStatus(workspaceID: WorkspaceData.ID)
+        case getSubscriptionUpcomingInvoices(workspaceID: WorkspaceData.ID, query: GetSubscriptionUpcomingInvoicesQuery)
     }
 }
 
@@ -221,6 +222,8 @@ extension TrickleWebRepository.API: APICall {
                 return "/subs/v1/plans/available"
             case .getSubscriptionStatus(let workspaceID):
                 return "/subs/v1/workspaces/\(workspaceID)/subscriptions/active"
+            case .getSubscriptionUpcomingInvoices(let workspaceID, _):
+                return "/subs/v1/workspaces/\(workspaceID)/invoices/upcoming"
         }
     }
     
@@ -275,6 +278,9 @@ extension TrickleWebRepository.API: APICall {
                     var workspaceId: String
                 }
                 return Query(workspaceId: workspaceID)
+                
+            case .getSubscriptionUpcomingInvoices(_, let query):
+                return query
                 
             default:
                 return nil

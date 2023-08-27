@@ -86,3 +86,13 @@ extension SubscriptionPlanData {
 public struct PaymentLinkData: Codable, Hashable {
     public var url: String
 }
+
+
+public struct SubscriptionUpcomingInvoicesData: Codable, Hashable {
+    public let amountDue: Int
+    public let dueDate: Date?
+    public let currency, status: String
+    public let invoicePDF: URL?
+    public let created, periodEnd, newProration: Date
+    public var hostedInvoiceURL: URL?
+}
