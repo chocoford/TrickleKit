@@ -88,7 +88,7 @@ public struct PaymentLinkData: Codable, Hashable {
 }
 
 
-public struct SubscriptionUpcomingInvoicesData: Codable, Hashable {
+public struct SubscriptionUpcomingInvoiceData: Codable, Hashable {
     public let amountDue: Int
     public let dueDate: Date?
     public let currency, status: String
