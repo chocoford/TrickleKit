@@ -8,11 +8,27 @@
 import Foundation
 
 
-public struct AIAgentConversationSession: Codable {
+public struct AIAgentConversationSession: Codable, Identifiable {
     public let conversationID, agent, agentConfigID: String
     public var messages: [Message]
     public var conversationType: ConversationType?
 
+    public var id: String { conversationID }
+    
+    public init(
+        conversationID: String,
+        agent: String,
+        agentConfigID: String,
+        messages: [Message],
+        conversationType: ConversationType? = .workspace
+    ) {
+        self.conversationID = conversationID
+        self.agent = agent
+        self.agentConfigID = agentConfigID
+        self.messages = messages
+        self.conversationType = conversationType
+    }
+    
     enum CodingKeys: String, CodingKey {
         case conversationID = "conversationId"
         case agent

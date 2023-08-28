@@ -142,7 +142,7 @@ public extension TrickleStore {
         }
     }
     
-    func trySendMessageToAIAgent<Results: Codable>(to agentConfigID: AIAgentData.ID, _ message: AIAgentConversationSession.Message) async throws -> Results {
+    func trySendMessageToAIAgent<Results: Codable>(to agentConfigID: AIAgentData.ID, _ message: AIAgentConversationSession.Message, conversationType: AIAgentConversationSession.ConversationType) async throws -> Results {
         do {
             guard let conversationID = self.aiAgentState.conversationIDs[agentConfigID] else {
                 throw TrickleStoreError.aiAgentError(.invalidConversationID(nil))
@@ -152,7 +152,7 @@ public extension TrickleStore {
                 throw TrickleStoreError.aiAgentError(.emptyConversationSession)
             }
             self.aiAgentState.conversationSessions[agentConfigID]?.messages.append(message)
-            let res: Results = try await self.aiAgentSocket.newMessage(payload: .init(conversationID: conversationID, message: message))
+            let res: Results = try await self.aiAgentSocket.newMessage(payload: .init(conversationID: conversationID, message: message, conversationType: conversationType))
             return res
         } catch {
             self.setAIAgentMessageAsFailed(of: agentConfigID, messageID: message.messageID)
@@ -160,10 +160,10 @@ public extension TrickleStore {
         }
     }
     
-    func sendMessageToAIAgent(to agentConfigID: AIAgentData.ID, _ message: AIAgentConversationSession.Message) async {
+    func sendMessageToAIAgent(to agentConfigID: AIAgentData.ID, _ message: AIAgentConversationSession.Message, conversationType: AIAgentConversationSession.ConversationType) async {
         do {
             struct Restuls: Codable {}
-            _ = try await self.trySendMessageToAIAgent(to: agentConfigID, message) as Restuls?
+            _ = try await self.trySendMessageToAIAgent(to: agentConfigID, message, conversationType: conversationType) as Restuls?
         } catch {
             self.error = .init(error)
         }
