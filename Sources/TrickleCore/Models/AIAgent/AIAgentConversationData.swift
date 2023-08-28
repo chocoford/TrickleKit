@@ -76,22 +76,25 @@ extension AIAgentConversationSession {
             self.conversationType = conversationType
         }
         
-        static public func makeUserMessage(text: String, status: Status = .done, source: String) -> Self {
+        static public func makeUserMessage(text: String, status: Status = .done, source: String, conversationType: ConversationType = .workspace) -> Self {
             let id = UUID().uuidString
-            return .init(messageID: id,
-                         messageType: .chat,
-                         authorType: .user,
-                         cardVersion: .v1,
-                         actionCards: [
-                            .makeUserActionCard(text.replacingOccurrences(of: "\n", with: "\n\n"))
-                         ],
-                         replyToMessageID: id,
-                         createAt: "",
-                         text: text,
-                         status: status,
-                         source: source)
+            return .init(
+                messageID: id,
+                messageType: .chat,
+                authorType: .user,
+                cardVersion: .v1,
+                actionCards: [
+                    .makeUserActionCard(text.replacingOccurrences(of: "\n", with: "\n\n"))
+                ],
+                replyToMessageID: id,
+                createAt: "",
+                text: text,
+                status: status,
+                source: source,
+                conversationType: conversationType
+            )
         }
-        static public  func makeSystemMessage(text: String, source: String) -> Self {
+        static public  func makeSystemMessage(text: String, source: String, conversationType: ConversationType = .workspace) -> Self {
             let id = UUID().uuidString
             return .init(messageID: id,
                          messageType: .chat,
@@ -105,7 +108,8 @@ extension AIAgentConversationSession {
                          createAt: "",
                          text: text,
                          status: .done,
-                         source: source)
+                         source: source,
+                         conversationType: conversationType)
         }
     }
 }
