@@ -32,8 +32,8 @@ extension AIAgentConversationSession {
         public var createAt: String
         public var status: Status
         public var conversationID: String?
-        public var source: String
-        public var conversationType: ConversationType
+        public var source: String?
+        public var conversationType: ConversationType?
 
         enum CodingKeys: String, CodingKey {
             case messageID = "messageId"
