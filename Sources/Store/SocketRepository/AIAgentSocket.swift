@@ -15,20 +15,20 @@ class TrickleAIAgentSocketLogger: SocketLogger {
     let logger: Logger = .init(subsystem: Bundle.main.bundleIdentifier!, category: "TrickleAIAgentSocket")
     func log(_ message: @autoclosure () -> String, type: String) {
         let msg = message()
-        logger.log("\(type): \(msg)")
+        /*logger.log*/print("\(type): \(msg)")
     }
     
     func error(_ message: @autoclosure () -> String, type: String) {
         let msg = message()
-        logger.error("\(type): \(msg)")
+        /*logger.error*/print("\(type): \(msg)")
     }
     
     func debug(_ message: String) {
-        logger.debug("\(message)")
+        /*logger.debug*/print("\(message)")
     }
     
     func info(_ message: String) {
-        logger.info("\(message)")
+        /*logger.info*/print("\(message)")
     }
 }
 
