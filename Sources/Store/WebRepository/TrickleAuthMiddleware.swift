@@ -13,7 +13,7 @@ import TrickleCore
 public final class TrickleAuthMiddleware {
     
     public static let shared = TrickleAuthMiddleware()
-    static let service = Config.trickleDomain
+    static let service = TrickleEnv.trickleDomain
     static let account = Bundle.main.bundleIdentifier!
     
     let logger = Logger(subsystem: "TrickleKit",

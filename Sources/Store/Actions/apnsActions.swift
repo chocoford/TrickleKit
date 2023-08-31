@@ -41,7 +41,7 @@ public extension TrickleStore {
 
             _ = try await apnsHelper.registerAPNs(payload: .init(deviceToken: deviceToken,
                                                                  userID: userInfo.user.id,
-                                                                 env: .init(rawValue: Config.env) ?? TrickleAPNsHelper.Env.dev,
+                                                                 env: .init(rawValue: TrickleEnv.env) ?? TrickleAPNsHelper.Env.dev,
                                                                  workspaceEnableStates: workspaceEnableStates,
                                                                 isSandbox: isSandbox))
         } catch {
@@ -64,7 +64,7 @@ public extension TrickleStore {
 
             _ = try await apnsHelper.updateAPNsSettings(deviceToken: deviceToken,
                                                         payload: .init(workspaceID: workspaceID,
-                                                                       env: .init(rawValue: Config.env) ?? .dev,
+                                                                       env: .init(rawValue: TrickleEnv.env) ?? .dev,
                                                                        enableStates: enableStates,
                                                                        isSandbox: isSandbox))
         } catch {

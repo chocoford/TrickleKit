@@ -84,7 +84,7 @@ public class TrickleAuthHelper: NSObject, ObservableObject, ASWebAuthenticationP
     public func loginViaBrowser(scheme: String) async throws -> String {
         try await withCheckedThrowingContinuation { continuation in
             var cancellable: AnyCancellable?
-            cancellable = self.signIn(to: "https://\(Config.trickleDomain)/app/authorization?third_party=\(scheme)", scheme: scheme).first()
+            cancellable = self.signIn(to: "https://\(TrickleEnv.trickleDomain)/app/authorization?third_party=\(scheme)", scheme: scheme).first()
                 .sink { result in
                     switch result {
                         case .finished:

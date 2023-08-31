@@ -23,7 +23,7 @@ public struct TrickleWebRepository: TrickleWebRepositoryProvider {
         return decoder
     }()
     
-    internal init(session: URLSession, baseURL: String = "https://\(Config.apiDomain)", logLevel: [LogOption] = [.response, .data]) {
+    internal init(session: URLSession, baseURL: String = "https://\(TrickleEnv.apiDomain)", logLevel: [LogOption] = [.response, .data]) {
         self.session = session
         self.baseURL = baseURL
         self.logLevel = logLevel

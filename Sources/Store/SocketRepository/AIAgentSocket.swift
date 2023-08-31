@@ -48,7 +48,7 @@ public final class TrickleAIAgentSocketClient {
     let logger: TrickleAIAgentSocketLogger = .init()
     
     func configSocket(token: String) {
-        let url = URL(string: "https://\(Config.aiActionDomain)")!
+        let url = URL(string: "https://\(TrickleEnv.aiActionDomain)")!
         self.socketManager = SocketManager(socketURL: url,
                                     config: [
                                         .logger(logger),

@@ -21,7 +21,7 @@ public final class TrickleAWSProvider {
 
     internal let logger: os.Logger = os.Logger(subsystem: Bundle.main.bundleIdentifier!, category: "TrickleAWSProvider")
     
-    internal let bucket = Config.ossBucket
+    internal let bucket = TrickleEnv.ossBucket
     internal let client: AWSClient
     internal let s3: S3
     
@@ -83,7 +83,7 @@ extension TrickleAWSProvider {
             key: path
         )
         _ = try await s3.putObject(putObjectRequest)
-        guard let url = URL(string: "https://\(Config.ossAssetsDomain)/\(path)") else {
+        guard let url = URL(string: "https://\(TrickleEnv.ossAssetsDomain)/\(path)") else {
             throw URLError.init(.badURL)
         }
         return url

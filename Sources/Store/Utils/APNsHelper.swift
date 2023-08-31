@@ -14,7 +14,7 @@ public struct TrickleAPNsHelper: WebRepositoryProvider {
     public var logLevel: [LogOption]
     public var logger: Logger = .init(label: "TrickleAPNsHelper")
     public var session: URLSession = .shared
-    public var baseURL: String = "https://\(Config.apiDomain)/chocoford/apns"
+    public var baseURL: String = "https://\(TrickleEnv.apiDomain)/chocoford/apns"
     public var bgQueue: DispatchQueue = DispatchQueue(label: "bg_trickle_queue")
     public var responseDataDecoder: JSONDecoder = {
         let decoder = JSONDecoder()

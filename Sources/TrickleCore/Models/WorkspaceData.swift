@@ -52,7 +52,14 @@ public extension WorkspaceData {
     enum SubscriptionStatus: String, Codable {
         case unpaid
         case active
+        @available(*, deprecated, message: "Do not use this directly, use isCancelled instead")
         case cancelled
+        @available(*, deprecated, message: "Do not use this directly, use isCancelled instead")
+        case canceled
+        
+        public var isCancelled: Bool {
+            self.rawValue == "cancelled" || self.rawValue == "canceled"
+        }
     }
     
     mutating func update(by dict: [String : AnyDictionaryValue]) {

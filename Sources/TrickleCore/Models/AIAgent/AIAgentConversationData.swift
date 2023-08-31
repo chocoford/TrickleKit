@@ -56,6 +56,8 @@ extension AIAgentConversationSession {
         public var status: Status
         public var conversationID: String?
         public var source: String?
+        public var medias: [String]
+        public var ocrs: [String : String]
 
         enum CodingKeys: String, CodingKey {
             case messageID = "messageId"
@@ -65,7 +67,7 @@ extension AIAgentConversationSession {
             case replyToMessageID = "replyToMessageId"
             case createAt, text, status
             case conversationID = "conversationId"
-            case source
+            case source, medias, ocrs
         }
         
         public var id: String { messageID }
@@ -81,7 +83,9 @@ extension AIAgentConversationSession {
             text: String,
             status: Status,
             conversationID: String? = nil,
-            source: String
+            source: String,
+            medias: [String],
+            ocrs: [String : String]
 //            conversationType: ConversationType = .workspace
         ) {
             self.messageID = messageID
@@ -95,10 +99,17 @@ extension AIAgentConversationSession {
             self.status = status
             self.conversationID = conversationID
             self.source = "mac desktop"
+            self.medias = medias
+            self.ocrs = ocrs
 //            self.conversationType = conversationType
         }
         
-        static public func makeUserMessage(text: String, status: Status = .done, source: String) -> Self {
+        public struct OCRPayload {
+            var medias: [String]
+            var ocrs: [String : String]
+        }
+        
+        static public func makeUserMessage(text: String, status: Status = .done, source: String, ocrPayload: OCRPayload?) -> Self {
             let id = UUID().uuidString
             return .init(
                 messageID: id,
@@ -112,7 +123,8 @@ extension AIAgentConversationSession {
                 createAt: "",
                 text: text,
                 status: status,
-                source: source
+                source: source,
+                medias: ocrPayload?.medias ?? [], ocrs: ocrPayload?.ocrs ?? [:]
             )
         }
         static public  func makeSystemMessage(text: String, source: String) -> Self {
@@ -129,7 +141,8 @@ extension AIAgentConversationSession {
                          createAt: "",
                          text: text,
                          status: .done,
-                         source: source)
+                         source: source,
+                         medias: [], ocrs: [:])
         }
     }
 }
