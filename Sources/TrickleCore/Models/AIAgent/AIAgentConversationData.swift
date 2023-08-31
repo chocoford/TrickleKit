@@ -105,8 +105,13 @@ extension AIAgentConversationSession {
         }
         
         public struct OCRPayload {
-            var medias: [String]
-            var ocrs: [String : String]
+            public var medias: [String]
+            public var ocrs: [String : String]
+            
+            public init(medias: [String], ocrs: [String : String]) {
+                self.medias = medias
+                self.ocrs = ocrs
+            }
         }
         
         static public func makeUserMessage(text: String, status: Status = .done, source: String, ocrPayload: OCRPayload?) -> Self {
