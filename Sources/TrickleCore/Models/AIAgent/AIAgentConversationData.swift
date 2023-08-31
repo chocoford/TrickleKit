@@ -56,8 +56,8 @@ extension AIAgentConversationSession {
         public var status: Status
         public var conversationID: String?
         public var source: String?
-        public var medias: [String]
-        public var ocrs: [String : String]
+        public var medias: [String]?
+        public var ocrs: [String : String]?
 
         enum CodingKeys: String, CodingKey {
             case messageID = "messageId"
