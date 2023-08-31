@@ -110,33 +110,41 @@ public extension TrickleStore {
             self.error = .init(error)
         }
     }
+
+    func tryStartAIAgentConversation(workspaceID: WorkspaceData.ID, memberID: MemberData.ID, agentConfigID: AIAgentData.ID, groups: [GroupData]) async throws {
+        self.aiAgentState.conversationIDs.removeValue(forKey: agentConfigID)
+        let conversationID = try await self.aiAgentSocket.startConversation(
+            payload: .init(
+                workspaceID: workspaceID,
+                memberID: memberID,
+                agentConfigID: agentConfigID,
+                channels: groups.map {
+                    .init(id: $0.groupID, name: $0.name, type: $0.belongTo == "team" ? .team : .personal)
+                }
+            )
+        )
+        self.aiAgentState.conversationIDs.updateValue(conversationID, forKey: agentConfigID)
+    }
     
     func startAIAgentConversation(workspaceID: WorkspaceData.ID, memberID: MemberData.ID, agentConfigID: AIAgentData.ID, groups: [GroupData]) async {
         do {
-            self.aiAgentState.conversationIDs.removeValue(forKey: agentConfigID)
-            let conversationID = try await self.aiAgentSocket.startConversation(
-                payload: .init(
-                    workspaceID: workspaceID,
-                    memberID: memberID,
-                    agentConfigID: agentConfigID,
-                    channels: groups.map {
-                        .init(id: $0.groupID, name: $0.name, type: $0.belongTo == "team" ? .team : .personal)
-                    }
-                )
-            )
-            self.aiAgentState.conversationIDs.updateValue(conversationID, forKey: agentConfigID)
+            try await tryStartAIAgentConversation(workspaceID: workspaceID, memberID: memberID, agentConfigID: agentConfigID, groups: groups)
         } catch {
             self.error = .init(error)
         }
     }
+
+    func trySyncAIAgentConversation(with agentConfigID: AIAgentData.ID) async throws {
+        guard let conversationID = self.aiAgentState.conversationIDs[agentConfigID] else {
+            throw TrickleStoreError.aiAgentError(.invalidConversationID(nil))
+        }
+        let session = try await self.aiAgentSocket.syncConversation(payload: .init(conversationID: conversationID))
+        self.aiAgentState.conversationSessions.updateValue(session, forKey: agentConfigID)
+    }
     
     func syncAIAgentConversation(with agentConfigID: AIAgentData.ID) async {
         do {
-            guard let conversationID = self.aiAgentState.conversationIDs[agentConfigID] else {
-                throw TrickleStoreError.aiAgentError(.invalidConversationID(nil))
-            }
-            let session = try await self.aiAgentSocket.syncConversation(payload: .init(conversationID: conversationID))
-            self.aiAgentState.conversationSessions.updateValue(session, forKey: agentConfigID)
+            try await trySyncAIAgentConversation(with: agentConfigID)
         } catch {
             self.error = .init(error)
         }
