@@ -13,7 +13,7 @@ public enum LoadableError: Error, LocalizedError {
     case parameterError
     case unexpected(error: Error)
     
-    var localized: String {
+    public var errorDescription: String? {
         switch self {
             case .cancelled:
                 return "Canceled by user."

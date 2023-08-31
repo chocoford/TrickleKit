@@ -99,7 +99,7 @@ public extension TrickleAIAgentSocketClient {
     enum SocketError: LocalizedError {
         case responseTypeError
         
-        public var errorDescription: String {
+        public var errorDescription: String? {
             switch self {
                 case .responseTypeError:
                     return "Socket response is not an array or has no items."

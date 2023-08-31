@@ -13,7 +13,7 @@ public extension TrickleStoreError {
         case deviceTokenInvalid(String?)
         case registerFailed(_ error: Error)
         
-        var errorDescription: String {
+        public var errorDescription: String? {
             switch self {
                 case .deviceTokenInvalid(let token):
                     return "Device token(\(token ?? "nil") invalid."

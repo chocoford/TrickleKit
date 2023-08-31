@@ -14,7 +14,7 @@ extension TrickleStoreError {
         case invalidConversationID(String?)
         case emptyConversationSession
         
-        public var errorDescription: String {
+        public var errorDescription: String? {
             switch self {
                 case .invalidConversationID(let id):
                     return "invalid conversation id: \(id ?? "nil")"

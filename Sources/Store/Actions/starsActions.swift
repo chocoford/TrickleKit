@@ -13,7 +13,7 @@ public extension TrickleStoreError {
         case alreadyStarred
         case alreadyUnstarred
         
-        var errorDescription: String {
+        public var errorDescription: String? {
             switch self {
                 case .alreadyStarred:
                     return "The trickle is already starred."

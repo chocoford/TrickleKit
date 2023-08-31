@@ -25,7 +25,7 @@ public enum TrickleStoreError: LocalizedError {
     case apnsError(_ error: APNsError)
     case aiAgentError(_ error: AIAgentError)
     
-    public var errorDescription: String {
+    public var errorDescription: String? {
         switch self {
             case .lodableError(let error):
                 return "Loadable error: \(error.localizedDescription)"
