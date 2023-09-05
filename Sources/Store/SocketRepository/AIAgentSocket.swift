@@ -302,6 +302,7 @@ fileprivate extension SocketIOClient {
             self.emitWithAck(event,
                              items: ["arguments": [payload.dictionary]])
                 .timingOut(after: 10) { res in
+                    print(res)
                     do {
                         let decoder = JSONDecoder()
                         decoder.dateDecodingStrategy = .secondsSince1970
