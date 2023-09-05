@@ -57,7 +57,7 @@ extension TrickleStore {
 //            print("[throttle] call throttle \(id)")
             self.actionsQueue[id] = action
             if self.timers[id] == nil {
-                self.timers[id] = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true, block: { timer in
+                self.timers[id] = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true, block: { timer in
 //                    print("[throttle] timer fired \(id) - \(Date.now.timeIntervalSince1970)")
                     
                     guard let action = self.actionsQueue.removeValue(forKey: id) else {
