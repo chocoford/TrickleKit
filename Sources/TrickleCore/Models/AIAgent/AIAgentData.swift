@@ -55,6 +55,18 @@ extension AIAgentData {
             self.placeholder = placeholder
             self.sortIndex = sortIndex
         }
+        
+        public init(from decoder: Decoder) throws {
+            let container: KeyedDecodingContainer<AIAgentData.AppDecoration.CodingKeys> = try decoder.container(keyedBy: AIAgentData.AppDecoration.CodingKeys.self)
+            if let url = try? container.decodeIfPresent(URL.self, forKey: AIAgentData.AppDecoration.CodingKeys.logo) {
+                self.logo = url
+            } else {
+                let urlString = try? container.decodeIfPresent(String.self, forKey: AIAgentData.AppDecoration.CodingKeys.logo)
+                self.logo = URL(string: urlString ?? "")
+            }
+            self.placeholder = try container.decode(String.self, forKey: AIAgentData.AppDecoration.CodingKeys.placeholder)
+            self.sortIndex = try container.decodeIfPresent(String.self, forKey: AIAgentData.AppDecoration.CodingKeys.sortIndex)
+        }
     }
     
     
