@@ -43,8 +43,8 @@ extension TrickleStore {
             }?.key
         }
         
-        public static var captureAgentSession: AIAgentConversationSession? {
-            
+        public var captureAgentSession: AIAgentConversationSession? {
+            conversationSessions[TrickleEnv.captureAgentID]
         }
     }
     
