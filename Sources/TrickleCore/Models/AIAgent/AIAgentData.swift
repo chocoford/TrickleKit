@@ -27,7 +27,7 @@ public struct AIAgentData: Codable, Hashable {
     public let maxIterations: Int
     public let maxExecutionTime: Int?
     public let earlyStoppingMethod, agentConfigID: String
-    public let createAt, updateAt: Int
+//    public let createAt, updateAt: Date?
 
     enum CodingKeys: String, CodingKey {
         case agent, version, isPublished, handleParsingError, workMode, displayName, role, capability, constraints, enableChatHistory, toolInstruction, tools, temperature, useChatAPI, model, formatInstruction, singlePromptFormatInstruction
@@ -35,7 +35,7 @@ public struct AIAgentData: Codable, Hashable {
         case appName, appDescription, appDecoration, category, maxIterations, maxExecutionTime, earlyStoppingMethod
         // appActionCards,
         case agentConfigID = "agentConfigId"
-        case createAt, updateAt
+//        case createAt, updateAt
     }
 }
 
