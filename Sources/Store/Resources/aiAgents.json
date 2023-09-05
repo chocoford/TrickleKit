@@ -1,323 +1,13 @@
 [
     {
+        "agentConfigId": "fba0556877814fe6866c97f9813b6ad4",
         "agent": "AlphaAgent",
-        "version": 12,
-        "isPublished": true,
-        "handleParsingError": true,
-        "workMode": "tool_mode_with_single_action",
-        "displayName": "🔍  Memory Retrieval",
-        "role": "Role:\n“”“\nYou are a member of the Trickle AI assistant team responsible for extracting long-term memory.\n”“”",
-        "capability": "",
-        "constraints": "Constraints:\n“”“\n1. Based on the information and subject I input, you extract long-term memory and return each memory separately in the following format (Content needs to be summarized):\nTitle:\nAuthor:\nContent summary:\nLink:\n\n2. Emphasize: the return information must be placed after \"Final answer:\".\n\n3. Your responses should be in well-structured markdown format using numbered lists, or bulleted lists.\n“”“",
-        "enableChatHistory": true,
-        "toolInstruction": "You have access to the following tools:",
-        "tools": [
-            {
-                "tool": "TrickleOpenSearchTool",
-                "name": "TrickleVectorSearch",
-                "description": "Use when you need to retrieve information in long-term memory, such as project tasks, daily works, notes, to-dos, and so on, usually located in the current Trickle workspace.",
-                "supportReturnDirect": false,
-                "returnDirect": false,
-                "supportOutput": false,
-                "output": "",
-                "supportLLM": false,
-                "promptPrefix": "",
-                "promptSuffix": "",
-                "temperature": 0.7,
-                "model": "gpt-3.5-turbo-0613",
-                "useChatAPI": true,
-                "useAgentScratchpadAsContext": false,
-                "supportIntg": false,
-                "intg": null,
-                "notionSearchDepth": 2,
-                "githubOrgName": "[repo org name]",
-                "githubRepo": "[repo name]",
-                "supportTxtToImage": false,
-                "numberOfImages": 2,
-                "imageSize": "512x512",
-                "supportMultiTask": false,
-                "supportAgent": false,
-                "agentConfigId": "",
-                "supportLinkTool": false,
-                "linkedToolConfigId": "",
-                "supportLongTermMemory": true,
-                "memoryId": "",
-                "topN": 5,
-                "outputFields": [
-                    "Title",
-                    "Content",
-                    "Link"
-                ],
-                "outputFormat": "json",
-                "version": 2,
-                "isPublished": true,
-                "displayInfo": {
-                    "name": "TrickleVectorSearch",
-                    "description": "Use when you need to retrieve information in long-term memory, such as project tasks, daily works, notes, to-dos, and so on, usually located in the current Trickle workspace.",
-                    "icon": "https://testres.trickle.so/upload/avatars/agents/bc968cc0c20b4cad833358a688b85a06_c7eefdcc-8878-4f6e-91c9-388f9d8af3fb.png"
-                },
-                "category": "basic"
-            }
-        ],
-        "temperature": 0,
-        "useChatAPI": true,
-        "model": "gpt-3.5-turbo",
-        "formatInstruction": "Use the following format:\n\nQuestion: the input question you must answer\nThought: you should always think about what to do\nAction: the action to take, should be one of [{tool_names}]\nAction Input: the input to the action\nObservation: the result of the action\n... (this Thought/Action/Action Input/Observation can repeat N times)\nThought: I now know the final answer\nFinal Answer: you should always provide the final answer to the original user input question in the same language.\n\nFor example:\nQuestion: Write a blog about Notion\nThought: I should gather information about Notion and its features to write a comprehensive blog.\nAction: Search\nAction Input: \"What are the features of Notion?\"\nObservation: tables, databases, markdown, code blocks, task management, calendars, and media\nThought: I have gathered information about the features of Notion.\nFinal Answer: Notion is a versatile productivity tool that offers features such as tables, databases, markdown, code blocks, task management, calendars, and media.",
-        "singlePromptFormatInstruction": "Answer the following question,\nQ: {input}\nA: \n",
-        "userId": "30906221603061761",
-        "appName": "Memory Retrieval",
-        "appDescription": "Search in Trickle and integrated apps...",
-        "appActionCards": null,
-        "appDecoration": {
-            "logo": "https://testres.trickle.so/upload/avatars/agents/2f1186d7dd614f548ce47a933b337c04_b890bd76-2fab-4501-a28b-4bdc8f87e6d9.png",
-            "placeholder": "Search in Trickle and integrated apps...",
-            "sortIndex": "2"
-        },
-        "category": "normal_agent",
-        "maxIterations": 15,
-        "maxExecutionTime": null,
-        "earlyStoppingMethod": "force",
-        "agentConfigId": "2f1186d7dd614f548ce47a933b337c04",
-        "createAt": 1689342508278,
-        "updateAt": 1689847363594
-    },
-    {
-        "agent": "AlphaAgent",
-        "version": 8,
-        "isPublished": true,
-        "handleParsingError": true,
-        "workMode": "tool_mode_with_single_action",
-        "displayName": "🔮 Code Interpreter",
-        "role": "Role:\n“”“\nTrickle AI is an all-in-one tool for work fueled by GPT-4 technology, and you are the star of the Trickle AI assistant team responsible for running code to help users complete complex tasks.\n”“”\n",
-        "capability": "Capability:\n“”“\nYou can run code to help users complete complex tasks such as statistical analysis, chart generation, and mathematical operations.\n\nYou are built independently based on GPT-4, and unlike ChatGPT's Code Interpreter, you can support importing data that needs to be processed and analyzed from multiple data sources, not just by uploading files, for example, directly from a webpage or from your Notion Database.\n“”“\n",
-        "constraints": "Answer the following questions as best you can. For tabular information return it as an html table. Do not return markdown format. ",
-        "enableChatHistory": true,
-        "toolInstruction": "You have access to the following tools:",
-        "tools": [
-            {
-                "tool": "TrickleOpenSearchTool",
-                "name": "Vector search",
-                "description": "Use when you need to retrieve information in long-term memory, such as project tasks, daily works, notes, to-dos, and so on, usually located in the current Trickle workspace.",
-                "supportReturnDirect": false,
-                "returnDirect": false,
-                "supportOutput": false,
-                "output": "",
-                "supportLLM": false,
-                "promptPrefix": "",
-                "promptSuffix": "",
-                "temperature": 0.7,
-                "model": "gpt-3.5-turbo-0613",
-                "useChatAPI": true,
-                "useAgentScratchpadAsContext": false,
-                "supportIntg": false,
-                "intg": null,
-                "notionSearchDepth": 2,
-                "githubOrgName": "[repo org name]",
-                "githubRepo": "[repo name]",
-                "supportTxtToImage": false,
-                "numberOfImages": 2,
-                "imageSize": "512x512",
-                "supportMultiTask": false,
-                "supportAgent": false,
-                "agentConfigId": "",
-                "supportLinkTool": false,
-                "linkedToolConfigId": "",
-                "supportLongTermMemory": false,
-                "memoryId": "",
-                "topN": 4,
-                "outputFields": [],
-                "outputFormat": "json",
-                "version": 4,
-                "isPublished": true,
-                "displayInfo": {
-                    "name": "Vector Search",
-                    "description": "Use when you need to retrieve information in long-term memory, such as project tasks, daily works, notes, to-dos, and so on, usually located in the current Trickle workspace.",
-                    "icon": "https://testres.trickle.so/upload/avatars/agents/d811eef985434aea848d6b1394adce11_839f4002-6a56-463d-ae04-b57354676fd9.png"
-                },
-                "category": "basic"
-            },
-            {
-                "tool": "AsyncPythonREPLTool",
-                "name": "Python_REPL",
-                "description": "A Python shell. Use this to execute python commands. Input should be a valid python command. If you want to see the output of a value, you should print it out with `print(...)`.",
-                "supportReturnDirect": false,
-                "returnDirect": false,
-                "supportOutput": false,
-                "output": "",
-                "supportLLM": false,
-                "promptPrefix": "",
-                "promptSuffix": "",
-                "temperature": 0.7,
-                "model": "gpt-3.5-turbo-0613",
-                "useChatAPI": true,
-                "useAgentScratchpadAsContext": false,
-                "supportIntg": false,
-                "intg": null,
-                "notionSearchDepth": 2,
-                "githubOrgName": "[repo org name]",
-                "githubRepo": "[repo name]",
-                "supportTxtToImage": false,
-                "numberOfImages": 2,
-                "imageSize": "512x512",
-                "supportMultiTask": null,
-                "supportAgent": false,
-                "agentConfigId": "",
-                "supportLinkTool": false,
-                "linkedToolConfigId": "",
-                "supportLongTermMemory": false,
-                "memoryId": "",
-                "topN": 4,
-                "outputFields": [],
-                "outputFormat": "json",
-                "version": 4,
-                "isPublished": true,
-                "displayInfo": {
-                    "name": "Python_REPL",
-                    "description": "Python runtime sandbox",
-                    "icon": "https://testres.trickle.so/upload/avatars/agents/863149e7e6364051a4afe3cf345c7d02_1807faac-5b49-405d-b415-1a6148eb1db6.jpeg"
-                },
-                "category": "basic"
-            },
-            {
-                "tool": "FakeTool",
-                "name": "none",
-                "description": "When you feel that you can answer directly without using a tool, choose this option. Make sure to include \"Action Input: none\" in your response.",
-                "supportReturnDirect": false,
-                "returnDirect": false,
-                "supportOutput": true,
-                "output": "",
-                "supportLLM": false,
-                "promptPrefix": "",
-                "promptSuffix": "",
-                "temperature": 0.7,
-                "model": "",
-                "useChatAPI": true,
-                "useAgentScratchpadAsContext": false,
-                "supportIntg": false,
-                "intg": null,
-                "notionSearchDepth": 2,
-                "githubOrgName": "",
-                "githubRepo": "[repo name]",
-                "supportTxtToImage": false,
-                "numberOfImages": 2,
-                "imageSize": "512x512",
-                "supportMultiTask": null,
-                "supportAgent": false,
-                "agentConfigId": "",
-                "supportLinkTool": false,
-                "linkedToolConfigId": "",
-                "supportLongTermMemory": false,
-                "memoryId": "",
-                "topN": 4,
-                "outputFields": [],
-                "outputFormat": "json",
-                "version": 0,
-                "isPublished": false,
-                "displayInfo": {
-                    "name": "Display name",
-                    "description": "Display description"
-                },
-                "category": "basic"
-            }
-        ],
-        "temperature": 0,
-        "useChatAPI": true,
-        "model": "gpt-4",
-        "formatInstruction": "Use the following format:\n\nQuestion: the input question you must answer \nThought: you should always think about what to do \nAction: the action to take, must be one of [{tool_names}]. It is forbidden to select a tool that is not in the [{tool_names}]. \nAction Input: the input to the action \nObservation: the result of the action \n... (this Thought/Action/Action Input/Observation can repeat N times) \n... (Always think and provide the Final Answer in the same language as I input, which is included after \"Question:\")\nThought: I now know the final answer \nFinal Answer: the final answer to the original input question",
-        "singlePromptFormatInstruction": "Answer the following question,\nQ: {input}\nA: \n",
-        "userId": "30906221603061761",
-        "appName": "Code Interpreter",
-        "appDescription": "To run code and assist you in completing complex tasks.\n\nThe code interpreter will first write the code based on the task requirements, then run it in a secure sandbox environment on the cloud, and then return the results.",
-        "appActionCards": null,
-        "appDecoration": {
-            "logo": "https://testres.trickle.so/upload/avatars/agents/36fe207bc50d454ab6d2a276061029ab_80246e54-d8d3-4b97-9aa9-1b08c138c6a6.png",
-            "placeholder": "Describe your needs and let AI run the code to solve it...",
-            "sortIndex": "2"
-        },
-        "category": "normal_agent",
-        "maxIterations": 15,
-        "maxExecutionTime": null,
-        "earlyStoppingMethod": "force",
-        "agentConfigId": "36fe207bc50d454ab6d2a276061029ab",
-        "createAt": 1689342504934,
-        "updateAt": 1689859903315
-    },
-    {
-        "agent": "AlphaAgent",
-        "version": 2,
-        "isPublished": true,
-        "handleParsingError": false,
-        "workMode": "single_prompt_mode",
-        "displayName": "🤖️ Single Prompt: Midjourney Prompt Generator",
-        "role": "Role:\n“”“\nI want you to act as a prompt generator for Midjourney's artificial intelligence program. Your job is to provide detailed and creative descriptions that will inspire unique and interesting images from the AI. Keep in mind that the AI is capable of understanding a wide range of language and can interpret abstract concepts, so feel free to be as imaginative and descriptive as possible. For example, you could describe a scene from a futuristic city or a surreal landscape filled with strange creatures. The more detailed and imaginative your description, the more interesting the resulting image will be. \n\nHere is your first prompt: \"A field of wildflowers stretches out as far as the eye can see, each one a different color and shape. In the distance, a massive tree towers over the landscape, its branches reaching up to the sky like tentacles.\"\n\nAlways output prompts in English.\n”“”\n",
-        "capability": "\n",
-        "constraints": "",
-        "enableChatHistory": true,
-        "toolInstruction": "You have access to the following tools:",
-        "tools": [],
-        "temperature": 0,
-        "useChatAPI": true,
-        "model": "gpt-3.5-turbo",
-        "formatInstruction": "Use the following format:\n\nQuestion: the input question you must answer\nThought: you should always think about what to do\nAction: the action to take, should be one of [{tool_names}]\nAction Input: the input to the action\nObservation: the result of the action\n... (this Thought/Action/Action Input/Observation can repeat N times)\nThought: I now know the final answer\nFinal Answer: the final answer to the original input question",
-        "singlePromptFormatInstruction": "Answer the following question,\nQ: {input}\nA: \n",
-        "userId": "30906221603061761",
-        "appName": "Midjourney Prompt",
-        "appDescription": "Single Prompt: Midjourney Prompt Generator",
-        "appActionCards": null,
-        "appDecoration": {
-            "logo": "https://testres.trickle.so/upload/avatars/agents/a96c13239beb44c592a78b07fd2f1308_1e9d11eb-df95-45d4-9746-6448d91cf39e.png",
-            "placeholder": "Send message"
-        },
-        "category": "single_prompt_agent",
-        "maxIterations": 15,
-        "maxExecutionTime": null,
-        "earlyStoppingMethod": "force",
-        "agentConfigId": "64f91ad0fe1248eeb21744dd4e699e3b",
-        "createAt": 1689518531098,
-        "updateAt": 1689777203964
-    },
-    {
-        "agent": "AlphaAgent",
-        "version": 4,
+        "version": 35,
         "isPublished": true,
         "handleParsingError": true,
         "workMode": "single_prompt_mode",
-        "displayName": "🤖️ Single Prompt: Brainstorming",
-        "role": "Role:\n“”“\nAct as a Brainstorming Participant. I will first present an idea about the product, and you can try to gently challenge my thoughts. Each response should include a few suggestions to continuously push the idea toward becoming a concrete plan. This conversation may last multiple rounds, during which you can help me improve the idea continuously. However, please do not excessively prolong the topic or explain the content I have described. I will start with \"I have an idea about\", Please do not answer before I ask a question.\n”“”\n",
-        "capability": "\n",
-        "constraints": "",
-        "enableChatHistory": true,
-        "toolInstruction": "You have access to the following tools:",
-        "tools": [],
-        "temperature": 0,
-        "useChatAPI": true,
-        "model": "gpt-3.5-turbo",
-        "formatInstruction": "Use the following format:\n\nQuestion: the input question you must answer\nThought: you should always think about what to do\nAction: the action to take, should be one of [{tool_names}]\nAction Input: the input to the action\nObservation: the result of the action\n... (this Thought/Action/Action Input/Observation can repeat N times)\nThought: I now know the final answer\nFinal Answer: the final answer to the original input question",
-        "singlePromptFormatInstruction": "Answer the following question in the same language as my input,\nQ: {input}\nA: \n",
-        "userId": "30906221603061761",
-        "appName": "Brainstorming",
-        "appDescription": "Single Prompt: Brainstorming",
-        "appActionCards": null,
-        "appDecoration": {
-            "logo": "https://testres.trickle.so/upload/avatars/agents/a96c13239beb44c592a78b07fd2f1308_1e9d11eb-df95-45d4-9746-6448d91cf39e.png",
-            "placeholder": "Share your inspiration, let's brainstorm 💡 "
-        },
-        "category": "single_prompt_agent",
-        "maxIterations": 15,
-        "maxExecutionTime": null,
-        "earlyStoppingMethod": "force",
-        "agentConfigId": "3a11c30cfc214fd1a569a35c6f9d1878",
-        "createAt": 1689519611494,
-        "updateAt": 1689833409636
-    },
-    {
-        "agent": "AlphaAgent",
-        "version": 6,
-        "isPublished": true,
-        "handleParsingError": true,
-        "workMode": "single_prompt_mode",
-        "displayName": "🤖️ Single Prompt: General Chat 2.0",
-        "role": "Role:\n“”“\nYou are a member of the Trickle AI assistant team responsible for general chat.\n”“”\n\nConstraints:\n“”“\nAdhere to a consistent interaction style. Adopt a friendly, professional demeanor spiced with a touch of humor.\n”“”\n",
+        "displayName": "💬 FastGPT 3.5 ",
+        "role": "Role:\nYou are a text-based AI assistant and a Trickle AI assistant team member. You can answer questions, provide explanations, generate text based on the input you receive, and offer insights on a wide range of topics.\n\nCapability:\nYour primary function is to process and understand natural language to provide helpful and relevant responses.\nKnowledge cutoff: 2021-09\nCurrent date: {currentDateInUTC} \n\nConstraints:\nRespond in the language the input question was posed. Adopt a friendly, professional demeanor spiced with a touch of humor.\n1. Please avoid making assurances about tasks or capabilities beyond your scope as a AI assistant.\n2. Even if there are similar questions in the chat history, you should not give the same answer. Always try to re-answer the user's new question.\n3. Please provide your response in a well-structured markdown format, preferably using numbered or bulleted lists.\n",
         "capability": "",
         "constraints": "",
         "enableChatHistory": true,
@@ -326,281 +16,656 @@
         "temperature": 0.3,
         "useChatAPI": true,
         "model": "gpt-3.5-turbo",
-        "formatInstruction": "Use the following format:\n\nQuestion: the input question you must answer\nThought: you should always think about what to do\nAction: the action to take, should be one of [{tool_names}]\nAction Input: the input to the action\nObservation: the result of the action\n... (this Thought/Action/Action Input/Observation can repeat N times)\nThought: I now know the final answer\nFinal Answer: the final answer to the original input question",
-        "singlePromptFormatInstruction": "Based on the prior chat history between the human user and the AI, use it as a context for your responses and continue the conversation below.\nHuman: {input}\nAI: ",
+        "formatInstruction": "Use the following format:\n\nQuestion: the input question you must answer\nThought: you should always think about what to do\nAction: the action to take, should be one of [{tool_names}]\nAction Input: the input to the action\nObservation: the result of the action\n... (this Thought/Action/Action Input/Observation can repeat N times)\nThought: I now know the final answer\nFinal Answer: you should always provide the final answer to the original user input question in the same language.",
+        "singlePromptFormatInstruction": "Answer the following question in the same language as my input,\nQ: {input}\nA: ",
         "userId": "30906221603061761",
-        "appName": "TrickleChat 3.5 ",
-        "appDescription": "Single Prompt: GPT-3.5, a ChatGPT-3.5 alternative",
-        "appActionCards": null,
+        "appName": "FastGPT",
+        "appDescription": "An ultra-fast ChatGPT alternative.",
+        "appActionCards": [
+            {
+                "id": "uuid",
+                "args": {
+                    "direction": "center"
+                },
+                "elements": [
+                    {
+                        "id": "uuid",
+                        "type": "blocks",
+                        "args": {
+                            "value": [
+                                {
+                                    "id": "dTTb9aDA4q",
+                                    "type": "rich_texts",
+                                    "blocks": [],
+                                    "elements": [
+                                        {
+                                            "id": "93b49ba7-0bef-4f0b-8ce1-42260cccafd7",
+                                            "type": "text",
+                                            "elements": [],
+                                            "text": "Greetings! "
+                                        },
+                                        {
+                                            "id": "9e482d68-0bf2-4cb6-bf62-f0fcd1dd3333",
+                                            "type": "bold",
+                                            "elements": [
+                                                {
+                                                    "id": "2cf2b686-0577-42ff-89f2-cfb827fece56",
+                                                    "type": "colored",
+                                                    "elements": [
+                                                        {
+                                                            "id": "48a1db72-2ee5-469c-a987-ddc4311492b6",
+                                                            "type": "text",
+                                                            "elements": [],
+                                                            "text": "FastGPT"
+                                                        }
+                                                    ],
+                                                    "text": "",
+                                                    "value": {
+                                                        "color": "purple"
+                                                    }
+                                                }
+                                            ],
+                                            "text": ""
+                                        },
+                                        {
+                                            "id": "5c68a6fa-e193-4a1e-bd72-914ca30e919d",
+                                            "type": "text",
+                                            "elements": [],
+                                            "text": " is at your service, ready to assist you in creating something incredible. Feel free to ask me anything by typing your question into the text box."
+                                        }
+                                    ],
+                                    "indent": 0,
+                                    "lastModifiedSource": "30906771358875653",
+                                    "lastModifiedSourceType": "remote"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        ],
         "appDecoration": {
-            "logo": "https://testres.trickle.so/upload/avatars/agents/fba0556877814fe6866c97f9813b6ad4_fec29ae1-5e17-4eb8-b67a-845b04fa132c.png",
-            "placeholder": "send message",
-            "sortIndex": "3"
+            "logo": "https://testres.trickle.so/upload/avatars/agents/fba0556877814fe6866c97f9813b6ad4_25a21adb-f096-4c39-9a1e-f03bca0d55f0.png",
+            "placeholder": "Send a message",
+            "sortIndex": "0",
+            "autoSaveToMemery": false
+        },
+        "category": "single_prompt_agent",
+        "maxIterations": 15,
+        "maxExecutionTime": 120,
+        "earlyStoppingMethod": "force",
+        "chatHistoryPromptPrefix": "\nFollowing is the chat history:\n'''\n",
+        "chatHistoryPromptSuffix": "\n'''",
+        "chatHistoryLength": 10,
+        "chatHistoryFormat": "json",
+        "asyncInteractionMode": true
+    },
+    {
+        "agentConfigId": "9d76d013e99b4ac9839e98b256cd2b6a",
+        "agent": "AlphaAgent",
+        "version": 12,
+        "isPublished": true,
+        "handleParsingError": false,
+        "workMode": "workflow_mode",
+        "displayName": "🔍 Memory Retrive 2.0 (live) ",
+        "role": "You are an intelligent assistant.",
+        "capability": "",
+        "constraints": "Answer the following questions as best you can. For tabular information return it as an html table. Do not return markdown format. ",
+        "enableChatHistory": false,
+        "toolInstruction": "You have access to the following tools:",
+        "tools": [
+            {
+                "tool": "TrickleOpenSearchTool",
+                "name": "Search memory",
+                "description": "useful when you need to answer questions about their projects, businesses, daily works, notes, to-dos and so on,usually located in their trickle workspace",
+                "returnDirect": false,
+                "supportOutput": false,
+                "supportReturnDirect": false,
+                "supportLLM": false,
+                "supportIntg": false,
+                "supportTxtToImage": false,
+                "supportMultiTask": false,
+                "supportAgent": false,
+                "supportLongTermMemory": true,
+                "supportWebLoader": false,
+                "version": 0,
+                "isPublished": false,
+                "displayInfo": {
+                    "name": "Search memory",
+                    "description": "Display description"
+                },
+                "category": "basic",
+                "topN": 3,
+                "outputFields": [],
+                "outputFormat": "json"
+            },
+            {
+                "promptPrefix": "Given the context below, answer the subsequent question:\n\nContext:\n{toolInput}\n\nQuestion:\nQ: {input}\n\nGuidelines for Response:\n1. Answer in one sentence.\n2. Provide a hyperlink referring back to the original context if and only if the context contains relevant information.\n3. Include details like currencies, prices, or dates from the context in the answer.\n4. Ensure the response language matches the question language.\n\nResponse Format:\nAnswer in one sentence.\n[Memory link](Original link here)  *(Include this hyperlink only if relevant)*",
+                "promptSuffix": "",
+                "temperature": 0.3,
+                "tool": "LLMTool",
+                "name": "Read memory",
+                "description": "a general LLM based tool",
+                "returnDirect": false,
+                "supportOutput": false,
+                "supportReturnDirect": false,
+                "supportLLM": true,
+                "supportIntg": false,
+                "supportTxtToImage": false,
+                "supportMultiTask": false,
+                "supportAgent": false,
+                "supportLongTermMemory": false,
+                "supportWebLoader": false,
+                "version": 0,
+                "isPublished": false,
+                "displayInfo": {
+                    "name": "Read memory",
+                    "description": "Display description"
+                },
+                "category": "basic",
+                "model": "gpt-3.5-turbo",
+                "useChatAPI": true,
+                "useAgentScratchpadAsContext": false
+            }
+        ],
+        "temperature": 0,
+        "useChatAPI": false,
+        "model": "gpt-3.5-turbo",
+        "formatInstruction": "Use the following format:\nQuestion: the input question you must answer\nThought: you should always think about what to do\nAction: the action to take, should be one of [{tool_names}]\nAction Input: the input to the action\nObservation: the result of the action\n... (this Thought/Action/Action Input/Observation can repeat N times)\nThought: I now know the final answer\nFinal Answer: the final answer to the original input question\n\nFor example:\nQuestion: Write a blog about notion\nThought: I should gather information about Notion and its features to write a comprehensive blog.\nAction: Search\nAction Input: \"What are the features of Notion?\"\nObservation: tables, databases, markdown, code blocks, task management, calendars, and media\nThought: I have gathered information about the features of Notion.\nFinal Answer: Notion is a versatile productivity tool that offers features such as tables, databases, markdown, code blocks, task management, calendars, and media.",
+        "singlePromptFormatInstruction": "Answer the following question,\nQ: {input}\nA: \n",
+        "userId": "30906221603061761",
+        "appName": "Memory Retrive 2.0",
+        "appDescription": "Recall the knowledge in memory",
+        "appActionCards": [
+            {
+                "id": "uuid",
+                "args": {
+                    "direction": "center"
+                },
+                "elements": [
+                    {
+                        "id": "uuid",
+                        "type": "blocks",
+                        "args": {
+                            "value": [
+                                {
+                                    "id": "gjiYQrrWug",
+                                    "type": "rich_texts",
+                                    "blocks": [],
+                                    "elements": [
+                                        {
+                                            "id": "74191424-fe89-4039-8605-3d1e37dbc7f4",
+                                            "type": "text",
+                                            "elements": [],
+                                            "text": "Hey! Meet "
+                                        },
+                                        {
+                                            "id": "f1c6f582-55ee-49f3-b8e4-bcd97c10e91d",
+                                            "type": "bold",
+                                            "elements": [
+                                                {
+                                                    "id": "7c50288d-adf6-47d2-ae20-e78273b25cd4",
+                                                    "type": "colored",
+                                                    "elements": [
+                                                        {
+                                                            "id": "cdfeb86c-80df-4550-8404-955bed8e31d0",
+                                                            "type": "colored",
+                                                            "elements": [
+                                                                {
+                                                                    "id": "1ff0c2aa-2d9e-4777-901f-0451f473ad73",
+                                                                    "type": "colored",
+                                                                    "elements": [
+                                                                        {
+                                                                            "id": "9499afad-9b43-44a5-b099-4cd7244a7107",
+                                                                            "type": "text",
+                                                                            "elements": [],
+                                                                            "text": "Memory Retrieve"
+                                                                        }
+                                                                    ],
+                                                                    "text": "",
+                                                                    "value": {
+                                                                        "color": "purple"
+                                                                    }
+                                                                }
+                                                            ],
+                                                            "text": "",
+                                                            "value": {
+                                                                "color": "gray"
+                                                            }
+                                                        }
+                                                    ],
+                                                    "text": "",
+                                                    "value": {
+                                                        "color": "purple"
+                                                    }
+                                                }
+                                            ],
+                                            "text": ""
+                                        },
+                                        {
+                                            "id": "45d76c08-4251-45e2-8f16-79f7f414e9fd",
+                                            "type": "text",
+                                            "elements": [],
+                                            "text": ", your very own search engine. Just use everyday language to search, and I'll tell you the answer and locate exactly what you need."
+                                        }
+                                    ],
+                                    "indent": 0,
+                                    "lastModifiedSource": "30906771358875653",
+                                    "lastModifiedSourceType": "remote"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        ],
+        "appDecoration": {
+            "logo": "https://testres.trickle.so/upload/avatars/agents/9d76d013e99b4ac9839e98b256cd2b6a_33bb7e8c-3651-4d1e-8315-d10f600b2a56.png",
+            "placeholder": "Describe the memory you want to recall.",
+            "autoSaveToMemery": false,
+            "sortIndex": "-1"
         },
         "category": "single_prompt_agent",
         "maxIterations": 15,
         "maxExecutionTime": null,
         "earlyStoppingMethod": "force",
-        "agentConfigId": "fba0556877814fe6866c97f9813b6ad4",
-        "createAt": 1689744063365,
-        "updateAt": 1689776988539
+        "chatHistoryPromptPrefix": "\nFollowing is the chat history:\n'''\n",
+        "chatHistoryPromptSuffix": "\n'''",
+        "chatHistoryLength": 10,
+        "chatHistoryFormat": "json",
+        "asyncInteractionMode": false
     },
     {
+        "agentConfigId": "43773aa02e0548abb05e297ef9ff8ad5",
         "agent": "AlphaAgent",
-        "version": 13,
+        "version": 19,
         "isPublished": true,
-        "handleParsingError": true,
-        "workMode": "tool_mode_with_single_action",
-        "displayName": "✨ Super Agent 2.0",
-        "role": "Role:\n“”“\nYou're embodying Trickle AI, a virtual assistant fueled by GPT-4 technology.\n”“”\n",
-        "capability": "Capability:\n“”“\nYour main responsibilities encompass responding to queries, retrieving information from Trickle workspace, and getting things done. \nYour additional capabilities refer to the functionality definition in the tool you have.\n\nKnowledge cutoff: 2021-09\nCurrent date: {currentDateInUTC} \n”“”\n",
-        "constraints": "Constraints:\n“”“\nAdhere to a consistent interaction style, and respond in the language the input question was posed. Adopt a friendly, professional demeanor spiced with a touch of humor.\n\n1. When your knowledge can answer directly, answer directly without using any tools.\n\n2. If you feel the need to use a tool to answer a question, follow the Format Instruction below to complete the thinking and execution process.\n\n3. When you query information from VectorSearch, you should return each memory separately in the following format (Content needs to be summarized):\nTitle: \\\nAuthor: \\\nContent summary: \\\nLink: \\\n\n4. Your responses should be in well-structured markdown format using numbered lists, or bulleted lists.\n”“”\n",
-        "enableChatHistory": true,
+        "handleParsingError": false,
+        "workMode": "workflow_mode",
+        "displayName": "Capture Workflow 4.0 (live)",
+        "role": "You are an intelligent assistant.",
+        "capability": "",
+        "constraints": "Answer the following questions as best you can. For tabular information return it as an html table. Do not return markdown format. ",
+        "enableChatHistory": false,
         "toolInstruction": "You have access to the following tools:",
         "tools": [
             {
-                "tool": "AgentTool",
-                "name": "Code Interpreter",
-                "description": "Only when you need to solve complex problems, such as analyzing complex tables, generating charts, or solving algorithmic problems, you can use code.",
-                "supportReturnDirect": false,
+                "tool": "MultiTaskTool",
+                "name": "MultiTaskTool",
+                "description": "Run multi tool in the same time",
                 "returnDirect": false,
                 "supportOutput": false,
-                "output": "",
-                "supportLLM": false,
-                "promptPrefix": "",
-                "promptSuffix": "",
-                "temperature": 0.7,
-                "model": "gpt-3.5-turbo-0613",
-                "useChatAPI": true,
-                "useAgentScratchpadAsContext": false,
-                "supportIntg": false,
-                "intg": null,
-                "notionSearchDepth": 2,
-                "githubOrgName": "[repo org name]",
-                "githubRepo": "[repo name]",
-                "supportTxtToImage": false,
-                "numberOfImages": 2,
-                "imageSize": "512x512",
-                "supportMultiTask": false,
-                "supportAgent": true,
-                "agentConfigId": "36fe207bc50d454ab6d2a276061029ab",
-                "supportLinkTool": false,
-                "linkedToolConfigId": "",
-                "supportLongTermMemory": false,
-                "memoryId": "",
-                "topN": 4,
-                "outputFields": [],
-                "outputFormat": "json",
-                "version": 0,
-                "isPublished": false,
-                "displayInfo": {
-                    "name": "Code Interpreter",
-                    "description": "Only when you need to solve complex problems, such as analyzing complex tables, generating charts, or solving algorithmic problems, you can use code.\nThe code interpreter will first write the code based on the task requirements, then run it in a secure sandbox environment on the cloud, and then return the results."
-                },
-                "category": "basic"
-            },
-            {
-                "tool": "AgentTool",
-                "name": "GitHub Action",
-                "description": "Use when you need to perform GitHub workflows, such as creating pull requests, running workflows, etc.",
                 "supportReturnDirect": false,
-                "returnDirect": false,
-                "supportOutput": false,
-                "output": "",
                 "supportLLM": false,
-                "promptPrefix": "",
-                "promptSuffix": "",
-                "temperature": 0.7,
-                "model": "gpt-3.5-turbo-0613",
-                "useChatAPI": true,
-                "useAgentScratchpadAsContext": false,
                 "supportIntg": false,
-                "intg": null,
-                "notionSearchDepth": 2,
-                "githubOrgName": "[repo org name]",
-                "githubRepo": "[repo name]",
                 "supportTxtToImage": false,
-                "numberOfImages": 2,
-                "imageSize": "512x512",
-                "supportMultiTask": false,
-                "supportAgent": true,
-                "agentConfigId": "3122fead12c046d386b9a584a9c7df56",
-                "supportLinkTool": false,
-                "linkedToolConfigId": "",
+                "supportMultiTask": true,
+                "supportAgent": false,
                 "supportLongTermMemory": false,
-                "memoryId": "",
-                "topN": 4,
-                "outputFields": [],
-                "outputFormat": "json",
+                "supportWebLoader": false,
                 "version": 0,
                 "isPublished": false,
                 "displayInfo": {
                     "name": "Display name",
                     "description": "Display description"
                 },
-                "category": "basic"
-            },
-            {
-                "tool": "TrickleOpenSearchTool",
-                "name": "TrickleVectorSearch",
-                "description": "Use when you need to retrieve information in long-term memory, such as project tasks, daily works, notes, to-dos, and so on, usually located in the current Trickle workspace.1",
-                "supportReturnDirect": false,
-                "returnDirect": false,
-                "supportOutput": false,
-                "output": "",
-                "supportLLM": false,
-                "promptPrefix": "",
-                "promptSuffix": "",
-                "temperature": 0.7,
-                "model": "gpt-3.5-turbo-0613",
-                "useChatAPI": true,
-                "useAgentScratchpadAsContext": false,
-                "supportIntg": false,
-                "intg": null,
-                "notionSearchDepth": 2,
-                "githubOrgName": "[repo org name]",
-                "githubRepo": "[repo name]",
-                "supportTxtToImage": false,
-                "numberOfImages": 2,
-                "imageSize": "512x512",
-                "supportMultiTask": false,
-                "supportAgent": false,
-                "agentConfigId": "",
-                "supportLinkTool": false,
-                "linkedToolConfigId": "",
-                "supportLongTermMemory": true,
-                "memoryId": "",
-                "topN": 5,
-                "outputFields": [
-                    "Title",
-                    "Content",
-                    "Link"
+                "category": "basic",
+                "subToolConfigs": [
+                    {
+                        "promptPrefix": "",
+                        "promptSuffix": "",
+                        "temperature": 0.7,
+                        "tool": "AgentTool",
+                        "name": "agent tool",
+                        "description": "a agent tool",
+                        "returnDirect": false,
+                        "supportOutput": false,
+                        "supportReturnDirect": false,
+                        "supportLLM": false,
+                        "supportIntg": false,
+                        "supportTxtToImage": false,
+                        "supportMultiTask": false,
+                        "supportAgent": true,
+                        "supportLongTermMemory": false,
+                        "supportWebLoader": false,
+                        "version": 0,
+                        "isPublished": false,
+                        "displayInfo": {
+                            "name": "Display name",
+                            "description": "Display description"
+                        },
+                        "category": "basic",
+                        "agentConfigId": "c526e9bc21f540c698b526abd23e1a71"
+                    },
+                    {
+                        "promptPrefix": "",
+                        "promptSuffix": "",
+                        "temperature": 0.7,
+                        "tool": "AgentTool",
+                        "name": "agent tool",
+                        "description": "a agent tool",
+                        "returnDirect": false,
+                        "supportOutput": false,
+                        "supportReturnDirect": false,
+                        "supportLLM": false,
+                        "supportIntg": false,
+                        "supportTxtToImage": false,
+                        "supportMultiTask": false,
+                        "supportAgent": true,
+                        "supportLongTermMemory": false,
+                        "supportWebLoader": false,
+                        "version": 0,
+                        "isPublished": false,
+                        "displayInfo": {
+                            "name": "Display name",
+                            "description": "Display description"
+                        },
+                        "category": "basic",
+                        "agentConfigId": "07af0520a33244f4930eb6f5001dd253"
+                    }
                 ],
-                "outputFormat": "json",
-                "version": 5,
-                "isPublished": true,
-                "displayInfo": {
-                    "name": "TrickleVectorSearch",
-                    "description": "Use when you need to retrieve information in long-term memory, such as project tasks, daily works, notes, to-dos, and so on, usually located in the current Trickle workspace.",
-                    "icon": "https://testres.trickle.so/upload/avatars/agents/bc968cc0c20b4cad833358a688b85a06_c7eefdcc-8878-4f6e-91c9-388f9d8af3fb.png"
-                },
-                "category": "basic"
+                "resultReducer": "concat",
+                "timeout": 30
             },
             {
-                "tool": "TakeNote",
-                "name": "Save to Memory",
-                "description": "When you need to save information in long-term memory, use it, such as taking notes, saving them as documents, or sharing them in the workspace.",
-                "supportReturnDirect": false,
+                "promptPrefix": "Please generate a summary in the corresponding language based on the following text extracted from a screenshot:\n\nText in screenshot:\n<start>\n{toolInput}\n<end>\n\nGuidelines for Response:\n1. Provide a brief summary (max 280 characters).\n2. Highlight essential details like names, currencies, prices, or dates.\n\nResponse Format:\nA brief summary of the screenshot.",
+                "promptSuffix": "",
+                "temperature": 0.3,
+                "tool": "LLMTool",
+                "name": "caputre summary",
+                "description": "a general LLM based tool",
                 "returnDirect": false,
                 "supportOutput": false,
-                "output": "",
-                "supportLLM": false,
-                "promptPrefix": "",
-                "promptSuffix": "",
-                "temperature": 0.7,
-                "model": "gpt-3.5-turbo-0613",
-                "useChatAPI": true,
-                "useAgentScratchpadAsContext": false,
+                "supportReturnDirect": false,
+                "supportLLM": true,
                 "supportIntg": false,
-                "intg": null,
-                "notionSearchDepth": 2,
-                "githubOrgName": "[repo org name]",
-                "githubRepo": "[repo name]",
                 "supportTxtToImage": false,
-                "numberOfImages": 2,
-                "imageSize": "512x512",
                 "supportMultiTask": false,
                 "supportAgent": false,
-                "agentConfigId": "",
-                "supportLinkTool": false,
-                "linkedToolConfigId": "",
                 "supportLongTermMemory": false,
-                "memoryId": "",
-                "topN": 4,
-                "outputFields": [],
-                "outputFormat": "json",
-                "version": 3,
-                "isPublished": true,
+                "supportWebLoader": false,
+                "version": 0,
+                "isPublished": false,
                 "displayInfo": {
-                    "name": "Save to Memory",
-                    "description": "When you need to save information in long-term memory, use it, such as taking notes, saving them as documents, or sharing them in the workspace.",
-                    "icon": "https://testres.trickle.so/upload/avatars/agents/27c2c906a4274d45bd3ee632b789f4cd_57ff0af7-8d9c-4387-88a8-04fea925dabe.png"
+                    "name": "Display name",
+                    "description": "Display description"
+                },
+                "category": "basic",
+                "model": "gpt-3.5-turbo",
+                "useChatAPI": true,
+                "useAgentScratchpadAsContext": false
+            },
+            {
+                "tool": "SaveToMemoryTool",
+                "name": "save to memeory",
+                "description": "useful for saving data to memory",
+                "returnDirect": false,
+                "supportOutput": false,
+                "supportReturnDirect": false,
+                "supportLLM": false,
+                "supportIntg": false,
+                "supportTxtToImage": false,
+                "supportMultiTask": false,
+                "supportAgent": false,
+                "supportLongTermMemory": false,
+                "supportWebLoader": false,
+                "version": 0,
+                "isPublished": false,
+                "displayInfo": {
+                    "name": "Display name",
+                    "description": "Display description"
                 },
                 "category": "basic"
             }
         ],
         "temperature": 0,
         "useChatAPI": true,
-        "model": "gpt-4",
-        "formatInstruction": "Use the following format:\n\nQuestion: the input question you must answer\nThought: you should always think about what to do\nAction: the action to take, should be one of [{tool_names}]\nAction Input: the input to the action\nObservation: the result of the action\n... (this Thought/Action/Action Input/Observation can repeat N times)\nThought: I now know the final answer\nFinal Answer: you should always provide the final answer to the original user input question in the same language.\n",
+        "model": "gpt-3.5-turbo",
+        "formatInstruction": "Use the following format:\nQuestion: the input question you must answer\nThought: you should always think about what to do\nAction: the action to take, should be one of [{tool_names}]\nAction Input: the input to the action\nObservation: the result of the action\n... (this Thought/Action/Action Input/Observation can repeat N times)\nThought: I now know the final answer\nFinal Answer: the final answer to the original input question\n",
         "singlePromptFormatInstruction": "Answer the following question,\nQ: {input}\nA: \n",
         "userId": "30906221603061761",
-        "appName": "Super Agent 2.0",
-        "appDescription": "One Agent to rule them all",
-        "appActionCards": null,
+        "appName": "Capture Workflow 4.0",
+        "appDescription": "Screenshot to memory",
+        "appActionCards": [
+            {
+                "id": "uuid",
+                "args": {
+                    "direction": "center"
+                },
+                "elements": [
+                    {
+                        "id": "uuid",
+                        "type": "blocks",
+                        "args": {
+                            "value": [
+                                {
+                                    "id": "d6c4829d-7f5f-4b13-a09e-b2033576ec97",
+                                    "type": "rich_texts",
+                                    "blocks": [],
+                                    "elements": [
+                                        {
+                                            "id": "8c686a8e-4ddc-4486-8f42-3cac53c84fb2",
+                                            "type": "text",
+                                            "elements": [],
+                                            "text": "Hey there! Welcome to "
+                                        },
+                                        {
+                                            "id": "9135a769-591f-4759-ba43-6021fcc71a04",
+                                            "type": "bold",
+                                            "elements": [
+                                                {
+                                                    "id": "5babec8a-3ffd-4d38-ab80-2aac183555a9",
+                                                    "type": "colored",
+                                                    "elements": [
+                                                        {
+                                                            "id": "395d9b1b-4541-4d44-830b-493906b85875",
+                                                            "type": "colored",
+                                                            "elements": [
+                                                                {
+                                                                    "id": "3833ac6c-c111-4d0c-8dcc-87fca59d1daf",
+                                                                    "type": "colored",
+                                                                    "elements": [
+                                                                        {
+                                                                            "id": "459e6ed1-5e59-4b50-aa2f-2b6de5bacfb5",
+                                                                            "type": "text",
+                                                                            "elements": [],
+                                                                            "text": "Capture Workflow"
+                                                                        }
+                                                                    ],
+                                                                    "text": "",
+                                                                    "value": {
+                                                                        "color": "purple"
+                                                                    }
+                                                                }
+                                                            ],
+                                                            "text": "",
+                                                            "value": {
+                                                                "color": "gray"
+                                                            }
+                                                        }
+                                                    ],
+                                                    "text": "",
+                                                    "value": {
+                                                        "color": "green"
+                                                    }
+                                                }
+                                            ],
+                                            "text": ""
+                                        },
+                                        {
+                                            "id": "25e7355b-2701-4009-80b6-8746bafe4907",
+                                            "type": "text",
+                                            "elements": [],
+                                            "text": ". Drop in anything you'd like to save – screenshots, URLs, text, and beyond. I'll create quick digests and store it all for you.\n"
+                                        }
+                                    ],
+                                    "indent": 0,
+                                    "lastModifiedSource": "30906771358875653",
+                                    "lastModifiedSourceType": "remote"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        ],
         "appDecoration": {
-            "logo": "https://testres.trickle.so/upload/avatars/agents/e521cab4b2fa44ed918bf4ad8eac2564_690b4810-5929-471d-9276-a3775f4c33a3.png",
-            "placeholder": "Enter your task and let AI get things done",
-            "sortIndex": "0"
+            "logo": "https://testres.trickle.so/upload/avatars/agents/03f09f05fab24137bacd5663909f42ee_f6ab4539-7b3e-41ac-b654-fd407dc4586c.png",
+            "placeholder": "Capture your screenshots in a heartbeat.",
+            "autoSaveToMemery": false,
+            "sortIndex": "-10"
         },
-        "category": "super_agent",
-        "maxIterations": 10,
-        "maxExecutionTime": 120,
+        "category": "single_prompt_agent",
+        "maxIterations": 15,
+        "maxExecutionTime": null,
         "earlyStoppingMethod": "force",
-        "agentConfigId": "e521cab4b2fa44ed918bf4ad8eac2564",
-        "createAt": 1689756464344,
-        "updateAt": 1689859854612
+        "chatHistoryPromptPrefix": "\nFollowing is the chat history:\n'''\n",
+        "chatHistoryPromptSuffix": "\n'''",
+        "chatHistoryLength": 10,
+        "chatHistoryFormat": "json",
+        "asyncInteractionMode": true
     },
     {
+        "agentConfigId": "2f19f249f0934eb0bbe39529049a2bc3",
+        "agent": "AlphaAgent",
+        "version": 12,
+        "isPublished": true,
+        "handleParsingError": false,
+        "workMode": "workflow_mode",
+        "displayName": " Do not use - for mac capture (Capture Workflow 4.0) ",
+        "role": "You are an intelligent assistant.",
+        "capability": "",
+        "constraints": "Answer the following questions as best you can. For tabular information return it as an html table. Do not return markdown format. ",
+        "enableChatHistory": false,
+        "toolInstruction": "You have access to the following tools:",
+        "tools": [
+            {
+                "tool": "FakeTool",
+                "name": "fake tool",
+                "description": "a tool that can be used for mock test",
+                "returnDirect": false,
+                "supportOutput": true,
+                "supportReturnDirect": false,
+                "supportLLM": false,
+                "supportIntg": false,
+                "supportTxtToImage": false,
+                "supportMultiTask": false,
+                "supportAgent": false,
+                "supportLongTermMemory": false,
+                "supportWebLoader": false,
+                "version": 0,
+                "isPublished": false,
+                "displayInfo": {
+                    "name": "Display name",
+                    "description": "Display description"
+                },
+                "category": "basic",
+                "output": ""
+            },
+            {
+                "promptPrefix": "Please generate a insight in the corresponding language, based on the provided text within the tags '<start>' and '<end>':\n\nText in screenshot:\n<start>\n{inputText}\n<end>\n\nGuidelines for Response:\n1. Start with the extracted caption (bold style).\n2. Provide a concise insight emphasizing any people mentioned and the App origin (max 180 characters).\n3. Include essential details like currencies, prices, dates, or other critical elements in bullet point format using markdown.\n\nResponse Format:\n**Caption**\nA concise insight of the screenshot.",
+                "promptSuffix": "",
+                "temperature": 0,
+                "tool": "LLMTool",
+                "name": "caputre summary",
+                "description": "a general LLM based tool",
+                "returnDirect": false,
+                "supportOutput": false,
+                "supportReturnDirect": false,
+                "supportLLM": true,
+                "supportIntg": false,
+                "supportTxtToImage": false,
+                "supportMultiTask": false,
+                "supportAgent": false,
+                "supportLongTermMemory": false,
+                "supportWebLoader": false,
+                "version": 0,
+                "isPublished": false,
+                "displayInfo": {
+                    "name": "Display name",
+                    "description": "Display description"
+                },
+                "category": "basic",
+                "model": "gpt-4",
+                "useChatAPI": true,
+                "useAgentScratchpadAsContext": false
+            },
+            {
+                "tool": "SaveToMemoryTool",
+                "name": "save to memeory",
+                "description": "useful for saving data to memory",
+                "returnDirect": false,
+                "supportOutput": false,
+                "supportReturnDirect": false,
+                "supportLLM": false,
+                "supportIntg": false,
+                "supportTxtToImage": false,
+                "supportMultiTask": false,
+                "supportAgent": false,
+                "supportLongTermMemory": false,
+                "supportWebLoader": false,
+                "version": 0,
+                "isPublished": false,
+                "displayInfo": {
+                    "name": "Display name",
+                    "description": "Display description"
+                },
+                "category": "basic"
+            }
+        ],
+        "temperature": 0,
+        "useChatAPI": true,
+        "model": "gpt-3.5-turbo",
+        "formatInstruction": "Use the following format:\nQuestion: the input question you must answer\nThought: you should always think about what to do\nAction: the action to take, should be one of [{tool_names}]\nAction Input: the input to the action\nObservation: the result of the action\n... (this Thought/Action/Action Input/Observation can repeat N times)\nThought: I now know the final answer\nFinal Answer: the final answer to the original input question\n",
+        "singlePromptFormatInstruction": "Answer the following question,\nQ: {input}\nA: \n",
+        "userId": "30906221603061761",
+        "appName": " Do not use - for mac capture (Capture Workflow 4.0) ",
+        "appDescription": "for mac capture",
+        "appActionCards": null,
+        "appDecoration": {
+            "logo": "https://testres.trickle.so/upload/avatars/agents/2f19f249f0934eb0bbe39529049a2bc3_a7d82bdb-36dd-4603-ad51-f57e5eb9cbb5.png",
+            "placeholder": "Enter your screenshot, text, or link",
+            "autoSaveToMemery": false,
+            "sortIndex": "-19"
+        },
+        "category": "single_prompt_agent",
+        "maxIterations": 15,
+        "maxExecutionTime": null,
+        "earlyStoppingMethod": "force",
+        "chatHistoryPromptPrefix": "\nFollowing is the chat history:\n'''\n",
+        "chatHistoryPromptSuffix": "\n'''",
+        "chatHistoryLength": 10,
+        "chatHistoryFormat": "json",
+        "asyncInteractionMode": true
+    },
+    {
+        "agentConfigId": "234d146ff8744b1ab982ea16b4225ea5",
         "agent": "AlphaAgent",
         "version": 5,
         "isPublished": true,
         "handleParsingError": false,
-        "workMode": "tool_mode_with_single_action",
-        "displayName": "🤖 Github Workflow",
-        "role": "Role:\n“”“\nTrickle AI is an all-in-one tool for work fueled by GPT-4 technology, and you are a member of the Trickle AI assistant team.\n”“”",
-        "capability": "Capability:\n“”“\nYou are responsible for taking github pull request or running github workflow. Besides that, you don't have to answer any other questions. If a user asks a question outside the scope of github, you can suggest that they seek help from other assistants in Trickle AI.\n”“”",
-        "constraints": "1. If your knowledge can directly answer the question, there is no need to answer according to the format in the following format. Just provide the answer directly.\n2. When you cannot answer the question directly and need to use a tool, follow the format in the following format to complete your thinking.\n3.  For tabular information return it as an html table. Do not return markdown ",
-        "enableChatHistory": true,
+        "workMode": "workflow_mode",
+        "displayName": "New AI Caputre",
+        "role": "You are an intelligent assistant.",
+        "capability": "",
+        "constraints": "Answer the following questions as best you can. For tabular information return it as an html table. Do not return markdown format. ",
+        "enableChatHistory": false,
         "toolInstruction": "You have access to the following tools:",
         "tools": [
             {
-                "tool": "GithubCreatePullRequestTool",
-                "name": "create pull request",
-                "description": "useful for creating pull request on github, required args: \n- title: pull request title\n- description: pull request content\n- source_branch: the source branch of the pull request\n- target_branch: the target branch where you want to pull into\nthe input args should be in json format, including title, description, source_branch and target_branch",
-                "supportReturnDirect": false,
+                "tool": "GoogleOCRTool",
+                "name": "Analyze image",
+                "description": "useful for recognize text from image, the input args should be a image url",
                 "returnDirect": false,
                 "supportOutput": false,
-                "output": "",
+                "supportReturnDirect": false,
                 "supportLLM": false,
-                "promptPrefix": "",
-                "promptSuffix": "",
-                "temperature": 0.7,
-                "model": "",
-                "useChatAPI": true,
-                "useAgentScratchpadAsContext": false,
-                "supportIntg": true,
-                "intg": {
-                    "type": "github",
-                    "oauthUrl": "https://github.com/login/oauth/authorize?client_id=d10e12148b213cce9de7&scope=user%20repo%20repo_deployment%20workflow&redirect_uri=https://ai.trickle.so/trickleai-sio/oauth/github",
-                    "intgId": "aa44d2495a414abb9e24f2e8b45dd59e"
-                },
-                "notionSearchDepth": 2,
-                "githubOrgName": "visionwx",
-                "githubRepo": "E2E_Automation",
+                "supportIntg": false,
                 "supportTxtToImage": false,
-                "numberOfImages": 2,
-                "imageSize": "512x512",
-                "supportMultiTask": null,
+                "supportMultiTask": false,
                 "supportAgent": false,
-                "agentConfigId": "",
-                "supportLinkTool": false,
-                "linkedToolConfigId": "",
                 "supportLongTermMemory": false,
-                "memoryId": "",
-                "topN": 4,
-                "outputFields": [],
-                "outputFormat": "json",
+                "supportWebLoader": false,
                 "version": 0,
                 "isPublished": false,
                 "displayInfo": {
@@ -610,42 +675,920 @@
                 "category": "basic"
             },
             {
-                "tool": "GithubDispatchWorkflowTool",
-                "name": "run workflow",
-                "description": "useful for running github action workflow.\nYou should get the workflowId from user input information, which end with .yml.\nthe input args is the value of workflowId, but not contained the workflowId=",
-                "supportReturnDirect": false,
+                "promptPrefix": "Please generate a insight in the corresponding language, based on the provided text within the tags '<start>' and '<end>':\n\nText in screenshot:\n<start>\n{toolInput}\n<end>\n\nGuidelines for Response:\n1. Start with the extracted caption (bold style).\n2. Provide a concise insight emphasizing any people mentioned and the App origin (max 180 characters).\n3. Include essential details like currencies, prices, dates, or other critical elements in bullet point format using markdown.\n\nResponse Format:\n**Caption**\nA concise insight of the screenshot.",
+                "promptSuffix": "",
+                "temperature": 0,
+                "tool": "LLMTool",
+                "name": "caputre summary",
+                "description": "a general LLM based tool",
                 "returnDirect": false,
                 "supportOutput": false,
-                "output": "",
-                "supportLLM": false,
-                "promptPrefix": "",
-                "promptSuffix": "",
-                "temperature": 0.7,
-                "model": "",
+                "supportReturnDirect": false,
+                "supportLLM": true,
+                "supportIntg": false,
+                "supportTxtToImage": false,
+                "supportMultiTask": false,
+                "supportAgent": false,
+                "supportLongTermMemory": false,
+                "supportWebLoader": false,
+                "version": 0,
+                "isPublished": false,
+                "displayInfo": {
+                    "name": "Display name",
+                    "description": "Display description"
+                },
+                "category": "basic",
+                "model": "gpt-4",
                 "useChatAPI": true,
-                "useAgentScratchpadAsContext": false,
-                "supportIntg": true,
+                "useAgentScratchpadAsContext": false
+            },
+            {
+                "tool": "SaveToMemoryTool",
+                "name": "save to memeory",
+                "description": "useful for saving data to memory",
+                "returnDirect": false,
+                "supportOutput": false,
+                "supportReturnDirect": false,
+                "supportLLM": false,
+                "supportIntg": false,
+                "supportTxtToImage": false,
+                "supportMultiTask": false,
+                "supportAgent": false,
+                "supportLongTermMemory": false,
+                "supportWebLoader": false,
+                "version": 0,
+                "isPublished": false,
+                "displayInfo": {
+                    "name": "Display name",
+                    "description": "Display description"
+                },
+                "category": "basic"
+            }
+        ],
+        "temperature": 0,
+        "useChatAPI": true,
+        "model": "gpt-3.5-turbo",
+        "formatInstruction": "Use the following format:\nQuestion: the input question you must answer\nThought: you should always think about what to do\nAction: the action to take, should be one of [{tool_names}]\nAction Input: the input to the action\nObservation: the result of the action\n... (this Thought/Action/Action Input/Observation can repeat N times)\nThought: I now know the final answer\nFinal Answer: the final answer to the original input question\n",
+        "singlePromptFormatInstruction": "Answer the following question,\nQ: {input}\nA: \n",
+        "userId": "1514186373161025537",
+        "appName": "New AI Caputre",
+        "appDescription": "Screenshot to memory",
+        "appActionCards": [
+            {
+                "id": "uuid",
+                "args": {
+                    "direction": "left"
+                },
+                "elements": [
+                    {
+                        "type": "blocks",
+                        "args": {
+                            "value": [
+                                {
+                                    "id": "7880bdaf-04d8-486c-9ee6-bd817e2fb6f1",
+                                    "type": "rich_texts",
+                                    "isFirst": false,
+                                    "indent": 0,
+                                    "blocks": [],
+                                    "display": "block",
+                                    "elements": [
+                                        {
+                                            "id": "ab999675-281b-4548-8a9a-c0099c7a7bc3",
+                                            "type": "text",
+                                            "text": "To start, send a ",
+                                            "elements": [],
+                                            "isCurrent": false
+                                        },
+                                        {
+                                            "id": "d3e70fd3-99f5-41ad-be00-54818dbeaba8",
+                                            "type": "colored",
+                                            "text": "",
+                                            "value": {
+                                                "color": "purple"
+                                            },
+                                            "elements": [
+                                                {
+                                                    "id": "091c1cb9-590b-4841-8550-16b47e073b24",
+                                                    "type": "text",
+                                                    "text": "screenshot",
+                                                    "elements": [],
+                                                    "isCurrent": false
+                                                }
+                                            ],
+                                            "isCurrent": false
+                                        },
+                                        {
+                                            "id": "d6aff1ea-d345-48c4-ab41-c3ced70c2dcb",
+                                            "type": "text",
+                                            "text": " by clicking the ",
+                                            "elements": [],
+                                            "isCurrent": false
+                                        },
+                                        {
+                                            "id": "709e5c95-6a8d-4704-83fb-2f92c1f7e882",
+                                            "type": "colored",
+                                            "text": "",
+                                            "value": {
+                                                "color": "purple"
+                                            },
+                                            "elements": [
+                                                {
+                                                    "id": "5fd4e60c-cc72-4151-a007-01e95eb100fe",
+                                                    "type": "text",
+                                                    "text": "\"",
+                                                    "elements": [],
+                                                    "isCurrent": false
+                                                }
+                                            ],
+                                            "isCurrent": false
+                                        },
+                                        {
+                                            "id": "c4000243-6efe-4ce8-b8fd-fbb8b4764996",
+                                            "type": "bold",
+                                            "text": "",
+                                            "value": "**",
+                                            "elements": [
+                                                {
+                                                    "id": "0e68e43b-9a56-4319-9dca-d269358b3324",
+                                                    "type": "colored",
+                                                    "text": "",
+                                                    "value": {
+                                                        "color": "purple"
+                                                    },
+                                                    "elements": [
+                                                        {
+                                                            "id": "c60959cd-8077-4cdf-837e-9b4133cdb88a",
+                                                            "type": "text",
+                                                            "text": "+\"",
+                                                            "elements": [],
+                                                            "isCurrent": false
+                                                        }
+                                                    ],
+                                                    "isCurrent": false
+                                                }
+                                            ],
+                                            "isCurrent": false
+                                        },
+                                        {
+                                            "id": "11b3f710-dc76-4746-8986-b8128abedc71",
+                                            "type": "text",
+                                            "text": " icon or ",
+                                            "elements": [],
+                                            "isCurrent": false
+                                        },
+                                        {
+                                            "id": "e532deb9-2d78-4792-b5d5-a8de9fdac25d",
+                                            "type": "colored",
+                                            "text": "",
+                                            "value": {
+                                                "color": "purple"
+                                            },
+                                            "elements": [
+                                                {
+                                                    "id": "0d37580b-3d07-4e2e-b87a-aa19b76a3d89",
+                                                    "type": "text",
+                                                    "text": "pasting",
+                                                    "elements": [],
+                                                    "isCurrent": false
+                                                }
+                                            ],
+                                            "isCurrent": false
+                                        },
+                                        {
+                                            "id": "80902c1e-43ae-4f46-a004-bbba8208a02a",
+                                            "type": "text",
+                                            "text": " it. Trickle AI will capture it to memory and generate a caption and insights for you.",
+                                            "elements": [],
+                                            "isCurrent": true
+                                        }
+                                    ],
+                                    "isCurrent": true,
+                                    "constraint": "free",
+                                    "seqNum": "0",
+                                    "lastEditedTime": null,
+                                    "lastEditedBy": null,
+                                    "version": 0,
+                                    "updatedByRemote": false,
+                                    "lastModifiedSource": "user",
+                                    "isDeleted": false
+                                }
+                            ]
+                        },
+                        "id": "uuid"
+                    }
+                ]
+            }
+        ],
+        "appDecoration": {
+            "logo": "https://testres.trickle.so/upload/avatars/agents/234d146ff8744b1ab982ea16b4225ea5_c77a9b1e-23c3-4c96-ad85-8c59182f0a9f.png",
+            "placeholder": "Send a screenshot",
+            "autoSaveToMemery": false,
+            "sortIndex": "-20"
+        },
+        "category": "single_prompt_agent",
+        "maxIterations": 15,
+        "maxExecutionTime": null,
+        "earlyStoppingMethod": "force",
+        "chatHistoryPromptPrefix": "\nFollowing is the chat history:\n'''\n",
+        "chatHistoryPromptSuffix": "\n'''",
+        "chatHistoryLength": 10,
+        "chatHistoryFormat": "json",
+        "asyncInteractionMode": false
+    },
+    {
+        "agentConfigId": "cf5622de875845efaac3fbaba7d763da",
+        "agent": "AlphaAgent",
+        "version": 29,
+        "isPublished": true,
+        "handleParsingError": false,
+        "workMode": "tool_mode_with_single_action",
+        "displayName": "Jeffrey",
+        "role": "You are an intelligent assistant.",
+        "capability": "",
+        "constraints": "Answer the following questions as best you can. For tabular information return it as an html table. Do not return markdown format. Use Chinese to answer the question",
+        "enableChatHistory": false,
+        "toolInstruction": "You have access to the following tools:",
+        "tools": [
+            {
                 "intg": {
                     "type": "github",
-                    "oauthUrl": "https://github.com/login/oauth/authorize?client_id=d10e12148b213cce9de7&scope=user%20repo%20repo_deployment%20workflow&redirect_uri=https://ai.trickle.so/trickleai-sio/oauth/github",
-                    "intgId": "aa44d2495a414abb9e24f2e8b45dd59e"
+                    "oauthUrl": "https://github.com/login/oauth/authorize?client_id=fd06a106d90e01a1cab1&scope=user%20repo%20repo_deployment%20workflow&redirect_uri=https://devapp.trickle.so/trickleai-sio/oauth/github",
+                    "intgId": "3b144c80613140fd862c2f679cce919f"
                 },
-                "notionSearchDepth": 2,
-                "githubOrgName": "visionwx",
-                "githubRepo": "E2E_Automation",
+                "tool": "GithubCreatePullRequestTool",
+                "name": "create pull request",
+                "description": "useful for creating pull request on github, required args: \n- title: pull request title\n- description: pull request content\n- source_branch: the source branch of the pull request\n- target_branch: the target branch where you want to pull into\nthe input args should be in json format, including title, description, source_branch and target_branch",
+                "returnDirect": false,
+                "supportOutput": false,
+                "supportReturnDirect": false,
+                "supportLLM": false,
+                "supportIntg": true,
                 "supportTxtToImage": false,
-                "numberOfImages": 2,
-                "imageSize": "512x512",
-                "supportMultiTask": null,
+                "supportMultiTask": false,
                 "supportAgent": false,
-                "agentConfigId": "",
-                "supportLinkTool": false,
-                "linkedToolConfigId": "",
                 "supportLongTermMemory": false,
-                "memoryId": "",
+                "supportWebLoader": false,
+                "version": 0,
+                "isPublished": false,
+                "displayInfo": {
+                    "name": "Display name",
+                    "description": "Display description"
+                },
+                "category": "basic",
+                "githubOrgName": "visionwx",
+                "githubRepo": "feed_web"
+            }
+        ],
+        "temperature": 0,
+        "useChatAPI": false,
+        "model": "gpt-3.5-turbo-16k",
+        "formatInstruction": "Use the following format:\n\nQuestion: the input question you must answer\nThought: you should always think about what to do\nAction: the action to take, should be one of [{tool_names}]\nAction Input: the input to the action\nObservation: the result of the action\n... (this Thought/Action/Action Input/Observation can repeat N times)\nThought: I now know the final answer\nFinal Answer: the final answer to the original input question",
+        "singlePromptFormatInstruction": "Answer the following question,\nQ: {input}\nA: \n",
+        "userId": "21183755674714113",
+        "appName": "For Jeffrey",
+        "appDescription": "An magic agent for you",
+        "appActionCards": [
+            {
+                "id": "uuid",
+                "args": {
+                    "direction": "left"
+                },
+                "elements": [
+                    {
+                        "type": "blocks",
+                        "args": {
+                            "value": [
+                                {
+                                    "id": "9a8caeff-dac4-4e8d-94aa-c638bc1fd148",
+                                    "type": "rich_texts",
+                                    "isFirst": false,
+                                    "indent": 0,
+                                    "blocks": [],
+                                    "display": "block",
+                                    "elements": [
+                                        {
+                                            "id": "9676dbca-9ec9-40a9-90f8-e6278ee16c3c",
+                                            "type": "text",
+                                            "text": "Hi there! To kick start, simply send a screenshot by clicking the ",
+                                            "elements": [],
+                                            "isCurrent": false
+                                        },
+                                        {
+                                            "id": "c83fbbf4-bba2-47e8-b305-117e39dc5c09",
+                                            "type": "bold",
+                                            "text": "",
+                                            "value": "**",
+                                            "elements": [
+                                                {
+                                                    "id": "fbf7689b-5472-466c-8994-89b0c7384d04",
+                                                    "type": "text",
+                                                    "text": "\"+\"",
+                                                    "elements": [],
+                                                    "isCurrent": true
+                                                }
+                                            ],
+                                            "isCurrent": true
+                                        },
+                                        {
+                                            "id": "f2328f0a-fd1c-4a24-8364-9eaf8795adca",
+                                            "type": "text",
+                                            "text": " icon in the message box. Your screenshot will be saved in your memory, and Trickle AI will automatically generate a caption for it.",
+                                            "elements": [],
+                                            "isCurrent": false
+                                        }
+                                    ],
+                                    "isCurrent": true,
+                                    "constraint": "free",
+                                    "seqNum": "0",
+                                    "lastEditedTime": null,
+                                    "lastEditedBy": null,
+                                    "version": 0,
+                                    "updatedByRemote": false,
+                                    "lastModifiedSource": "user",
+                                    "isDeleted": false
+                                }
+                            ]
+                        },
+                        "id": "uuid"
+                    }
+                ]
+            }
+        ],
+        "appDecoration": {
+            "logo": "https://devres.trickle.so/upload/avatars/agents/cf5622de875845efaac3fbaba7d763da_5b938650-b3c0-426a-9357-6d74eb013e00.png",
+            "autoSaveToMemery": false,
+            "placeholder": "聊两句？",
+            "sortIndex": "2"
+        },
+        "category": "super_agent",
+        "maxIterations": 15,
+        "maxExecutionTime": null,
+        "earlyStoppingMethod": "force",
+        "chatHistoryPromptPrefix": "\nFollowing is the chat history:\n'''\n",
+        "chatHistoryPromptSuffix": "\n'''",
+        "chatHistoryLength": 10,
+        "chatHistoryFormat": "json",
+        "asyncInteractionMode": true
+    },
+    {
+        "agentConfigId": "1c994a172e5a464e846c98dca7859986",
+        "agent": "AlphaAgent",
+        "version": 3,
+        "isPublished": true,
+        "handleParsingError": false,
+        "workMode": "tool_mode_with_single_action",
+        "displayName": "General",
+        "role": "You are an intelligent assistant.",
+        "capability": "",
+        "constraints": "Answer the following questions as best you can. For tabular information return it as an html table. Do not return markdown format. Your response should include emoji to improve its readability. You should use bullet points to make your response well-structured. If you can not determine the final answer or are not sure what the final answer is, use ChatTool.",
+        "enableChatHistory": true,
+        "toolInstruction": "You have access to the following tools:",
+        "tools": [
+            {
+                "tool": "ChatTool",
+                "name": "Chat",
+                "description": "userful tool when the user just want to chat with the chat bot. use this tool if you don't know which tool to use. relay the user question to this chat bot",
+                "returnDirect": true,
+                "supportOutput": false,
+                "supportReturnDirect": false,
+                "supportLLM": false,
+                "supportIntg": false,
+                "supportTxtToImage": false,
+                "supportMultiTask": false,
+                "supportAgent": false,
+                "supportLongTermMemory": false,
+                "supportWebLoader": false,
+                "version": 0,
+                "isPublished": false,
+                "displayInfo": {
+                    "name": "Display name",
+                    "description": "Display description"
+                },
+                "category": "basic"
+            },
+            {
+                "tool": "ListNewPost",
+                "name": "List new post",
+                "description": "useful when you need to list new post",
+                "returnDirect": false,
+                "supportOutput": false,
+                "supportReturnDirect": false,
+                "supportLLM": false,
+                "supportIntg": false,
+                "supportTxtToImage": false,
+                "supportMultiTask": false,
+                "supportAgent": false,
+                "supportLongTermMemory": false,
+                "supportWebLoader": false,
+                "version": 0,
+                "isPublished": false,
+                "displayInfo": {
+                    "name": "Display name",
+                    "description": "Display description"
+                },
+                "category": "basic"
+            },
+            {
+                "tool": "TakeNote",
+                "name": "Take note",
+                "description": "useful when you need to take note, the input should be clear and with emoji",
+                "returnDirect": true,
+                "supportOutput": false,
+                "supportReturnDirect": false,
+                "supportLLM": false,
+                "supportIntg": false,
+                "supportTxtToImage": false,
+                "supportMultiTask": false,
+                "supportAgent": false,
+                "supportLongTermMemory": false,
+                "supportWebLoader": false,
+                "version": 0,
+                "isPublished": false,
+                "displayInfo": {
+                    "name": "Display name",
+                    "description": "Display description"
+                },
+                "category": "basic"
+            },
+            {
+                "tool": "AddTodoItem",
+                "name": "add todo item",
+                "description": "useful when you need add todo item",
+                "returnDirect": true,
+                "supportOutput": false,
+                "supportReturnDirect": false,
+                "supportLLM": false,
+                "supportIntg": false,
+                "supportTxtToImage": false,
+                "supportMultiTask": false,
+                "supportAgent": false,
+                "supportLongTermMemory": false,
+                "supportWebLoader": false,
+                "version": 0,
+                "isPublished": false,
+                "displayInfo": {
+                    "name": "Display name",
+                    "description": "Display description"
+                },
+                "category": "basic"
+            },
+            {
+                "tool": "FakeTool",
+                "name": "Get Channel View Links",
+                "description": "useful for getting data views about tasks, team activities under the workspace. no input args required for this tool",
+                "returnDirect": false,
+                "supportOutput": true,
+                "supportReturnDirect": false,
+                "supportLLM": false,
+                "supportIntg": false,
+                "supportTxtToImage": false,
+                "supportMultiTask": false,
+                "supportAgent": false,
+                "supportLongTermMemory": false,
+                "supportWebLoader": false,
+                "version": 0,
+                "isPublished": false,
+                "displayInfo": {
+                    "name": "Display name",
+                    "description": "Display description"
+                },
+                "category": "basic",
+                "output": ""
+            },
+            {
+                "tool": "FakeTool",
+                "name": "Notion Data Importer",
+                "description": "useful for importing data from notion",
+                "returnDirect": false,
+                "supportOutput": true,
+                "supportReturnDirect": false,
+                "supportLLM": false,
+                "supportIntg": false,
+                "supportTxtToImage": false,
+                "supportMultiTask": false,
+                "supportAgent": false,
+                "supportLongTermMemory": false,
+                "supportWebLoader": false,
+                "version": 0,
+                "isPublished": false,
+                "displayInfo": {
+                    "name": "Display name",
+                    "description": "Display description"
+                },
+                "category": "basic",
+                "output": ""
+            },
+            {
+                "tool": "SearchTool",
+                "name": "Search",
+                "description": "A search engine. Useful for when you need to answer questions about current events. Input should be a search query.",
+                "returnDirect": false,
+                "supportOutput": false,
+                "supportReturnDirect": false,
+                "supportLLM": false,
+                "supportIntg": false,
+                "supportTxtToImage": false,
+                "supportMultiTask": false,
+                "supportAgent": false,
+                "supportLongTermMemory": false,
+                "supportWebLoader": false,
+                "version": 0,
+                "isPublished": false,
+                "displayInfo": {
+                    "name": "Display name",
+                    "description": "Display description"
+                },
+                "category": "basic"
+            }
+        ],
+        "temperature": 0,
+        "useChatAPI": false,
+        "model": "gpt-3.5-turbo-0613",
+        "formatInstruction": "Use the following format:\n\nQuestion: the input question you must answer\nThought: you should always think about what to do\nAction: the action to take, should be one of [{tool_names}]\nAction Input: the input to the action\nObservation: the result of the action\n... (this Thought/Action/Action Input/Observation can repeat N times)\nThought: I now know the final answer\nFinal Answer: the final answer to the original input question that is after \"Question:\"",
+        "singlePromptFormatInstruction": "Answer the following question,\nQ: {input}\nA: \n",
+        "userId": "21183755674714113",
+        "appName": "General",
+        "appDescription": "Answer the following questions as best you can. For tabular information return it as an html table. Do not return markdown format. Your response should include emoji to improve its readability. You should use bullet points to make your response well-structured. If you can not determine the final answer or are not sure what the final answer is, use ChatTool.",
+        "appActionCards": null,
+        "appDecoration": {
+            "logo": "https://devres.trickle.so/upload/avatars/agents/1c994a172e5a464e846c98dca7859986_5e2b077f-0673-4ec6-8cee-863af4a30881.png",
+            "placeholder": "聊两句？"
+        },
+        "category": "super_agent",
+        "maxIterations": 15,
+        "maxExecutionTime": null,
+        "earlyStoppingMethod": "force",
+        "chatHistoryPromptPrefix": "\nFollowing is the chat history:\n'''\n",
+        "chatHistoryPromptSuffix": "\n'''",
+        "chatHistoryLength": 10,
+        "chatHistoryFormat": "json",
+        "asyncInteractionMode": true
+    },
+    {
+        "agentConfigId": "b81bb4c30a29467795542cb62e48c3b4",
+        "agent": "AlphaAgent",
+        "version": 25,
+        "isPublished": true,
+        "handleParsingError": false,
+        "workMode": "single_prompt_mode",
+        "displayName": "Normal By Jeffrey",
+        "role": "Role:\n“”“\nYou're embodying Trickle AI, a virtual assistant fueled by GPT-4 technology.\n”“”\n",
+        "capability": "Summary the text.",
+        "constraints": "Answer the following questions as best you can. For tabular information return it as an html table. Do not return markdown format.",
+        "enableChatHistory": false,
+        "toolInstruction": "You have access to the following tools:",
+        "tools": [
+            {
+                "tool": "Summary",
+                "name": "summary",
+                "description": "useful when you need to summarize some text",
+                "returnDirect": false,
+                "supportOutput": false,
+                "supportReturnDirect": false,
+                "supportLLM": false,
+                "supportIntg": false,
+                "supportTxtToImage": false,
+                "supportMultiTask": false,
+                "supportAgent": false,
+                "supportLongTermMemory": false,
+                "supportWebLoader": false,
+                "version": 0,
+                "isPublished": false,
+                "displayInfo": {
+                    "name": "Summary",
+                    "description": "For summary text."
+                },
+                "category": "basic"
+            }
+        ],
+        "temperature": 0,
+        "useChatAPI": false,
+        "model": "gpt-3.5-turbo-16k",
+        "formatInstruction": "Use the following format:\n\nQuestion: the input question you must answer\nThought: you should always think about what to do\nAction: the action to take, should be one of [{tool_names}]\nAction Input: the input to the action\nObservation: the result of the action\n... (this Thought/Action/Action Input/Observation can repeat N times)\nThought: I now know the final answer\nFinal Answer: the final answer to the original input question",
+        "singlePromptFormatInstruction": "Answer the following question,\nQ: {input}\nA: \n",
+        "userId": "21183755674714113",
+        "appName": "聊两句？",
+        "appDescription": "An magic agent for you",
+        "appActionCards": null,
+        "appDecoration": {
+            "logo": "https://devres.trickle.so/upload/avatars/agents/b81bb4c30a29467795542cb62e48c3b4_ed3f4207-a446-4088-9402-1f2ef6f83696.png",
+            "placeholder": "聊两句？",
+            "sortIndex": "1",
+            "autoSaveToMemery": false
+        },
+        "category": "single_prompt_agent",
+        "maxIterations": 17,
+        "maxExecutionTime": 60,
+        "earlyStoppingMethod": "force",
+        "chatHistoryPromptPrefix": "\nFollowing is the chat history:\n'''\n",
+        "chatHistoryPromptSuffix": "\n'''",
+        "chatHistoryLength": 10,
+        "chatHistoryFormat": "json",
+        "asyncInteractionMode": true
+    },
+    {
+        "agentConfigId": "af2b2017aeaf455e94b13d2b519b1659",
+        "agent": "AlphaAgent",
+        "version": 1,
+        "isPublished": true,
+        "handleParsingError": false,
+        "workMode": "tool_mode_with_single_action",
+        "displayName": "Samdy's Agent",
+        "role": "You are an intelligent assistant.",
+        "capability": "",
+        "constraints": "Answer the following questions as best you can. For tabular information return it as an html table. Do not return markdown format. ",
+        "enableChatHistory": false,
+        "toolInstruction": "You have access to the following tools:",
+        "tools": [
+            {
+                "promptPrefix": "Answer the following question, \nQ: {toolInput}",
+                "promptSuffix": "\nA: ",
+                "temperature": 0.7,
+                "tool": "LLMTool",
+                "name": "general chat",
+                "description": "a general LLM based chat tool",
+                "returnDirect": false,
+                "supportOutput": false,
+                "supportReturnDirect": false,
+                "supportLLM": true,
+                "supportIntg": false,
+                "supportTxtToImage": false,
+                "supportMultiTask": false,
+                "supportAgent": false,
+                "supportLongTermMemory": false,
+                "supportWebLoader": false,
+                "version": 0,
+                "isPublished": false,
+                "displayInfo": {
+                    "name": "Display name",
+                    "description": "Display description"
+                },
+                "category": "basic",
+                "model": "gpt-3.5-turbo-0613",
+                "useChatAPI": true,
+                "useAgentScratchpadAsContext": false,
+                "systemPrompt": ""
+            }
+        ],
+        "temperature": 0,
+        "useChatAPI": false,
+        "model": "gpt-3.5-turbo",
+        "formatInstruction": "Use the following format:\nQuestion: the input question you must answer\nThought: you should always think about what to do\nAction: the action to take, should be one of [{tool_names}]\nAction Input: the input to the action\nObservation: the result of the action\n... (this Thought/Action/Action Input/Observation can repeat N times)\nThought: I now know the final answer\nFinal Answer: the final answer to the original input question\n\nFor example:\nQuestion: Write a blog about notion\nThought: I should gather information about Notion and its features to write a comprehensive blog.\nAction: Search\nAction Input: \"What are the features of Notion?\"\nObservation: tables, databases, markdown, code blocks, task management, calendars, and media\nThought: I have gathered information about the features of Notion.\nFinal Answer: Notion is a versatile productivity tool that offers features such as tables, databases, markdown, code blocks, task management, calendars, and media.",
+        "singlePromptFormatInstruction": "Answer the following question,\nQ: {input}\nA: \n",
+        "userId": "18057844116946945",
+        "appName": "Samdy's Agent",
+        "appDescription": "",
+        "appActionCards": null,
+        "appDecoration": {
+            "logo": "",
+            "placeholder": ""
+        },
+        "category": "single_prompt_agent",
+        "maxIterations": 15,
+        "maxExecutionTime": null,
+        "earlyStoppingMethod": "force",
+        "chatHistoryPromptPrefix": "\nFollowing is the chat history:\n'''\n",
+        "chatHistoryPromptSuffix": "\n'''",
+        "chatHistoryLength": 10,
+        "chatHistoryFormat": "json",
+        "asyncInteractionMode": true
+    },
+    {
+        "agentConfigId": "94363060b97942778cea35c7bf556294",
+        "agent": "AlphaAgent",
+        "version": 6,
+        "isPublished": true,
+        "handleParsingError": false,
+        "workMode": "workflow_mode",
+        "displayName": "Memory Search",
+        "role": "You are an intelligent assistant.",
+        "capability": "",
+        "constraints": "Answer the following questions as best you can. For tabular information return it as an html table. Do not return markdown format. ",
+        "enableChatHistory": false,
+        "toolInstruction": "You have access to the following tools:",
+        "tools": [
+            {
+                "tool": "TrickleOpenSearchTool",
+                "name": "TrickleOpenSearchTool",
+                "description": "useful when you need to answer questions about their projects, businesses, daily works, notes, to-dos and so on,usually located in their trickle workspace",
+                "returnDirect": false,
+                "supportOutput": false,
+                "supportReturnDirect": false,
+                "supportLLM": false,
+                "supportIntg": false,
+                "supportTxtToImage": false,
+                "supportMultiTask": false,
+                "supportAgent": false,
+                "supportLongTermMemory": true,
+                "supportWebLoader": false,
+                "version": 0,
+                "isPublished": false,
+                "displayInfo": {
+                    "name": "Display name",
+                    "description": "Display description"
+                },
+                "category": "basic",
                 "topN": 4,
                 "outputFields": [],
-                "outputFormat": "json",
+                "outputFormat": "json"
+            },
+            {
+                "promptPrefix": "Context:\n{toolInput}\n\nQuestion:\n{input}\n\nAnswering Instructions:\nReply in a single sentence.\nIf context is referred to, include: [Memory link](Original link here).\nUse bullet points for essential details.\nLanguage should be consistent with the question.",
+                "promptSuffix": "\nA: ",
+                "temperature": 0.3,
+                "tool": "LLMTool",
+                "name": "LLM_tool",
+                "description": "a general LLM based tool",
+                "returnDirect": false,
+                "supportOutput": false,
+                "supportReturnDirect": false,
+                "supportLLM": true,
+                "supportIntg": false,
+                "supportTxtToImage": false,
+                "supportMultiTask": false,
+                "supportAgent": false,
+                "supportLongTermMemory": false,
+                "supportWebLoader": false,
+                "version": 0,
+                "isPublished": false,
+                "displayInfo": {
+                    "name": "Display name",
+                    "description": "Display description"
+                },
+                "category": "basic",
+                "model": "gpt-3.5-turbo-0613",
+                "useChatAPI": true,
+                "useAgentScratchpadAsContext": false,
+                "systemPrompt": ""
+            }
+        ],
+        "temperature": 0,
+        "useChatAPI": false,
+        "model": "gpt-3.5-turbo",
+        "formatInstruction": "Use the following format:\nQuestion: the input question you must answer\nThought: you should always think about what to do\nAction: the action to take, should be one of [{tool_names}]\nAction Input: the input to the action\nObservation: the result of the action\n... (this Thought/Action/Action Input/Observation can repeat N times)\nThought: I now know the final answer\nFinal Answer: the final answer to the original input question\n\nFor example:\nQuestion: Write a blog about notion\nThought: I should gather information about Notion and its features to write a comprehensive blog.\nAction: Search\nAction Input: \"What are the features of Notion?\"\nObservation: tables, databases, markdown, code blocks, task management, calendars, and media\nThought: I have gathered information about the features of Notion.\nFinal Answer: Notion is a versatile productivity tool that offers features such as tables, databases, markdown, code blocks, task management, calendars, and media.",
+        "singlePromptFormatInstruction": "Answer the following question,\nQ: {input}\nA: \n",
+        "userId": "18057844116946945",
+        "appName": "Memory Search",
+        "appDescription": "",
+        "appActionCards": null,
+        "appDecoration": {
+            "logo": "",
+            "placeholder": "",
+            "autoSaveToMemery": false
+        },
+        "category": "single_prompt_agent",
+        "maxIterations": 15,
+        "maxExecutionTime": null,
+        "earlyStoppingMethod": "force",
+        "chatHistoryPromptPrefix": "\nFollowing is the chat history:\n'''\n",
+        "chatHistoryPromptSuffix": "\n'''",
+        "chatHistoryLength": 10,
+        "chatHistoryFormat": "json",
+        "asyncInteractionMode": false
+    },
+    {
+        "agentConfigId": "cfb69946f4c740f4868a10dd89a95e06",
+        "agent": "AlphaAgent",
+        "version": 1,
+        "isPublished": true,
+        "handleParsingError": false,
+        "workMode": "workflow_mode",
+        "displayName": "Search and Create Collection",
+        "role": "You are an intelligent assistant.",
+        "capability": "",
+        "constraints": "Answer the following questions as best you can. For tabular information return it as an html table. Do not return markdown format. ",
+        "enableChatHistory": false,
+        "toolInstruction": "You have access to the following tools:",
+        "tools": [
+            {
+                "tool": "CreateCollectionTool",
+                "name": "CreateCollectionTool",
+                "description": "useful for creating collection",
+                "returnDirect": false,
+                "supportOutput": false,
+                "supportReturnDirect": false,
+                "supportLLM": false,
+                "supportIntg": false,
+                "supportTxtToImage": false,
+                "supportMultiTask": false,
+                "supportAgent": false,
+                "supportLongTermMemory": true,
+                "supportWebLoader": false,
+                "version": 0,
+                "isPublished": false,
+                "displayInfo": {
+                    "name": "Display name",
+                    "description": "Display description"
+                },
+                "category": "basic",
+                "topN": 4,
+                "outputFields": [],
+                "outputFormat": "json"
+            }
+        ],
+        "temperature": 0,
+        "useChatAPI": false,
+        "model": "gpt-3.5-turbo",
+        "formatInstruction": "Use the following format:\nQuestion: the input question you must answer\nThought: you should always think about what to do\nAction: the action to take, should be one of [{tool_names}]\nAction Input: the input to the action\nObservation: the result of the action\n... (this Thought/Action/Action Input/Observation can repeat N times)\nThought: I now know the final answer\nFinal Answer: the final answer to the original input question\n\nFor example:\nQuestion: Write a blog about notion\nThought: I should gather information about Notion and its features to write a comprehensive blog.\nAction: Search\nAction Input: \"What are the features of Notion?\"\nObservation: tables, databases, markdown, code blocks, task management, calendars, and media\nThought: I have gathered information about the features of Notion.\nFinal Answer: Notion is a versatile productivity tool that offers features such as tables, databases, markdown, code blocks, task management, calendars, and media.",
+        "singlePromptFormatInstruction": "Answer the following question,\nQ: {input}\nA: \n",
+        "userId": "18057844116946945",
+        "appName": "Search and Create Collection",
+        "appDescription": "",
+        "appActionCards": null,
+        "appDecoration": {
+            "logo": "",
+            "placeholder": "",
+            "autoSaveToMemery": false
+        },
+        "category": "single_prompt_agent",
+        "maxIterations": 15,
+        "maxExecutionTime": null,
+        "earlyStoppingMethod": "force",
+        "chatHistoryPromptPrefix": "\nFollowing is the chat history:\n'''\n",
+        "chatHistoryPromptSuffix": "\n'''",
+        "chatHistoryLength": 10,
+        "chatHistoryFormat": "json",
+        "asyncInteractionMode": false
+    },
+    {
+        "agentConfigId": "087f562af5a64bcdb440a1e9ab9d69ac",
+        "agent": "AlphaAgent",
+        "version": 17,
+        "isPublished": true,
+        "handleParsingError": false,
+        "workMode": "workflow_mode",
+        "displayName": "Capture Agent",
+        "role": "You are an intelligent assistant.",
+        "capability": "",
+        "constraints": "Answer the following questions as best you can. For tabular information return it as an html table. Do not return markdown format. ",
+        "enableChatHistory": false,
+        "toolInstruction": "You have access to the following tools:",
+        "tools": [
+            {
+                "tool": "GoogleOCRTool",
+                "name": "google OCR tool",
+                "description": "useful for recognize text from image, the input args should be a image url",
+                "returnDirect": false,
+                "supportOutput": false,
+                "supportReturnDirect": false,
+                "supportLLM": false,
+                "supportIntg": false,
+                "supportTxtToImage": false,
+                "supportMultiTask": false,
+                "supportAgent": false,
+                "supportLongTermMemory": false,
+                "supportWebLoader": false,
+                "version": 0,
+                "isPublished": false,
+                "displayInfo": {
+                    "name": "Display name",
+                    "description": "Display description"
+                },
+                "category": "basic"
+            },
+            {
+                "promptPrefix": "Based on the provided text within the tags '<start>' and '<end>', please generate a summary in the same language as the text:\n\nText in screenshot:\n<start>\n{toolInput}\n<end>\n\nGuidelines for Response:\n1. Start with the extracted caption (bold style).\n2. Provide a concise summary emphasizing any people mentioned and the App origin (max 180 characters).\n3. Include essential details like currencies, prices, dates, or other critical elements in bullet point format using markdown.\n\nResponse Format:\n**Caption**\nA brief insight into the screenshot.",
+                "promptSuffix": "",
+                "temperature": 0,
+                "tool": "LLMTool",
+                "name": "summary",
+                "description": "a general LLM based tool",
+                "returnDirect": false,
+                "supportOutput": false,
+                "supportReturnDirect": false,
+                "supportLLM": true,
+                "supportIntg": false,
+                "supportTxtToImage": false,
+                "supportMultiTask": false,
+                "supportAgent": false,
+                "supportLongTermMemory": false,
+                "supportWebLoader": false,
+                "version": 0,
+                "isPublished": false,
+                "displayInfo": {
+                    "name": "Display name",
+                    "description": "Display description"
+                },
+                "category": "basic",
+                "model": "gpt-4",
+                "useChatAPI": true,
+                "useAgentScratchpadAsContext": false,
+                "systemPrompt": ""
+            },
+            {
+                "tool": "SaveToMemoryTool",
+                "name": "save to memeory",
+                "description": "useful for saving data to memory",
+                "returnDirect": false,
+                "supportOutput": false,
+                "supportReturnDirect": false,
+                "supportLLM": false,
+                "supportIntg": false,
+                "supportTxtToImage": false,
+                "supportMultiTask": false,
+                "supportAgent": false,
+                "supportLongTermMemory": false,
+                "supportWebLoader": false,
                 "version": 0,
                 "isPublished": false,
                 "displayInfo": {
@@ -658,58 +1601,170 @@
         "temperature": 0,
         "useChatAPI": false,
         "model": "gpt-3.5-turbo",
-        "formatInstruction": "Use the following format:\n\nQuestion: the input question you must answer\nThought: you should always think about what to do\nAction: the action to take, should be one of [{tool_names}]\nAction Input: the input to the action\nObservation: the result of the action\n... (this Thought/Action/Action Input/Observation can repeat N times)\nThought: I now know the final answer\nFinal Answer: the final answer to the original input question",
+        "formatInstruction": "Use the following format:\nQuestion: the input question you must answer\nThought: you should always think about what to do\nAction: the action to take, should be one of [{tool_names}]\nAction Input: the input to the action\nObservation: the result of the action\n... (this Thought/Action/Action Input/Observation can repeat N times)\nThought: I now know the final answer\nFinal Answer: the final answer to the original input question\n\nFor example:\nQuestion: Write a blog about notion\nThought: I should gather information about Notion and its features to write a comprehensive blog.\nAction: Search\nAction Input: \"What are the features of Notion?\"\nObservation: tables, databases, markdown, code blocks, task management, calendars, and media\nThought: I have gathered information about the features of Notion.\nFinal Answer: Notion is a versatile productivity tool that offers features such as tables, databases, markdown, code blocks, task management, calendars, and media.",
         "singlePromptFormatInstruction": "Answer the following question,\nQ: {input}\nA: \n",
-        "userId": "30906221603061761",
-        "appName": "Github Action",
-        "appDescription": "Use when you need to perform GitHub workflows, such as creating pull requests, running workflows, etc.",
-        "appActionCards": null,
+        "userId": "18057844116946945",
+        "appName": "Capture Agent",
+        "appDescription": "Upload or paste your screenshot",
+        "appActionCards": [
+            {
+                "id": "uuid",
+                "args": {
+                    "direction": "left"
+                },
+                "elements": [
+                    {
+                        "type": "blocks",
+                        "args": {
+                            "value": [
+                                {
+                                    "id": "7880bdaf-04d8-486c-9ee6-bd817e2fb6f1",
+                                    "type": "rich_texts",
+                                    "isFirst": false,
+                                    "indent": 0,
+                                    "blocks": [],
+                                    "display": "block",
+                                    "elements": [
+                                        {
+                                            "id": "ab999675-281b-4548-8a9a-c0099c7a7bc3",
+                                            "type": "text",
+                                            "text": "To start, send a ",
+                                            "elements": [],
+                                            "isCurrent": false
+                                        },
+                                        {
+                                            "id": "d3e70fd3-99f5-41ad-be00-54818dbeaba8",
+                                            "type": "colored",
+                                            "text": "",
+                                            "value": {
+                                                "color": "purple"
+                                            },
+                                            "elements": [
+                                                {
+                                                    "id": "091c1cb9-590b-4841-8550-16b47e073b24",
+                                                    "type": "text",
+                                                    "text": "screenshot",
+                                                    "elements": [],
+                                                    "isCurrent": false
+                                                }
+                                            ],
+                                            "isCurrent": false
+                                        },
+                                        {
+                                            "id": "d6aff1ea-d345-48c4-ab41-c3ced70c2dcb",
+                                            "type": "text",
+                                            "text": " by clicking the ",
+                                            "elements": [],
+                                            "isCurrent": false
+                                        },
+                                        {
+                                            "id": "709e5c95-6a8d-4704-83fb-2f92c1f7e882",
+                                            "type": "colored",
+                                            "text": "",
+                                            "value": {
+                                                "color": "purple"
+                                            },
+                                            "elements": [
+                                                {
+                                                    "id": "5fd4e60c-cc72-4151-a007-01e95eb100fe",
+                                                    "type": "text",
+                                                    "text": "\"",
+                                                    "elements": [],
+                                                    "isCurrent": false
+                                                }
+                                            ],
+                                            "isCurrent": false
+                                        },
+                                        {
+                                            "id": "c4000243-6efe-4ce8-b8fd-fbb8b4764996",
+                                            "type": "bold",
+                                            "text": "",
+                                            "value": "**",
+                                            "elements": [
+                                                {
+                                                    "id": "0e68e43b-9a56-4319-9dca-d269358b3324",
+                                                    "type": "colored",
+                                                    "text": "",
+                                                    "value": {
+                                                        "color": "purple"
+                                                    },
+                                                    "elements": [
+                                                        {
+                                                            "id": "c60959cd-8077-4cdf-837e-9b4133cdb88a",
+                                                            "type": "text",
+                                                            "text": "+\"",
+                                                            "elements": [],
+                                                            "isCurrent": false
+                                                        }
+                                                    ],
+                                                    "isCurrent": false
+                                                }
+                                            ],
+                                            "isCurrent": false
+                                        },
+                                        {
+                                            "id": "11b3f710-dc76-4746-8986-b8128abedc71",
+                                            "type": "text",
+                                            "text": " icon or ",
+                                            "elements": [],
+                                            "isCurrent": false
+                                        },
+                                        {
+                                            "id": "e532deb9-2d78-4792-b5d5-a8de9fdac25d",
+                                            "type": "colored",
+                                            "text": "",
+                                            "value": {
+                                                "color": "purple"
+                                            },
+                                            "elements": [
+                                                {
+                                                    "id": "0d37580b-3d07-4e2e-b87a-aa19b76a3d89",
+                                                    "type": "text",
+                                                    "text": "pasting",
+                                                    "elements": [],
+                                                    "isCurrent": false
+                                                }
+                                            ],
+                                            "isCurrent": false
+                                        },
+                                        {
+                                            "id": "80902c1e-43ae-4f46-a004-bbba8208a02a",
+                                            "type": "text",
+                                            "text": " it. Trickle AI will capture it to memory and generate a caption and insights for you.",
+                                            "elements": [],
+                                            "isCurrent": true
+                                        }
+                                    ],
+                                    "isCurrent": true,
+                                    "constraint": "free",
+                                    "seqNum": "0",
+                                    "lastEditedTime": null,
+                                    "lastEditedBy": null,
+                                    "version": 0,
+                                    "updatedByRemote": false,
+                                    "lastModifiedSource": "user",
+                                    "isDeleted": false
+                                }
+                            ]
+                        },
+                        "id": "uuid"
+                    }
+                ]
+            }
+        ],
         "appDecoration": {
-            "logo": "https://testres.trickle.so/upload/avatars/agents/3122fead12c046d386b9a584a9c7df56_ce902951-663b-4307-ad14-6e2b803b47b4.png",
-            "placeholder": "Create PR, execute workflow, etc.",
-            "sortIndex": "6"
-        },
-        "category": "normal_agent",
-        "maxIterations": 15,
-        "maxExecutionTime": null,
-        "earlyStoppingMethod": "force",
-        "agentConfigId": "3122fead12c046d386b9a584a9c7df56",
-        "createAt": 1689772456692,
-        "updateAt": 1689833053896
-    },
-    {
-        "agent": "AlphaAgent",
-        "version": 4,
-        "isPublished": true,
-        "handleParsingError": true,
-        "workMode": "single_prompt_mode",
-        "displayName": "✨ Task Planning",
-        "role": "Role:\n“”“\nYou are a task planner in the Trickle AI assistant team, responsible for planning the subgoals required to complete the task.\n”“”\n\nConstraints:\n“”“\n1. When your knowledge can answer directly, answer directly without using any tools.\n\n2. If you feel the need to use a tool to answer a question, based on your tool list, what are the subgoals for achieving “user input”. Just provide the subgoals list, do not execute the action further.\n\n3. Your responses should be in well-structured markdown format using numbered lists,\n”“”\n\nTool:\n\"\"\"\nYou have access to the following tools:\n\nMemory Retrieval: Use when you need to retrieve information in long-term memory, such as project tasks, daily works, notes, to-dos, and so on, usually located in my Trickle workspace.\nCode Interpreter: Only when you need to solve complex problems, such as analyzing complex tables, generating charts, or solving algorithmic problems, you can use code.\nGithub action: Use when you need to perform GitHub workflows, such as creating pull requests, running workflows, etc.\nSave to Memory: When you need to save information in long-term memory, use it, such as taking notes, saving them as documents, or sharing them in the workspace.\ngoogle search: Google search engine. Useful for when you need to answer questions about the latest events, products, business information, news, etc...\n\"\"\"\n",
-        "capability": "\n",
-        "constraints": "",
-        "enableChatHistory": false,
-        "toolInstruction": "You have access to the following tools:",
-        "tools": [],
-        "temperature": 0,
-        "useChatAPI": true,
-        "model": "gpt-4",
-        "formatInstruction": "Use the following format:\n\nQuestion: the input question you must answer\nThought: you should always think about what to do\nAction: the action to take, should be one of [{tool_names}]\nAction Input: the input to the action\nObservation: the result of the action\n... (this Thought/Action/Action Input/Observation can repeat N times)\nThought: I now know the final answer\nFinal Answer: you should always provide the final answer to the original user input question in the same language.\n\nFor example:\nQuestion: Write a blog about Notion\nThought: I should gather information about Notion and its features to write a comprehensive blog.\nAction: Search\nAction Input: \"What are the features of Notion?\"\nObservation: tables, databases, markdown, code blocks, task management, calendars, and media\nThought: I have gathered information about the features of Notion.\nFinal Answer: Notion is a versatile productivity tool that offers features such as tables, databases, markdown, code blocks, task management, calendars, and media.",
-        "singlePromptFormatInstruction": "Answer the following question,\nuser input: {input}\nsubgoals: \n",
-        "userId": "30906221603061761",
-        "appName": "Task Planning",
-        "appDescription": "Infer and plan the steps and tools needed to achieve the task goals, without actually executing the tasks.",
-        "appActionCards": null,
-        "appDecoration": {
-            "logo": "https://testres.trickle.so/upload/avatars/agents/60a41b50e8444e4e9cd102642aff5e29_6382d056-f20f-4add-a97e-5af20fa330bd.png",
-            "placeholder": "Enter your task and let AI complete task planning",
-            "sortIndex": ""
+            "logo": "",
+            "placeholder": "Send a screenshot",
+            "autoSaveToMemery": false
         },
         "category": "single_prompt_agent",
         "maxIterations": 15,
         "maxExecutionTime": null,
         "earlyStoppingMethod": "force",
-        "agentConfigId": "60a41b50e8444e4e9cd102642aff5e29",
-        "createAt": 1689758656683,
-        "updateAt": 1689858219620
+        "chatHistoryPromptPrefix": "\nFollowing is the chat history:\n'''\n",
+        "chatHistoryPromptSuffix": "\n'''",
+        "chatHistoryLength": 10,
+        "chatHistoryFormat": "json",
+        "asyncInteractionMode": false
     }
 ]
