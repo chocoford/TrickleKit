@@ -132,7 +132,7 @@ extension AIAgentConversationSession {
                 medias: ocrPayload?.medias ?? [], ocrs: ocrPayload?.ocrs ?? [:]
             )
         }
-        static public  func makeSystemMessage(text: String, source: String) -> Self {
+        static public func makeSystemMessage(text: String, source: String) -> Self {
             let id = UUID().uuidString
             return .init(messageID: id,
                          messageType: .chat,
@@ -148,6 +148,23 @@ extension AIAgentConversationSession {
                          status: .done,
                          source: source,
                          medias: [], ocrs: [:])
+        }
+        
+        static public func makeEmptyMessage(source: String, ocrPayload: OCRPayload?) -> Self {
+            let id = UUID().uuidString
+            return .init(
+                messageID: id,
+                messageType: .chat,
+                authorType: .user,
+                cardVersion: .v1,
+                actionCards: [],
+                replyToMessageID: id,
+                createAt: "",
+                text: "",
+                status: .done,
+                source: source,
+                medias: ocrPayload?.medias ?? [], ocrs: ocrPayload?.ocrs ?? [:]
+            )
         }
     }
 }

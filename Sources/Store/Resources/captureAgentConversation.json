@@ -1,0 +1,1670 @@
+{
+    "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+    "agent": "AlphaAgent",
+    "memberId": "memberId",
+    "agentConfigId": "087f562af5a64bcdb440a1e9ab9d69ac",
+    "messages": [
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "workspace",
+            "workspaceId": "76957788663709699",
+            "channelId": "1481613586538168326",
+            "isTeamChannel": false,
+            "messageId": "fa14bda5037e462ea5112e18f46451a8",
+            "messageType": "Chat",
+            "author": "user",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "886b709e44374a7eaa48a24b05683bb9",
+                    "args": {
+                        "style": {
+                            "padding": "0 !important",
+                            "backgroundColor": "transparent !important"
+                        }
+                    },
+                    "elements": [
+                        {
+                            "id": "ab3cd974737840bab6018fc922ae68d8",
+                            "type": "text",
+                            "args": {
+                                "text": "\n\n![Image](https://devres.trickle.so/upload/users/18555201329823745/workspaces/76957788663709699/1693837372355__0/untitled.jpeg?x-oss-process=image/format,jpg/auto-orient,1/&width=2878&height=1628)"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "fa14bda5037e462ea5112e18f46451a8",
+            "createAt": "2023-09-04T14:22:56.471368+0000",
+            "text": "\n\n![Image](https://devres.trickle.so/upload/users/18555201329823745/workspaces/76957788663709699/1693837372355__0/untitled.jpeg?x-oss-process=image/format,jpg/auto-orient,1/&width=2878&height=1628)",
+            "status": "done",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "admin",
+            "workspaceId": "",
+            "channelId": "",
+            "isTeamChannel": false,
+            "messageId": "01424863cfcc4336a222305e12b53469",
+            "messageType": "Chat",
+            "author": "system",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "bd4035150f94497d8863d13c1caf7bdc",
+                    "args": {
+                        "direction": "left",
+                        "fulfill": true,
+                        "style": {
+                            "background": "transparent !important",
+                            "boxShadow": "none !important",
+                            "padding": 0,
+                            "margin-top": "-16px",
+                            "font-size": "12px",
+                            "color": "grey"
+                        }
+                    },
+                    "elements": [
+                        {
+                            "id": "d33ab2f6a278477589886960f78be014",
+                            "type": "elements",
+                            "children": [
+                                {
+                                    "id": "cfab8a640b4245fea9e1fe2d90244eb4",
+                                    "type": "icon",
+                                    "args": {
+                                        "icon": "check",
+                                        "color": "green"
+                                    }
+                                },
+                                {
+                                    "id": "220c7125e7124b4fb6077ef391df5d5e",
+                                    "type": "text",
+                                    "args": {
+                                        "text": "Image insights captured!",
+                                        "style": {
+                                            "font-size": "12px",
+                                            "color": "grey"
+                                        },
+                                        "cursor": false
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "fa14bda5037e462ea5112e18f46451a8",
+            "createAt": "2023-09-04T14:22:56.479864+0000",
+            "text": "Image insights captured!",
+            "status": "generating",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "admin",
+            "workspaceId": "",
+            "channelId": "",
+            "isTeamChannel": false,
+            "messageId": "adf33aeccf864d82953861ef1dde975b",
+            "messageType": "Chat",
+            "author": "assistant",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "1e9dbea817524cffb00749fede48967e",
+                    "args": {
+                        "direction": "left",
+                        "fulfill": true
+                    },
+                    "elements": [
+                        {
+                            "id": "4df05b37b0bf41ebaa083ade40216e05",
+                            "type": "elements",
+                            "children": [
+                                {
+                                    "id": "63087ac9653d4356a8d8a9059eaaf88c",
+                                    "type": "text",
+                                    "args": {
+                                        "text": "**JavaScript Function in Open Source Firebase Alternative**\nThe screenshot displays a JavaScript function named '$reset' in an open-source Firebase alternative. It also mentions the time taken by various platforms to reach 100 million users.\n\n- The '$reset' function resets the values of 'groupIdForCapture' and 'groupIdForView' to an empty string.\n- Platforms like TikTok, chatGPT, and Zulegram took 55, 61, and 70 months respectively to reach 100 million users.\n- The screenshot also mentions a project related to Supabase and Flutter.",
+                                        "cursor": false
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "fa14bda5037e462ea5112e18f46451a8",
+            "createAt": "2023-09-04T14:22:58.708706+0000",
+            "text": "**JavaScript Function in Open Source Firebase Alternative**\nThe screenshot displays a JavaScript function named '$reset' in an open-source Firebase alternative. It also mentions the time taken by various platforms to reach 100 million users.\n\n- The '$reset' function resets the values of 'groupIdForCapture' and 'groupIdForView' to an empty string.\n- Platforms like TikTok, chatGPT, and Zulegram took 55, 61, and 70 months respectively to reach 100 million users.\n- The screenshot also mentions a project related to Supabase and Flutter.",
+            "status": "done",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "admin",
+            "workspaceId": "",
+            "channelId": "",
+            "isTeamChannel": false,
+            "messageId": "bc2fc8cc4f8f4f5682aab5f83b894c8c",
+            "messageType": "Chat",
+            "author": "system",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "917a8b7f577a4ac280026d43075b9eb6",
+                    "args": {
+                        "direction": "left",
+                        "fulfill": true,
+                        "style": {
+                            "background": "transparent !important",
+                            "boxShadow": "none !important",
+                            "padding": 0,
+                            "margin-top": "-16px",
+                            "font-size": "12px",
+                            "color": "grey"
+                        }
+                    },
+                    "elements": [
+                        {
+                            "id": "4f4eae5f185448e18936e803ab43a1ec",
+                            "type": "elements",
+                            "children": [
+                                {
+                                    "id": "8cadb0843ef44c59a7ea9a3618b27bb8",
+                                    "type": "icon",
+                                    "args": {
+                                        "icon": "check",
+                                        "color": "green"
+                                    }
+                                },
+                                {
+                                    "id": "330d7993fe2c4df0aece0d07e1f3b304",
+                                    "type": "text",
+                                    "args": {
+                                        "text": "Stored in Memories, [Click to view](https://devapp.trickle.so/workspace/76957788663709699/trickle/1544356052030455816)",
+                                        "style": {
+                                            "font-size": "12px",
+                                            "color": "grey"
+                                        },
+                                        "cursor": false
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "fa14bda5037e462ea5112e18f46451a8",
+            "createAt": "2023-09-04T14:23:13.242443+0000",
+            "text": "Stored in Memories, [Click to view](https://devapp.trickle.so/workspace/76957788663709699/trickle/1544356052030455816)",
+            "status": "done",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "workspace",
+            "workspaceId": "76957788663709699",
+            "channelId": "1481613586538168326",
+            "isTeamChannel": false,
+            "messageId": "702f4aea36f94236a7313589cb9d90d0",
+            "messageType": "Chat",
+            "author": "user",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "cf6be236b5c4464e8218c69f7bf67717",
+                    "args": {
+                        "style": {
+                            "padding": "0 !important",
+                            "backgroundColor": "transparent !important"
+                        }
+                    },
+                    "elements": [
+                        {
+                            "id": "224ad19e8f634eb88edb29731afe6ec5",
+                            "type": "text",
+                            "args": {
+                                "text": "\n\n![Image](https://devres.trickle.so/upload/users/18555201329823745/workspaces/76957788663709699/1693837414547__0/untitled.jpeg?x-oss-process=image/format,jpg/auto-orient,1/&width=1280&height=1707)"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "702f4aea36f94236a7313589cb9d90d0",
+            "createAt": "2023-09-04T14:23:36.787024+0000",
+            "text": "\n\n![Image](https://devres.trickle.so/upload/users/18555201329823745/workspaces/76957788663709699/1693837414547__0/untitled.jpeg?x-oss-process=image/format,jpg/auto-orient,1/&width=1280&height=1707)",
+            "status": "done",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "admin",
+            "workspaceId": "",
+            "channelId": "",
+            "isTeamChannel": false,
+            "messageId": "8704c98c529c41df9c0f8f2ccfece2eb",
+            "messageType": "Chat",
+            "author": "system",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "50a19e16100b4ad6b7e6466ff22affe6",
+                    "args": {
+                        "direction": "left",
+                        "fulfill": true,
+                        "style": {
+                            "background": "transparent !important",
+                            "boxShadow": "none !important",
+                            "padding": 0,
+                            "margin-top": "-16px",
+                            "font-size": "12px",
+                            "color": "grey"
+                        }
+                    },
+                    "elements": [
+                        {
+                            "id": "413f14bc45244219ae1d0392c16c7146",
+                            "type": "elements",
+                            "children": [
+                                {
+                                    "id": "644d6bb4bbd7410f80019df24f9fbcdb",
+                                    "type": "icon",
+                                    "args": {
+                                        "icon": "check",
+                                        "color": "green"
+                                    }
+                                },
+                                {
+                                    "id": "1461bf57a42449539a8058cfff97f9b9",
+                                    "type": "text",
+                                    "args": {
+                                        "text": "Image insights captured!",
+                                        "style": {
+                                            "font-size": "12px",
+                                            "color": "grey"
+                                        },
+                                        "cursor": false
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "702f4aea36f94236a7313589cb9d90d0",
+            "createAt": "2023-09-04T14:23:36.795372+0000",
+            "text": "Image insights captured!",
+            "status": "generating",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "admin",
+            "workspaceId": "",
+            "channelId": "",
+            "isTeamChannel": false,
+            "messageId": "48344dece3074b25a57b90b83fdf6ee3",
+            "messageType": "Chat",
+            "author": "assistant",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "4413964842ab49a8988cdf194fbacf88",
+                    "args": {
+                        "direction": "left",
+                        "fulfill": true
+                    },
+                    "elements": [
+                        {
+                            "id": "dee7164bc19f420d8fcb97ebf1960bf5",
+                            "type": "elements",
+                            "children": [
+                                {
+                                    "id": "15e8325d826345a0921f6135e7cdecb4",
+                                    "type": "text",
+                                    "args": {
+                                        "text": "**Caption**\nThe screenshot displays the number 11.",
+                                        "cursor": false
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "702f4aea36f94236a7313589cb9d90d0",
+            "createAt": "2023-09-04T14:23:38.344462+0000",
+            "text": "**Caption**\nThe screenshot displays the number 11.",
+            "status": "done",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "admin",
+            "workspaceId": "",
+            "channelId": "",
+            "isTeamChannel": false,
+            "messageId": "6d405cf52170428b8b4a13be1fd82b5d",
+            "messageType": "Chat",
+            "author": "system",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "427f7d83562349979ab5b76e0dc89311",
+                    "args": {
+                        "direction": "left",
+                        "fulfill": true,
+                        "style": {
+                            "background": "transparent !important",
+                            "boxShadow": "none !important",
+                            "padding": 0,
+                            "margin-top": "-16px",
+                            "font-size": "12px",
+                            "color": "grey"
+                        }
+                    },
+                    "elements": [
+                        {
+                            "id": "1a0a583958ce4faa8253714094494ede",
+                            "type": "elements",
+                            "children": [
+                                {
+                                    "id": "70b2dd29a1e84597987bbc530761b2dc",
+                                    "type": "icon",
+                                    "args": {
+                                        "icon": "check",
+                                        "color": "green"
+                                    }
+                                },
+                                {
+                                    "id": "16af3d1311e44ce5828758f640d874ec",
+                                    "type": "text",
+                                    "args": {
+                                        "text": "Stored in Memories, [Click to view](https://devapp.trickle.so/workspace/76957788663709699/trickle/1544356945383653384)",
+                                        "style": {
+                                            "font-size": "12px",
+                                            "color": "grey"
+                                        },
+                                        "cursor": false
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "702f4aea36f94236a7313589cb9d90d0",
+            "createAt": "2023-09-04T14:23:39.775493+0000",
+            "text": "Stored in Memories, [Click to view](https://devapp.trickle.so/workspace/76957788663709699/trickle/1544356945383653384)",
+            "status": "done",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "workspace",
+            "workspaceId": "76957788663709699",
+            "channelId": "1481613586538168326",
+            "isTeamChannel": false,
+            "messageId": "b6988f2763674b16903b31a5da88b784",
+            "messageType": "Chat",
+            "author": "user",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "055ea3f7de104c708751947e732e4ff3",
+                    "args": {
+                        "style": {
+                            "padding": "0 !important",
+                            "backgroundColor": "transparent !important"
+                        }
+                    },
+                    "elements": [
+                        {
+                            "id": "6183227399c14d3199100ff0437d675f",
+                            "type": "text",
+                            "args": {
+                                "text": "\n\n![Image](https://devres.trickle.so/upload/users/18555201329823745/workspaces/76957788663709699/1693837432031__0/untitled.jpeg?x-oss-process=image/format,jpg/auto-orient,1/&width=1075&height=267)"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "b6988f2763674b16903b31a5da88b784",
+            "createAt": "2023-09-04T14:23:53.986951+0000",
+            "text": "\n\n![Image](https://devres.trickle.so/upload/users/18555201329823745/workspaces/76957788663709699/1693837432031__0/untitled.jpeg?x-oss-process=image/format,jpg/auto-orient,1/&width=1075&height=267)",
+            "status": "done",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "admin",
+            "workspaceId": "",
+            "channelId": "",
+            "isTeamChannel": false,
+            "messageId": "92b7005454a841c9a66297879e4f9fbc",
+            "messageType": "Chat",
+            "author": "system",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "50bbf8347c224e89997df98c87a59bf9",
+                    "args": {
+                        "direction": "left",
+                        "fulfill": true,
+                        "style": {
+                            "background": "transparent !important",
+                            "boxShadow": "none !important",
+                            "padding": 0,
+                            "margin-top": "-16px",
+                            "font-size": "12px",
+                            "color": "grey"
+                        }
+                    },
+                    "elements": [
+                        {
+                            "id": "9ded966cf96a438ebff7e136c519a7a9",
+                            "type": "elements",
+                            "children": [
+                                {
+                                    "id": "e331f499ba8843329009c6b35b53f2a0",
+                                    "type": "icon",
+                                    "args": {
+                                        "icon": "check",
+                                        "color": "green"
+                                    }
+                                },
+                                {
+                                    "id": "3e44a4fd79be48c4b2a00e373a814417",
+                                    "type": "text",
+                                    "args": {
+                                        "text": "Image insights captured!",
+                                        "style": {
+                                            "font-size": "12px",
+                                            "color": "grey"
+                                        },
+                                        "cursor": false
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "b6988f2763674b16903b31a5da88b784",
+            "createAt": "2023-09-04T14:23:53.995374+0000",
+            "text": "Image insights captured!",
+            "status": "generating",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "admin",
+            "workspaceId": "",
+            "channelId": "",
+            "isTeamChannel": false,
+            "messageId": "b5e82232c9364a62a57923b740c3f4e3",
+            "messageType": "Chat",
+            "author": "assistant",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "b0cac43a793148c9a300fe4261d1fb70",
+                    "args": {
+                        "direction": "left",
+                        "fulfill": true
+                    },
+                    "elements": [
+                        {
+                            "id": "9e7645b63cd24b0b93b4bccc3166210f",
+                            "type": "elements",
+                            "children": [
+                                {
+                                    "id": "8832d723ce2445a8a08bdd6a58dd013a",
+                                    "type": "text",
+                                    "args": {
+                                        "text": "**Trickle's Capability and Features**\nThe screenshot provides information about Trickle's capabilities, including extracting value from text screenshots, organizing unstructured text, recognizing hand-scripts, and retrieving memories through AI search.\n\n- Trickle can extract value from text screenshots\n- It can identify and organize unstructured text from charts\n- It has the ability to recognize text from hand-scripts\n- It can retrieve memories through AI search\n- Future updates include recognizing landscape and dog pictures\n- It does not convert screenshots into text or apply OCR\n- The screenshot also mentions a timeline from Sep 4 to Sep 8, and a future date in Mar/2023.",
+                                        "cursor": false
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "b6988f2763674b16903b31a5da88b784",
+            "createAt": "2023-09-04T14:23:55.012050+0000",
+            "text": "**Trickle's Capability and Features**\nThe screenshot provides information about Trickle's capabilities, including extracting value from text screenshots, organizing unstructured text, recognizing hand-scripts, and retrieving memories through AI search.\n\n- Trickle can extract value from text screenshots\n- It can identify and organize unstructured text from charts\n- It has the ability to recognize text from hand-scripts\n- It can retrieve memories through AI search\n- Future updates include recognizing landscape and dog pictures\n- It does not convert screenshots into text or apply OCR\n- The screenshot also mentions a timeline from Sep 4 to Sep 8, and a future date in Mar/2023.",
+            "status": "done",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "admin",
+            "workspaceId": "",
+            "channelId": "",
+            "isTeamChannel": false,
+            "messageId": "3e8bb42bec714583a69512efea64b46a",
+            "messageType": "Chat",
+            "author": "system",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "e89eb99e209e40fe9ce5ddd9eff45b9d",
+                    "args": {
+                        "direction": "left",
+                        "fulfill": true,
+                        "style": {
+                            "background": "transparent !important",
+                            "boxShadow": "none !important",
+                            "padding": 0,
+                            "margin-top": "-16px",
+                            "font-size": "12px",
+                            "color": "grey"
+                        }
+                    },
+                    "elements": [
+                        {
+                            "id": "876844468d1a431fae08dfbd93a9f3b4",
+                            "type": "elements",
+                            "children": [
+                                {
+                                    "id": "98c8921117e74c8ab7f10bdc7564668a",
+                                    "type": "icon",
+                                    "args": {
+                                        "icon": "check",
+                                        "color": "green"
+                                    }
+                                },
+                                {
+                                    "id": "9089264aeced4cab904788144d4f9cbc",
+                                    "type": "text",
+                                    "args": {
+                                        "text": "Stored in Memories, [Click to view](https://devapp.trickle.so/workspace/76957788663709699/trickle/1544357941816066056)",
+                                        "style": {
+                                            "font-size": "12px",
+                                            "color": "grey"
+                                        },
+                                        "cursor": false
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "b6988f2763674b16903b31a5da88b784",
+            "createAt": "2023-09-04T14:24:08.410261+0000",
+            "text": "Stored in Memories, [Click to view](https://devapp.trickle.so/workspace/76957788663709699/trickle/1544357941816066056)",
+            "status": "done",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "workspace",
+            "workspaceId": "76957788663709699",
+            "channelId": "",
+            "isTeamChannel": false,
+            "messageId": "E5B50B86-F370-4DBA-BEB7-F4E644C060AE",
+            "messageType": "Chat",
+            "author": "user",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "BC09EEBE-8C23-4299-A20F-F20B40918F7E",
+                    "args": {
+                        "fulfill": false,
+                        "direction": "right"
+                    },
+                    "elements": [
+                        {
+                            "id": "62AE5273-63BE-4A7E-8245-B03777C865C7",
+                            "args": {
+                                "text": "X xmark\n\n\n\n![Image](https://devres.trickle.so/upload/users/18555201329823745/workspaces/76957788663709699/1693900131359/caputre.png?width=255&height=252)"
+                            },
+                            "type": "text"
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "E5B50B86-F370-4DBA-BEB7-F4E644C060AE",
+            "createAt": "2023-09-05T07:48:57.437669+0000",
+            "text": "X xmark\n\n![Image](https://devres.trickle.so/upload/users/18555201329823745/workspaces/76957788663709699/1693900131359/caputre.png?width=255&height=252)",
+            "status": "done",
+            "source": "mac desktop",
+            "medias": [
+                "https://devres.trickle.so/upload/users/18555201329823745/workspaces/76957788663709699/1693900131359/caputre.png?width=255&height=252"
+            ],
+            "ocrs": {
+                "0": "X xmark"
+            }
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "admin",
+            "workspaceId": "",
+            "channelId": "",
+            "isTeamChannel": false,
+            "messageId": "4c0aba84ea55441a96c93c5a9c87cd77",
+            "messageType": "Chat",
+            "author": "system",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "909e3e0504b44e159b8fd056a92170d4",
+                    "args": {
+                        "direction": "left",
+                        "fulfill": true,
+                        "style": {
+                            "background": "transparent !important",
+                            "boxShadow": "none !important",
+                            "padding": 0,
+                            "margin-top": "-16px",
+                            "font-size": "12px",
+                            "color": "grey"
+                        }
+                    },
+                    "elements": [
+                        {
+                            "id": "344f792a358d485e86545666acf56f6f",
+                            "type": "elements",
+                            "children": [
+                                {
+                                    "id": "0fff4fe9376f4063bcbe2a5877584f95",
+                                    "type": "icon",
+                                    "args": {
+                                        "icon": "check",
+                                        "color": "green"
+                                    }
+                                },
+                                {
+                                    "id": "cbdbf360da504b6193e3654970ead444",
+                                    "type": "text",
+                                    "args": {
+                                        "text": "Image insights captured!",
+                                        "style": {
+                                            "font-size": "12px",
+                                            "color": "grey"
+                                        },
+                                        "cursor": false
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "E5B50B86-F370-4DBA-BEB7-F4E644C060AE",
+            "createAt": "2023-09-05T07:48:57.446611+0000",
+            "text": "Image insights captured!",
+            "status": "generating",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "admin",
+            "workspaceId": "",
+            "channelId": "",
+            "isTeamChannel": false,
+            "messageId": "acde53eee7164633ae1fa9f676bb485c",
+            "messageType": "Chat",
+            "author": "assistant",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "3755e7c53c8548d284eeac052d7d6180",
+                    "args": {
+                        "direction": "left",
+                        "fulfill": true
+                    },
+                    "elements": [
+                        {
+                            "id": "1d6d6caee937405989527841ae457970",
+                            "type": "elements",
+                            "children": [
+                                {
+                                    "id": "ecc0d18f05d541f78cfbd3c237a7c4c0",
+                                    "type": "text",
+                                    "args": {
+                                        "text": "**X xmark**\nThe screenshot mentions 'X xmark', but without additional context, a summary cannot be provided.",
+                                        "cursor": false
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "E5B50B86-F370-4DBA-BEB7-F4E644C060AE",
+            "createAt": "2023-09-05T07:48:57.449576+0000",
+            "text": "**X xmark**\nThe screenshot mentions 'X xmark', but without additional context, a summary cannot be provided.",
+            "status": "done",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "admin",
+            "workspaceId": "",
+            "channelId": "",
+            "isTeamChannel": false,
+            "messageId": "11b63649121c4cd48d27a75cc0bbf649",
+            "messageType": "Chat",
+            "author": "system",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "726bd5d73c2c4055bdeb45e52c86bbf4",
+                    "args": {
+                        "direction": "left",
+                        "fulfill": true,
+                        "style": {
+                            "background": "transparent !important",
+                            "boxShadow": "none !important",
+                            "padding": 0,
+                            "margin-top": "-16px",
+                            "font-size": "12px",
+                            "color": "grey"
+                        }
+                    },
+                    "elements": [
+                        {
+                            "id": "552332e4f97d43818351c621583c2c14",
+                            "type": "elements",
+                            "children": [
+                                {
+                                    "id": "ded237e3aeb248d98ca3987c854f09e3",
+                                    "type": "icon",
+                                    "args": {
+                                        "icon": "check",
+                                        "color": "green"
+                                    }
+                                },
+                                {
+                                    "id": "6f2f441b0632450a9e6d408a40aaf2fb",
+                                    "type": "text",
+                                    "args": {
+                                        "text": "Stored in Memories, [Click to view](https://devapp.trickle.so/workspace/76957788663709699/trickle/1546512014749204488)",
+                                        "style": {
+                                            "font-size": "12px",
+                                            "color": "grey"
+                                        },
+                                        "cursor": false
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "E5B50B86-F370-4DBA-BEB7-F4E644C060AE",
+            "createAt": "2023-09-05T07:49:00.351628+0000",
+            "text": "Stored in Memories, [Click to view](https://devapp.trickle.so/workspace/76957788663709699/trickle/1546512014749204488)",
+            "status": "done",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "workspace",
+            "workspaceId": "76957788663709699",
+            "channelId": "",
+            "isTeamChannel": false,
+            "messageId": "41D6BF42-B3F7-4FE5-90B9-3A6667BA00F1",
+            "messageType": "Chat",
+            "author": "user",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "E37FE086-3114-4957-AEF6-44B15B291079",
+                    "args": {
+                        "direction": "right",
+                        "fulfill": false
+                    },
+                    "elements": [
+                        {
+                            "args": {
+                                "text": ""
+                            },
+                            "id": "35D1195A-9028-4777-83DB-B8AD2E8D6022",
+                            "type": "text"
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "41D6BF42-B3F7-4FE5-90B9-3A6667BA00F1",
+            "createAt": "2023-09-05T07:51:08.329993+0000",
+            "text": "",
+            "status": "done",
+            "source": "mac desktop",
+            "medias": [
+                "https://devres.trickle.so/upload/users/18555201329823745/workspaces/76957788663709699/1693900262180/caputre.png?width=506&height=250"
+            ],
+            "ocrs": {
+                "0": "LANGUAGE MODEL SIZES TO MAR/2023 • senteini GPICE ET • GP162 1 Luminous BLOOM GLM-130B NLLB MT-NLG ОРТ-175B LaMDA Gopher"
+            }
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "admin",
+            "workspaceId": "",
+            "channelId": "",
+            "isTeamChannel": false,
+            "messageId": "686d71b4e267434982ffbac2ed32b5f9",
+            "messageType": "Chat",
+            "author": "system",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "1aecbca61d804eafa47e273d8a77345e",
+                    "args": {
+                        "direction": "left",
+                        "fulfill": true,
+                        "style": {
+                            "background": "transparent !important",
+                            "boxShadow": "none !important",
+                            "padding": 0,
+                            "margin-top": "-16px",
+                            "font-size": "12px",
+                            "color": "grey"
+                        }
+                    },
+                    "elements": [
+                        {
+                            "id": "d0230bd202f14f95941d5e0d368718b7",
+                            "type": "elements",
+                            "children": [
+                                {
+                                    "id": "02b012ac601b4cc797d2744dd0e90e3d",
+                                    "type": "icon",
+                                    "args": {
+                                        "icon": "check",
+                                        "color": "green"
+                                    }
+                                },
+                                {
+                                    "id": "88338c47af1947c489d97bf0509f3e9a",
+                                    "type": "text",
+                                    "args": {
+                                        "text": "Image insights captured!",
+                                        "style": {
+                                            "font-size": "12px",
+                                            "color": "grey"
+                                        },
+                                        "cursor": false
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "41D6BF42-B3F7-4FE5-90B9-3A6667BA00F1",
+            "createAt": "2023-09-05T07:51:08.338709+0000",
+            "text": "Image insights captured!",
+            "status": "generating",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "admin",
+            "workspaceId": "",
+            "channelId": "",
+            "isTeamChannel": false,
+            "messageId": "c6dbc9677eb74572a95c9bb9922c7812",
+            "messageType": "Chat",
+            "author": "assistant",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "29fdfeef7d974051a80de2e4d22db0ea",
+                    "args": {
+                        "direction": "left",
+                        "fulfill": true
+                    },
+                    "elements": [
+                        {
+                            "id": "3d3984edd68d42b99e79f50dfa7acf33",
+                            "type": "elements",
+                            "children": [
+                                {
+                                    "id": "23fa2db787c04a40871301822a7d5d89",
+                                    "type": "text",
+                                    "args": {
+                                        "text": "**Language Model Sizes to Mar/2023**\nThe screenshot provides information on various language model sizes projected up to March 2023.",
+                                        "cursor": false
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "41D6BF42-B3F7-4FE5-90B9-3A6667BA00F1",
+            "createAt": "2023-09-05T07:51:08.341849+0000",
+            "text": "**Language Model Sizes to Mar/2023**\nThe screenshot provides information on various language model sizes projected up to March 2023.",
+            "status": "done",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "admin",
+            "workspaceId": "",
+            "channelId": "",
+            "isTeamChannel": false,
+            "messageId": "f5ded4478960493f96d1cd3656285e9e",
+            "messageType": "Chat",
+            "author": "system",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "1628889855a54d7eac12a0acfa7ad7b5",
+                    "args": {
+                        "direction": "left",
+                        "fulfill": true,
+                        "style": {
+                            "background": "transparent !important",
+                            "boxShadow": "none !important",
+                            "padding": 0,
+                            "margin-top": "-16px",
+                            "font-size": "12px",
+                            "color": "grey"
+                        }
+                    },
+                    "elements": [
+                        {
+                            "id": "155854974df2489ab096b693536f0ebd",
+                            "type": "elements",
+                            "children": [
+                                {
+                                    "id": "4cbd9f6315bc4386abd31c241affff4d",
+                                    "type": "icon",
+                                    "args": {
+                                        "icon": "check",
+                                        "color": "green"
+                                    }
+                                },
+                                {
+                                    "id": "538784037d4641a3898e15bcddb92829",
+                                    "type": "text",
+                                    "args": {
+                                        "text": "Stored in Memories, [Click to view](https://devapp.trickle.so/workspace/76957788663709699/trickle/1546516584594407432)",
+                                        "style": {
+                                            "font-size": "12px",
+                                            "color": "grey"
+                                        },
+                                        "cursor": false
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "41D6BF42-B3F7-4FE5-90B9-3A6667BA00F1",
+            "createAt": "2023-09-05T07:51:13.089223+0000",
+            "text": "Stored in Memories, [Click to view](https://devapp.trickle.so/workspace/76957788663709699/trickle/1546516584594407432)",
+            "status": "done",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "workspace",
+            "workspaceId": "76957788663709699",
+            "channelId": "",
+            "isTeamChannel": false,
+            "messageId": "F83FC0B4-F688-41DE-B1D2-A4EB0420AF9D",
+            "messageType": "Chat",
+            "author": "user",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "7DEB5F07-3EFA-4F7C-B6CF-87E50066FD45",
+                    "args": {
+                        "direction": "right",
+                        "fulfill": false
+                    },
+                    "elements": [
+                        {
+                            "args": {
+                                "text": ""
+                            },
+                            "type": "text",
+                            "id": "7DF0494A-E123-42F5-A1DB-AAC3790A53E6"
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "F83FC0B4-F688-41DE-B1D2-A4EB0420AF9D",
+            "createAt": "2023-09-05T07:52:23.779293+0000",
+            "text": "",
+            "status": "done",
+            "source": "mac desktop",
+            "medias": [
+                "https://devres.trickle.so/upload/users/18555201329823745/workspaces/76957788663709699/1693900338811/caputre.png?width=1484&height=1203"
+            ],
+            "ocrs": {
+                "0": "Xcode 12.4 It seems like a hack but it works! 0. Go to Xcode Preferences menu ( command + .) and then Accounts tab 1. click on the gear icon on the bottom left and Export Apple ID and Code Signing Assets... Accounts Genera @ Accounts Behaviors Navigation Themes Text Editing Key Bindings Source Control Components Locations Server & Bots ts ce Apple IDs Apple ID Source Control Accounts + Imnert Anne ID and Code Sianing Assets Export Apple ID and Code Signing Assets... Contacts"
+            }
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "admin",
+            "workspaceId": "",
+            "channelId": "",
+            "isTeamChannel": false,
+            "messageId": "8a771f9357074e7780b9ec4d5f274dd6",
+            "messageType": "Chat",
+            "author": "system",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "c67a110fb63d4b398c3c918b8597091a",
+                    "args": {
+                        "direction": "left",
+                        "fulfill": true,
+                        "style": {
+                            "background": "transparent !important",
+                            "boxShadow": "none !important",
+                            "padding": 0,
+                            "margin-top": "-16px",
+                            "font-size": "12px",
+                            "color": "grey"
+                        }
+                    },
+                    "elements": [
+                        {
+                            "id": "70eb0216312546e4a86e6f2b9bd8ece1",
+                            "type": "elements",
+                            "children": [
+                                {
+                                    "id": "e7a20c996e40469d8b225b58c10db1ed",
+                                    "type": "icon",
+                                    "args": {
+                                        "icon": "check",
+                                        "color": "green"
+                                    }
+                                },
+                                {
+                                    "id": "089c6df7c59043868121b93e9274360f",
+                                    "type": "text",
+                                    "args": {
+                                        "text": "Image insights captured!",
+                                        "style": {
+                                            "font-size": "12px",
+                                            "color": "grey"
+                                        },
+                                        "cursor": false
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "F83FC0B4-F688-41DE-B1D2-A4EB0420AF9D",
+            "createAt": "2023-09-05T07:52:23.788080+0000",
+            "text": "Image insights captured!",
+            "status": "generating",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "admin",
+            "workspaceId": "",
+            "channelId": "",
+            "isTeamChannel": false,
+            "messageId": "ee867250ccb04e50b2f03033c261fc4b",
+            "messageType": "Chat",
+            "author": "assistant",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "3f80341338e1499cb6d6c29b398211a0",
+                    "args": {
+                        "direction": "left",
+                        "fulfill": true
+                    },
+                    "elements": [
+                        {
+                            "id": "30490cb7a5d64dd193ae39f8c77151ed",
+                            "type": "elements",
+                            "children": [
+                                {
+                                    "id": "1d9123bb208840cebe07341016d27b89",
+                                    "type": "text",
+                                    "args": {
+                                        "text": "**Xcode 12.4 Hack**\nThe screenshot provides a guide on how to export Apple ID and Code Signing Assets in Xcode 12.4 through the Preferences menu.\n\n- Go to Xcode Preferences menu (command + .) and then Accounts tab\n- Click on the gear icon on the bottom left and select 'Export Apple ID and Code Signing Assets'",
+                                        "cursor": false
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "F83FC0B4-F688-41DE-B1D2-A4EB0420AF9D",
+            "createAt": "2023-09-05T07:52:23.791362+0000",
+            "text": "**Xcode 12.4 Hack**\nThe screenshot provides a guide on how to export Apple ID and Code Signing Assets in Xcode 12.4 through the Preferences menu.\n\n- Go to Xcode Preferences menu (command + .) and then Accounts tab\n- Click on the gear icon on the bottom left and select 'Export Apple ID and Code Signing Assets'",
+            "status": "done",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "admin",
+            "workspaceId": "",
+            "channelId": "",
+            "isTeamChannel": false,
+            "messageId": "629ba9ff86d04192bc8827d15aa870e2",
+            "messageType": "Chat",
+            "author": "system",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "794a247e5cdc4e4bb563adc8a4fc6c24",
+                    "args": {
+                        "direction": "left",
+                        "fulfill": true,
+                        "style": {
+                            "background": "transparent !important",
+                            "boxShadow": "none !important",
+                            "padding": 0,
+                            "margin-top": "-16px",
+                            "font-size": "12px",
+                            "color": "grey"
+                        }
+                    },
+                    "elements": [
+                        {
+                            "id": "2c655d489432478fbcbc8cda2ebd8be6",
+                            "type": "elements",
+                            "children": [
+                                {
+                                    "id": "14f2de2a335749af856c3c099e074330",
+                                    "type": "icon",
+                                    "args": {
+                                        "icon": "check",
+                                        "color": "green"
+                                    }
+                                },
+                                {
+                                    "id": "3d25a564e7014cb8b5b041bb1648f5d3",
+                                    "type": "text",
+                                    "args": {
+                                        "text": "Stored in Memories, [Click to view](https://devapp.trickle.so/workspace/76957788663709699/trickle/1546519299013738504)",
+                                        "style": {
+                                            "font-size": "12px",
+                                            "color": "grey"
+                                        },
+                                        "cursor": false
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "F83FC0B4-F688-41DE-B1D2-A4EB0420AF9D",
+            "createAt": "2023-09-05T07:52:32.875889+0000",
+            "text": "Stored in Memories, [Click to view](https://devapp.trickle.so/workspace/76957788663709699/trickle/1546519299013738504)",
+            "status": "done",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "workspace",
+            "workspaceId": "76957788663709699",
+            "channelId": "1481613586538168326",
+            "isTeamChannel": false,
+            "messageId": "6948d1bd889045a09675c77d07ca3ff4",
+            "messageType": "Chat",
+            "author": "user",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "5a5cf42b894641b28a13ea31903925f0",
+                    "args": {
+                        "style": {
+                            "padding": "0 !important",
+                            "backgroundColor": "transparent !important"
+                        }
+                    },
+                    "elements": [
+                        {
+                            "id": "71edc1e0eaa24b4a98b3eac6962d655a",
+                            "type": "text",
+                            "args": {
+                                "text": "\n\n![Image](https://devres.trickle.so/upload/users/18555201329823745/workspaces/76957788663709699/1693901247267__0/untitled.png?x-oss-process=image/format,jpg/auto-orient,1/&width=422&height=342)"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "6948d1bd889045a09675c77d07ca3ff4",
+            "createAt": "2023-09-05T08:07:30.622806+0000",
+            "text": "\n\n![Image](https://devres.trickle.so/upload/users/18555201329823745/workspaces/76957788663709699/1693901247267__0/untitled.png?x-oss-process=image/format,jpg/auto-orient,1/&width=422&height=342)",
+            "status": "done",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "admin",
+            "workspaceId": "",
+            "channelId": "",
+            "isTeamChannel": false,
+            "messageId": "b55fb225f00146538e191ee05d8532a8",
+            "messageType": "Chat",
+            "author": "system",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "d9f1de82272143079c34c8199fa5aaad",
+                    "args": {
+                        "direction": "left",
+                        "fulfill": true,
+                        "style": {
+                            "background": "transparent !important",
+                            "boxShadow": "none !important",
+                            "padding": 0,
+                            "margin-top": "-16px",
+                            "font-size": "12px",
+                            "color": "grey"
+                        }
+                    },
+                    "elements": [
+                        {
+                            "id": "e37f35a04dc04d98a66a538c42e75689",
+                            "type": "elements",
+                            "children": [
+                                {
+                                    "id": "16db601731384ef39522137e718b9775",
+                                    "type": "icon",
+                                    "args": {
+                                        "icon": "check",
+                                        "color": "green"
+                                    }
+                                },
+                                {
+                                    "id": "e88e17b2a236477ca74b63368fe90919",
+                                    "type": "text",
+                                    "args": {
+                                        "text": "Image insights captured!",
+                                        "style": {
+                                            "font-size": "12px",
+                                            "color": "grey"
+                                        },
+                                        "cursor": false
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "6948d1bd889045a09675c77d07ca3ff4",
+            "createAt": "2023-09-05T08:07:30.631798+0000",
+            "text": "Image insights captured!",
+            "status": "generating",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "admin",
+            "workspaceId": "",
+            "channelId": "",
+            "isTeamChannel": false,
+            "messageId": "4921ab5b49604bdc92de947a2573679d",
+            "messageType": "Chat",
+            "author": "assistant",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "c1c4b400259d456d9d94d7182d8c28cb",
+                    "args": {
+                        "direction": "left",
+                        "fulfill": true
+                    },
+                    "elements": [
+                        {
+                            "id": "d898913780044096955859090cf9fb70",
+                            "type": "elements",
+                            "children": [
+                                {
+                                    "id": "91ab0d7dc34840ccb4441532da602b96",
+                                    "type": "text",
+                                    "args": {
+                                        "text": "**Xcode 12.4 Hack**\nThe screenshot provides a guide on how to export Apple ID and Code Signing Assets in Xcode 12.4.\n\n- Go to Xcode Preferences menu and then Accounts tab\n- Click on the gear icon on the bottom left and select 'Export Apple ID and Code Signing Assets'",
+                                        "cursor": false
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "6948d1bd889045a09675c77d07ca3ff4",
+            "createAt": "2023-09-05T08:07:31.959912+0000",
+            "text": "**Xcode 12.4 Hack**\nThe screenshot provides a guide on how to export Apple ID and Code Signing Assets in Xcode 12.4.\n\n- Go to Xcode Preferences menu and then Accounts tab\n- Click on the gear icon on the bottom left and select 'Export Apple ID and Code Signing Assets'",
+            "status": "done",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "admin",
+            "workspaceId": "",
+            "channelId": "",
+            "isTeamChannel": false,
+            "messageId": "e46ee499d916456c8066bda6b50a567e",
+            "messageType": "Chat",
+            "author": "system",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "49e386857b1d44c8861e455769c95d85",
+                    "args": {
+                        "direction": "left",
+                        "fulfill": true,
+                        "style": {
+                            "background": "transparent !important",
+                            "boxShadow": "none !important",
+                            "padding": 0,
+                            "margin-top": "-16px",
+                            "font-size": "12px",
+                            "color": "grey"
+                        }
+                    },
+                    "elements": [
+                        {
+                            "id": "848fb904e1af4d679a8b7a048e96e25f",
+                            "type": "elements",
+                            "children": [
+                                {
+                                    "id": "aab196aaebd54dbba1962bf50d589e69",
+                                    "type": "icon",
+                                    "args": {
+                                        "icon": "check",
+                                        "color": "green"
+                                    }
+                                },
+                                {
+                                    "id": "9c52797b9bbf4936a4b130b52cd8cfef",
+                                    "type": "text",
+                                    "args": {
+                                        "text": "Stored in Memories, [Click to view](https://devapp.trickle.so/workspace/76957788663709699/trickle/1546550427594522632)",
+                                        "style": {
+                                            "font-size": "12px",
+                                            "color": "grey"
+                                        },
+                                        "cursor": false
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "6948d1bd889045a09675c77d07ca3ff4",
+            "createAt": "2023-09-05T08:07:38.483570+0000",
+            "text": "Stored in Memories, [Click to view](https://devapp.trickle.so/workspace/76957788663709699/trickle/1546550427594522632)",
+            "status": "done",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "workspace",
+            "workspaceId": "76957788663709699",
+            "channelId": "1481613586538168326",
+            "isTeamChannel": false,
+            "messageId": "36938dec500f46d2b5fc1599b65a6088",
+            "messageType": "Chat",
+            "author": "user",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "cc7463fd8e49481ca5283b9ea30d1e41",
+                    "args": {
+                        "style": {
+                            "padding": "0 !important",
+                            "backgroundColor": "transparent !important"
+                        }
+                    },
+                    "elements": [
+                        {
+                            "id": "7873402cd09847a097a0985c61306ecf",
+                            "type": "text",
+                            "args": {
+                                "text": "\n\n![Image](https://devres.trickle.so/upload/users/18555201329823745/workspaces/76957788663709699/1693902166642__0/untitled.png?x-oss-process=image/format,jpg/auto-orient,1/&width=383&height=75)"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "36938dec500f46d2b5fc1599b65a6088",
+            "createAt": "2023-09-05T08:22:49.648749+0000",
+            "text": "\n\n![Image](https://devres.trickle.so/upload/users/18555201329823745/workspaces/76957788663709699/1693902166642__0/untitled.png?x-oss-process=image/format,jpg/auto-orient,1/&width=383&height=75)",
+            "status": "done",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "admin",
+            "workspaceId": "",
+            "channelId": "",
+            "isTeamChannel": false,
+            "messageId": "c003f96e71e24dacbbc4290b93358cc7",
+            "messageType": "Chat",
+            "author": "system",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "ae24ce8e7a334efba00e47cbf4d103a8",
+                    "args": {
+                        "direction": "left",
+                        "fulfill": true,
+                        "style": {
+                            "background": "transparent !important",
+                            "boxShadow": "none !important",
+                            "padding": 0,
+                            "margin-top": "-16px",
+                            "font-size": "12px",
+                            "color": "grey"
+                        }
+                    },
+                    "elements": [
+                        {
+                            "id": "c062ec077d2343f3a6f190ef2acfe6ce",
+                            "type": "elements",
+                            "children": [
+                                {
+                                    "id": "2d2518fbbd854927ba265a527c074306",
+                                    "type": "icon",
+                                    "args": {
+                                        "icon": "check",
+                                        "color": "green"
+                                    }
+                                },
+                                {
+                                    "id": "3a83bc6c851844659f5267b85b9226d0",
+                                    "type": "text",
+                                    "args": {
+                                        "text": "Image insights captured!",
+                                        "style": {
+                                            "font-size": "12px",
+                                            "color": "grey"
+                                        },
+                                        "cursor": false
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "36938dec500f46d2b5fc1599b65a6088",
+            "createAt": "2023-09-05T08:22:49.657858+0000",
+            "text": "Image insights captured!",
+            "status": "generating",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "admin",
+            "workspaceId": "",
+            "channelId": "",
+            "isTeamChannel": false,
+            "messageId": "486fd703aca74283baa5c6f85ba44ad9",
+            "messageType": "Chat",
+            "author": "assistant",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "df770c252da844c3a5e120786f74a520",
+                    "args": {
+                        "direction": "left",
+                        "fulfill": true
+                    },
+                    "elements": [
+                        {
+                            "id": "cf34d7e1595046a4b55ab42465619f7e",
+                            "type": "elements",
+                            "children": [
+                                {
+                                    "id": "281f8d07c3454267b5305db7fbd0defb",
+                                    "type": "text",
+                                    "args": {
+                                        "text": "**Select message to browse its content**\nThe screenshot instructs users to select a message in order to view its content.",
+                                        "cursor": false
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "36938dec500f46d2b5fc1599b65a6088",
+            "createAt": "2023-09-05T08:22:50.580475+0000",
+            "text": "**Select message to browse its content**\nThe screenshot instructs users to select a message in order to view its content.",
+            "status": "done",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        },
+        {
+            "conversationId": "cvs_c44901bbea6f45e49ed9e4185428f457",
+            "conversationType": "admin",
+            "workspaceId": "",
+            "channelId": "",
+            "isTeamChannel": false,
+            "messageId": "31da1b1c674046e5bccaf33b0a534f6b",
+            "messageType": "Chat",
+            "author": "system",
+            "cardVersion": "v1",
+            "actionCards": [
+                {
+                    "id": "db2735c6c07b4494b096fcb9a349b2d1",
+                    "args": {
+                        "direction": "left",
+                        "fulfill": true,
+                        "style": {
+                            "background": "transparent !important",
+                            "boxShadow": "none !important",
+                            "padding": 0,
+                            "margin-top": "-16px",
+                            "font-size": "12px",
+                            "color": "grey"
+                        }
+                    },
+                    "elements": [
+                        {
+                            "id": "05a8a3bda0384ca1a339cb645c1acbbb",
+                            "type": "elements",
+                            "children": [
+                                {
+                                    "id": "9bc48468f9e644efaeb6e33c69b3d5f7",
+                                    "type": "icon",
+                                    "args": {
+                                        "icon": "check",
+                                        "color": "green"
+                                    }
+                                },
+                                {
+                                    "id": "62e00c8749ce44e8af052ba5cbeac64b",
+                                    "type": "text",
+                                    "args": {
+                                        "text": "Stored in Memories, [Click to view](https://devapp.trickle.so/workspace/76957788663709699/trickle/1546581866755129352)",
+                                        "style": {
+                                            "font-size": "12px",
+                                            "color": "grey"
+                                        },
+                                        "cursor": false
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "replyToMessageId": "36938dec500f46d2b5fc1599b65a6088",
+            "createAt": "2023-09-05T08:22:53.231877+0000",
+            "text": "Stored in Memories, [Click to view](https://devapp.trickle.so/workspace/76957788663709699/trickle/1546581866755129352)",
+            "status": "done",
+            "source": "web",
+            "medias": [],
+            "ocrs": {}
+        }
+    ]
+}

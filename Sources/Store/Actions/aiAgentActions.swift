@@ -42,6 +42,10 @@ extension TrickleStore {
                 $0.value == conversationID
             }?.key
         }
+        
+        public static var captureAgentSession: AIAgentConversationSession? {
+            
+        }
     }
     
     
