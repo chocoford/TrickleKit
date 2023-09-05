@@ -296,13 +296,13 @@ fileprivate extension SocketIOClient {
     
     func send<P: Codable, R: Codable>(
         _ event: TrickleAIAgentSocketClient.SocketEvent,
-        payload: P = TrickleAIAgentSocketClient.EmptyData()
+        payload: P = TrickleAIAgentSocketClient.EmptyData(),
+        timeout: Double = 30
     ) async throws -> R {
         return try await withCheckedThrowingContinuation { continuation in
             self.emitWithAck(event,
                              items: ["arguments": [payload.dictionary]])
-                .timingOut(after: 10) { res in
-                    print(res)
+                .timingOut(after: timeout) { res in
                     do {
                         let decoder = JSONDecoder()
                         decoder.dateDecodingStrategy = .secondsSince1970

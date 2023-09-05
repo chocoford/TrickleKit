@@ -54,7 +54,7 @@ public struct TrickleEnv {
                 TrickleEnv.webSocketDomain = "devwsapi.trickle.so"
                 TrickleEnv.ossBucket = "boom2-resource"
                 TrickleEnv.ossAssetsDomain = "devres.trickle.so"
-                TrickleEnv.aiActionDomain = "ai.trickle.so"
+                TrickleEnv.aiActionDomain = "devapp.trickle.so"
             case .aiLive:
                 TrickleEnv.env = "live"
                 TrickleEnv.trickleDomain = "ai.trickle.so"
