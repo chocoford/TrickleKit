@@ -17,7 +17,7 @@ public struct TrickleEnv {
     
     public static var aiActionDomain = ProcessInfo.processInfo.environment["TRICKLE_AI_ACTION_DOMAIN"] ?? "ai.trickle.so"
     
-    public static var captureAgentID = "43773aa02e0548abb05e297ef9ff8ad5"
+    public static var captureAgentID = "234d146ff8744b1ab982ea16b4225ea5"
     
     public enum EnvType {
         case dev, test, live, aiDev, aiLive
@@ -66,7 +66,7 @@ public struct TrickleEnv {
                 TrickleEnv.ossBucket = "trickle-resource-test"
                 TrickleEnv.ossAssetsDomain = "testres.trickle.so"
                 TrickleEnv.aiActionDomain = "ai.trickle.so"
-                TrickleEnv.captureAgentID = "43773aa02e0548abb05e297ef9ff8ad5"
+                TrickleEnv.captureAgentID = "234d146ff8744b1ab982ea16b4225ea5"
         }
     }
 }
