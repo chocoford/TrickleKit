@@ -172,9 +172,9 @@ extension AIAgentConversationSession {
 extension AIAgentConversationSession.Message {
     // MARK: - ActionCard
     public struct ActionCard: Codable, Identifiable, Hashable {
-        public let id: String
-        public let args: ActionCardArgs
-        public let elements: [Element]
+        public var id: String
+        public var args: ActionCardArgs
+        public var elements: [Element]
 
         public init(id: String = UUID().uuidString, args: ActionCardArgs, elements: [Element]) {
             self.id = id
@@ -479,6 +479,12 @@ extension AIAgentConversationSession.Message.ActionCard.Element {
                 case rounded
                 case bordered
             }
+        }
+        
+        public init(urlString: String) {
+            self.id = UUID().uuidString
+            self.type = .image
+            self.args = .init(urlString: urlString)
         }
     }
     
