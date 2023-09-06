@@ -41,18 +41,21 @@ public final class TrickleAIAgentSocketClient {
     
     var onEvents: (IncomingMessage) async -> Void
     
+//    var configs: [Config]
+    
     public init(onEvents: @escaping (IncomingMessage) async -> Void) {
         self.onEvents = onEvents
+//        self.configs = configs
     }
     
     let logger: TrickleAIAgentSocketLogger = .init()
     
-    func configSocket(token: String) {
+    func configSocket(token: String, log: Bool = false) {
         let url = URL(string: "https://\(TrickleEnv.aiActionDomain)")!
         self.socketManager = SocketManager(socketURL: url,
                                     config: [
                                         .logger(logger),
-                                        .log(true),
+                                        .log(log),
                                         .compress,
                                         .connectParams(["token" : "Bearer \(token)"]),
                                         .path("/trickleai-sio"),
@@ -87,7 +90,7 @@ public final class TrickleAIAgentSocketClient {
 }
 
 public extension TrickleAIAgentSocketClient {
-    func conntect(token: String, onConnected: (() -> Void)? = nil) {
+    func conntect(token: String, log: Bool = false, onConnected: (() -> Void)? = nil) {
         self.onConnected = onConnected
         configSocket(token: token)
     }
