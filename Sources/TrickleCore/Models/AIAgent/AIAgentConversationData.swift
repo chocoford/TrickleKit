@@ -320,6 +320,12 @@ extension AIAgentConversationSession.Message.ActionCard {
         public enum Direction: String, Codable, Hashable {
             case left, right
         }
+        
+        public init(direction: Direction?, fulfill: Bool?, style: CSSStyle?) {
+            self.direction = direction
+            self.fulfill = fulfill
+            self.style = style
+        }
     }
 
     // MARK: - CSSStyle
