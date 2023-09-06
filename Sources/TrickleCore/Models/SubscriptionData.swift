@@ -39,6 +39,10 @@ public struct SubscriptionStatusData: Codable, Hashable, Identifiable {
         public var isCancelled: Bool {
             self.rawValue == "cancelled" || self.rawValue == "canceled"
         }
+        
+        public var isActive: Bool {
+            !self.isCancelled && self != .unpaid
+        }
     }
 }
 
