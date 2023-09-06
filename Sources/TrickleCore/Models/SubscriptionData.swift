@@ -27,8 +27,18 @@ public struct SubscriptionStatusData: Codable, Hashable, Identifiable {
     }
     
     public enum Status: String, Codable {
-        case trialing
+        case unpaid
         case active
+        @available(*, deprecated, message: "Do not use this directly, use isCancelled instead")
+        case cancelled
+        @available(*, deprecated, message: "Do not use this directly, use isCancelled instead")
+        case canceled
+        case trailing
+        case pastDue
+        
+        public var isCancelled: Bool {
+            self.rawValue == "cancelled" || self.rawValue == "canceled"
+        }
     }
 }
 

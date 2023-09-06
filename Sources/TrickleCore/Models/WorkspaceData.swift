@@ -18,16 +18,15 @@ public struct WorkspaceData: Codable, Hashable {
     public var createAt, updateAt: Date
     public var userMemberInfo: MemberData
     public var hasUnread: Bool?
-//    public var hasEmbedding: HasEmbedding
     public var subscriptionID: String
-    public var subscriptionStatus: SubscriptionStatus
+    public var subscriptionStatus: SubscriptionStatusData.Status
     
     enum CodingKeys: String, CodingKey, CaseIterable {
         case workspaceID = "workspaceId"
         case ownerID = "ownerId"
         case name, memberNum, removedMemberNum, logo, domain
         case userID = "userId"
-        case createAt, updateAt, userMemberInfo, hasUnread//, hasEmbedding
+        case createAt, updateAt, userMemberInfo, hasUnread
         case subscriptionID = "subscriptionId"
         case subscriptionStatus
     }
@@ -48,18 +47,6 @@ public extension WorkspaceData {
         case not = "Not"
         case inprogress = "Inprogress"
         case embedded = "Embedded"
-    }
-    enum SubscriptionStatus: String, Codable {
-        case unpaid
-        case active
-        @available(*, deprecated, message: "Do not use this directly, use isCancelled instead")
-        case cancelled
-        @available(*, deprecated, message: "Do not use this directly, use isCancelled instead")
-        case canceled
-        
-        public var isCancelled: Bool {
-            self.rawValue == "cancelled" || self.rawValue == "canceled"
-        }
     }
     
     mutating func update(by dict: [String : AnyDictionaryValue]) {
@@ -125,7 +112,7 @@ public extension WorkspaceData {
                         self.subscriptionID = subscriptionID
                     }
                 case .subscriptionStatus:
-                    if case .string(let status) = val, let status = SubscriptionStatus(rawValue: status) {
+                    if case .string(let status) = val, let status = SubscriptionStatusData.Status(rawValue: status) {
                         self.subscriptionStatus = status
                     }
             }
