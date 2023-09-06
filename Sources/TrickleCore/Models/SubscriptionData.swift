@@ -33,7 +33,7 @@ public struct SubscriptionStatusData: Codable, Hashable, Identifiable {
         case cancelled
         @available(*, deprecated, message: "Do not use this directly, use isCancelled instead")
         case canceled
-        case trailing
+        case trialing
         case pastDue
         
         public var isCancelled: Bool {
