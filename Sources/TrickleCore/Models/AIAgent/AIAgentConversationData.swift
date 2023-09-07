@@ -168,6 +168,21 @@ extension AIAgentConversationSession {
                          medias: [], ocrs: [:])
         }
         
+        static public func makeSystemMessage(actionCards: ActionCard..., source: String) -> Self {
+            let id = UUID().uuidString
+            return .init(messageID: id,
+                         messageType: .chat,
+                         authorType: .system,
+                         cardVersion: .v1,
+                         actionCards: actionCards,
+                         replyToMessageID: id,
+                         createAt: "",
+                         text: "",
+                         status: .done,
+                         source: source,
+                         medias: [], ocrs: [:])
+        }
+        
         static public func makeEmptyMessage(source: String, ocrPayload: OCRPayload?) -> Self {
             let id = UUID().uuidString
             return .init(
