@@ -534,10 +534,10 @@ extension AIAgentConversationSession.Message.ActionCard.Element {
             }
         }
         public struct LocalImageElement: Codable, Hashable {
-            var data: Data
+            public var nsImageData: Data
             
             public init(data: Data) {
-                self.data = data
+                self.nsImageData = data
             }
         }
     }
