@@ -486,31 +486,59 @@ extension AIAgentConversationSession.Message.ActionCard.Element {
         }
     }
     
-    public struct ImageElement: ActionCardElement {
-        public var id: String
-        public var type: ElementType
-        public var args: Args?
+    public enum ImageElement: Codable, Hashable {
+        case local(LocalImageElement)
+        case air(AirImageElement)
         
-        public struct Args: Codable, Hashable {
-            public var urlString: String?
-            public var size: CGFloat?
-            public var text: String?
-            public var rounded: Bool?
-            public var bordered: Bool?
-            
-            enum CodingKeys: String, CodingKey {
-                case urlString = "url"
-                case size
-                case text
-                case rounded
-                case bordered
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.singleValueContainer()
+            self = .air(try container.decode(AirImageElement.self))
+        }
+        
+        public func encode(to encoder: Encoder) throws {
+            var container = encoder.singleValueContainer()
+
+            switch self {
+                case .air(let element):
+                    try container.encode(element)
+                case .local:
+                    fatalError("Do not encode local image.")
             }
         }
         
-        public init(urlString: String) {
-            self.id = UUID().uuidString
-            self.type = .image
-            self.args = .init(urlString: urlString)
+        public struct AirImageElement: ActionCardElement {
+            public var id: String
+            public var type: ElementType
+            public var args: Args?
+            
+            public struct Args: Codable, Hashable {
+                public var urlString: String?
+                public var size: CGFloat?
+                public var text: String?
+                public var rounded: Bool?
+                public var bordered: Bool?
+                
+                enum CodingKeys: String, CodingKey {
+                    case urlString = "url"
+                    case size
+                    case text
+                    case rounded
+                    case bordered
+                }
+            }
+            
+            public init(urlString: String) {
+                self.id = UUID().uuidString
+                self.type = .image
+                self.args = .init(urlString: urlString)
+            }
+        }
+        public struct LocalImageElement: Codable, Hashable {
+            var data: Data
+            
+            public init(data: Data) {
+                self.data = data
+            }
         }
     }
     
