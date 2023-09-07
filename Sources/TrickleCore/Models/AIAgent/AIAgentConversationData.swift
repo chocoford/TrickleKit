@@ -458,6 +458,15 @@ extension AIAgentConversationSession.Message.ActionCard.Element {
         public var children: [AIAgentConversationSession.Message.ActionCard.Element]
         
         public struct Args: Codable, Hashable {}
+        
+        public init(id: String = UUID().uuidString,
+                    args: Args? = nil,
+                    children: [AIAgentConversationSession.Message.ActionCard.Element]) {
+            self.id = id
+            self.type = .elements
+            self.args = args
+            self.children = children
+        }
     }
     
     public struct ButtonElement: ActionCardElement {
