@@ -566,6 +566,12 @@ extension AIAgentConversationSession.Message.ActionCard.Element {
             public var color: String?
             public var size: String?
         }
+        
+        public init(id: String = UUID().uuidString, args: Args?) {
+            self.id = id
+            self.type = .icon
+            self.args = args
+        }
     }
     
     public struct TaskElement: ActionCardElement {
