@@ -439,9 +439,13 @@ extension AIAgentConversationSession.Message.ActionCard.Element {
         
         public struct Args: Codable, Hashable {
             public var text: String
+            
+            public init(text: String) {
+                self.text = text
+            }
         }
         
-        init(id: String? = UUID().uuidString, args: Args? = nil) {
+        public init(id: String? = UUID().uuidString, args: Args) {
             self.id = id
             self.args = args
         }
@@ -475,6 +479,18 @@ extension AIAgentConversationSession.Message.ActionCard.Element {
             public var value: String
             public var placeholder: String?
             public var disabled: Bool?
+            
+            public init(value: String, placeholder: String? = nil, disabled: Bool? = nil) {
+                self.value = value
+                self.placeholder = placeholder
+                self.disabled = disabled
+            }
+        }
+        
+        public init(id: String = UUID().uuidString, args: Args) {
+            self.id = id
+            self.type = .text
+            self.args = args
         }
     }
     
