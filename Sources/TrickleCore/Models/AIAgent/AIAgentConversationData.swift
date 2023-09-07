@@ -8,7 +8,7 @@
 import Foundation
 
 
-public struct AIAgentConversationSession: Codable, Identifiable {
+public struct AIAgentConversationSession: Codable, Hashable, Identifiable {
     public let conversationID, agent, agentConfigID: String
     public var messages: [Message]
     public var conversationType: ConversationType?
@@ -77,7 +77,7 @@ extension AIAgentConversationSession {
             messageType: MessageType,
             authorType: AuthorType,
             cardVersion: CardVersion,
-            actionCards: [AIAgentConversationSession.Message.ActionCard],
+            actionCards: [ActionCard],
             replyToMessageID: String,
             createAt: String,
             text: String,
@@ -132,6 +132,24 @@ extension AIAgentConversationSession {
                 medias: ocrPayload?.medias ?? [], ocrs: ocrPayload?.ocrs ?? [:]
             )
         }
+        
+        static public func makeUserMessage(actionCards: ActionCard..., status: Status = .done, source: String, ocrPayload: OCRPayload?) -> Self {
+            let id = UUID().uuidString
+            return .init(
+                messageID: id,
+                messageType: .chat,
+                authorType: .user,
+                cardVersion: .v1,
+                actionCards: actionCards,
+                replyToMessageID: id,
+                createAt: "",
+                text: "",
+                status: status,
+                source: source,
+                medias: ocrPayload?.medias ?? [], ocrs: ocrPayload?.ocrs ?? [:]
+            )
+        }
+        
         static public func makeSystemMessage(text: String, source: String) -> Self {
             let id = UUID().uuidString
             return .init(messageID: id,
@@ -326,6 +344,8 @@ extension AIAgentConversationSession.Message.ActionCard {
             self.fulfill = fulfill
             self.style = style
         }
+        
+        public static var `nil`: Self { .init(direction: nil, fulfill: nil, style: nil) }
     }
 
     // MARK: - CSSStyle
