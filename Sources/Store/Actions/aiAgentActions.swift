@@ -177,16 +177,11 @@ public extension TrickleStore {
                 throw TrickleStoreError.aiAgentError(.emptyConversationSession)
             }
             
-//            /// upload local image
-//            for actionCard in message.actionCards {
-//                for element in actionCard.elements {
-//                    if case .image(.local) = element {
-//                        
-//                    }
-//                }
-//            }
-            
-            self.aiAgentState.conversationSessions[agentConfigID]?.messages.append(message)
+            if let index = self.aiAgentState.conversationSessions[agentConfigID]?.messages.firstIndex(where: {$0.messageID == message.messageID}) {
+                self.aiAgentState.conversationSessions[agentConfigID]?.messages[index] = message
+            } else {
+                self.aiAgentState.conversationSessions[agentConfigID]?.messages.append(message)
+            }
             let res: Results = try await self.aiAgentSocket.newMessage(
                 payload: .init(
                     conversationID: conversationID,
