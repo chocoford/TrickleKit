@@ -46,12 +46,12 @@ public struct AIAgentConversationSession: Codable, Hashable, Identifiable {
 extension AIAgentConversationSession {
     // MARK: - Message
     public struct Message: Codable, Identifiable, Hashable {
-        public let messageID: String
+        public var messageID: String
         public var cardVersion: CardVersion
         public var authorType: AuthorType
         public var messageType: MessageType
         public let actionCards: [ActionCard]
-        public let replyToMessageID, text: String
+        public var replyToMessageID, text: String
         public var createAt: String
         public var status: Status
         public var conversationID: String?

@@ -32,8 +32,6 @@ extension TrickleStore {
         public var agents: [AIAgentData] = []
         public var conversationIDs: [AIAgentData.ID : ConversationID] = [:]
         public var conversationSessions: [AIAgentData.ID : AIAgentConversationSession] = [:]
-//        public var conversationID: String? = nil
-//        public var conversationSession: AIAgentConversationSession? = nil
         public var updateMessagePublisher = PassthroughSubject<Void, Never>()
         var messageHelper = AIStateMessageHelper()
         
@@ -154,17 +152,48 @@ public extension TrickleStore {
         }
     }
     
-    func trySendMessageToAIAgent<Results: Codable>(to agentConfigID: AIAgentData.ID, _ message: AIAgentConversationSession.Message, conversationType: AIAgentConversationSession.ConversationType) async throws -> Results {
+    /// For front-end cheat
+    func prepareSendMessageToAIAgent(
+        to agentConfigID: AIAgentData.ID,
+        message: AIAgentConversationSession.Message,
+        frozen: Bool = true
+    ) {
+        self.aiAgentState.conversationSessions[agentConfigID]?.messages.append(message)
+        
+        
+    }
+    
+    /// Try to send message to ai agent. If message contains a image, it will auto upload to the server.
+    func trySendMessageToAIAgent<Results: Codable>(
+        to agentConfigID: AIAgentData.ID,
+        _ message: AIAgentConversationSession.Message,
+        conversationType: AIAgentConversationSession.ConversationType
+    ) async throws -> Results {
         do {
             guard let conversationID = self.aiAgentState.conversationIDs[agentConfigID] else {
                 throw TrickleStoreError.aiAgentError(.invalidConversationID(nil))
             }
-            
             guard self.aiAgentState.conversationSessions[agentConfigID] != nil else {
                 throw TrickleStoreError.aiAgentError(.emptyConversationSession)
             }
+            
+//            /// upload local image
+//            for actionCard in message.actionCards {
+//                for element in actionCard.elements {
+//                    if case .image(.local) = element {
+//                        
+//                    }
+//                }
+//            }
+            
             self.aiAgentState.conversationSessions[agentConfigID]?.messages.append(message)
-            let res: Results = try await self.aiAgentSocket.newMessage(payload: .init(conversationID: conversationID, message: message, conversationType: conversationType))
+            let res: Results = try await self.aiAgentSocket.newMessage(
+                payload: .init(
+                    conversationID: conversationID,
+                    message: message,
+                    conversationType: conversationType
+                )
+            )
             return res
         } catch {
             self.setAIAgentMessageAsFailed(of: agentConfigID, messageID: message.messageID)
@@ -222,8 +251,8 @@ public extension TrickleStore {
         if let index = self.aiAgentState.conversationSessions[agentConfigID]?.messages.firstIndex(where: {
                $0.messageID == message.messageID
            }) {
+            self.aiAgentState.conversationSessions[agentConfigID]?.messages[index] = message
             self.aiAgentState.messageHelper.throttle(message.messageID) {
-                self.aiAgentState.conversationSessions[agentConfigID]?.messages[index] = message
                 DispatchQueue.main.async {
                     self.aiAgentState.updateMessagePublisher.send()
                 }
