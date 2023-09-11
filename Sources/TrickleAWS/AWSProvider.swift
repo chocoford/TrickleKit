@@ -11,6 +11,7 @@ import SotoSNS
 import Foundation
 import TrickleCore
 import os
+import UniformTypeIdentifiers
 
 //
 
@@ -74,12 +75,14 @@ extension TrickleAWSProvider {
     }
     
     
-    public func uploadFile(_ fileData: Data, type: FileType, fileExtension: String) async throws -> URL {
+    public func uploadFile(_ fileData: Data, type: FileType, fileExtension: String, mineType: String = "application/octet-stream") async throws -> URL {
         let path = type.path + "." + fileExtension
+        let utType = UTType(filenameExtension: fileExtension)?.identifier
         let putObjectRequest = S3.PutObjectRequest(
             acl: .none,
             body: .data(fileData),
             bucket: bucket,
+            contentType: utType,
             key: path
         )
         _ = try await s3.putObject(putObjectRequest)
