@@ -33,8 +33,8 @@ class TrickleAIAgentSocketLogger: SocketLogger {
 }
 
 public final class TrickleAIAgentSocketClient {
-    var socketManager: SocketManager? = nil
-    var socket: SocketIOClient? = nil
+    public internal(set) var socketManager: SocketManager? = nil
+    public internal(set) var socket: SocketIOClient? = nil
 //    var token: String
     
     var onConnected: (() -> Void)? = nil
