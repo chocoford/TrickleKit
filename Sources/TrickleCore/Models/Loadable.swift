@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+/*
 public enum LoadableError: Error, LocalizedError {
     case cancelled
     case notFound
@@ -167,3 +167,4 @@ extension Loadable: Equatable where T: Equatable {
 }
 
 
+*/

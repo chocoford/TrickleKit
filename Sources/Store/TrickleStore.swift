@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ChocofordEssentials
 import CFWebRepositoryProvider
 import TrickleCore
 
