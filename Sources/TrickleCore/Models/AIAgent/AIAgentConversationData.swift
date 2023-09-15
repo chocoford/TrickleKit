@@ -58,6 +58,10 @@ extension AIAgentConversationSession {
         public var source: String?
         public var medias: [String]?
         public var ocrs: [String : String]?
+        
+        public var workspaceID: WorkspaceData.ID
+        public var groupID: GroupData.ID
+        public var isTeamGroup: Bool
 
         enum CodingKeys: String, CodingKey {
             case messageID = "messageId"
@@ -68,6 +72,9 @@ extension AIAgentConversationSession {
             case createAt, text, status
             case conversationID = "conversationId"
             case source, medias, ocrs
+            case workspaceID = "workspaceId"
+            case groupID = "channelId"
+            case isTeamGroup = "isTeamChannel"
         }
         
         public var id: String { messageID }
@@ -85,7 +92,10 @@ extension AIAgentConversationSession {
             conversationID: String? = nil,
             source: String,
             medias: [String],
-            ocrs: [String : String]
+            ocrs: [String : String],
+            workspaceID: WorkspaceData.ID,
+            groupID: GroupData.ID,
+            isTeamGroup: Bool
 //            conversationType: ConversationType = .workspace
         ) {
             self.messageID = messageID
@@ -102,6 +112,9 @@ extension AIAgentConversationSession {
             self.medias = medias
             self.ocrs = ocrs
 //            self.conversationType = conversationType
+            self.workspaceID = workspaceID
+            self.groupID = groupID
+            self.isTeamGroup = isTeamGroup
         }
         
         public struct OCRPayload {
@@ -114,7 +127,15 @@ extension AIAgentConversationSession {
             }
         }
         
-        static public func makeUserMessage(text: String, status: Status = .done, source: String, ocrPayload: OCRPayload?) -> Self {
+        static public func makeUserMessage(
+            text: String,
+            status: Status = .done,
+            source: String,
+            workspaceID: WorkspaceData.ID,
+            groupID: GroupData.ID,
+            isTeamGroup: Bool,
+            ocrPayload: OCRPayload?
+        ) -> Self {
             let id = UUID().uuidString
             return .init(
                 messageID: id,
@@ -129,11 +150,22 @@ extension AIAgentConversationSession {
                 text: text,
                 status: status,
                 source: source,
-                medias: ocrPayload?.medias ?? [], ocrs: ocrPayload?.ocrs ?? [:]
+                medias: ocrPayload?.medias ?? [], ocrs: ocrPayload?.ocrs ?? [:],
+                workspaceID: workspaceID,
+                groupID: groupID,
+                isTeamGroup: isTeamGroup
             )
         }
         
-        static public func makeUserMessage(actionCards: ActionCard..., status: Status = .done, source: String, ocrPayload: OCRPayload?) -> Self {
+        static public func makeUserMessage(
+            actionCards: ActionCard...,
+            status: Status = .done,
+            source: String,
+            workspaceID: WorkspaceData.ID,
+            groupID: GroupData.ID,
+            isTeamGroup: Bool,
+            ocrPayload: OCRPayload?
+        ) -> Self {
             let id = UUID().uuidString
             return .init(
                 messageID: id,
@@ -146,29 +178,49 @@ extension AIAgentConversationSession {
                 text: "",
                 status: status,
                 source: source,
-                medias: ocrPayload?.medias ?? [], ocrs: ocrPayload?.ocrs ?? [:]
+                medias: ocrPayload?.medias ?? [], ocrs: ocrPayload?.ocrs ?? [:],
+                workspaceID: workspaceID,
+                groupID: groupID,
+                isTeamGroup: isTeamGroup
             )
         }
         
-        static public func makeSystemMessage(text: String, source: String) -> Self {
+        static public func makeSystemMessage(
+            text: String,
+            source: String,
+            workspaceID: WorkspaceData.ID,
+            groupID: GroupData.ID,
+            isTeamGroup: Bool
+        ) -> Self {
             let id = UUID().uuidString
-            return .init(messageID: id,
-                         messageType: .chat,
-                         authorType: .system,
-                         cardVersion: .v1,
-                         actionCards: [
-                            .init(args: .init(direction: .left, fulfill: true, style: nil),
-                                  elements: [.text(.init(args: .init(text: text)))])
-                         ],
-                         replyToMessageID: id,
-                         createAt: "",
-                         text: text,
-                         status: .done,
-                         source: source,
-                         medias: [], ocrs: [:])
+            return .init(
+                messageID: id,
+                messageType: .chat,
+                authorType: .system,
+                cardVersion: .v1,
+                actionCards: [
+                    .init(args: .init(direction: .left, fulfill: true, style: nil),
+                          elements: [.text(.init(args: .init(text: text)))])
+                ],
+                replyToMessageID: id,
+                createAt: "",
+                text: text,
+                status: .done,
+                source: source,
+                medias: [], ocrs: [:],
+                workspaceID: workspaceID,
+                groupID: groupID,
+                isTeamGroup: isTeamGroup
+            )
         }
         
-        static public func makeSystemMessage(actionCards: ActionCard..., source: String) -> Self {
+        static public func makeSystemMessage(
+            actionCards: ActionCard...,
+            source: String,
+            workspaceID: WorkspaceData.ID,
+            groupID: GroupData.ID,
+            isTeamGroup: Bool
+        ) -> Self {
             let id = UUID().uuidString
             return .init(messageID: id,
                          messageType: .chat,
@@ -180,10 +232,17 @@ extension AIAgentConversationSession {
                          text: "",
                          status: .done,
                          source: source,
-                         medias: [], ocrs: [:])
+                         medias: [], ocrs: [:],
+                         workspaceID: workspaceID,
+                         groupID: groupID,
+                         isTeamGroup: isTeamGroup)
         }
         
-        static public func makeEmptyMessage(source: String, ocrPayload: OCRPayload?) -> Self {
+        static public func makeEmptyMessage(source: String,            
+                                            workspaceID: WorkspaceData.ID,
+                                            groupID: GroupData.ID,
+                                            isTeamGroup: Bool,
+                                            ocrPayload: OCRPayload?) -> Self {
             let id = UUID().uuidString
             return .init(
                 messageID: id,
@@ -196,7 +255,10 @@ extension AIAgentConversationSession {
                 text: "",
                 status: .done,
                 source: source,
-                medias: ocrPayload?.medias ?? [], ocrs: ocrPayload?.ocrs ?? [:]
+                medias: ocrPayload?.medias ?? [], ocrs: ocrPayload?.ocrs ?? [:],
+                workspaceID: workspaceID,
+                groupID: groupID,
+                isTeamGroup: isTeamGroup
             )
         }
     }
