@@ -198,10 +198,7 @@ extension AIAgentConversationSession {
         
         static public func makeSystemMessage(
             actionCards: ActionCard...,
-            source: String,
-            workspaceID: WorkspaceData.ID,
-            groupID: GroupData.ID,
-            isTeamGroup: Bool
+            source: String
         ) -> Self {
             let id = UUID().uuidString
             return .init(messageID: id,
@@ -217,10 +214,7 @@ extension AIAgentConversationSession {
                          medias: [], ocrs: [:])
         }
         
-        static public func makeEmptyMessage(source: String,            
-                                            workspaceID: WorkspaceData.ID,
-                                            groupID: GroupData.ID,
-                                            isTeamGroup: Bool,
+        static public func makeEmptyMessage(source: String,
                                             ocrPayload: OCRPayload?) -> Self {
             let id = UUID().uuidString
             return .init(
