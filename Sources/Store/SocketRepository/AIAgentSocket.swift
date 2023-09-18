@@ -186,14 +186,20 @@ public extension TrickleAIAgentSocketClient {
     
     // New Message
     struct NewMessagePayload: Codable {
-        var conversationID: AIAgentConversationSession.ID
-        var message: AIAgentConversationSession.Message
-        var conversationType: AIAgentConversationSession.ConversationType
+        public var conversationID: AIAgentConversationSession.ID
+        public var message: AIAgentConversationSession.Message
+        public var conversationType: AIAgentConversationSession.ConversationType
+        public var workspaceID: WorkspaceData.ID
+        public var groupID: GroupData.ID
+        public var isTeamGroup: Bool
         
         enum CodingKeys: String, CodingKey {
             case conversationID = "conversationId"
             case message
             case conversationType
+            case workspaceID = "workspaceId"
+            case groupID = "channelId"
+            case isTeamGroup = "isTeamChannel"
         }
     }
     func newMessage<Results: Codable>(payload: NewMessagePayload) async throws -> Results {

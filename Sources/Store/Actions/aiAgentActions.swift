@@ -167,7 +167,10 @@ public extension TrickleStore {
     func trySendMessageToAIAgent<Results: Codable>(
         to agentConfigID: AIAgentData.ID,
         _ message: AIAgentConversationSession.Message,
-        conversationType: AIAgentConversationSession.ConversationType
+        conversationType: AIAgentConversationSession.ConversationType,
+        workspaceID: WorkspaceData.ID,
+        groupID: GroupData.ID,
+        isTeamGroup: Bool
     ) async throws -> Results {
         do {
             guard let conversationID = self.aiAgentState.conversationIDs[agentConfigID] else {
@@ -186,7 +189,10 @@ public extension TrickleStore {
                 payload: .init(
                     conversationID: conversationID,
                     message: message,
-                    conversationType: conversationType
+                    conversationType: conversationType,
+                    workspaceID: workspaceID,
+                    groupID: groupID,
+                    isTeamGroup: isTeamGroup
                 )
             )
             return res
@@ -196,10 +202,18 @@ public extension TrickleStore {
         }
     }
     
-    func sendMessageToAIAgent(to agentConfigID: AIAgentData.ID, _ message: AIAgentConversationSession.Message, conversationType: AIAgentConversationSession.ConversationType) async {
+    func sendMessageToAIAgent(to agentConfigID: AIAgentData.ID, 
+                              _ message: AIAgentConversationSession.Message,
+                              conversationType: AIAgentConversationSession.ConversationType,
+                              workspaceID: WorkspaceData.ID,
+                              groupID: GroupData.ID,
+                              isTeamGroup: Bool) async {
         do {
             struct Restuls: Codable {}
-            _ = try await self.trySendMessageToAIAgent(to: agentConfigID, message, conversationType: conversationType) as Restuls?
+            _ = try await self.trySendMessageToAIAgent(to: agentConfigID, message, conversationType: conversationType,
+                                                       workspaceID: workspaceID,
+                                                       groupID: groupID,
+                                                       isTeamGroup: isTeamGroup) as Restuls?
         } catch {
             self.error = .init(error)
         }

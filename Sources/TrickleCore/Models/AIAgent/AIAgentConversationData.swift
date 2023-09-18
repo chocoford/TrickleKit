@@ -13,9 +13,9 @@ public struct AIAgentConversationSession: Codable, Hashable, Identifiable {
     public var messages: [Message]
     public var conversationType: ConversationType?
     
-    public var workspaceID: WorkspaceData.ID
-    public var groupID: GroupData.ID
-    public var isTeamGroup: Bool
+//    public var workspaceID: WorkspaceData.ID
+//    public var groupID: GroupData.ID
+//    public var isTeamGroup: Bool
     
     public var id: String { conversationID }
     
@@ -24,19 +24,19 @@ public struct AIAgentConversationSession: Codable, Hashable, Identifiable {
         agent: String,
         agentConfigID: String,
         messages: [Message],
-        conversationType: ConversationType? = .workspace,
-        workspaceID: WorkspaceData.ID,
-        groupID: GroupData.ID,
-        isTeamGroup: Bool
+        conversationType: ConversationType? = .workspace//,
+//        workspaceID: WorkspaceData.ID,
+//        groupID: GroupData.ID,
+//        isTeamGroup: Bool
     ) {
         self.conversationID = conversationID
         self.agent = agent
         self.agentConfigID = agentConfigID
         self.messages = messages
         self.conversationType = conversationType
-        self.workspaceID = workspaceID
-        self.groupID = groupID
-        self.isTeamGroup = isTeamGroup
+//        self.workspaceID = workspaceID
+//        self.groupID = groupID
+//        self.isTeamGroup = isTeamGroup
     }
     
     enum CodingKeys: String, CodingKey {
@@ -45,9 +45,6 @@ public struct AIAgentConversationSession: Codable, Hashable, Identifiable {
         case agentConfigID = "agentConfigId"
         case messages
         case conversationType
-        case workspaceID = "workspaceId"
-        case groupID = "channelId"
-        case isTeamGroup = "isTeamChannel"
     }
     
     public enum ConversationType: String, Codable, Hashable {
