@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ChocofordEssentials
 import TrickleCore
 import TrickleAuth
 
@@ -100,17 +101,13 @@ public extension TrickleStore {
         let originalAvatar = userInfo.value??.user.avatarURL ?? ""
         do {
             let data = try await webRepositoryClient.updateUserData(userID: userID, payload: .init(avatarURL: avatarURL))
-            userInfo.transform { userInfo in
-                var userInfo = userInfo
-                userInfo?.user.avatarURL = avatarURL
-                return userInfo
+            userInfo.transform {
+                $0?.user.avatarURL = avatarURL
             }
             return data
         } catch {
-            userInfo.transform { userInfo in
-                var userInfo = userInfo
-                userInfo?.user.avatarURL = originalAvatar
-                return userInfo
+            userInfo.transform {
+                $0?.user.avatarURL = originalAvatar
             }
             throw error
         }
@@ -128,17 +125,13 @@ public extension TrickleStore {
         let originalName = userInfo.value??.user.name ?? ""
         do {
             let data = try await webRepositoryClient.updateUserData(userID: userID, payload: .init(nickname: nickname))
-            userInfo.transform { userInfo in
-                var userInfo = userInfo
-                userInfo?.user.name = nickname
-                return userInfo
+            userInfo.transform { 
+                $0?.user.name = nickname
             }
             return data
         } catch {
-            userInfo.transform { userInfo in
-                var userInfo = userInfo
-                userInfo?.user.name = originalName
-                return userInfo
+            userInfo.transform {
+                $0?.user.name = originalName
             }
             throw error
         }

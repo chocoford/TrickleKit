@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ChocofordEssentials
 import TrickleCore
 
 public extension TrickleStoreError {
