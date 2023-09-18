@@ -315,11 +315,18 @@ fileprivate extension SocketIOClient {
                         decoder.dateDecodingStrategy = .secondsSince1970
                         
                         let data = try JSONSerialization.data(withJSONObject: res)
-                        let decoded = try decoder.decode(R.self, from: data)
-                        continuation.resume(with: .success(decoded))
+                        do {
+                            let decoded = try decoder.decode(R.self, from: data)
+                            continuation.resume(with: .success(decoded))
+                        } catch {
+#if DEBUG
+                            print(String(data: data, encoding: .utf8) ?? "")
+                            dump(error, name: "Decode error")
+#endif
+                            throw error
+                        }
                     } catch {
                         continuation.resume(throwing: error)
-                        dump(error)
                     }
                 }
         }
