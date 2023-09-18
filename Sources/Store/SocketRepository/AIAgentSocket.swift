@@ -14,20 +14,24 @@ class TrickleAIAgentSocketLogger: SocketLogger {
     var log: Bool = true
     let logger: Logger = .init(subsystem: Bundle.main.bundleIdentifier!, category: "TrickleAIAgentSocket")
     func log(_ message: @autoclosure () -> String, type: String) {
+        guard log else { return }
         let msg = message()
         logger.log("\(type, privacy: .public): \(msg, privacy: .public)")
     }
     
     func error(_ message: @autoclosure () -> String, type: String) {
+        guard log else { return }
         let msg = message()
         logger.error("\(type, privacy: .public): \(msg, privacy: .public)")
     }
     
     func debug(_ message: String) {
+        guard log else { return }
         logger.debug("\(message, privacy: .public)")
     }
     
     func info(_ message: String) {
+        guard log else { return }
         logger.info("\(message, privacy: .public)")
     }
 }
