@@ -15,20 +15,20 @@ class TrickleAIAgentSocketLogger: SocketLogger {
     let logger: Logger = .init(subsystem: Bundle.main.bundleIdentifier!, category: "TrickleAIAgentSocket")
     func log(_ message: @autoclosure () -> String, type: String) {
         let msg = message()
-        /*logger.log*/print("\(type): \(msg)")
+        logger.log("\(type, privacy: .public): \(msg, privacy: .public)")
     }
     
     func error(_ message: @autoclosure () -> String, type: String) {
         let msg = message()
-        /*logger.error*/print("\(type): \(msg)")
+        logger.error("\(type, privacy: .public): \(msg, privacy: .public)")
     }
     
     func debug(_ message: String) {
-        /*logger.debug*/print("\(message)")
+        logger.debug("\(message, privacy: .public)")
     }
     
     func info(_ message: String) {
-        /*logger.info*/print("\(message)")
+        logger.info("\(message, privacy: .public)")
     }
 }
 
@@ -92,7 +92,7 @@ public final class TrickleAIAgentSocketClient {
 public extension TrickleAIAgentSocketClient {
     func conntect(token: String, log: Bool = false, onConnected: (() -> Void)? = nil) {
         self.onConnected = onConnected
-        configSocket(token: token)
+        configSocket(token: token, log: log)
     }
 }
 
