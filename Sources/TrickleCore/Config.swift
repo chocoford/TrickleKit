@@ -19,7 +19,7 @@ public struct TrickleEnv {
     
     public static var captureAgentID = "234d146ff8744b1ab982ea16b4225ea5"
     
-    public static var segmentWriteKey = ""
+//    public static var segmentWriteKey = ""
     
     public enum EnvType {
         case dev, test, live, aiDev, aiLive
@@ -35,7 +35,7 @@ public struct TrickleEnv {
                 TrickleEnv.ossBucket = "boom2-resource"
                 TrickleEnv.ossAssetsDomain = "devres.trickle.so"
                 TrickleEnv.aiActionDomain = "devapp.trickle.so"
-                TrickleEnv.segmentWriteKey = "trickleAivPxktAiS6AL1tjATM0s7iGf"
+//                TrickleEnv.segmentWriteKey = "trickleAivPxktAiS6AL1tjATM0s7iGf"
             case .test:
                 TrickleEnv.env = "test"
                 TrickleEnv.trickleDomain = "testapp.trickle.so"
@@ -44,7 +44,7 @@ public struct TrickleEnv {
                 TrickleEnv.ossBucket = "trickle-resource-test"
                 TrickleEnv.ossAssetsDomain = "testres.trickle.so"
                 TrickleEnv.aiActionDomain = "ai.trickle.so"
-                TrickleEnv.segmentWriteKey = "ryeevPxktAiS6AL1tjATM0s7iGf7piwM"
+//                TrickleEnv.segmentWriteKey = "ryeevPxktAiS6AL1tjATM0s7iGf7piwM"
             case .live:
                 TrickleEnv.env = "live"
                 TrickleEnv.trickleDomain = "app.trickle.so"
@@ -53,7 +53,7 @@ public struct TrickleEnv {
                 TrickleEnv.ossBucket = "trickle-resource-live"
                 TrickleEnv.ossAssetsDomain = "https://resource.trickle.so"
                 TrickleEnv.aiActionDomain = "ai.trickle.so"
-                TrickleEnv.segmentWriteKey = "ycqudoxX3iCerIL51jtfa86bg3YArHfK"
+//                TrickleEnv.segmentWriteKey = "ycqudoxX3iCerIL51jtfa86bg3YArHfK"
             case .aiDev:
                 TrickleEnv.env = "dev"
                 TrickleEnv.trickleDomain = "devapp.trickle.so"
@@ -63,7 +63,7 @@ public struct TrickleEnv {
                 TrickleEnv.ossAssetsDomain = "devres.trickle.so"
                 TrickleEnv.aiActionDomain = "devapp.trickle.so"
                 TrickleEnv.captureAgentID = "087f562af5a64bcdb440a1e9ab9d69ac"
-                TrickleEnv.segmentWriteKey = "trickleAivPxktAiS6AL1tjATM0s7iGf"
+//                TrickleEnv.segmentWriteKey = "trickleAivPxktAiS6AL1tjATM0s7iGf"
             case .aiLive:
                 TrickleEnv.env = "live"
                 TrickleEnv.trickleDomain = "ai.trickle.so"
@@ -73,7 +73,7 @@ public struct TrickleEnv {
                 TrickleEnv.ossAssetsDomain = "testres.trickle.so"
                 TrickleEnv.aiActionDomain = "ai.trickle.so"
                 TrickleEnv.captureAgentID = "234d146ff8744b1ab982ea16b4225ea5"
-                TrickleEnv.segmentWriteKey = "ycqudoxX3iCerIL51jtfa86bg3YArHfK"
+//                TrickleEnv.segmentWriteKey = "ycqudoxX3iCerIL51jtfa86bg3YArHfK"
         }
     }
 }
