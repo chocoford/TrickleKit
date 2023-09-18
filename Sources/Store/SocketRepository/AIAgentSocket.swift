@@ -327,6 +327,7 @@ fileprivate extension SocketIOClient {
                         }
                     } catch {
                         continuation.resume(throwing: error)
+//                        logger.error("\(error.localizedDescription)")
                     }
                 }
         }

@@ -12,7 +12,11 @@ public struct AIAgentConversationSession: Codable, Hashable, Identifiable {
     public let conversationID, agent, agentConfigID: String
     public var messages: [Message]
     public var conversationType: ConversationType?
-
+    
+    public var workspaceID: WorkspaceData.ID
+    public var groupID: GroupData.ID
+    public var isTeamGroup: Bool
+    
     public var id: String { conversationID }
     
     public init(
@@ -20,13 +24,19 @@ public struct AIAgentConversationSession: Codable, Hashable, Identifiable {
         agent: String,
         agentConfigID: String,
         messages: [Message],
-        conversationType: ConversationType? = .workspace
+        conversationType: ConversationType? = .workspace,
+        workspaceID: WorkspaceData.ID,
+        groupID: GroupData.ID,
+        isTeamGroup: Bool
     ) {
         self.conversationID = conversationID
         self.agent = agent
         self.agentConfigID = agentConfigID
         self.messages = messages
         self.conversationType = conversationType
+        self.workspaceID = workspaceID
+        self.groupID = groupID
+        self.isTeamGroup = isTeamGroup
     }
     
     enum CodingKeys: String, CodingKey {
@@ -35,6 +45,9 @@ public struct AIAgentConversationSession: Codable, Hashable, Identifiable {
         case agentConfigID = "agentConfigId"
         case messages
         case conversationType
+        case workspaceID = "workspaceId"
+        case groupID = "channelId"
+        case isTeamGroup = "isTeamChannel"
     }
     
     public enum ConversationType: String, Codable, Hashable {
@@ -58,10 +71,6 @@ extension AIAgentConversationSession {
         public var source: String?
         public var medias: [String]?
         public var ocrs: [String : String]?
-        
-        public var workspaceID: WorkspaceData.ID
-        public var groupID: GroupData.ID
-        public var isTeamGroup: Bool
 
         enum CodingKeys: String, CodingKey {
             case messageID = "messageId"
@@ -72,9 +81,6 @@ extension AIAgentConversationSession {
             case createAt, text, status
             case conversationID = "conversationId"
             case source, medias, ocrs
-            case workspaceID = "workspaceId"
-            case groupID = "channelId"
-            case isTeamGroup = "isTeamChannel"
         }
         
         public var id: String { messageID }
@@ -92,10 +98,7 @@ extension AIAgentConversationSession {
             conversationID: String? = nil,
             source: String,
             medias: [String],
-            ocrs: [String : String],
-            workspaceID: WorkspaceData.ID,
-            groupID: GroupData.ID,
-            isTeamGroup: Bool
+            ocrs: [String : String]
 //            conversationType: ConversationType = .workspace
         ) {
             self.messageID = messageID
@@ -112,9 +115,6 @@ extension AIAgentConversationSession {
             self.medias = medias
             self.ocrs = ocrs
 //            self.conversationType = conversationType
-            self.workspaceID = workspaceID
-            self.groupID = groupID
-            self.isTeamGroup = isTeamGroup
         }
         
         public struct OCRPayload {
@@ -131,9 +131,6 @@ extension AIAgentConversationSession {
             text: String,
             status: Status = .done,
             source: String,
-            workspaceID: WorkspaceData.ID,
-            groupID: GroupData.ID,
-            isTeamGroup: Bool,
             ocrPayload: OCRPayload?
         ) -> Self {
             let id = UUID().uuidString
@@ -150,10 +147,7 @@ extension AIAgentConversationSession {
                 text: text,
                 status: status,
                 source: source,
-                medias: ocrPayload?.medias ?? [], ocrs: ocrPayload?.ocrs ?? [:],
-                workspaceID: workspaceID,
-                groupID: groupID,
-                isTeamGroup: isTeamGroup
+                medias: ocrPayload?.medias ?? [], ocrs: ocrPayload?.ocrs ?? [:]
             )
         }
         
@@ -161,9 +155,6 @@ extension AIAgentConversationSession {
             actionCards: ActionCard...,
             status: Status = .done,
             source: String,
-            workspaceID: WorkspaceData.ID,
-            groupID: GroupData.ID,
-            isTeamGroup: Bool,
             ocrPayload: OCRPayload?
         ) -> Self {
             let id = UUID().uuidString
@@ -178,19 +169,13 @@ extension AIAgentConversationSession {
                 text: "",
                 status: status,
                 source: source,
-                medias: ocrPayload?.medias ?? [], ocrs: ocrPayload?.ocrs ?? [:],
-                workspaceID: workspaceID,
-                groupID: groupID,
-                isTeamGroup: isTeamGroup
+                medias: ocrPayload?.medias ?? [], ocrs: ocrPayload?.ocrs ?? [:]
             )
         }
         
         static public func makeSystemMessage(
             text: String,
-            source: String,
-            workspaceID: WorkspaceData.ID,
-            groupID: GroupData.ID,
-            isTeamGroup: Bool
+            source: String
         ) -> Self {
             let id = UUID().uuidString
             return .init(
@@ -207,10 +192,7 @@ extension AIAgentConversationSession {
                 text: text,
                 status: .done,
                 source: source,
-                medias: [], ocrs: [:],
-                workspaceID: workspaceID,
-                groupID: groupID,
-                isTeamGroup: isTeamGroup
+                medias: [], ocrs: [:]
             )
         }
         
@@ -232,10 +214,7 @@ extension AIAgentConversationSession {
                          text: "",
                          status: .done,
                          source: source,
-                         medias: [], ocrs: [:],
-                         workspaceID: workspaceID,
-                         groupID: groupID,
-                         isTeamGroup: isTeamGroup)
+                         medias: [], ocrs: [:])
         }
         
         static public func makeEmptyMessage(source: String,            
@@ -255,10 +234,7 @@ extension AIAgentConversationSession {
                 text: "",
                 status: .done,
                 source: source,
-                medias: ocrPayload?.medias ?? [], ocrs: ocrPayload?.ocrs ?? [:],
-                workspaceID: workspaceID,
-                groupID: groupID,
-                isTeamGroup: isTeamGroup
+                medias: ocrPayload?.medias ?? [], ocrs: ocrPayload?.ocrs ?? [:]
             )
         }
     }
