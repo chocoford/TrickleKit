@@ -11,7 +11,6 @@ import CFWebRepositoryProvider
 import TrickleCore
 
 public final class TrickleAuthMiddleware {
-    
     public static let shared = TrickleAuthMiddleware()
     static let service = TrickleEnv.trickleDomain
     static let account = Bundle.main.bundleIdentifier!
@@ -22,9 +21,10 @@ public final class TrickleAuthMiddleware {
     public var token: String? = nil
     
     init() {
-        _  = getTokenFromKeychain()
+        self.getTokenFromKeychain()
     }
     
+    @discardableResult
     public func getTokenFromKeychain() -> UserInfo? {
         guard let userInfo: UserInfo = KeychainHelper.standard.read(service: Self.service,
                                                                     account: Self.account) else {

@@ -108,7 +108,7 @@ extension AIAgentConversationSession {
             self.text = text
             self.status = status
             self.conversationID = conversationID
-            self.source = "mac desktop"
+            self.source = source
             self.medias = medias
             self.ocrs = ocrs
 //            self.conversationType = conversationType
@@ -144,7 +144,8 @@ extension AIAgentConversationSession {
                 text: text,
                 status: status,
                 source: source,
-                medias: ocrPayload?.medias ?? [], ocrs: ocrPayload?.ocrs ?? [:]
+                medias: ocrPayload?.medias ?? [],
+                ocrs: ocrPayload?.ocrs ?? [:]
             )
         }
         

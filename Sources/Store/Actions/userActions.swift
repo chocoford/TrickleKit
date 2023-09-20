@@ -22,7 +22,7 @@ public extension TrickleStore {
         do {
             guard let token = TrickleAuthMiddleware.shared.token,
                   let tokenInfo = decodeToken(token: token),
-                  let userInfo = try? await webRepositoryClient.getUserData(userID: tokenInfo.sub) else {
+                  let userInfo = try await webRepositoryClient.getUserData(userID: tokenInfo.sub) else {
                 throw TrickleStoreError.unauthorized
             }
             self.userInfo = .loaded(data: UserInfo(user: userInfo.user, token: token))
