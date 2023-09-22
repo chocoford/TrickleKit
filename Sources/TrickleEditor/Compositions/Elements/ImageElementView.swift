@@ -7,8 +7,7 @@
 
 import SwiftUI
 import ChocofordUI
-import SDWebImageSwiftUI
-//import Kingfisher
+import CachedAsyncImage
 import TrickleCore
 
 
@@ -55,16 +54,17 @@ struct ImageElementView: View {
 #elseif os(iOS)
         let isAnimating: Binding<Bool> = .constant(true)
 #endif
-        WebImage(url: url, isAnimating: isAnimating)
-            .resizable()
-            .placeholder {
-                Rectangle()
-                    .shimmering()
-            }
-            .onFailure { error in
-                self.error = error
-            }
-            .aspectRatio(contentMode: contentMode)
+        CachedAsyncImage(url: url) { image in
+            image.resizable()
+                .aspectRatio(contentMode: contentMode)
+            
+        } placeholder: {
+            Rectangle()
+                .shimmering()
+        }
+//        .onFailure { error in
+//            self.error = error
+//        }
 #if os(macOS)
             .overlay(alignment: .bottomTrailing) {
                 if url.pathExtension == "gif" {
