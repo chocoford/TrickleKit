@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ChocofordEssentials
 import TrickleCore
 import Combine
 
@@ -31,7 +32,7 @@ extension TrickleStore {
         
         public var agents: [AIAgentData] = []
         public var conversationIDs: [AIAgentData.ID : ConversationID] = [:]
-        public var conversationSessions: [AIAgentData.ID : AIAgentConversationSession] = [:]
+        public var conversationSessions: [AIAgentData.ID : Loadable<AIAgentConversationSession>] = [:]
         public var updateMessagePublisher = PassthroughSubject<Void, Never>()
         var messageHelper = AIStateMessageHelper()
         
@@ -41,8 +42,8 @@ extension TrickleStore {
             }?.key
         }
         
-        public var captureAgentSession: AIAgentConversationSession? {
-            conversationSessions[TrickleEnv.captureAgentID]
+        public var captureAgentSession: Loadable<AIAgentConversationSession> {
+            conversationSessions[TrickleEnv.captureAgentID] ?? .notRequested
         }
     }
     
@@ -141,7 +142,7 @@ public extension TrickleStore {
             throw TrickleStoreError.aiAgentError(.invalidConversationID(nil))
         }
         let session = try await self.aiAgentSocket.syncConversation(payload: .init(conversationID: conversationID))
-        self.aiAgentState.conversationSessions.updateValue(session, forKey: agentConfigID)
+        self.aiAgentState.conversationSessions.updateValue(.loaded(data: session), forKey: agentConfigID)
     }
     
     func syncAIAgentConversation(with agentConfigID: AIAgentData.ID) async {
@@ -150,17 +151,6 @@ public extension TrickleStore {
         } catch {
             self.error = .init(error)
         }
-    }
-    
-    /// For front-end cheat
-    func prepareSendMessageToAIAgent(
-        to agentConfigID: AIAgentData.ID,
-        message: AIAgentConversationSession.Message,
-        frozen: Bool = true
-    ) {
-        self.aiAgentState.conversationSessions[agentConfigID]?.messages.append(message)
-        
-        
     }
     
     /// Try to send message to ai agent. If message contains a image, it will auto upload to the server.
@@ -180,10 +170,14 @@ public extension TrickleStore {
                 throw TrickleStoreError.aiAgentError(.emptyConversationSession)
             }
             
-            if let index = self.aiAgentState.conversationSessions[agentConfigID]?.messages.firstIndex(where: {$0.messageID == message.messageID}) {
-                self.aiAgentState.conversationSessions[agentConfigID]?.messages[index] = message
+            if let index = self.aiAgentState.conversationSessions[agentConfigID]?.value?.messages.firstIndex(where: {$0.messageID == message.messageID}) {
+                self.aiAgentState.conversationSessions[agentConfigID]?.transform {
+                    $0.messages[index] = message
+                }
             } else {
-                self.aiAgentState.conversationSessions[agentConfigID]?.messages.append(message)
+                self.aiAgentState.conversationSessions[agentConfigID]?.transform {
+                    $0.messages.append(message)
+                }
             }
             let res: Results = try await self.aiAgentSocket.newMessage(
                 payload: .init(
@@ -220,16 +214,20 @@ public extension TrickleStore {
     }
     
     func clearAIAgentMessages(of agentConfigID: AIAgentData.ID) async {
-        let backup = self.aiAgentState.conversationSessions[agentConfigID]?.messages ?? []
+        let backup = self.aiAgentState.conversationSessions[agentConfigID]
         do {
             guard let conversationID = self.aiAgentState.conversationIDs[agentConfigID] else {
                 throw TrickleStoreError.aiAgentError(.invalidConversationID(nil))
             }
-            self.aiAgentState.conversationSessions[agentConfigID]?.messages.removeAll()
+            self.aiAgentState.conversationSessions[agentConfigID]?.transform {
+                $0.messages.removeAll()
+            }
             try await self.aiAgentSocket.clearMessages(payload: .init(conversationID: conversationID))
         } catch {
             self.error = .init(error)
-            self.aiAgentState.conversationSessions[agentConfigID]?.messages = backup
+            if let backup = backup {
+                self.aiAgentState.conversationSessions.updateValue(backup, forKey: agentConfigID)
+            }
         }
     }
     
@@ -248,26 +246,32 @@ public extension TrickleStore {
 
 public extension TrickleStore {
     func setAIAgentMessageAsFailed(of agentConfigID: AIAgentData.ID, messageID: AIAgentConversationSession.Message.ID) {
-        guard let index = self.aiAgentState.conversationSessions[agentConfigID]?.messages.firstIndex(where: {$0.messageID == messageID}) else {
+        guard let index = self.aiAgentState.conversationSessions[agentConfigID]?.value?.messages.firstIndex(where: {$0.messageID == messageID}) else {
             return
         }
-        self.aiAgentState.conversationSessions[agentConfigID]?.messages[index].status = .error
+        self.aiAgentState.conversationSessions[agentConfigID]?.transform {
+            $0.messages[index].status = .error
+        }
     }
     
     /// update a `AIAgentConversationSession.Message`, or creating a new one if not exist.
     func updateAIAgentMessage(_ message: AIAgentConversationSession.Message) {
         guard let agentConfigID = aiAgentState.getAgentConfigID(with: message.conversationID ?? "") else { return }
-        if let index = self.aiAgentState.conversationSessions[agentConfigID]?.messages.firstIndex(where: {
+        if let index = self.aiAgentState.conversationSessions[agentConfigID]?.value?.messages.firstIndex(where: {
                $0.messageID == message.messageID
            }) {
-            self.aiAgentState.conversationSessions[agentConfigID]?.messages[index] = message
+            self.aiAgentState.conversationSessions[agentConfigID]?.transform {
+                $0.messages[index] = message
+            }
             self.aiAgentState.messageHelper.throttle(message.messageID) {
                 DispatchQueue.main.async {
                     self.aiAgentState.updateMessagePublisher.send()
                 }
             }
         } else {
-            self.aiAgentState.conversationSessions[agentConfigID]?.messages.append(message)
+            self.aiAgentState.conversationSessions[agentConfigID]?.transform {
+                $0.messages.append(message)
+            }
         }
     }
 }
