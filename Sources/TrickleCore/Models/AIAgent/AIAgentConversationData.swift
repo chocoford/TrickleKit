@@ -60,7 +60,7 @@ extension AIAgentConversationSession {
         public var cardVersion: CardVersion
         public var authorType: AuthorType
         public var messageType: MessageType
-        public let actionCards: [ActionCard]
+        public var actionCards: [ActionCard]
         public var replyToMessageID, text: String
         public var createAt: String
         public var status: Status
