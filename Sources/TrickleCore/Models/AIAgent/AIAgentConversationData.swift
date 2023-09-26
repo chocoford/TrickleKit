@@ -601,7 +601,7 @@ extension AIAgentConversationSession.Message.ActionCard.Element {
                 case .air(let element):
                     try container.encode(element)
                 case .local:
-                    fatalError("Do not encode local image.")
+                    try container.encode(AirImageElement(urlString: ""))
             }
         }
         
@@ -632,11 +632,16 @@ extension AIAgentConversationSession.Message.ActionCard.Element {
                 self.args = .init(urlString: urlString)
             }
         }
-        public struct LocalImageElement: Codable, Hashable {
-            public var nsImageData: Data
+        public struct LocalImageElement: Hashable {
+#if canImport(AppKit)
+            public typealias Image = NSImage
+#elseif canImport(UIKit)
+            public typealias Image = UIImage
+#endif
+            public var image: Image
             
-            public init(data: Data) {
-                self.nsImageData = data
+            public init(image: Image) {
+                self.image = image
             }
         }
     }
