@@ -6,6 +6,11 @@
 //
 
 import Foundation
+#if canImport(AppKit)
+import AppKit
+#elseif canImport(UIKit)
+import UIKit
+#endif
 
 
 public struct AIAgentConversationSession: Codable, Hashable, Identifiable {
@@ -66,7 +71,7 @@ extension AIAgentConversationSession {
         public var status: Status
         public var conversationID: String?
         public var source: String?
-        public var medias: [String]?
+        public var medias: [Media]?
         public var ocrs: [String : String]?
 
         enum CodingKeys: String, CodingKey {
@@ -94,7 +99,7 @@ extension AIAgentConversationSession {
             status: Status,
             conversationID: String? = nil,
             source: String,
-            medias: [String],
+            medias: [Media],
             ocrs: [String : String]
 //            conversationType: ConversationType = .workspace
         ) {
@@ -144,7 +149,7 @@ extension AIAgentConversationSession {
                 text: text,
                 status: status,
                 source: source,
-                medias: ocrPayload?.medias ?? [],
+                medias: ocrPayload?.medias.map { .url($0) } ?? [],
                 ocrs: ocrPayload?.ocrs ?? [:]
             )
         }
@@ -167,7 +172,7 @@ extension AIAgentConversationSession {
                 text: "",
                 status: status,
                 source: source,
-                medias: ocrPayload?.medias ?? [], ocrs: ocrPayload?.ocrs ?? [:]
+                medias: ocrPayload?.medias.map { .url($0) } ?? [], ocrs: ocrPayload?.ocrs ?? [:]
             )
         }
         
@@ -226,7 +231,7 @@ extension AIAgentConversationSession {
                 text: "",
                 status: .done,
                 source: source,
-                medias: ocrPayload?.medias ?? [], ocrs: ocrPayload?.ocrs ?? [:]
+                medias: ocrPayload?.medias.map { .url($0) } ?? [], ocrs: ocrPayload?.ocrs ?? [:]
             )
         }
     }
@@ -272,6 +277,30 @@ extension AIAgentConversationSession.Message {
     
     public enum Status: String, Codable, Hashable {
         case generating, done, error
+    }
+    
+    public enum Media: Codable, Hashable {
+        case url(String)
+#if canImport(AppKit)
+        case image(NSImage)
+#elseif canImport(UIKit)
+        case image(UIImage)
+#endif
+        
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.singleValueContainer()
+            self = .url(try container.decode(String.self))
+        }
+        
+        public func encode(to encoder: Encoder) throws {
+            var container = encoder.singleValueContainer()
+            switch self {
+                case .url(let urlString):
+                    try container.encode(urlString)
+                case .image:
+                    try container.encode("")
+            }
+        }
     }
 }
 
