@@ -26,11 +26,9 @@ struct ImageElementView: View {
     @ViewBuilder private func content(imageData: TrickleElement.ImageElementValue) -> some View {
         switch imageData {
             case .local(let data):
-                if let image = Image(data: data.localSrc) {
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: contentMode)
-                }
+                Image(nsImage: data.image)
+                    .resizable()
+                    .aspectRatio(contentMode: contentMode)
             case .air(let data):
                 if let urlString = data.url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
                    let url = URL(string: urlString),
