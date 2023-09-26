@@ -6,6 +6,11 @@
 //
 
 import Foundation
+#if canImport(AppKit)
+import AppKit
+#elseif canImport(UIKit)
+import UIKit
+#endif
 
 extension TrickleElement {
     public enum ImageElementValue: Codable, Hashable {
@@ -30,15 +35,21 @@ extension TrickleElement {
             }
         }
         
-        public struct LocalImageData: Codable, Hashable {
+        public struct LocalImageData: Hashable {
+#if canImport(AppKit)
+            public typealias Image = NSImage
+#elseif canImport(UIKit)
+            public typealias Image = UIImage
+#endif
+            
             public var filename: String
-            public var localSrc: Data
+            public var image: Image
             public var naturalWidth: CGFloat
             public var naturalHeight: CGFloat
             
-            public init(filename: String, localSrc: Data, naturalWidth: CGFloat, naturalHeight: CGFloat) {
+            public init(filename: String, image: Image, naturalWidth: CGFloat, naturalHeight: CGFloat) {
                 self.filename = filename
-                self.localSrc = localSrc
+                self.image = image
                 self.naturalWidth = naturalWidth
                 self.naturalHeight = naturalHeight
             }
@@ -51,10 +62,12 @@ extension TrickleElement {
                 self = .air(v)
                 return
             }
-            if let v = try? container.decode(LocalImageData.self) {
-                self = .local(v)
-                return
-            }
+            
+//            if let v = try? container.decode(LocalImageData.self) {
+//                self = .local(v)
+//                return
+//            }
+            
             if let v = try? container.decode(String.self) {
                 self = .air(.init(url: v, name: ""))
                 return
@@ -70,8 +83,8 @@ extension TrickleElement {
             switch self {
                 case .air(let value):
                     try container.encode(value)
-                case .local(let value):
-                    try container.encode(value)
+                case .local:
+                    try container.encode(ImageData.init(url: "", name: ""))
             }
         }
     }
