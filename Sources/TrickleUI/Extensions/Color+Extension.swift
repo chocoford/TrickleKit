@@ -35,21 +35,21 @@ extension Color {
             case .dark:
                 switch selectOptionColor {
                     case .red:
-                        self.init(hexString: "#e80707")
+                        self.init(hexString: "#DA5959")
                     case .green:
-                        self.init(hexString: "#12d956")
+                        self.init(hexString: "#3AAD64")
                     case .yellow:
-                        self.init(hexString: "#e8d40a")
+                        self.init(hexString: "#E2BE2D")
                     case .blue:
-                        self.init(hexString: "#0666e6")
+                        self.init(hexString: "#70A7EA")
                     case .orange:
-                        self.init(hexString: "#ea8500")
+                        self.init(hexString: "#E2BE2D")
                     case .pink:
-                        self.init(hexString: "#d61a86")
+                        self.init(hexString: "#D75D99")
                     case .purple:
-                        self.init(hexString: "#7400f3")
+                        self.init(hexString: "#A769E3")
                     case .gray:
-                        self.init(hexString: "#646e83")
+                        self.init(hexString: "#FFFFFF17")
                 }
                 
             @unknown default:
