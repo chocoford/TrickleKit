@@ -97,12 +97,12 @@ public extension TrickleStore {
         }
     }
     
-    func establishAIAgentSocket(force: Bool = false, log: Bool = false, onConnected: (() -> Void)?) {
+    func establishAIAgentSocket(force: Bool = false, log: Bool = false) {
         guard let token = self.userInfo.value??.token else { return }
         if self.aiAgentSocket.socket?.status == .connected && !force {
             return
         }
-        self.aiAgentSocket.conntect(token: token, log: log, onConnected: onConnected)
+        self.aiAgentSocket.conntect(token: token, log: log)
     }
     
     func listPublishedAgentConfigs() async {

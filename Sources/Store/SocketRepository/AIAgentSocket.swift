@@ -92,7 +92,7 @@ public final class TrickleAIAgentSocketClient {
 }
 
 public extension TrickleAIAgentSocketClient {
-    func conntect(token: String, log: Bool = false, onConnected: (() -> Void)? = nil) {
+    func conntect(token: String, log: Bool = false) {
         configSocket(token: token, log: log)
     }
 }
