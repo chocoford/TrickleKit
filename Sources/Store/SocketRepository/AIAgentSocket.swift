@@ -64,27 +64,27 @@ public final class TrickleAIAgentSocketClient {
         self.socket = self.socketManager?.defaultSocket
         
         self.socket?.on(clientEvent: .connect) {data, ack in
-//            print("socket connected")
+            self.logger.debug("socket connected")
             self.status = .connected
         }
         self.socket?.on(clientEvent: .error) {data, ack in
-//            self.logger.debug("socket connect error: \(data)")
+            self.logger.debug("socket connect error: \(data)")
             self.status = .error
         }
         self.socket?.on(clientEvent: .reconnect) {data, ack in
-//            self.logger.debug("socket reconnecting...")
+            self.logger.debug("socket reconnecting...")
             self.status = .reconnecting
         }
-//        self.socket?.on(clientEvent: .statusChange) {data, ack in
-//            self.logger.debug("socket status changed: \(data)")
-//        }
+        self.socket?.on(clientEvent: .statusChange) {data, ack in
+            self.logger.debug("socket status changed: \(data)")
+        }
         self.socket?.on(clientEvent: .disconnect) {data, ack in
-//            self.logger.debug("socket status disconnected: \(data)")
+            self.logger.debug("socket status disconnected: \(data)")
             self.status = .disconnected
         }
-//        self.socket?.on(clientEvent: .websocketUpgrade) {data, ack in
-//            self.logger.debug("socket websocketUpgraded: \(data)")
-//        }
+        self.socket?.on(clientEvent: .websocketUpgrade) {data, ack in
+            self.logger.debug("socket websocketUpgraded: \(data)")
+        }
         
         self.socket?.connect()
         self.onExternalMessage()
