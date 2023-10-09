@@ -93,21 +93,21 @@ extension Color {
             case .dark:
                 switch color {
                     case .red:
-                        self.init(hexString: "#FEE2E2")
+                        self.init(hexString: "#DA5959")
                     case .green:
-                        self.init(hexString: "#DCFCE7")
+                        self.init(hexString: "#3AAD64")
                     case .yellow:
-                        self.init(hexString: "#FEFCE8")
+                        self.init(hexString: "#E2BE2D")
                     case .blue:
-                        self.init(hexString: "#DBEAFE")
+                        self.init(hexString: "#70A7EA")
                     case .orange:
-                        self.init(hexString: "#FFEDD5")
+                        self.init(hexString: "#E79450")
                     case .pink:
-                        self.init(hexString: "#FCE7F3")
+                        self.init(hexString: "#D75D99")
                     case .purple:
-                        self.init(hexString: "#F3E8FF")
+                        self.init(hexString: "#A769E3")
                     case .gray:
-                        self.init(hexString: "#E5E7EB")
+                        self.init(hexString: "#121212")
                 }
                 
             @unknown default:
