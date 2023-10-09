@@ -39,18 +39,13 @@ class TrickleAIAgentSocketLogger: SocketLogger {
 public final class TrickleAIAgentSocketClient {
     public internal(set) var socketManager: SocketManager? = nil
     public internal(set) var socket: SocketIOClient? = nil
-//    var token: String
     
-    var onConnected: (() -> Void)? = nil
+    @Published
+    var status: Status = .disconnected
     
-    var onEvents: (IncomingMessage) async -> Void
-    
-//    var configs: [Config]
-    
-    public init(onEvents: @escaping (IncomingMessage) async -> Void) {
-        self.onEvents = onEvents
-//        self.configs = configs
-    }
+    var onEvents: (IncomingMessage) async -> Void = { _ in }
+        
+    public init() { }
     
     let logger: TrickleAIAgentSocketLogger = .init()
     
@@ -70,20 +65,23 @@ public final class TrickleAIAgentSocketClient {
         
         self.socket?.on(clientEvent: .connect) {data, ack in
 //            print("socket connected")
-            self.onConnected?()
+            self.status = .connected
         }
-//        self.socket?.on(clientEvent: .error) {data, ack in
+        self.socket?.on(clientEvent: .error) {data, ack in
 //            self.logger.debug("socket connect error: \(data)")
-//        }
-//        self.socket?.on(clientEvent: .reconnect) {data, ack in
+            self.status = .error
+        }
+        self.socket?.on(clientEvent: .reconnect) {data, ack in
 //            self.logger.debug("socket reconnecting...")
-//        }
+            self.status = .reconnecting
+        }
 //        self.socket?.on(clientEvent: .statusChange) {data, ack in
 //            self.logger.debug("socket status changed: \(data)")
 //        }
-//        self.socket?.on(clientEvent: .disconnect) {data, ack in
+        self.socket?.on(clientEvent: .disconnect) {data, ack in
 //            self.logger.debug("socket status disconnected: \(data)")
-//        }
+            self.status = .disconnected
+        }
 //        self.socket?.on(clientEvent: .websocketUpgrade) {data, ack in
 //            self.logger.debug("socket websocketUpgraded: \(data)")
 //        }
@@ -95,7 +93,6 @@ public final class TrickleAIAgentSocketClient {
 
 public extension TrickleAIAgentSocketClient {
     func conntect(token: String, log: Bool = false, onConnected: (() -> Void)? = nil) {
-        self.onConnected = onConnected
         configSocket(token: token, log: log)
     }
 }
@@ -103,6 +100,11 @@ public extension TrickleAIAgentSocketClient {
 
 // MARK: - Public API
 public extension TrickleAIAgentSocketClient {
+    enum Status {
+        case connected, disconnected, reconnecting
+        case error
+    }
+    
     enum SocketError: LocalizedError {
         case responseTypeError
         

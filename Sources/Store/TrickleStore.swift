@@ -77,9 +77,8 @@ public enum TrickleStoreError: LocalizedError {
 public class TrickleStore: ObservableObject {
     internal var webRepositoryClient: TrickleWebRepository
     internal var socket: TrickleWebSocket
-    public internal(set) lazy var aiAgentSocket: TrickleAIAgentSocketClient = {
-        TrickleAIAgentSocketClient(onEvents: self.onAIAgentSocketEvents)
-    }()
+    @Published
+    public internal(set) var aiAgentSocket = TrickleAIAgentSocketClient()
     internal var apnsHelper: TrickleAPNsHelper
 
     public init(storeHTTPClient: TrickleWebRepository = .default) {
@@ -88,6 +87,8 @@ public class TrickleStore: ObservableObject {
         self.socket = TrickleWebSocket(handlers: { message in
             
         })
+        
+        self.aiAgentSocket.onEvents = self.onAIAgentSocketEvents
     }
     
     @Published public var deviceToken: String? = nil
