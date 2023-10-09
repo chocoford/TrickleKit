@@ -42,18 +42,29 @@ public final class TrickleAWSProvider {
         self.sns = SNS(client: self.client, region: region)
     }
     
-    public func restart() {
-        let region: Region = .useast1
+    public func restart() async {
+        try? await withCheckedThrowingContinuation { continuation in
+            self.client.shutdown { error in
+                if let error = error {
+                    self.logger.error("Restart error: \(error.localizedDescription, privacy: .public)")
+                    continuation.resume(throwing: error)
+                } else {
+                    let region: Region = .useast1
+                    
+                    let credentialProvider: CredentialProviderFactory = .cognitoIdentity(
+                        identityPoolId: "us-east-1:f4dd8331-7136-45c8-bbb1-26a539c43002",
+                        identityProvider: .static(logins: nil),
+                        region: region
+                    )
+                    self.client = AWSClient(credentialProvider: credentialProvider, httpClientProvider: .createNew)
+                    self.s3 = S3(client: self.client, region: region)
+                    self.sns = SNS(client: self.client, region: region)
+                    continuation.resume()
+                }
+            }
+        } as Void
         
-        let credentialProvider: CredentialProviderFactory = .cognitoIdentity(
-            identityPoolId: "us-east-1:f4dd8331-7136-45c8-bbb1-26a539c43002",
-            identityProvider: .static(logins: nil),
-            region: region
-        )
-        self.client = AWSClient(credentialProvider: credentialProvider, httpClientProvider: .createNew)
-        self.s3 = S3(client: client, region: region)
-        
-        self.sns = SNS(client: self.client, region: region)
+       
     }
 }
 
