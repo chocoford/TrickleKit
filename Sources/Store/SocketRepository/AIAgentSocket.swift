@@ -41,7 +41,7 @@ public final class TrickleAIAgentSocketClient {
     public internal(set) var socket: SocketIOClient? = nil
     
     @Published
-    var status: Status = .disconnected
+    public var status: Status = .disconnected
     
     var onEvents: (IncomingMessage) async -> Void = { _ in }
         
