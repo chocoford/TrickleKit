@@ -23,7 +23,7 @@ public final class TrickleAWSProvider {
     internal let logger: os.Logger = os.Logger(subsystem: Bundle.main.bundleIdentifier!, category: "TrickleAWSProvider")
     
     internal let bucket = TrickleEnv.ossBucket
-    internal let client: AWSClient
+    internal var client: AWSClient
     internal var s3: S3
     
     internal var sns: SNS
@@ -37,13 +37,20 @@ public final class TrickleAWSProvider {
             region: region
         )
         self.client = AWSClient(credentialProvider: credentialProvider, httpClientProvider: .createNew)
-        self.s3 = S3(client: client, region: .useast1)
+        self.s3 = S3(client: client, region: region)
         
         self.sns = SNS(client: self.client, region: region)
     }
     
     public func restart() {
         let region: Region = .useast1
+        
+        let credentialProvider: CredentialProviderFactory = .cognitoIdentity(
+            identityPoolId: "us-east-1:f4dd8331-7136-45c8-bbb1-26a539c43002",
+            identityProvider: .static(logins: nil),
+            region: region
+        )
+        self.client = AWSClient(credentialProvider: credentialProvider, httpClientProvider: .createNew)
         self.s3 = S3(client: client, region: region)
         
         self.sns = SNS(client: self.client, region: region)
