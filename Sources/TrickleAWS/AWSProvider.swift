@@ -24,18 +24,27 @@ public final class TrickleAWSProvider {
     
     internal let bucket = TrickleEnv.ossBucket
     internal let client: AWSClient
-    internal let s3: S3
+    internal var s3: S3
     
-    internal let sns: SNS
+    internal var sns: SNS
 
     internal init() {
         let region: Region = .useast1
         
-        let credentialProvider: CredentialProviderFactory = .cognitoIdentity(identityPoolId: "us-east-1:f4dd8331-7136-45c8-bbb1-26a539c43002",
-                                                                             identityProvider: .static(logins: nil),
-                                                                             region: region)
+        let credentialProvider: CredentialProviderFactory = .cognitoIdentity(
+            identityPoolId: "us-east-1:f4dd8331-7136-45c8-bbb1-26a539c43002",
+            identityProvider: .static(logins: nil),
+            region: region
+        )
         self.client = AWSClient(credentialProvider: credentialProvider, httpClientProvider: .createNew)
         self.s3 = S3(client: client, region: .useast1)
+        
+        self.sns = SNS(client: self.client, region: region)
+    }
+    
+    public func restart() {
+        let region: Region = .useast1
+        self.s3 = S3(client: client, region: region)
         
         self.sns = SNS(client: self.client, region: region)
     }
@@ -75,7 +84,12 @@ extension TrickleAWSProvider {
     }
     
     
-    public func uploadFile(_ fileData: Data, type: FileType, fileExtension: String, mineType: String = "application/octet-stream") async throws -> URL {
+    public func uploadFile(
+        _ fileData: Data, 
+        type: FileType,
+        fileExtension: String,
+        mineType: String = "application/octet-stream"
+    ) async throws -> URL {
         let path = type.path + "." + fileExtension
         let utType = UTType(filenameExtension: fileExtension)?.identifier
         let putObjectRequest = S3.PutObjectRequest(
