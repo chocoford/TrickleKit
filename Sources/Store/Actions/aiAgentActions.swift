@@ -164,8 +164,8 @@ public extension TrickleStore {
         }
         if !silent { self.aiAgentState.conversationMessages[agentConfigID]?.setIsLoading() }
         
-        let newUntil: String? = if let until = Int(self.aiAgentState.conversationMessages[agentConfigID]?.value?.first?.createAt ?? "0") {
-            String(until - 1)
+        let newUntil: String? = if let until = self.aiAgentState.conversationMessages[agentConfigID]?.value?.first?.createAt {
+            String((Int(until) ?? 0) - 1)
         } else {
              nil
         }
