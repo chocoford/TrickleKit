@@ -57,8 +57,8 @@ extension TrickleStore {
         
         
         store.aiAgentState.agents = load("aiAgents.json")
-        store.aiAgentState.conversationSessions[store.aiAgentState.agents.first!.agentConfigID] = .loaded(data: load("aiAgentConversation.json"))
-        store.aiAgentState.conversationSessions[TrickleEnv.captureAgentID] = .loaded(data: load("captureAgentConversation.json"))
+        store.aiAgentState.conversationMessages[store.aiAgentState.agents.first!.agentConfigID] = .loaded(data: (load("aiAgentConversation.json") as AIAgentConversationSession).messages)
+        store.aiAgentState.conversationMessages[TrickleEnv.captureAgentID] = .loaded(data: (load("aiAgentConversation.json") as AIAgentConversationSession).messages)
         
         return store
     }()

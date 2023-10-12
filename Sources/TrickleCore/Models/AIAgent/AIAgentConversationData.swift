@@ -18,10 +18,6 @@ public struct AIAgentConversationSession: Codable, Hashable, Identifiable {
     public var messages: [Message]
     public var conversationType: ConversationType?
     
-//    public var workspaceID: WorkspaceData.ID
-//    public var groupID: GroupData.ID
-//    public var isTeamGroup: Bool
-    
     public var id: String { conversationID }
     
     public init(
@@ -29,19 +25,13 @@ public struct AIAgentConversationSession: Codable, Hashable, Identifiable {
         agent: String,
         agentConfigID: String,
         messages: [Message],
-        conversationType: ConversationType? = .workspace//,
-//        workspaceID: WorkspaceData.ID,
-//        groupID: GroupData.ID,
-//        isTeamGroup: Bool
+        conversationType: ConversationType? = .workspace
     ) {
         self.conversationID = conversationID
         self.agent = agent
         self.agentConfigID = agentConfigID
         self.messages = messages
         self.conversationType = conversationType
-//        self.workspaceID = workspaceID
-//        self.groupID = groupID
-//        self.isTeamGroup = isTeamGroup
     }
     
     enum CodingKeys: String, CodingKey {

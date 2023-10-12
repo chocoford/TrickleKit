@@ -32,7 +32,8 @@ extension TrickleStore {
         
         public var agents: [AIAgentData] = []
         public var conversationIDs: [AIAgentData.ID : ConversationID] = [:]
-        public var conversationSessions: [AIAgentData.ID : Loadable<AIAgentConversationSession>] = [:]
+//        public var conversationSessions: [AIAgentData.ID : Loadable<AIAgentConversationSession>] = [:]
+        public var conversationMessages: [AIAgentData.ID : Loadable<[AIAgentConversationSession.Message]>] = [:]
         public var updateMessagePublisher = PassthroughSubject<Void, Never>()
         var messageHelper = AIStateMessageHelper()
         
@@ -42,8 +43,8 @@ extension TrickleStore {
             }?.key
         }
         
-        public var captureAgentSession: Loadable<AIAgentConversationSession> {
-            conversationSessions[TrickleEnv.captureAgentID] ?? .notRequested
+        public var captureAgentMessages: Loadable<[AIAgentConversationSession.Message]> {
+            conversationMessages[TrickleEnv.captureAgentID] ?? .notRequested
         }
     }
     
@@ -127,6 +128,7 @@ public extension TrickleStore {
             )
         )
         self.aiAgentState.conversationIDs.updateValue(conversationID, forKey: agentConfigID)
+        self.aiAgentState.conversationMessages.updateValue(.loaded(data: []), forKey: agentConfigID)
     }
     
     func startAIAgentConversation(workspaceID: WorkspaceData.ID, memberID: MemberData.ID, agentConfigID: AIAgentData.ID, groups: [GroupData]) async {
@@ -143,7 +145,7 @@ public extension TrickleStore {
             throw TrickleStoreError.aiAgentError(.invalidConversationID(nil))
         }
         let session = try await self.aiAgentSocket.syncConversation(payload: .init(conversationID: conversationID))
-        self.aiAgentState.conversationSessions.updateValue(.loaded(data: session), forKey: agentConfigID)
+//        self.aiAgentState.conversationSessions.updateValue(.loaded(data: session), forKey: agentConfigID)
     }
     
     @available(*, deprecated, message: "Please use loadMoreConversation")
@@ -155,24 +157,26 @@ public extension TrickleStore {
         }
     }
     
-    func tryLoadMoreAIAgentConversation(with agentConfigID: AIAgentData.ID) async throws {
+    func tryLoadMoreAIAgentConversation(with agentConfigID: AIAgentData.ID, silent: Bool = false) async throws {
         guard let conversationID = self.aiAgentState.conversationIDs[agentConfigID] else {
             throw TrickleStoreError.aiAgentError(.invalidConversationID(nil))
         }
+        if !silent { self.aiAgentState.conversationMessages[agentConfigID]?.setIsLoading() }
+        
         let res = try await self.aiAgentSocket.listConversationMessages(
-            payload: .init(until: self.aiAgentState.conversationSessions[agentConfigID]?.value?.messages.first?.createAt,
+            payload: .init(until: self.aiAgentState.conversationMessages[agentConfigID]?.value?.first?.createAt,
                            limit: 20,
                            conversationID: conversationID,
                            type: .chat)
         )
-        self.aiAgentState.conversationSessions[agentConfigID]?.transform {
-            $0.messages.insert(contentsOf: res.messages, at: 0)
+        self.aiAgentState.conversationMessages[agentConfigID]?.transform {
+            $0.insert(contentsOf: res.messages, at: 0)
         }
     }
     
-    func loadMoreAIAgentConversation(with agentConfigID: AIAgentData.ID) async {
+    func loadMoreAIAgentConversation(with agentConfigID: AIAgentData.ID, silent: Bool = false) async {
         do {
-            try await tryLoadMoreAIAgentConversation(with: agentConfigID)
+            try await tryLoadMoreAIAgentConversation(with: agentConfigID, silent: silent)
         } catch {
             self.error = .init(error)
         }
@@ -192,17 +196,17 @@ public extension TrickleStore {
             guard let conversationID = self.aiAgentState.conversationIDs[agentConfigID] else {
                 throw TrickleStoreError.aiAgentError(.invalidConversationID(nil))
             }
-            guard self.aiAgentState.conversationSessions[agentConfigID] != nil else {
+            guard self.aiAgentState.conversationMessages[agentConfigID] != nil else {
                 throw TrickleStoreError.aiAgentError(.emptyConversationSession)
             }
             
-            if let index = self.aiAgentState.conversationSessions[agentConfigID]?.value?.messages.firstIndex(where: {$0.messageID == message.messageID}) {
-                self.aiAgentState.conversationSessions[agentConfigID]?.transform {
-                    $0.messages[index] = message
+            if let index = self.aiAgentState.conversationMessages[agentConfigID]?.value?.firstIndex(where: {$0.messageID == message.messageID}) {
+                self.aiAgentState.conversationMessages[agentConfigID]?.transform {
+                    $0[index] = message
                 }
             } else {
-                self.aiAgentState.conversationSessions[agentConfigID]?.transform {
-                    $0.messages.append(message)
+                self.aiAgentState.conversationMessages[agentConfigID]?.transform {
+                    $0.append(message)
                 }
             }
             let res: Results = try await self.aiAgentSocket.newMessage(
@@ -240,19 +244,19 @@ public extension TrickleStore {
     }
     
     func clearAIAgentMessages(of agentConfigID: AIAgentData.ID) async {
-        let backup = self.aiAgentState.conversationSessions[agentConfigID]
+        let backup = self.aiAgentState.conversationMessages[agentConfigID]
         do {
             guard let conversationID = self.aiAgentState.conversationIDs[agentConfigID] else {
                 throw TrickleStoreError.aiAgentError(.invalidConversationID(nil))
             }
-            self.aiAgentState.conversationSessions[agentConfigID]?.transform {
-                $0.messages.removeAll()
+            self.aiAgentState.conversationMessages[agentConfigID]?.transform {
+                $0.removeAll()
             }
             try await self.aiAgentSocket.clearMessages(payload: .init(conversationID: conversationID))
         } catch {
             self.error = .init(error)
             if let backup = backup {
-                self.aiAgentState.conversationSessions.updateValue(backup, forKey: agentConfigID)
+                self.aiAgentState.conversationMessages.updateValue(backup, forKey: agentConfigID)
             }
         }
     }
@@ -272,22 +276,22 @@ public extension TrickleStore {
 
 public extension TrickleStore {
     func setAIAgentMessageAsFailed(of agentConfigID: AIAgentData.ID, messageID: AIAgentConversationSession.Message.ID) {
-        guard let index = self.aiAgentState.conversationSessions[agentConfigID]?.value?.messages.firstIndex(where: {$0.messageID == messageID}) else {
+        guard let index = self.aiAgentState.conversationMessages[agentConfigID]?.value?.firstIndex(where: {$0.messageID == messageID}) else {
             return
         }
-        self.aiAgentState.conversationSessions[agentConfigID]?.transform {
-            $0.messages[index].status = .error
+        self.aiAgentState.conversationMessages[agentConfigID]?.transform {
+            $0[index].status = .error
         }
     }
     
     /// update a `AIAgentConversationSession.Message`, or creating a new one if not exist.
     func updateAIAgentMessage(_ message: AIAgentConversationSession.Message) {
         guard let agentConfigID = aiAgentState.getAgentConfigID(with: message.conversationID ?? "") else { return }
-        if let index = self.aiAgentState.conversationSessions[agentConfigID]?.value?.messages.firstIndex(where: {
+        if let index = self.aiAgentState.conversationMessages[agentConfigID]?.value?.firstIndex(where: {
                $0.messageID == message.messageID
            }) {
-            self.aiAgentState.conversationSessions[agentConfigID]?.transform {
-                $0.messages[index] = message
+            self.aiAgentState.conversationMessages[agentConfigID]?.transform {
+                $0[index] = message
             }
             self.aiAgentState.messageHelper.throttle(message.messageID) {
                 DispatchQueue.main.async {
@@ -295,8 +299,8 @@ public extension TrickleStore {
                 }
             }
         } else {
-            self.aiAgentState.conversationSessions[agentConfigID]?.transform {
-                $0.messages.append(message)
+            self.aiAgentState.conversationMessages[agentConfigID]?.transform {
+                $0.append(message)
             }
         }
     }
