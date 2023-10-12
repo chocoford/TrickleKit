@@ -169,8 +169,8 @@ public extension TrickleStore {
                            conversationID: conversationID,
                            type: .chat)
         )
-        self.aiAgentState.conversationMessages[agentConfigID]?.transform {
-            $0.insert(contentsOf: res.messages, at: 0)
+        self.aiAgentState.conversationMessages[agentConfigID]?.setAsLoaded {
+            $0?.insert(contentsOf: res.messages, at: 0)
         }
     }
     

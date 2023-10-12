@@ -69,7 +69,7 @@
       "location" : "https://github.com/chocoford/ChocofordKit.git",
       "state" : {
         "branch" : "main",
-        "revision" : "05597546a000c54c139171d271082839fa1ccae5"
+        "revision" : "d80a658a606550f3f4297d349bfb5818cc0115b0"
       }
     },
     {
@@ -118,6 +118,24 @@
       }
     },
     {
+      "identity" : "sdwebimage",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SDWebImage/SDWebImage.git",
+      "state" : {
+        "revision" : "1f06ef5007b6a580b3873ed2adee19e05d3b215a",
+        "version" : "5.18.3"
+      }
+    },
+    {
+      "identity" : "sdwebimageswiftui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SDWebImage/SDWebImageSwiftUI.git",
+      "state" : {
+        "revision" : "e837c37d45449fbd3b4745c10c5b5274e73edead",
+        "version" : "2.2.3"
+      }
+    },
+    {
       "identity" : "sfsafesymbols",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SFSafeSymbols/SFSafeSymbols.git",
@@ -149,8 +167,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/soto-project/soto.git",
       "state" : {
-        "revision" : "939e61467a9adfd78520b46eddf756a09291f7e1",
-        "version" : "6.7.0"
+        "revision" : "c28c3efa72e6beceae6f38f8c8fe18e7c57e3418",
+        "version" : "6.8.0"
       }
     },
     {
@@ -158,8 +176,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/soto-project/soto-core.git",
       "state" : {
-        "revision" : "1ddc6a9d21fa129e24886a0085e8b6091777f924",
-        "version" : "6.5.1"
+        "revision" : "3ed66ec536bc372360d7e3ec39a5e8b1870747ea",
+        "version" : "6.5.2"
       }
     },
     {
@@ -167,8 +185,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/stevengharris/SplitView.git",
       "state" : {
-        "revision" : "5873e171e175b9870c76c9e7a95f79132c239a1b",
-        "version" : "3.2.2"
+        "revision" : "a21ca4f408909f49353cc92636654b2dfe5a5f19",
+        "version" : "3.4.0"
       }
     },
     {
@@ -185,8 +203,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-atomics.git",
       "state" : {
-        "revision" : "6c89474e62719ddcc1e9614989fff2f68208fe10",
-        "version" : "1.1.0"
+        "revision" : "cd142fd2f64be2100422d658e7411e39489da985",
+        "version" : "1.2.0"
       }
     },
     {
@@ -194,8 +212,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-collections.git",
       "state" : {
-        "revision" : "937e904258d22af6e447a0b72c0bc67583ef64a2",
-        "version" : "1.0.4"
+        "revision" : "a902f1823a7ff3c9ab2fba0f992396b948eda307",
+        "version" : "1.0.5"
       }
     },
     {
@@ -257,8 +275,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-nio-http2.git",
       "state" : {
-        "revision" : "a8ccf13fa62775277a5d56844878c828bbb3be1a",
-        "version" : "1.27.0"
+        "revision" : "9c22e4f810ce780453f563fba98e1a1039f83d56",
+        "version" : "1.28.1"
       }
     },
     {
@@ -313,15 +331,6 @@
       "state" : {
         "revision" : "d9ff87b16eb8743326dc0a3e901e15a82ed46530",
         "version" : "2.3.3"
-      }
-    },
-    {
-      "identity" : "swiftygif",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/kirualex/SwiftyGif.git",
-      "state" : {
-        "revision" : "d6d26061d6553a493781ad3df4a8e275c43fc373",
-        "version" : "5.4.4"
       }
     }
   ],
