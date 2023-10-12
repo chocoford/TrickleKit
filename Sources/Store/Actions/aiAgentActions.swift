@@ -43,6 +43,7 @@ extension TrickleStore {
             }?.key
         }
         
+        public var hasMoreCaptureAgentMessages: Bool? { hasMoreConversationMessages[TrickleEnv.captureAgentID] }
         public var captureAgentMessages: Loadable<[AIAgentConversationSession.Message]> {
             conversationMessages[TrickleEnv.captureAgentID] ?? .notRequested
         }
