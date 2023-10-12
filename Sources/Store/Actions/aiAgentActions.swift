@@ -32,8 +32,8 @@ extension TrickleStore {
         
         public var agents: [AIAgentData] = []
         public var conversationIDs: [AIAgentData.ID : ConversationID] = [:]
-//        public var conversationSessions: [AIAgentData.ID : Loadable<AIAgentConversationSession>] = [:]
         public var conversationMessages: [AIAgentData.ID : Loadable<[AIAgentConversationSession.Message]>] = [:]
+        public var hasMoreConversationMessages: [AIAgentData.ID : Bool] = [:]
         public var updateMessagePublisher = PassthroughSubject<Void, Never>()
         var messageHelper = AIStateMessageHelper()
         
@@ -169,6 +169,7 @@ public extension TrickleStore {
                            conversationID: conversationID,
                            type: .chat)
         )
+        self.aiAgentState.hasMoreConversationMessages.updateValue(res.messages.count >= 20, forKey: agentConfigID)
         self.aiAgentState.conversationMessages[agentConfigID]?.setAsLoaded {
             $0?.insert(contentsOf: res.messages, at: 0)
         }
