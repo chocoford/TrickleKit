@@ -164,10 +164,11 @@ public extension TrickleStore {
         }
         if !silent { self.aiAgentState.conversationMessages[agentConfigID]?.setIsLoading() }
         
-        let newUntil: String? = if let until = self.aiAgentState.conversationMessages[agentConfigID]?.value?.first?.createAt {
+        let newUntil: String? = if case .loaded(let messages) = self.aiAgentState.conversationMessages[agentConfigID],
+                                   let until = messages.first?.createAt {
             String((Int(until) ?? 0) - 1)
         } else {
-             nil
+            nil
         }
         
         let res = try await self.aiAgentSocket.listConversationMessages(
