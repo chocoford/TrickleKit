@@ -142,10 +142,10 @@ public extension TrickleStore {
     
     @available(*, deprecated, message: "Please use tryLoadMoreConversation")
     func trySyncAIAgentConversation(with agentConfigID: AIAgentData.ID) async throws {
-        guard let conversationID = self.aiAgentState.conversationIDs[agentConfigID] else {
-            throw TrickleStoreError.aiAgentError(.invalidConversationID(nil))
-        }
-        let session = try await self.aiAgentSocket.syncConversation(payload: .init(conversationID: conversationID))
+//        guard let conversationID = self.aiAgentState.conversationIDs[agentConfigID] else {
+//            throw TrickleStoreError.aiAgentError(.invalidConversationID(nil))
+//        }
+//        let session = try await self.aiAgentSocket.syncConversation(payload: .init(conversationID: conversationID))
 //        self.aiAgentState.conversationSessions.updateValue(.loaded(data: session), forKey: agentConfigID)
     }
     
@@ -164,8 +164,10 @@ public extension TrickleStore {
         }
         if !silent { self.aiAgentState.conversationMessages[agentConfigID]?.setIsLoading() }
         
+        let newUntil = Int(self.aiAgentState.conversationMessages[agentConfigID]?.value?.first?.createAt ?? "0") ?? 0
+        
         let res = try await self.aiAgentSocket.listConversationMessages(
-            payload: .init(until: self.aiAgentState.conversationMessages[agentConfigID]?.value?.first?.createAt,
+            payload: .init(until: String(newUntil - 1),
                            limit: 20,
                            conversationID: conversationID,
                            type: .chat)
