@@ -164,16 +164,8 @@ public extension TrickleStore {
         }
         if !silent { self.aiAgentState.conversationMessages[agentConfigID]?.setIsLoading() }
         
-        let newUntil: String?
-        if let until = self.aiAgentState.conversationMessages[agentConfigID]?.value?.first?.createAt,
-           let until = Int(until) {
-            newUntil = String(until - 1)
-        } else {
-            newUntil = nil
-        }
-        
         let res = try await self.aiAgentSocket.listConversationMessages(
-            payload: .init(until: newUntil,
+            payload: .init(until: self.aiAgentState.conversationMessages[agentConfigID]?.value?.first?.createAt,
                            limit: 20,
                            conversationID: conversationID,
                            type: .chat)
@@ -181,6 +173,7 @@ public extension TrickleStore {
         self.aiAgentState.hasMoreConversationMessages.updateValue(res.messages.count >= 20, forKey: agentConfigID)
         self.aiAgentState.conversationMessages[agentConfigID]?.setAsLoaded {
             $0?.insert(contentsOf: res.messages, at: 0)
+            $0 = $0?.removingDuplicate(replace: true)
         }
     }
     
