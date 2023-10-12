@@ -120,6 +120,7 @@ public extension TrickleAIAgentSocketClient {
         case listPublishedAgentConfigs
         case startConversationInWorkspace
         case syncConversation
+        case listConversationMessages
         case newMessage
         case executeToolConfig
         case clearMessages = "clearConversation"
@@ -181,6 +182,32 @@ public extension TrickleAIAgentSocketClient {
     func syncConversation(payload: ConversationConfig) async throws -> AIAgentConversationSession {
         guard let socket = self.socket else { throw AIAgentSocketError.socketNil }
         let res: SocketResponse<[AIAgentConversationSession]> = try await socket.send(.syncConversation, payload: payload)
+        struct InvalidResponseData: Error {}
+        guard let session =  res.first?.results.first else { throw InvalidResponseData() }
+        return session
+    }
+    
+    struct ListConversationMessagesConfig: Codable {
+        var until: String?
+        var limit: Int
+        var conversationID: String?
+        var type: ListType
+        
+        enum CodingKeys: String, CodingKey {
+            case until, limit, type
+            case conversationID = "conversationId"
+        }
+        
+        enum ListType: String, Codable {
+            case chat, memory, capture
+        }
+    }
+    struct ListConversationMessagesResponseData: Codable {
+        var messages: [AIAgentConversationSession.Message]
+    }
+    func listConversationMessages(payload: ListConversationMessagesConfig) async throws -> ListConversationMessagesResponseData {
+        guard let socket = self.socket else { throw AIAgentSocketError.socketNil }
+        let res: SocketResponse<[ListConversationMessagesResponseData]> = try await socket.send(.listConversationMessages, payload: payload)
         struct InvalidResponseData: Error {}
         guard let session =  res.first?.results.first else { throw InvalidResponseData() }
         return session

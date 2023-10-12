@@ -136,7 +136,8 @@ public extension TrickleStore {
             self.error = .init(error)
         }
     }
-
+    
+    @available(*, deprecated, message: "Please use tryLoadMoreConversation")
     func trySyncAIAgentConversation(with agentConfigID: AIAgentData.ID) async throws {
         guard let conversationID = self.aiAgentState.conversationIDs[agentConfigID] else {
             throw TrickleStoreError.aiAgentError(.invalidConversationID(nil))
@@ -145,6 +146,7 @@ public extension TrickleStore {
         self.aiAgentState.conversationSessions.updateValue(.loaded(data: session), forKey: agentConfigID)
     }
     
+    @available(*, deprecated, message: "Please use loadMoreConversation")
     func syncAIAgentConversation(with agentConfigID: AIAgentData.ID) async {
         do {
             try await trySyncAIAgentConversation(with: agentConfigID)
@@ -152,6 +154,30 @@ public extension TrickleStore {
             self.error = .init(error)
         }
     }
+    
+    func tryLoadMoreAIAgentConversation(with agentConfigID: AIAgentData.ID) async throws {
+        guard let conversationID = self.aiAgentState.conversationIDs[agentConfigID] else {
+            throw TrickleStoreError.aiAgentError(.invalidConversationID(nil))
+        }
+        let res = try await self.aiAgentSocket.listConversationMessages(
+            payload: .init(until: self.aiAgentState.conversationSessions[agentConfigID]?.value?.messages.first?.createAt,
+                           limit: 20,
+                           conversationID: conversationID,
+                           type: .chat)
+        )
+        self.aiAgentState.conversationSessions[agentConfigID]?.transform {
+            $0.messages.insert(contentsOf: res.messages, at: 0)
+        }
+    }
+    
+    func loadMoreAIAgentConversation(with agentConfigID: AIAgentData.ID) async {
+        do {
+            try await tryLoadMoreAIAgentConversation(with: agentConfigID)
+        } catch {
+            self.error = .init(error)
+        }
+    }
+    
     
     /// Try to send message to ai agent. If message contains a image, it will auto upload to the server.
     func trySendMessageToAIAgent<Results: Codable>(
