@@ -374,6 +374,9 @@ public class TrickleStore: ObservableObject {
         currentTrickleID = nil
         tricklesCommentIDs.removeAll()
         comments.removeAll()
+        
+        aiAgentState = .init()
+        
         error = nil
         historyErrors.removeAll()
         
