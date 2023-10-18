@@ -129,10 +129,15 @@ public extension TrickleStore {
             )
         )
         self.aiAgentState.conversationIDs.updateValue(conversationID, forKey: agentConfigID)
-        self.aiAgentState.conversationMessages.updateValue(.loaded(data: []), forKey: agentConfigID)
+        self.aiAgentState.conversationMessages.updateValue(
+            .loaded(data: self.aiAgentState.conversationMessages[agentConfigID]?.value ?? []),
+            forKey: agentConfigID
+        )
     }
     
-    func startAIAgentConversation(workspaceID: WorkspaceData.ID, memberID: MemberData.ID, agentConfigID: AIAgentData.ID, groups: [GroupData]) async {
+    func startAIAgentConversation(
+        workspaceID: WorkspaceData.ID, memberID: MemberData.ID, agentConfigID: AIAgentData.ID, groups: [GroupData]
+    ) async {
         do {
             try await tryStartAIAgentConversation(workspaceID: workspaceID, memberID: memberID, agentConfigID: agentConfigID, groups: groups)
         } catch {
