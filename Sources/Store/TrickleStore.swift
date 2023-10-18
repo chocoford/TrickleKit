@@ -381,6 +381,7 @@ public class TrickleStore: ObservableObject {
         historyErrors.removeAll()
         
         socket.reinitSocket()
+        aiAgentSocket.disconnect()
     }
     
     public enum LoadMoreOption {

@@ -58,7 +58,7 @@ public final class TrickleAIAgentSocketClient {
                                         .compress,
                                         .connectParams(["token" : "Bearer \(token)"]),
                                         .path("/trickleai-sio"),
-                                        .secure(true)
+                                        .secure(true),
                                     ])
         
         self.socket = self.socketManager?.defaultSocket
@@ -94,6 +94,10 @@ public final class TrickleAIAgentSocketClient {
 public extension TrickleAIAgentSocketClient {
     func conntect(token: String, log: Bool = false) {
         configSocket(token: token, log: log)
+    }
+    
+    func disconnect() {
+        self.socket?.disconnect()
     }
 }
 
