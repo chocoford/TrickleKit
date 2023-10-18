@@ -17,6 +17,24 @@ extension TrickleWebRepository {
         try await call(endpoint: API.createStripePortalSession(workspaceID: workspaceID))
     }
     
+    @available(*, deprecated, message: "use TrickleECSWebRepository.getSubscriptionPlans insetead")
+    func getSubscriptionPlans(workspaceID: WorkspaceData.ID) async throws -> AnyStreamable<SubscriptionPlanData> {
+        try await call(endpoint: API.getSubscriptionPlans(workspaceID: workspaceID))
+    }
+    
+    @available(*, deprecated, message: "use TrickleECSWebRepository.getSubscriptionUpcomingInvoices insetead")
+    func getSubscriptionStatus(workspaceID: WorkspaceData.ID) async throws -> SubscriptionStatusData? {
+        try await call(endpoint: API.getSubscriptionStatus(workspaceID: workspaceID))
+    }
+    
+    @available(*, deprecated, message: "use TrickleECSWebRepository.getSubscriptionUpcomingInvoices insetead")
+    func getSubscriptionUpcomingInvoices(workspaceID: WorkspaceData.ID, query: API.GetSubscriptionUpcomingInvoicesQuery) async throws -> SubscriptionUpcomingInvoicesData {
+        try await call(endpoint: API.getSubscriptionUpcomingInvoices(workspaceID: workspaceID, query: query))
+    }
+}
+
+
+extension TrickleECSWebRepository {
     func getSubscriptionPlans(workspaceID: WorkspaceData.ID) async throws -> AnyStreamable<SubscriptionPlanData> {
         try await call(endpoint: API.getSubscriptionPlans(workspaceID: workspaceID))
     }

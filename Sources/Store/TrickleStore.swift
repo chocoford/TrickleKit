@@ -76,13 +76,18 @@ public enum TrickleStoreError: LocalizedError {
 @MainActor
 public class TrickleStore: ObservableObject {
     internal var webRepositoryClient: TrickleWebRepository
+    internal var ecsWebRepositoryClient: TrickleECSWebRepository
     internal var socket: TrickleWebSocket
     @Published
     public internal(set) var aiAgentSocket = TrickleAIAgentSocketClient()
     internal var apnsHelper: TrickleAPNsHelper
 
-    public init(storeHTTPClient: TrickleWebRepository = .default) {
+    public init(
+        storeHTTPClient: TrickleWebRepository = .default,
+        ecsHTTPClient: TrickleECSWebRepository = .default
+    ) {
         self.webRepositoryClient = storeHTTPClient
+        self.ecsWebRepositoryClient = ecsHTTPClient
         self.apnsHelper = .init(storeHTTPClient.logLevel)
         self.socket = TrickleWebSocket(handlers: { message in
             

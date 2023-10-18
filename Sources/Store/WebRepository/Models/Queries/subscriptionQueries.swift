@@ -8,7 +8,7 @@
 import Foundation
 import TrickleCore
 
-extension TrickleWebRepository.API {
+extension TrickleECSWebRepository.API {
     struct GetSubscriptionUpcomingInvoicesQuery: Codable {
         var memberID: MemberData.ID
         var subscriptionID: SubscriptionPlanData.ID?
