@@ -10,7 +10,7 @@ import TrickleCore
 
 public extension TrickleStore {
     func loadMoreComments(_ trickleID: TrickleData.ID, option: LoadMoreOption, silent: Bool = false) async {
-        guard let theTrickle = trickles[trickleID] else { return }
+        guard let _ = trickles[trickleID] else { return }
         
         if !silent { tricklesCommentIDs[trickleID]?.setIsLoading() }
         

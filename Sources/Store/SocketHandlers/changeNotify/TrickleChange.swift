@@ -13,13 +13,14 @@ extension TrickleStore {
     @MainActor
     func handleTrickleChange(_ event: ChangeNotifyData.LatestChangeEvent.TrickleChangeEvent) {
         switch event {
-            case .created(let event):
-                let workspaceName: String = workspaces[event.eventData.workspaceID]?.name ?? "unknown"
-                let groupName: String = groups[event.eventData.channelID]?.name ?? "unknown"
-                let trickleData: TrickleData = event.eventData.trickleInfo
+            case .created:
+//                let workspaceName: String = workspaces[event.eventData.workspaceID]?.name ?? "unknown"
+//                let groupName: String = groups[event.eventData.channelID]?.name ?? "unknown"
+//                let trickleData: TrickleData = event.eventData.trickleInfo
 //                UserNotificationCenter.shared.pushNormalNotification(title: workspaceName,
 //                                                                     subtitle: groupName,
 //                                                                     body: "\(trickleData.authorMemberInfo.name): \(TrickleEditorParser.getContentDescription(trickleData.blocks))")
+                break
                 
             case .moved(let event):
                 moveTrickle(event.eventData.trickleID, to: event.eventData.channelID)
