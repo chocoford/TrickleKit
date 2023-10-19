@@ -18,7 +18,8 @@ public struct WorkspaceData: Codable, Hashable {
     public var createAt, updateAt: Date
     public var userMemberInfo: MemberData
     public var hasUnread: Bool?
-    public var subscriptionID: String
+    /// Will be `nil` when being returned from `CreateWorkspace`
+    public var subscriptionID: String?
     public var subscriptionStatus: SubscriptionStatusData.Status
     
     enum CodingKeys: String, CodingKey, CaseIterable {
