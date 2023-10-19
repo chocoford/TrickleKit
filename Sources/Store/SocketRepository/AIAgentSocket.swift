@@ -56,11 +56,10 @@ public final class TrickleAIAgentSocketClient {
                                         .logger(logger),
                                         .log(log),
                                         .compress,
-                                        .connectParams(["token" : "Bearer \(token)"]),
+                                        .connectParams(["token" : "Bearer \(token)", "EIO": "3"]),
                                         .path("/trickleai-sio"),
-//                                        .secure(true),
+                                        .secure(true),
                                         .forceWebsockets(true),
-//                                        .version(<#T##SocketIOVersion#>)
                                     ])
         
         self.socket = self.socketManager?.defaultSocket
