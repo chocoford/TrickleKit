@@ -58,7 +58,7 @@ public final class TrickleAIAgentSocketClient {
                                         .compress,
                                         .connectParams(["token" : "Bearer \(token)"]),
                                         .path("/trickleai-sio"),
-                                        .secure(true),
+//                                        .secure(true),
                                         .forceWebsockets(true),
 //                                        .version(<#T##SocketIOVersion#>)
                                     ])
