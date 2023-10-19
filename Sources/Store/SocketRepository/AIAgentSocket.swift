@@ -57,11 +57,10 @@ public final class TrickleAIAgentSocketClient {
                                         .log(log),
                                         .compress,
                                         .connectParams(["token" : "Bearer \(token)"]),
-                                        .path("/trickleai-sio"),
                                         .secure(true)
                                     ])
         
-        self.socket = self.socketManager?.defaultSocket
+        self.socket = self.socketManager?.socket(forNamespace: "/trickleai-sio")
         
         self.socket?.on(clientEvent: .connect) {data, ack in
             self.logger.debug("socket connected")
