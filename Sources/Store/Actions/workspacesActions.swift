@@ -55,16 +55,21 @@ public extension TrickleStore {
         return invitations
     }
     
+    @discardableResult
     func tryCreateWorkspace(name: String, userID: String, userName: String, logo: String) async throws -> WorkspaceData {
         let workspaceData = try await webRepositoryClient.createWorkspace(payload: .init(name: name,
-                                                                                          userID: userID,
-                                                                                          userName: userName,
-                                                                                          workspaceType: .team,
-                                                                                          logo: logo))
+                                                                                         userID: userID,
+                                                                                         userName: userName,
+                                                                                         workspaceType: .team,
+                                                                                         logo: logo))
         
         appendWorkspace(workspaceData.workspace)
         currentWorkspaceID = workspaceData.workspace.workspaceID
         return workspaceData.workspace
+    }
+    
+    func createWorkspace(name: String, userID: String, userName: String, logo: String) async {
+        
     }
     
     func updateWorkspaceInfo(workspaceID: String? = nil, name: String?, logo: String?) async {

@@ -58,7 +58,7 @@ public final class TrickleAIAgentSocketClient {
                                         .compress,
                                         .connectParams(["token" : "Bearer \(token)"]),
                                         .path("/trickleai-sio"),
-                                        .secure(true),
+                                        .secure(true)
                                     ])
         
         self.socket = self.socketManager?.defaultSocket
@@ -104,9 +104,22 @@ public extension TrickleAIAgentSocketClient {
 
 // MARK: - Public API
 public extension TrickleAIAgentSocketClient {
-    enum Status {
+    enum Status: CustomStringConvertible {
         case connected, disconnected, reconnecting
         case error
+        
+        public var description: String {
+            switch self {
+                case .connected:
+                    "Connected"
+                case .disconnected:
+                    "Disconnected"
+                case .reconnecting:
+                    "Reconnecting"
+                case .error:
+                    "Error"
+            }
+        }
     }
     
     enum SocketError: LocalizedError {
@@ -359,7 +372,7 @@ fileprivate extension SocketIOClient {
                             continuation.resume(with: .success(decoded))
                         } catch {
 #if DEBUG
-                            print(String(data: data, encoding: .utf8) ?? "")
+//                            print(String(data: data, encoding: .utf8) ?? "")
                             dump(error, name: "Decode error")
 #endif
                             throw error
