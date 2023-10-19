@@ -56,12 +56,12 @@ public final class TrickleAIAgentSocketClient {
                                         .logger(logger),
                                         .log(log),
                                         .compress,
-                                        .connectParams(["token" : "Bearer \(token)", "EIO": "3"]),
+                                        .connectParams(["token" : "Bearer \(token)"]),
                                         .path("/trickleai-sio"),
                                         .secure(true),
                                         .forceWebsockets(true),
                                     ])
-        
+        print("Socket.io version is used: ", socketManager?.version ?? "unknown")
         self.socket = self.socketManager?.defaultSocket
         
         self.socket?.on(clientEvent: .connect) {data, ack in
