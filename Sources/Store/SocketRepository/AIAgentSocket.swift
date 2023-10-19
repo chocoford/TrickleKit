@@ -59,7 +59,8 @@ public final class TrickleAIAgentSocketClient {
                                         .connectParams(["token" : "Bearer \(token)"]),
                                         .path("/trickleai-sio"),
                                         .secure(true),
-                                        .forceWebsockets(true)
+                                        .forceWebsockets(true),
+//                                        .version(<#T##SocketIOVersion#>)
                                     ])
         
         self.socket = self.socketManager?.defaultSocket
@@ -85,6 +86,9 @@ public final class TrickleAIAgentSocketClient {
         }
         self.socket?.on(clientEvent: .websocketUpgrade) {data, ack in
             self.logger.debug("socket websocketUpgraded: \(data)")
+        }
+        self.socket?.on(clientEvent: .ping) { data, ack in
+            self.logger.debug("socket did receive ping: \(data)")
         }
         
         self.socket?.connect()
