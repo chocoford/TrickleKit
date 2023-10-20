@@ -24,7 +24,7 @@ extension TrickleECSWebRepository.API: APICall {
     var path: String {
         switch self {
             case .createCheckoutSession(let workspaceID, _):
-                return "subs/v1/workspaces/\(workspaceID)/checkoutSession"
+                return "/subs/v1/workspaces/\(workspaceID)/checkoutSession"
             case .createStripePortalSession(let workspaceID):
                 return "/subs/v1/workspaces/\(workspaceID)/stripe/portalSession"
             case .getSubscriptionPlans:
