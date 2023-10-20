@@ -57,7 +57,7 @@ public class TrickleWebSocket {
     
     
     public func initSocket(token: String, userID: String) {
-        self.token = "Bearer \(token)"
+        self.token = token
         self.userID = userID
         let wsURL = URL(string: "wss://\(TrickleEnv.webSocketDomain)?authToken=Bearer%20\(token)")
         guard let url = wsURL else { return }
@@ -77,6 +77,7 @@ public class TrickleWebSocket {
     }
     
     public func reinitSocket() {
+        self.close()
         guard let token = self.token,
               let userID = self.userID else { return }
         self.initSocket(token: token, userID: userID)
