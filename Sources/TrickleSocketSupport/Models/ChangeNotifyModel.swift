@@ -48,6 +48,8 @@ public extension ChangeNotifyData {
         case trickle(TrickleChangeEvent)
         case comment(CommentChangeEvent)
         case reaction(ReactionChangeEvent)
+        
+        case subscription(SubscriptionChangeEvent)
            
         enum CodingKeys: String, CodingKey {
             case type = "event"
@@ -74,6 +76,8 @@ public extension ChangeNotifyData {
                     self = .workspace(try WorkspaceChangeEvent(from: decoder))
                 case .view:
                     self = .view(try ViewChangeEvent(from: decoder))
+                case .subscription:
+                    self = .subscription(try SubscriptionChangeEvent(from: decoder))
             }
         }
 
@@ -94,6 +98,8 @@ public extension ChangeNotifyData {
                     try container.encode(x)
                 case .view(let x):
                     try container.encode(x)
+                case .subscription(let x):
+                    try container.encode(x)
             }
         }
     }
@@ -108,6 +114,7 @@ public extension ChangeNotifyData.LatestChangeEvent {
         case trickle(TrickleEventType)
         case workspace(WorkspaceEventType)
         case view(ViewEventType)
+        case subscription(SubscriptionEventType)
         
         public init(from decoder: Decoder) throws {
             let container = try decoder.singleValueContainer()
@@ -138,6 +145,10 @@ public extension ChangeNotifyData.LatestChangeEvent {
             }
             if let x = try? container.decode(ViewEventType.self) {
                 self = .view(x)
+                return
+            }
+            if let x = try? container.decode(SubscriptionEventType.self) {
+                self = .subscription(x)
                 return
             }
             throw DecodingError.typeMismatch(CommentChangeEvent.self,
@@ -210,6 +221,10 @@ public extension ChangeNotifyData.LatestChangeEvent {
     enum ViewEventType: String, Codable {
         case channelFieldUpdated = "ChannelFieldUpdated"
         case channelViewUpdated = "ChannelViewUpdated"
+    }
+    
+    enum SubscriptionEventType: String, Codable {
+        case statusChanged = "SubscriptionStatusChanged"
     }
 }
 
@@ -467,6 +482,10 @@ public extension ChangeNotifyData.LatestChangeEvent {
                     try data.encode(to: container.superEncoder(forKey: .eventType))
             }
         }
+    }
+    
+    enum SubscriptionChangeEvent: Codable {
+        case statusChanged(SubscriptionStatusChangeEvent)
     }
 }
 
@@ -854,6 +873,24 @@ public extension ChangeNotifyData.LatestChangeEvent.ViewChangeEvent {
         
         public struct EventData: Codable {
             
+        }
+    }
+}
+
+// MARK: - Subsctiption Change Events
+public extension ChangeNotifyData.LatestChangeEvent.SubscriptionChangeEvent {
+    struct SubscriptionStatusChangeEvent: ChangeEvent {
+        public var event: ChangeNotifyData.LatestChangeEvent.SubscriptionEventType
+        public var eventData: EventData
+        
+        public struct EventData: Codable {
+            public let workspaceID: WorkspaceData.ID
+            public let status: SubscriptionStatusData.Status
+            
+            enum CodingKeys: String, CodingKey {
+                case workspaceID = "workspaceId"
+                case status
+            }
         }
     }
 }
