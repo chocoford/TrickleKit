@@ -12,6 +12,7 @@ import TrickleCore
 
 extension TrickleECSWebRepository {
     enum API {
+        case createStripePortalSession(workspaceID: WorkspaceData.ID)
         case getSubscriptionPlans(workspaceID: WorkspaceData.ID)
         case getSubscriptionStatus(workspaceID: WorkspaceData.ID)
         case getSubscriptionUpcomingInvoices(workspaceID: WorkspaceData.ID, query: GetSubscriptionUpcomingInvoicesQuery)
@@ -21,6 +22,8 @@ extension TrickleECSWebRepository {
 extension TrickleECSWebRepository.API: APICall {
     var path: String {
         switch self {
+            case .createStripePortalSession(let workspaceID):
+                return "/subs/v1/workspaces/\(workspaceID)/stripe/portalSession"
             case .getSubscriptionPlans:
                 return "/subs/v1/plans/available"
             case .getSubscriptionStatus(let workspaceID):
@@ -56,7 +59,9 @@ extension TrickleECSWebRepository.API: APICall {
     
     var method: APIMethod {
         switch self {
-           
+            case .createStripePortalSession:
+                return .post
+                
             default:
                 return .get
         }

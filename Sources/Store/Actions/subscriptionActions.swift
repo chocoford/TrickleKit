@@ -25,7 +25,7 @@ public extension TrickleStore {
     }
     
     func tryCreateStripePortalSession(workspaceID: WorkspaceData.ID) async throws -> URL {
-        let urlString = try await self.webRepositoryClient.createStripePortalSession(workspaceID: workspaceID)
+        let urlString = try await self.ecsWebRepositoryClient.createStripePortalSession(workspaceID: workspaceID)
         struct InvalidURL: Error {}
         guard let url = URL(string: urlString.url) else { throw InvalidURL() }
         return url

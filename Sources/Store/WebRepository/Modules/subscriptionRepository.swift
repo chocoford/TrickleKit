@@ -13,6 +13,7 @@ extension TrickleWebRepository {
         try await call(endpoint: API.createPaymentLink(workspaceID: workspaceID, payload: payload))
     }
     
+    @available(*, deprecated, message: "use TrickleECSWebRepository.createStripePortalSession insetead")
     func createStripePortalSession(workspaceID: WorkspaceData.ID) async throws -> PaymentLinkData {
         try await call(endpoint: API.createStripePortalSession(workspaceID: workspaceID))
     }
@@ -35,6 +36,10 @@ extension TrickleWebRepository {
 
 
 extension TrickleECSWebRepository {
+    func createStripePortalSession(workspaceID: WorkspaceData.ID) async throws -> PaymentLinkData {
+        try await call(endpoint: API.createStripePortalSession(workspaceID: workspaceID))
+    }
+    
     func getSubscriptionPlans(workspaceID: WorkspaceData.ID) async throws -> AnyStreamable<SubscriptionPlanData> {
         try await call(endpoint: API.getSubscriptionPlans(workspaceID: workspaceID))
     }
