@@ -9,6 +9,9 @@ import SwiftUI
 import ChocofordEssentials
 import CFWebRepositoryProvider
 import TrickleCore
+#if canImport(OSLog)
+import OSLog
+#endif
 
 public enum TrickleStoreError: LocalizedError {
     case lodableError(_ error: LoadableError)
@@ -75,6 +78,10 @@ public enum TrickleStoreError: LocalizedError {
 
 @MainActor
 public class TrickleStore: ObservableObject {
+#if canImport(OSLog)
+    internal var logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "TrickleStore")
+#endif
+    
     internal var webRepositoryClient: TrickleWebRepository
     internal var ecsWebRepositoryClient: TrickleECSWebRepository
     internal var socket: TrickleWebSocket
