@@ -28,6 +28,8 @@ extension TrickleStore {
                         handleCommentChange(event)
                     case .reaction(_):
                         break
+                    case .subscription(let event):
+                        handleSubscriptionChange(event)
                 }
             }
         }

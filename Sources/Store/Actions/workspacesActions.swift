@@ -28,6 +28,7 @@ public extension TrickleStore {
             throw error
         }
     }
+    
     /// Load all user's workspaces.
     func loadAllWorkspaces(silent: Bool = false) async {
         do {
