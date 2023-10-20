@@ -94,6 +94,16 @@ public class TrickleStore: ObservableObject {
         })
         
         self.aiAgentSocket.onEvents = self.onAIAgentSocketEvents
+        
+        self.socket.onMessage = { message in
+            switch message {
+                case .changeNotify(let event):
+                    self.handleChangeNotify(event.data ?? [])
+                    
+                default:
+                    break
+            }
+        }
     }
     
     @Published public var deviceToken: String? = nil

@@ -7,6 +7,7 @@
 
 import Foundation
 import TrickleCore
+import TrickleSocketSupport
 
 public extension TrickleStore {
     func reestablishSocket() {
@@ -51,6 +52,20 @@ public extension TrickleStore {
         let workspaceIDs = workspaces.values.map{ $0.workspaceID }
         if !workspaceIDs.isEmpty {
             await self.socket.subscribeWorksaces(workspaceIDs, userID: userInfo.user.id)
+        }
+    }
+    
+    func addSocketEventHandler(_ handler: @escaping (IncomingMessageType) -> Void) async {
+        self.socket.onMessage = { message in
+            switch message {
+                case .changeNotify(let event):
+                    self.handleChangeNotify(event.data ?? [])
+                    
+                default:
+                    break
+            }
+            
+            handler(message)
         }
     }
 }
