@@ -393,5 +393,10 @@ public class TrickleStore: ObservableObject {
         case older(_ since: Date? = nil)
         case newer(_ since: Date? = nil)
         case refresh
+        
+        struct Option {
+            var since: Date? = nil
+            var limit: Int = 20
+        }
     }
 }

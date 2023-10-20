@@ -163,28 +163,46 @@ public extension TrickleStore {
         }
     }
     
-    func tryLoadMoreAIAgentConversation(with agentConfigID: AIAgentData.ID, silent: Bool = false) async throws {
+    func tryLoadMoreAIAgentConversation(with agentConfigID: AIAgentData.ID, option: LoadMoreOption, silent: Bool = false) async throws {
         guard let conversationID = self.aiAgentState.conversationIDs[agentConfigID] else {
             throw TrickleStoreError.aiAgentError(.invalidConversationID(nil))
         }
         if !silent { self.aiAgentState.conversationMessages[agentConfigID]?.setIsLoading() }
         
-        let res = try await self.aiAgentSocket.listConversationMessages(
-            payload: .init(until: self.aiAgentState.conversationMessages[agentConfigID]?.value?.first?.createAt,
-                           limit: 20,
-                           conversationID: conversationID,
-                           type: .chat)
-        )
-        self.aiAgentState.hasMoreConversationMessages.updateValue(res.messages.count >= 20, forKey: agentConfigID)
-        self.aiAgentState.conversationMessages[agentConfigID]?.setAsLoaded {
-            $0?.insert(contentsOf: res.messages, at: 0)
-            $0 = $0?.removingDuplicate(replace: true)
+        switch option {
+            case .newer(let date):
+                break
+            case .older(let date):
+                let formatter = DateFormatter()
+                formatter.timeZone = TimeZone(identifier: "GMT") ?? .current
+                formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
+                let until = if let date = date { formatter.string(from: date) } else { self.aiAgentState.conversationMessages[agentConfigID]?.value?.first?.createAt }
+                let res = try await self.aiAgentSocket.listConversationMessages(
+                    payload: .init(until: until,
+                                   limit: 50,
+                                   conversationID: conversationID,
+                                   type: .chat)
+                )
+                self.aiAgentState.hasMoreConversationMessages.updateValue(res.messages.count >= 50, forKey: agentConfigID)
+                self.aiAgentState.conversationMessages[agentConfigID]?.setAsLoaded {
+                    $0?.insert(contentsOf: res.messages, at: 0)
+                    $0 = $0?.removingDuplicate(replace: true)
+                }
+            case .refresh:
+                let res = try await self.aiAgentSocket.listConversationMessages(
+                    payload: .init(until: nil,
+                                   limit: 50,
+                                   conversationID: conversationID,
+                                   type: .chat)
+                )
+                self.aiAgentState.hasMoreConversationMessages.updateValue(res.messages.count >= 50, forKey: agentConfigID)
+                self.aiAgentState.conversationMessages[agentConfigID]?.setAsLoaded(res.messages)
         }
     }
     
-    func loadMoreAIAgentConversation(with agentConfigID: AIAgentData.ID, silent: Bool = false) async {
+    func loadMoreAIAgentConversation(with agentConfigID: AIAgentData.ID, option: LoadMoreOption, silent: Bool = false) async {
         do {
-            try await tryLoadMoreAIAgentConversation(with: agentConfigID, silent: silent)
+            try await tryLoadMoreAIAgentConversation(with: agentConfigID, option: option, silent: silent)
         } catch {
             self.error = .init(error)
         }
