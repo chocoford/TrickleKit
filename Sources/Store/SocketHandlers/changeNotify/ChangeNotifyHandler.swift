@@ -12,7 +12,7 @@ extension TrickleStore {
     @MainActor
     func handleChangeNotify(_ data: [ChangeNotifyData]) {
 #if canImport(OSLog)
-        self.logger.debug("Handle Change notify: \(data, privacy: .public)")
+//        self.logger.debug("Handle Change notify: \(data, privacy: .public)")
 #endif
         for data in data {
             for code in data.codes {

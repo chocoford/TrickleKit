@@ -20,6 +20,9 @@ extension TrickleStore {
                 allWorkspaces = allWorkspaces.map {
                     $0.updatingItem(workspace)
                 }
+                
+            default:
+                break
         }
     }
 }

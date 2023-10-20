@@ -97,16 +97,20 @@ public extension MessageType {
     
     struct RoomData: Codable {
         public let roomID, memberID: String
-        public enum Status: String, Codable {
-            case online
-            case offline
+        public struct Status: Codable {
+            var mode: Mode
+            
+            public enum Mode: String, Codable {
+                case online
+                case offline
+            }
         }
         public let status: Status
         
-        public init(roomID: String, memberID: String, status: Status) {
+        public init(roomID: String, memberID: String, status: Status.Mode) {
             self.roomID = roomID
             self.memberID = memberID
-            self.status = status
+            self.status = .init(mode: status)
         }
         
         enum CodingKeys: String, CodingKey {

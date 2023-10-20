@@ -70,7 +70,9 @@ public class TrickleSocketMessageHandler {
                 
             case .joinRoomAck:
                 self.logger.info("on join room ack: \(message)")
-                guard let messageData = message.decode(IncomingMessage<[RoomStatusData]>.self) else { break }
+                guard let messageData = message.decode(IncomingMessage<[RoomStatusData]>.self, onFailed: { error in
+                    dump(error)
+                }) else { break }
                 onEvent(.joinRoomAck(messageData))
                 return
                 

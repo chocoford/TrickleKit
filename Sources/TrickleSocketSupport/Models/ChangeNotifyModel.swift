@@ -230,8 +230,13 @@ public extension ChangeNotifyData.LatestChangeEvent {
 
 public extension ChangeNotifyData.LatestChangeEvent {
     enum WorkspaceChangeEvent: Codable {
-//        case created
+        case memberCreated
+        case memberLeft
+        case memberSpaceUpdated
+        case memberUpdated
+        case memberRemoved
         case updated(WorkspaceUpdatedEvent)
+        case dismiss
         
         enum CodingKeys: String, CodingKey {
             case eventType = "event"
@@ -245,19 +250,19 @@ public extension ChangeNotifyData.LatestChangeEvent {
             
             switch eventType {
                 case .memberCreated:
-                    self = try .init(from: decoder)
+                    self = .memberCreated
                 case .memberLeft:
-                    self = try .init(from: decoder)
+                    self = .memberLeft
                 case .memberSpaceUpdated:
-                    self = try .init(from: decoder)
+                    self = .memberSpaceUpdated
                 case .memberUpdated:
-                    self = try .init(from: decoder)
+                    self = .memberUpdated
                 case .memberRemoved:
-                    self = try .init(from: decoder)
+                    self = .memberRemoved
                 case .workspaceUpdated:
                     self = .updated(try WorkspaceUpdatedEvent(from: decoder))
                 case .workspaceDismissed:
-                    self = try .init(from: decoder)
+                    self = .dismiss
             }
         }
 
@@ -269,6 +274,9 @@ public extension ChangeNotifyData.LatestChangeEvent {
                 case .updated(let data):
                     try container.encode(WorkspaceEventType.workspaceUpdated, forKey: .eventType)
                     try data.encode(to: container.superEncoder(forKey: .eventType))
+                    
+                default:
+                    break
             }
 
         }
@@ -486,6 +494,29 @@ public extension ChangeNotifyData.LatestChangeEvent {
     
     enum SubscriptionChangeEvent: Codable {
         case statusChanged(SubscriptionStatusChangeEvent)
+        
+        enum CodingKeys: String, CodingKey {
+            case eventType = "event"
+        }
+        
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            let eventType = try container.decode(SubscriptionEventType.self, forKey: .eventType)
+            
+            switch eventType {
+                case .statusChanged:
+                    self = .statusChanged(try SubscriptionStatusChangeEvent(from: decoder))
+            }
+        }
+        
+        public func encode(to encoder: Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            switch self {
+                case .statusChanged(let data):
+                    try container.encode(SubscriptionEventType.statusChanged, forKey: .eventType)
+                    try data.encode(to: container.superEncoder(forKey: .eventType))
+            }
+        }
     }
 }
 
