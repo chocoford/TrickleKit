@@ -2,7 +2,7 @@
 //  StorePreview.swift
 //  
 //
-//  Created by Dove Zachary on 2023/5/2.
+//  Created by Chocoford on 2023/5/2.
 //
 
 import Foundation

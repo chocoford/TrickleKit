@@ -2,7 +2,7 @@
 //  TrickleContentBlockData.swift
 //
 //
-//  Created by Dove Zachary on 2023/7/19.
+//  Created by Chocoford on 2023/7/19.
 //
 
 import Foundation

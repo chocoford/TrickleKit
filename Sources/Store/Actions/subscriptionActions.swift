@@ -2,7 +2,7 @@
 //  subscriptionActions.swift
 //
 //
-//  Created by Dove Zachary on 2023/8/25.
+//  Created by Chocoford on 2023/8/25.
 //
 
 import Foundation

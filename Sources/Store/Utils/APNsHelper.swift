@@ -2,7 +2,7 @@
 //  TrickleAPNsHelper.swift
 //  
 //
-//  Created by Dove Zachary on 2023/5/26.
+//  Created by Chocoford on 2023/5/26.
 //
 
 import Foundation
