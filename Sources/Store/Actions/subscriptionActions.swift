@@ -14,7 +14,7 @@ public extension TrickleStore {
         memberID: MemberData.ID,
         priceID: SubscriptionPlanData.PricingData.ID
     ) async throws -> URL {
-        let urlString = try await self.webRepositoryClient.createPaymentLink(
+        let urlString = try await self.ecsWebRepositoryClient.createStripeCheckoutSession(
             workspaceID: workspaceID,
             payload: .init(memberID: memberID, priceID: priceID)
         )

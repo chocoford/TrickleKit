@@ -19,3 +19,16 @@ extension TrickleWebRepository.API {
         }
     }
 }
+
+
+extension TrickleECSWebRepository.API {
+    struct CreateCheckoutSessionPayload: Codable {
+        var memberID: MemberData.ID
+        var priceID: SubscriptionPlanData.PricingData.ID
+        
+        enum CodingKeys: String, CodingKey {
+            case memberID = "memberId"
+            case priceID = "priceId"
+        }
+    }
+}

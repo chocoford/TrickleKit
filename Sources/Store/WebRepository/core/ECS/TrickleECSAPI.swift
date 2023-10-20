@@ -12,6 +12,7 @@ import TrickleCore
 
 extension TrickleECSWebRepository {
     enum API {
+        case createCheckoutSession(workspaceID: WorkspaceData.ID, payload: CreateCheckoutSessionPayload)
         case createStripePortalSession(workspaceID: WorkspaceData.ID)
         case getSubscriptionPlans(workspaceID: WorkspaceData.ID)
         case getSubscriptionStatus(workspaceID: WorkspaceData.ID)
@@ -22,6 +23,8 @@ extension TrickleECSWebRepository {
 extension TrickleECSWebRepository.API: APICall {
     var path: String {
         switch self {
+            case .createCheckoutSession(let workspaceID, _):
+                return "subs/v1/workspaces/\(workspaceID)/checkoutSession"
             case .createStripePortalSession(let workspaceID):
                 return "/subs/v1/workspaces/\(workspaceID)/stripe/portalSession"
             case .getSubscriptionPlans:
@@ -59,7 +62,8 @@ extension TrickleECSWebRepository.API: APICall {
     
     var method: APIMethod {
         switch self {
-            case .createStripePortalSession:
+            case .createCheckoutSession,
+                    .createStripePortalSession:
                 return .post
                 
             default:
@@ -91,6 +95,8 @@ extension TrickleECSWebRepository.API: APICall {
     
     func body() throws -> Data? {
         switch self {
+            case .createCheckoutSession(_, let payload):
+                return try makeBody(payload: payload)
             default:
                 return nil
         }

@@ -9,6 +9,7 @@ import Foundation
 import TrickleCore
 
 extension TrickleWebRepository {
+    @available(*, deprecated, message: "use TrickleECSWebRepository.createStripeCheckoutSession insetead")
     func createPaymentLink(workspaceID: WorkspaceData.ID, payload: API.CreatePaymentLinkPayload) async throws -> PaymentLinkData {
         try await call(endpoint: API.createPaymentLink(workspaceID: workspaceID, payload: payload))
     }
@@ -36,6 +37,9 @@ extension TrickleWebRepository {
 
 
 extension TrickleECSWebRepository {
+    func createStripeCheckoutSession(workspaceID: WorkspaceData.ID, payload: API.CreateCheckoutSessionPayload) async throws -> PaymentLinkData {
+        try await call(endpoint: API.createCheckoutSession(workspaceID: workspaceID, payload: payload))
+    }
     func createStripePortalSession(workspaceID: WorkspaceData.ID) async throws -> PaymentLinkData {
         try await call(endpoint: API.createStripePortalSession(workspaceID: workspaceID))
     }
