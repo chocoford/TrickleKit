@@ -75,6 +75,7 @@ extension TrickleECSWebRepository.API: APICall {
             "Accept": "application/json, text/plain, */*",
             "trickle-trace-id": UUID().uuidString.replacingOccurrences(of: "-", with: ""),
             "trickle-api-version": "2",
+            "google-client-id" : "291824365.1696658399"
         ]
         
         if let token = TrickleAuthMiddleware.shared.token {
@@ -90,6 +91,7 @@ extension TrickleECSWebRepository.API: APICall {
                         break
                 }
         }
+        
         return defaults
     }
     
