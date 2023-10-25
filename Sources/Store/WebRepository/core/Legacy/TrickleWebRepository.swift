@@ -23,10 +23,18 @@ public struct TrickleWebRepository: TrickleWebRepositoryProvider {
         return decoder
     }()
     
-    internal init(session: URLSession, baseURL: String = "https://\(TrickleEnv.apiDomain)", logLevel: [LogOption] = [.response, .data]) {
+    public var hooks: WebRepositoryHook
+    
+    internal init(
+        session: URLSession,
+        baseURL: String = "https://\(TrickleEnv.apiDomain)",
+        logLevel: [LogOption] = [.response, .data],
+        hooks: WebRepositoryHook = .init()
+    ) {
         self.session = session
         self.baseURL = baseURL
         self.logLevel = logLevel
+        self.hooks = hooks
     }
 }
 

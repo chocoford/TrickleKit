@@ -17,6 +17,7 @@ extension TrickleECSWebRepository {
         case getSubscriptionPlans(workspaceID: WorkspaceData.ID)
         case getSubscriptionStatus(workspaceID: WorkspaceData.ID)
         case getSubscriptionUpcomingInvoices(workspaceID: WorkspaceData.ID, query: GetSubscriptionUpcomingInvoicesQuery)
+        case getWorkspaceFeatures(workspaceID: WorkspaceData.ID)
     }
 }
 
@@ -33,6 +34,8 @@ extension TrickleECSWebRepository.API: APICall {
                 return "/subs/v1/workspaces/\(workspaceID)/subscriptions/active"
             case .getSubscriptionUpcomingInvoices(let workspaceID, _):
                 return "/subs/v1/workspaces/\(workspaceID)/invoices/upcoming"
+            case .getWorkspaceFeatures(let workspaceID):
+                return "/v1/workspaces/\(workspaceID)/features"
         }
     }
     

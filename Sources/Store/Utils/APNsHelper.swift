@@ -11,6 +11,8 @@ import CFWebRepositoryProvider
 import TrickleCore
 
 public struct TrickleAPNsHelper: WebRepositoryProvider {
+    public var hooks: WebRepositoryHook
+    
     public var logLevel: [LogOption]
     public var logger: Logger = .init(label: "TrickleAPNsHelper")
     public var session: URLSession = .shared
@@ -22,8 +24,9 @@ public struct TrickleAPNsHelper: WebRepositoryProvider {
         return decoder
     }()
     
-    public init(_ logLevel: [LogOption] = [.response, .data]) {
+    public init(_ logLevel: [LogOption] = [.response, .data], hooks: WebRepositoryHook = .init()) {
         self.logLevel = logLevel
+        self.hooks = hooks
     }
     
     public func registerAPNs(payload: RegisterAPNsPayload) async throws -> String {

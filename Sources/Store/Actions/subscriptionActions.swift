@@ -56,5 +56,14 @@ public extension TrickleStore {
         )
     }
     
-    
+    @discardableResult
+    func tryGetWorkspaceFeatures(workspaceID: WorkspaceData.ID) async throws -> WorkspaceFeatures {
+        let features = try await self.ecsWebRepositoryClient.getWorkspaceFeatures(
+            workspaceID: workspaceID
+        )
+        
+        self.workspacesFeatures[workspaceID] = features
+        
+        return features
+    }
 }

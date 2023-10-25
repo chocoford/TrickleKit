@@ -115,3 +115,35 @@ public struct SubscriptionUpcomingInvoicesData: Codable, Hashable {
     }
 }
 
+
+
+public struct WorkspaceFeatures: Codable {
+    public let features: [Feature]
+
+    public init(features: [Feature]) {
+        self.features = features
+    }
+    
+    public struct Feature: Codable {
+        public let id: Int
+        public let name, unit, desc, tag: String
+        public let enable: Bool
+        public let quota, totalQuota, usage: Int
+        public let supportUsage: Bool
+
+        public init(id: Int, name: String, unit: String, desc: String, tag: String, enable: Bool, quota: Int, totalQuota: Int, usage: Int, supportUsage: Bool) {
+            self.id = id
+            self.name = name
+            self.unit = unit
+            self.desc = desc
+            self.tag = tag
+            self.enable = enable
+            self.quota = quota
+            self.totalQuota = totalQuota
+            self.usage = usage
+            self.supportUsage = supportUsage
+        }
+    }
+
+}
+

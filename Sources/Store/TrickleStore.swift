@@ -102,6 +102,17 @@ public class TrickleStore: ObservableObject {
         
         self.aiAgentSocket.onEvents = self.onAIAgentSocketEvents
         
+        self.webRepositoryClient.hooks.unauthorizeHandler = {
+            DispatchQueue.main.async {
+                self.logout(isSandbox: Bundle.main.bundleIdentifier!.contains("Debug"))
+            }
+        }
+        self.ecsWebRepositoryClient.hooks.unauthorizeHandler = {
+            DispatchQueue.main.async {
+                self.logout(isSandbox: Bundle.main.bundleIdentifier!.contains("Debug"))
+            }
+        }
+        
         self.socket.onMessage = { message in
             switch message {
                 case .changeNotify(let event):
@@ -362,6 +373,8 @@ public class TrickleStore: ObservableObject {
     @Published public var aiAgentState: AIAgentState = .init() // can not trigger view update when changed if it is ObservableObject
 //    @Published public var aiAgents: [AIAgentData] = []
     
+    // MARK: - Features
+    @Published public var workspacesFeatures: [WorkspaceData.ID : WorkspaceFeatures] = [:]
     
     // MARK: - Error
     @Published public var error: TrickleStoreError? = nil {
@@ -402,7 +415,7 @@ public class TrickleStore: ObservableObject {
         error = nil
         historyErrors.removeAll()
         
-        socket.reinitSocket()
+        socket.close()
         aiAgentSocket.disconnect()
     }
     

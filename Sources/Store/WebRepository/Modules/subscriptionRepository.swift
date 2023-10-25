@@ -55,4 +55,8 @@ extension TrickleECSWebRepository {
     func getSubscriptionUpcomingInvoices(workspaceID: WorkspaceData.ID, query: API.GetSubscriptionUpcomingInvoicesQuery) async throws -> SubscriptionUpcomingInvoicesData {
         try await call(endpoint: API.getSubscriptionUpcomingInvoices(workspaceID: workspaceID, query: query))
     }
+    
+    func getWorkspaceFeatures(workspaceID: WorkspaceData.ID) async throws -> WorkspaceFeatures {
+        try await call(endpoint: API.getWorkspaceFeatures(workspaceID: workspaceID))
+    }
 }

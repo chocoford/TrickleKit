@@ -40,13 +40,20 @@ public extension TrickleStore {
     
     func createWorkspaceInvitation(workspaceID: String? = nil) async throws -> WorkspaceInvitationData {
         guard let workspaceID = workspaceID ?? currentWorkspaceID,
-              let memberData = workspaces[workspaceID]?.userMemberInfo else { throw TrickleStoreError.invalidWorkspaceID(workspaceID) }
-        let invitation = try await webRepositoryClient.createWorkspaceInvitation(workspaceID: workspaceID, payload: .init(workspaceID: workspaceID,
-                                                                                                                          memberID: memberData.memberID,
-                                                                                                                          role: memberData.role,
-                                                                                                                          allowedEmailDomains: [],
-                                                                                                                          allowedEmails: [],
-                                                                                                                          needConfirm: false))
+              let memberData = workspaces[workspaceID]?.userMemberInfo else {
+            throw TrickleStoreError.invalidWorkspaceID(workspaceID)
+        }
+        let invitation = try await webRepositoryClient.createWorkspaceInvitation(
+            workspaceID: workspaceID,
+            payload: .init(
+                workspaceID: workspaceID,
+                memberID: memberData.memberID,
+                role: memberData.role,
+                allowedEmailDomains: [],
+                allowedEmails: [],
+                needConfirm: false
+            )
+        )
         return invitation.workspaceInvitation
     }
     
