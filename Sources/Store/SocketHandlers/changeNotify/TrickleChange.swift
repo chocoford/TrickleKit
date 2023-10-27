@@ -20,6 +20,8 @@ extension TrickleStore {
 //                UserNotificationCenter.shared.pushNormalNotification(title: workspaceName,
 //                                                                     subtitle: groupName,
 //                                                                     body: "\(trickleData.authorMemberInfo.name): \(TrickleEditorParser.getContentDescription(trickleData.blocks))")
+//                self.aiAgentState.captureAgentMessages
+                
                 break
                 
             case .moved(let event):

@@ -55,12 +55,12 @@ public final class TrickleAIAgentSocketClient {
                                     config: [
                                         .logger(logger),
                                         .log(log),
-                                        .compress,
+                                        // with this, cannot receive ping from server
+//                                        .compress,
                                         .connectParams(["token" : "Bearer \(token)"]),
                                         .path("/trickleai-sio"),
                                         .secure(true),
-                                        // must force polling, cannot receive ping from server
-                                        .forcePolling(true)
+                                        .forceWebsockets(true)
                                     ])
         print("Socket.io version is used: ", socketManager?.version ?? "unknown")
         self.socket = self.socketManager?.defaultSocket

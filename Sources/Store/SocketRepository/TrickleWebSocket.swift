@@ -63,7 +63,7 @@ public class TrickleWebSocket {
         guard let url = wsURL else { return }
         
         stream = WebSocketStream(url: url, session: socketSession)
-        Task {
+        Task { [stream] in
             await send(.connect)
             /// handle internal messages
             do {
