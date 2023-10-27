@@ -70,7 +70,7 @@ public struct TrickleEnv {
                 TrickleEnv.apiDomain = "aiapi.trickle.so"
                 TrickleEnv.webSocketDomain = "testwsapi.trickle.so"
                 TrickleEnv.ossBucket = "trickle-resource-test"
-                TrickleEnv.ossAssetsDomain = "testres.trickle.so"
+                TrickleEnv.ossAssetsDomain = "aires.trickle.so"
                 TrickleEnv.aiActionDomain = "ai.trickle.so"
                 TrickleEnv.captureAgentID = "234d146ff8744b1ab982ea16b4225ea5"
 //                TrickleEnv.segmentWriteKey = "ycqudoxX3iCerIL51jtfa86bg3YArHfK"
