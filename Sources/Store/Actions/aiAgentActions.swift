@@ -216,6 +216,7 @@ public extension TrickleStore {
         conversationType: AIAgentConversationSession.ConversationType,
         workspaceID: WorkspaceData.ID,
         groupID: GroupData.ID,
+        memberID: MemberData.ID,
         isTeamGroup: Bool
     ) async throws -> Results {
         do {
@@ -242,6 +243,7 @@ public extension TrickleStore {
                     conversationType: conversationType,
                     workspaceID: workspaceID,
                     groupID: groupID,
+                    memberID: memberID,
                     isTeamGroup: isTeamGroup
                 )
             )
@@ -257,12 +259,14 @@ public extension TrickleStore {
                               conversationType: AIAgentConversationSession.ConversationType,
                               workspaceID: WorkspaceData.ID,
                               groupID: GroupData.ID,
+                              memberID: MemberData.ID,
                               isTeamGroup: Bool) async {
         do {
             struct Restuls: Codable {}
             _ = try await self.trySendMessageToAIAgent(to: agentConfigID, message, conversationType: conversationType,
                                                        workspaceID: workspaceID,
                                                        groupID: groupID,
+                                                       memberID: memberID,
                                                        isTeamGroup: isTeamGroup) as Restuls?
         } catch {
             self.error = .init(error)

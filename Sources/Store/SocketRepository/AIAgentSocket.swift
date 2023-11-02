@@ -245,6 +245,7 @@ public extension TrickleAIAgentSocketClient {
         public var conversationType: AIAgentConversationSession.ConversationType
         public var workspaceID: WorkspaceData.ID
         public var groupID: GroupData.ID
+        public var memberID: MemberData.ID
         public var isTeamGroup: Bool
         
         enum CodingKeys: String, CodingKey {
@@ -253,6 +254,7 @@ public extension TrickleAIAgentSocketClient {
             case conversationType
             case workspaceID = "workspaceId"
             case groupID = "channelId"
+            case memberID = "memberId"
             case isTeamGroup = "isTeamChannel"
         }
     }
