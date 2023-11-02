@@ -151,7 +151,7 @@ public extension ChangeNotifyData.LatestChangeEvent {
                 self = .subscription(x)
                 return
             }
-            throw DecodingError.typeMismatch(CommentChangeEvent.self,
+            throw DecodingError.typeMismatch(EventType.self,
                                              DecodingError.Context(codingPath: decoder.codingPath,
                                                                    debugDescription: "Wrong type for LatestChangeEventType"))
         }
@@ -225,6 +225,7 @@ public extension ChangeNotifyData.LatestChangeEvent {
     
     enum SubscriptionEventType: String, Codable {
         case statusChanged = "SubscriptionStatusChanged"
+        case sessionCompleted = "CheckoutSessionCompleted"
     }
 }
 
@@ -494,6 +495,7 @@ public extension ChangeNotifyData.LatestChangeEvent {
     
     enum SubscriptionChangeEvent: Codable {
         case statusChanged(SubscriptionStatusChangeEvent)
+        case sessionCompleted(CheckoutSessionCompletedEvent)
         
         enum CodingKeys: String, CodingKey {
             case eventType = "event"
@@ -506,6 +508,9 @@ public extension ChangeNotifyData.LatestChangeEvent {
             switch eventType {
                 case .statusChanged:
                     self = .statusChanged(try SubscriptionStatusChangeEvent(from: decoder))
+                    
+                case .sessionCompleted:
+                    self = .sessionCompleted(try CheckoutSessionCompletedEvent(from: decoder))
             }
         }
         
@@ -514,6 +519,9 @@ public extension ChangeNotifyData.LatestChangeEvent {
             switch self {
                 case .statusChanged(let data):
                     try container.encode(SubscriptionEventType.statusChanged, forKey: .eventType)
+                    try data.encode(to: container.superEncoder(forKey: .eventType))
+                case .sessionCompleted(let data):
+                    try container.encode(SubscriptionEventType.sessionCompleted, forKey: .eventType)
                     try data.encode(to: container.superEncoder(forKey: .eventType))
             }
         }
@@ -921,6 +929,33 @@ public extension ChangeNotifyData.LatestChangeEvent.SubscriptionChangeEvent {
             enum CodingKeys: String, CodingKey {
                 case workspaceID = "workspaceId"
                 case status
+            }
+        }
+    }
+    
+    struct CheckoutSessionCompletedEvent: ChangeEvent {
+        public var event: ChangeNotifyData.LatestChangeEvent.SubscriptionEventType
+        public var eventData: EventData
+        
+        public struct EventData: Codable {
+            public var customerID: String
+            public var memberID: MemberData.ID
+            public var subscriptionID: SubscriptionPlanData.ID
+            public var traceID: String?
+            public var trickleTraceID: String?
+            public var userEmail: String
+            public var userID: String?
+            public var workspaceID: WorkspaceData.ID
+            
+            enum CodingKeys: String, CodingKey {
+                case customerID = "customerId"
+                case memberID = "memberId"
+                case subscriptionID = "subscriptionId"
+                case traceID = "traceId"
+                case trickleTraceID = "trickleTraceId"
+                case userEmail
+                case userID = "userId"
+                case workspaceID = "workspaceId"
             }
         }
     }

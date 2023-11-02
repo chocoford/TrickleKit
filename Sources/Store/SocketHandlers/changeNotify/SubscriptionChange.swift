@@ -19,6 +19,9 @@ extension TrickleStore {
                         $0.items[index].subscriptionStatus = event.eventData.status
                     }
                 }
+                
+            case .sessionCompleted(let event):
+                break
         }
     }
 }
