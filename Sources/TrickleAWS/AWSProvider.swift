@@ -98,12 +98,12 @@ extension TrickleAWSProvider {
     public func uploadFile(at url: URL, type: FileType) async throws -> URL {
         let fileExtension = url.pathExtension
         let data = try Data(contentsOf: url)
-        return try await uploadFile(data, type: type, fileExtension: fileExtension)
+        return try await uploadFile(data: data, type: type, fileExtension: fileExtension)
     }
     
     
     public func uploadFile(
-        _ fileData: Data, 
+        data fileData: Data,
         type: FileType,
         fileExtension: String,
         mineType: String = "application/octet-stream"

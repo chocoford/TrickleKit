@@ -88,7 +88,7 @@ extension AIAgentConversationSession {
             text: String,
             status: Status,
             conversationID: String? = nil,
-            source: String,
+//            source: String,
             medias: [Media],
             ocrs: [String : String]
 //            conversationType: ConversationType = .workspace
@@ -103,7 +103,12 @@ extension AIAgentConversationSession {
             self.text = text
             self.status = status
             self.conversationID = conversationID
-            self.source = source
+#if os(macOS)
+            self.source = "\(Bundle.main.bundleIdentifier!) - MacOS_\(ProcessInfo.processInfo.operatingSystemVersion.majorVersion).\(ProcessInfo.processInfo.operatingSystemVersion.minorVersion).\(ProcessInfo.processInfo.operatingSystemVersion.patchVersion)"
+#elseif os(iOS)
+            self.source = "\(Bundle.main.bundleIdentifier!) - iOS\(ProcessInfo.processInfo.operatingSystemVersion.majorVersion).\(ProcessInfo.processInfo.operatingSystemVersion.minorVersion).\(ProcessInfo.processInfo.operatingSystemVersion.patchVersion)"
+#endif
+            
             self.medias = medias
             self.ocrs = ocrs
 //            self.conversationType = conversationType
@@ -122,7 +127,6 @@ extension AIAgentConversationSession {
         static public func makeUserMessage(
             text: String,
             status: Status = .done,
-            source: String,
             ocrPayload: OCRPayload?
         ) -> Self {
             let id = UUID().uuidString
@@ -138,7 +142,6 @@ extension AIAgentConversationSession {
                 createAt: "",
                 text: text,
                 status: status,
-                source: source,
                 medias: ocrPayload?.medias.map { .url($0) } ?? [],
                 ocrs: ocrPayload?.ocrs ?? [:]
             )
@@ -147,7 +150,7 @@ extension AIAgentConversationSession {
         static public func makeUserMessage(
             actionCards: ActionCard...,
             status: Status = .done,
-            source: String,
+//            source: String,
             ocrPayload: OCRPayload?
         ) -> Self {
             let id = UUID().uuidString
@@ -161,14 +164,14 @@ extension AIAgentConversationSession {
                 createAt: "",
                 text: "",
                 status: status,
-                source: source,
+//                source: source,
                 medias: ocrPayload?.medias.map { .url($0) } ?? [], ocrs: ocrPayload?.ocrs ?? [:]
             )
         }
         
         static public func makeSystemMessage(
-            text: String,
-            source: String
+            text: String//,
+//            source: String
         ) -> Self {
             let id = UUID().uuidString
             return .init(
@@ -184,14 +187,14 @@ extension AIAgentConversationSession {
                 createAt: "",
                 text: text,
                 status: .done,
-                source: source,
+//                source: source,
                 medias: [], ocrs: [:]
             )
         }
         
         static public func makeSystemMessage(
-            actionCards: ActionCard...,
-            source: String
+            actionCards: ActionCard...
+//            source: String
         ) -> Self {
             let id = UUID().uuidString
             return .init(messageID: id,
@@ -203,7 +206,7 @@ extension AIAgentConversationSession {
                          createAt: "",
                          text: "",
                          status: .done,
-                         source: source,
+//                         source: source,
                          medias: [], ocrs: [:])
         }
         
@@ -220,7 +223,7 @@ extension AIAgentConversationSession {
                 createAt: "",
                 text: "",
                 status: .done,
-                source: source,
+//                source: source,
                 medias: ocrPayload?.medias.map { .url($0) } ?? [], ocrs: ocrPayload?.ocrs ?? [:]
             )
         }

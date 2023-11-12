@@ -18,6 +18,7 @@ public struct TrickleEnv {
     public static var aiActionDomain = ProcessInfo.processInfo.environment["TRICKLE_AI_ACTION_DOMAIN"] ?? "ai.trickle.so"
     
     public static var captureAgentID = "234d146ff8744b1ab982ea16b4225ea5"
+    public static var inspirationAgentID = "2c04242c9f7547088a003c71c28c30af"
     
 //    public static var segmentWriteKey = ""
     
@@ -63,6 +64,7 @@ public struct TrickleEnv {
                 TrickleEnv.ossAssetsDomain = "devres.trickle.so"
                 TrickleEnv.aiActionDomain = "devapp.trickle.so"
                 TrickleEnv.captureAgentID = "087f562af5a64bcdb440a1e9ab9d69ac"
+                TrickleEnv.inspirationAgentID = "e558d7d4fd1d4b6983d583a503c1febb"
 //                TrickleEnv.segmentWriteKey = "trickleAivPxktAiS6AL1tjATM0s7iGf"
             case .aiLive:
                 TrickleEnv.env = "live"
@@ -72,7 +74,8 @@ public struct TrickleEnv {
                 TrickleEnv.ossBucket = "trickle-resource-test"
                 TrickleEnv.ossAssetsDomain = "aires.trickle.so"
                 TrickleEnv.aiActionDomain = "ai.trickle.so"
-                TrickleEnv.captureAgentID = "234d146ff8744b1ab982ea16b4225ea5"
+                TrickleEnv.captureAgentID = "e558d7d4fd1d4b6983d583a503c1febb"
+//                TrickleEnv.inspirationAgentID = "2c04242c9f7547088a003c71c28c30af"
 //                TrickleEnv.segmentWriteKey = "ycqudoxX3iCerIL51jtfa86bg3YArHfK"
         }
     }

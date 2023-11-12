@@ -211,8 +211,8 @@ public extension TrickleStore {
     
     /// Try to send message to ai agent. If message contains a image, it will auto upload to the server.
     func trySendMessageToAIAgent<Results: Codable>(
-        to agentConfigID: AIAgentData.ID,
         _ message: AIAgentConversationSession.Message,
+        to agentConfigID: AIAgentData.ID,
         conversationType: AIAgentConversationSession.ConversationType,
         workspaceID: WorkspaceData.ID,
         groupID: GroupData.ID,
@@ -254,8 +254,8 @@ public extension TrickleStore {
         }
     }
     
-    func sendMessageToAIAgent(to agentConfigID: AIAgentData.ID, 
-                              _ message: AIAgentConversationSession.Message,
+    func sendMessageToAIAgent(_ message: AIAgentConversationSession.Message,
+                              to agentConfigID: AIAgentData.ID,
                               conversationType: AIAgentConversationSession.ConversationType,
                               workspaceID: WorkspaceData.ID,
                               groupID: GroupData.ID,
@@ -263,7 +263,9 @@ public extension TrickleStore {
                               isTeamGroup: Bool) async {
         do {
             struct Restuls: Codable {}
-            _ = try await self.trySendMessageToAIAgent(to: agentConfigID, message, conversationType: conversationType,
+            _ = try await self.trySendMessageToAIAgent(message,
+                                                       to: agentConfigID,
+                                                       conversationType: conversationType,
                                                        workspaceID: workspaceID,
                                                        groupID: groupID,
                                                        memberID: memberID,
