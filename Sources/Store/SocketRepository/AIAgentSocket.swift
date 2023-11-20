@@ -16,23 +16,31 @@ class TrickleAIAgentSocketLogger: SocketLogger {
     func log(_ message: @autoclosure () -> String, type: String) {
         guard log else { return }
         let msg = message()
-        logger.log("\(type, privacy: .public): \(msg, privacy: .public)")
+        DispatchQueue.main.async {
+            self.logger.log("\(type, privacy: .public): \(msg, privacy: .public)")
+        }
     }
     
     func error(_ message: @autoclosure () -> String, type: String) {
         guard log else { return }
         let msg = message()
-        logger.error("\(type, privacy: .public): \(msg, privacy: .public)")
+        DispatchQueue.main.async {
+            self.logger.error("\(type, privacy: .public): \(msg, privacy: .public)")
+        }
     }
     
     func debug(_ message: String) {
         guard log else { return }
-        logger.debug("\(message, privacy: .public)")
+        DispatchQueue.main.async {
+            self.logger.debug("\(message, privacy: .public)")
+        }
     }
     
     func info(_ message: String) {
         guard log else { return }
-        logger.info("\(message, privacy: .public)")
+        DispatchQueue.main.async {
+            self.logger.info("\(message, privacy: .public)")
+        }
     }
 }
 
