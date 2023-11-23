@@ -217,15 +217,14 @@ extension TrickleWebSocket {
     
     private func onJoinRoomAck(_ data: IncomingMessage<[RoomStatusData]>) {
         guard let configs = self.configs,
-              let data = data.data?.first,
-              let workspaceID = data.roomID.components(separatedBy: ":").last else { return }
+              let data = data.data?.first else { return }
         DispatchQueue.main.async {
             /// 开启`room_status_hello`机制
             let helloTimer = Timer.scheduledTimer(withTimeInterval: Double(self.configs?.roomStatusHelloInterval ?? 30),
                                                   repeats: true) { timer in
                 
                 Task {
-                    await self.send(.roomStatus(data: .init(roomID: workspaceID, memberID: data.memberID, status: .online)))
+                    await self.send(.roomStatus(data: .init(roomID: data.roomID, memberID: data.memberID, status: .online)))
                 }
             }
             self.timers[configs.connectionID]?.roomHello = helloTimer

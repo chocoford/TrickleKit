@@ -44,18 +44,21 @@ public struct UserInfo: Codable, Equatable {
         public let id: String
         public var name: String
         public let email: String?
-        public var avatarURL: String
+        public var avatarURLString: String?
+        public var avatarURL: URL? {
+            URL(string: avatarURLString ?? "")
+        }
         
-        public init(id: String, name: String, email: String?, avatarURL: String) {
+        public init(id: String, name: String, email: String?, avatarURLString: String) {
             self.id = id
             self.name = name
             self.email = email
-            self.avatarURL = avatarURL
+            self.avatarURLString = avatarURLString
         }
         
         enum CodingKeys: String, CodingKey {
             case id, email
-            case avatarURL = "avatarUrl"
+            case avatarURLString = "avatarUrl"
             case name = "nickname"
         }
     }
