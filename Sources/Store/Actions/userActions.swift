@@ -98,16 +98,16 @@ public extension TrickleStore {
     }
     
     func tryUpdateUserAvatar(userID: UserInfo.UserData.ID, avatarURL: String) async throws -> String {
-        let originalAvatar = userInfo.value??.user.avatarURL ?? ""
+        let originalAvatar = userInfo.value??.user.avatarURLString ?? ""
         do {
             let data = try await webRepositoryClient.updateUserData(userID: userID, payload: .init(avatarURL: avatarURL))
             userInfo.transform {
-                $0?.user.avatarURL = avatarURL
+                $0?.user.avatarURLString = avatarURL
             }
             return data
         } catch {
             userInfo.transform {
-                $0?.user.avatarURL = originalAvatar
+                $0?.user.avatarURLString = originalAvatar
             }
             throw error
         }
