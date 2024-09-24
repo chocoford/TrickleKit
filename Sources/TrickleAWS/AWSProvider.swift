@@ -156,7 +156,7 @@ extension TrickleAWSProvider {
 //        )
 //        _ = try await s3.putObject(input: putObjectRequest)
         let putObjectRequest = S3.PutObjectRequest(
-            acl: .publicRead,
+            acl: .none,
             body: .init(buffer: .init(data: fileData)),
             bucket: bucket,
             key: path
