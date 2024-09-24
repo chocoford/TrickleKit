@@ -43,7 +43,7 @@ public struct TrickleEditorView: View {
     @ViewBuilder private func containerView<Content: View>(@ViewBuilder content: @escaping () -> Content) -> some View {
         if config.scrollable {
             ScrollView {
-                SingleAxisGeometryReader(axis: .horizontal, alignment: .leading) { width in
+                SingleAxisGeometryReader(.horizontal, alignment: .leading) { width in
                     VStack(alignment: .leading, spacing: 0) {
                         content()
                         emptyArea(width: width)

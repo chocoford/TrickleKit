@@ -64,7 +64,7 @@ struct GalleryBlockView: View {
     @ViewBuilder private var content: some View {
         if block.elements.count == 1,
            let element = block.elements.first {
-            SingleAxisGeometryReader(axis: .horizontal) { width in
+            SingleAxisGeometryReader(.horizontal) { width in
                 switch element.value {
                     case .local(let localValue):
                         let height = localValue.naturalHeight / localValue.naturalWidth * width
@@ -121,7 +121,7 @@ struct GalleryBlockView: View {
     
     @ViewBuilder
     private func squareImageElement(_ element: TrickleElement.ImageElement) -> some View {
-        SingleAxisGeometryReader(axis: .horizontal) { width in
+        SingleAxisGeometryReader(.horizontal) { width in
             ImageElementView(element: element, contentMode: .fill)
                 .frame(width: width, height: width)
                 .clipped()

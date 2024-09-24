@@ -64,6 +64,15 @@
       }
     },
     {
+      "identity" : "imageviewer",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/chocoford/ImageViewer.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "37cf875bff9552726a784f483998bbae439c7fac"
+      }
+    },
+    {
       "identity" : "jmespath.swift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/adam-fowler/jmespath.swift.git",

@@ -24,7 +24,7 @@ public struct EmbedBlockView: View {
     @State private var isLoading = true
     
     public var body: some View {
-        SingleAxisGeometryReader(axis: .horizontal) { width in
+        SingleAxisGeometryReader(.horizontal) { width in
             let webViewHeight = (webHeight ?? 0) * (width / (webWidth ?? width))
             EmbedWebView(iframeCode: block.userDefinedValue.src, isLoading: $isLoading, webWidth: $webWidth, webHeight: $webHeight)
                 .frame(height: block.userDefinedValue.height != nil ? CGFloat(block.userDefinedValue.height ?? 300) : min(10000, webViewHeight + 10))

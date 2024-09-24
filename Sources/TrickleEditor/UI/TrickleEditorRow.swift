@@ -113,7 +113,7 @@ extension TrickleEditorRow {
                 ListBlockView(block: block, text: text, editable: editable, focused: $focused, onKeydown: onKeydown)
      
             case .gallery:
-                SingleAxisGeometryReader(axis: .horizontal) { width in
+                SingleAxisGeometryReader(.horizontal) { width in
                     GalleryBlockView(block: block, focused: $focused, onKeydown: onKeydown)
                         .frame(width: width, height: width * 9 / 16)
                 }
