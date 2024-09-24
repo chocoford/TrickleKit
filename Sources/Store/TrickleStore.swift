@@ -7,7 +7,7 @@
 
 import SwiftUI
 import ChocofordEssentials
-import CFWebRepositoryProvider
+import WebProvider
 import TrickleCore
 #if canImport(OSLog)
 import OSLog

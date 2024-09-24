@@ -74,7 +74,7 @@ public struct TrickleEnv {
                 TrickleEnv.ossBucket = "trickle-resource-test"
                 TrickleEnv.ossAssetsDomain = "aires.trickle.so"
                 TrickleEnv.aiActionDomain = "ai.trickle.so"
-                TrickleEnv.captureAgentID = "e558d7d4fd1d4b6983d583a503c1febb"
+                TrickleEnv.captureAgentID = "234d146ff8744b1ab982ea16b4225ea5"
 //                TrickleEnv.inspirationAgentID = "2c04242c9f7547088a003c71c28c30af"
 //                TrickleEnv.segmentWriteKey = "ycqudoxX3iCerIL51jtfa86bg3YArHfK"
         }

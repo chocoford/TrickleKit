@@ -98,6 +98,20 @@ extension GroupData {
             case lastACKTrickleCreateAt = "lastAckTrickleCreateAt"
             case createAt, updateAt
         }
+        
+        public init(
+            unreadCount: Int,
+            lastACKTrickleID: Double? = nil,
+            lastACKTrickleCreateAt: Date,
+            createAt: Date? = nil,
+            updateAt: Date? = nil
+        ) {
+            self.unreadCount = unreadCount
+            self.lastACKTrickleID = lastACKTrickleID
+            self.lastACKTrickleCreateAt = lastACKTrickleCreateAt
+            self.createAt = createAt
+            self.updateAt = updateAt
+        }
     }
 }
 

@@ -6,26 +6,44 @@
 //
 
 import Foundation
+#if canImport(OSLog)
+import OSLog
+#else
 import Logging
-import CFWebRepositoryProvider
+#endif
+import WebProvider
 import TrickleCore
 
-public struct TrickleAPNsHelper: WebRepositoryProvider {
-    public var hooks: WebRepositoryHook
-    
-    public var logLevel: [LogOption]
-    public var logger: Logger = .init(label: "TrickleAPNsHelper")
-    public var session: URLSession = .shared
-    public var baseURL: String = "https://\(TrickleEnv.apiDomain)/chocoford/apns"
-    public var bgQueue: DispatchQueue = DispatchQueue(label: "bg_trickle_queue")
+public class TrickleAPNsHelper: WebRepository {
+//    public var hooks: WebRepositoryHook
+//    
+//    public var logLevel: [LogOption]
+//#if canImport(OSLog)
+//    public var logger: Logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "TrickleAPNsHelper")
+//#else
+//    public var logger: Logger = .init(label: "TrickleAPNsHelper")
+//#endif
+//    public var session: URLSession = .shared
+//    public var baseURL: String = "https://\(TrickleEnv.apiDomain)/chocoford/apns"
+//    public var bgQueue: DispatchQueue = DispatchQueue(label: "bg_trickle_queue")
     public var responseDataDecoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
         return decoder
     }()
-    
+
     public init(_ logLevel: [LogOption] = [.response, .data], hooks: WebRepositoryHook = .init()) {
-        self.logLevel = logLevel
+        super.init(
+            logLevel: logLevel,
+            baseURL: URL(string: "https://\(TrickleEnv.apiDomain)/chocoford/apns")!,
+            session: .shared,
+            responseDataDecoder: {
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .secondsSince1970
+                return decoder
+            }()
+        )
+//        self.logLevel = logLevel
         self.hooks = hooks
     }
     
@@ -223,16 +241,18 @@ extension TrickleAPNsHelper.API: APICall {
         }
     }
     
-    var gloabalQueryItems: Codable? {
+    var gloabalQueryItems: Encodable? {
         nil
     }
     
-    var queryItems: Codable? {
+    var queryItems: Encodable? {
         switch self {
             default:
                 return nil
         }
     }
+    
+    var rateLimit: APICallRateLimit? { nil }
     
     func body() throws -> Data? {
         switch self {

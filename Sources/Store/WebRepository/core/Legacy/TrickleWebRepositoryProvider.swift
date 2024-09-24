@@ -5,12 +5,12 @@
 //  Created by Chocoford on 2023/3/17.
 //
 import Foundation
-import CFWebRepositoryProvider
+import WebProvider
 import Combine
 import OSLog
 import TrickleCore
 
-protocol TrickleWebRepositoryProvider: WebRepositoryProvider {
+protocol TrickleWebRepositoryProvider {
     // MARK: - Auth
     /// Get userdata of  current logined user.
     func getUserData(userID: String) -> AnyPublisher<UserInfo?, Error>

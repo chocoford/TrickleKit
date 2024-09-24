@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import CFWebRepositoryProvider
+import WebProvider
 import TrickleCore
 
 
@@ -39,7 +39,7 @@ extension TrickleECSWebRepository.API: APICall {
         }
     }
     
-    var gloabalQueryItems: Codable? {
+    var gloabalQueryItems: Encodable? {
         struct TrickleWebAPIQuery: Codable {
             var version: Int = Int(Date().timeIntervalSince1970 * 1000)
             var apiVersion: Int = 2
@@ -47,7 +47,7 @@ extension TrickleECSWebRepository.API: APICall {
         return TrickleWebAPIQuery()
     }
 
-    var queryItems: Codable? {
+    var queryItems: Encodable? {
         switch self {
             case .getSubscriptionPlans(let workspaceID):
                 struct Query: Codable {
@@ -97,6 +97,8 @@ extension TrickleECSWebRepository.API: APICall {
         
         return defaults
     }
+    
+    var rateLimit: APICallRateLimit? { nil }
     
     func body() throws -> Data? {
         switch self {

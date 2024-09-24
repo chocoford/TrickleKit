@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import CFWebRepositoryProvider
+import WebProvider
 import TrickleCore
 
 
@@ -107,8 +107,8 @@ extension TrickleWebRepository.API: APICall {
                 return "/auth/signup"
                 
             // workspace
-            case .listWorkspaces(let userID):
-                return "/f2b/v1/workspaces?userId=\(userID)"
+            case .listWorkspaces:
+                return "/f2b/v1/workspaces"
 
             case .getWorkspaceInvitations(let workspaceID):
                 return "/f2b/v1/workspace/\(workspaceID)/workspaceInvitations"
@@ -230,7 +230,7 @@ extension TrickleWebRepository.API: APICall {
         }
     }
     
-    var gloabalQueryItems: Codable? {
+    var gloabalQueryItems: Encodable? {
         struct TrickleWebAPIQuery: Codable {
             var version: Int = Int(Date().timeIntervalSince1970 * 1000)
             var apiVersion: Int = 2
@@ -238,8 +238,13 @@ extension TrickleWebRepository.API: APICall {
         return TrickleWebAPIQuery()
     }
 
-    var queryItems: Codable? {
+    var queryItems: Encodable? {
         switch self {
+            case .listWorkspaces(let userID):
+                struct Query: Codable {
+                    var userId: String
+                }
+                return Query(userId: userID)
             case .listWorkspaceMemoryGroups(_, let memberID):
                 return MemberOnlyQuery(memberID: memberID)
             case .listTrickles(_, let payload):
@@ -366,6 +371,8 @@ extension TrickleWebRepository.API: APICall {
         return defaults
     }
     
+    var rateLimit: APICallRateLimit? { nil }
+
     func body() throws -> Data? {
         switch self {
             case .loginViaPassword(let payload):

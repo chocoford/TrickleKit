@@ -7,7 +7,7 @@
 
 import Foundation
 import OSLog
-import CFWebRepositoryProvider
+import WebProvider
 import TrickleCore
 
 public final class TrickleAuthMiddleware {

@@ -10,6 +10,8 @@ import ChocofordUI
 import CachedAsyncImage
 import TrickleCore
 
+import ImageViewer
+
 
 struct ImageElementView: View {
     var element: TrickleElement.ImageElement
@@ -34,7 +36,9 @@ struct ImageElementView: View {
                    let url = URL(string: urlString),
                    error == nil {
                     let urls = extractImageURLs(url)
-                    ImageViewer(url: urls.url) {
+                    ImageViewer {
+                        webImage(urls.url)
+                    } label: {
                         webImage(urls.previewURL)
                     }
                 } else {

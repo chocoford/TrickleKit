@@ -6,12 +6,12 @@
 //
 
 import Foundation
-import CFWebRepositoryProvider
+import WebProvider
 import Combine
 import OSLog
 import TrickleCore
 
-protocol TrickleECSWebRepositoryProvider: WebRepositoryProvider {
+protocol TrickleECSWebRepositoryProvider {
     func createStripeCheckoutSession(
         workspaceID: WorkspaceData.ID,
         payload: TrickleECSWebRepository.API.CreateCheckoutSessionPayload
